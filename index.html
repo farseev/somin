@@ -3,7 +3,32 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SOMIN Copilot — Agentic Assistant (Prototype)</title>
+<title>SOMIN Copilot &amp; SOWISE — Agentic Audience Research Platform</title>
+<meta name="description" content="SOMIN Copilot &amp; SOWISE — a context-aware AI assistant on every screen of the SOMIN audience-research platform, plus SOWISE: your SOMIN skills run as autonomous agent workflows across Content Library, Perspectives, Brand Tracker, Insights, Moments, Propositions and Expressions.">
+<meta name="keywords" content="SOMIN, SOWISE, SOMIN Copilot, audience research, creative intelligence, agentic AI, marketing intelligence, whitespace analysis, persona detection, brand tracker, content library, SOMIN MCP, somin.ai">
+<meta name="author" content="SOMIN (somin.ai)">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#16201F">
+<link rel="canonical" href="https://cloud.somin.ai/">
+<!-- Favicon (inline, self-contained) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJz48cmVjdCB3aWR0aD0nMTAwJyBoZWlnaHQ9JzEwMCcgcng9JzIyJyBmaWxsPScjMTYyMDFGJy8+PHRleHQgeD0nMjcnIHk9JzcwJyBmb250LWZhbWlseT0nQXJpYWwsc2Fucy1zZXJpZicgZm9udC1zaXplPSc1OCcgZm9udC13ZWlnaHQ9JzkwMCcgZmlsbD0nIzJEQkY5Qyc+UzwvdGV4dD48dGV4dCB4PSc1OCcgeT0nNzAnIGZvbnQtZmFtaWx5PSdBcmlhbCxzYW5zLXNlcmlmJyBmb250LXNpemU9JzU4JyBmb250LXdlaWdodD0nOTAwJyBmaWxsPScjZmZmZmZmJz5vPC90ZXh0Pjwvc3ZnPg==">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJz48cmVjdCB3aWR0aD0nMTAwJyBoZWlnaHQ9JzEwMCcgcng9JzIyJyBmaWxsPScjMTYyMDFGJy8+PHRleHQgeD0nMjcnIHk9JzcwJyBmb250LWZhbWlseT0nQXJpYWwsc2Fucy1zZXJpZicgZm9udC1zaXplPSc1OCcgZm9udC13ZWlnaHQ9JzkwMCcgZmlsbD0nIzJEQkY5Qyc+UzwvdGV4dD48dGV4dCB4PSc1OCcgeT0nNzAnIGZvbnQtZmFtaWx5PSdBcmlhbCxzYW5zLXNlcmlmJyBmb250LXNpemU9JzU4JyBmb250LXdlaWdodD0nOTAwJyBmaWxsPScjZmZmZmZmJz5vPC90ZXh0Pjwvc3ZnPg==">
+<!-- Open Graph / social preview -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SOMIN">
+<meta property="og:title" content="SOMIN Copilot &amp; SOWISE — the agent inside your research platform">
+<meta property="og:description" content="A context-aware assistant on every screen, plus SOWISE — your SOMIN skills run as autonomous agent workflows (SOMIN MCP, Figma, Meta, Drive).">
+<meta property="og:url" content="https://cloud.somin.ai/">
+<meta property="og:image" content="SOMIN_social_preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="SOMIN Copilot and SOWISE — the agent inside your research platform">
+<!-- Twitter card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@somin_ai">
+<meta name="twitter:title" content="SOMIN Copilot &amp; SOWISE — the agent inside your research platform">
+<meta name="twitter:description" content="A context-aware assistant on every screen, plus SOWISE — your SOMIN skills run as autonomous agent workflows.">
+<meta name="twitter:image" content="SOMIN_social_preview.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
@@ -445,6 +470,25 @@ img,svg{max-width:100%;display:block}
  .exp .imgph{height:135px}
  .pgrid{grid-template-columns:1fr}
 }
+
+/* ===== SOWISE module + collapsible context + nav badge ===== */
+.badge-new{margin-left:auto;background:var(--teal);color:#06110e;font-size:8.5px;font-weight:900;padding:2px 6px;border-radius:5px;letter-spacing:.4px}
+.g-head.modon{background:#1b2625}
+.g-head.modon .lbl{color:#fff}
+#scr-sowise{padding:0}
+#scr-sowise.active{display:grid;position:absolute;inset:0;grid-template-columns:264px 1fr}
+.sowise-rail{background:var(--nav);color:#cdd8d6;display:flex;flex-direction:column;overflow-y:auto;padding:14px;z-index:2}
+.sowise-main{display:flex;flex-direction:column;overflow:hidden;background:var(--page)}
+.dock-ctx{padding:7px 12px;font-size:11px}
+.ctx-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ctx-x{cursor:pointer;color:var(--teal-d);font-weight:900;font-size:14px;opacity:.55;flex:none}
+.ctx-x:hover{opacity:1}
+.dock.ctx-off .dock-ctx{display:none}
+@media(max-width:900px){
+ #scr-sowise.active{grid-template-columns:1fr}
+ .sowise-rail{position:absolute;left:0;top:0;bottom:0;width:250px;transform:translateX(-100%);transition:transform .25s ease;z-index:9}
+ .sowise-rail.open{transform:none;box-shadow:0 0 60px rgba(0,0,0,.55)}
+}
 </style>
 </head>
 <body>
@@ -453,12 +497,11 @@ img,svg{max-width:100%;display:block}
   <div class="lwm"><span style="color:var(--teal)">SO</span><span style="color:var(--ink)">MIN</span></div>
   <div class="lsub">Audience Research Platform</div>
   <label>Username</label>
-  <input id="lu" placeholder="admin" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()">
+  <input id="lu" placeholder="Username" autocomplete="off" onkeydown="if(event.key==='Enter')doLogin()">
   <label>Password</label>
-  <input id="lp" type="password" placeholder="••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+  <input id="lp" type="password" placeholder="Password" autocomplete="off" onkeydown="if(event.key==='Enter')doLogin()">
   <div class="err" id="lerr"></div>
   <button class="go" onclick="doLogin()">Sign in →</button>
-  <div class="hint">Demo access — sign in with <b>admin</b> / <b>admin</b></div>
   <div class="lfoot">© 2026 SoMin · interactive prototype</div>
  </div>
 </div>
@@ -490,8 +533,8 @@ img,svg{max-width:100%;display:block}
         <a data-scr="expressions" onclick="go('expressions',this)">Expressions</a>
       </div>
     </div>
-    <div class="nav-group" data-g="gwi">
-      <div class="g-head" onclick="toast('GWI panel is outside this prototype')"><span class="ic" style="color:#ff2d78">●</span><span class="lbl">GWI.</span><span class="chev">›</span></div>
+    <div class="nav-group" data-g="sowise">
+      <div class="g-head" id="sowiseNav" onclick="go('sowise')" style="cursor:pointer"><span class="ic" style="color:var(--teal)">✦</span><span class="lbl"><b>SO</b>WISE</span><span class="badge-new">NEW</span></div>
     </div>
     <div class="nav-group" data-g="set">
       <div class="g-head" onclick="toast('Settings is outside this prototype')"><span class="ic">⚙</span><span class="lbl">Settings</span><span class="chev">›</span></div>
@@ -717,15 +760,15 @@ img,svg{max-width:100%;display:block}
           </div>
           <div style="font-weight:800;color:var(--ink);margin-bottom:8px">Persona Distributions <span class="faint" style="font-weight:600;font-size:12px">· Jun 14 → Jul 14, 2026</span></div>
           <div class="sbar"><span class="nm">The Innovative Connector</span><div class="track">
-            <div class="seg" style="background:var(--c-milieu);width:17%"></div><div class="seg" style="background:var(--c-gwi);width:39%"></div>
-            <div class="seg" style="background:var(--c-linkedin);width:22%"></div><div class="seg" style="background:var(--c-somin);width:22%"></div></div></div>
+            <div class="seg" style="background:var(--c-milieu);width:10%"></div><div class="seg" style="background:var(--c-gwi);width:22.5%"></div>
+            <div class="seg" style="background:var(--c-linkedin);width:12.5%"></div><div class="seg" style="background:var(--c-somin);width:12.5%"></div></div></div>
           <div class="sbar"><span class="nm">The Innovation Catalyst</span><div class="track">
-            <div class="seg" style="background:var(--c-gwi);width:21%"></div><div class="seg" style="background:var(--c-linkedin);width:79%"></div></div></div>
+            <div class="seg" style="background:var(--c-gwi);width:12.5%"></div><div class="seg" style="background:var(--c-linkedin);width:62.5%"></div><div class="seg" style="background:var(--c-somin);width:22.5%"></div></div></div>
           <div class="sbar"><span class="nm">Strategic Trailblazer</span><div class="track">
-            <div class="seg" style="background:var(--c-milieu);width:100%"></div></div></div>
+            <div class="seg" style="background:var(--c-milieu);width:7.5%"></div></div></div>
           <div class="sbar"><span class="nm">The Empowered Strategist</span><div class="track">
-            <div class="seg" style="background:var(--c-milieu);width:89%"></div><div class="seg" style="background:var(--c-nielsen);width:6%"></div><div class="seg" style="background:var(--c-somin);width:5%"></div></div></div>
-          <div class="axis"><span>0</span><span>5</span><span>10</span><span>15</span><span>20</span></div>
+            <div class="seg" style="background:var(--c-milieu);width:42.5%"></div><div class="seg" style="background:var(--c-nielsen);width:2.5%"></div><div class="seg" style="background:var(--c-somin);width:2.5%"></div></div></div>
+          <div class="axis"><span>0</span><span>10</span><span>20</span><span>30</span><span>40</span></div>
           <div class="faint" style="font-size:11px;margin-top:10px">The statistics shown are based on 100% of the available data.</div>
         </div>
       </div>
@@ -767,9 +810,9 @@ img,svg{max-width:100%;display:block}
             Brands: Milieu, Nielsen, GWI, Linkedin Profiles (Aleks, Egor, Kirill, Filipp), SOMIN<br>
             Date Range: June 14, 2026 → July 14, 2026 · Total Media: <b>84</b> · Filters: Audiences: <b class="tealtxt">Entrepreneurs</b></div>
           <div class="sbar" style="margin-top:16px"><span class="nm" style="width:120px">Share of voice</span><div class="track" style="height:30px">
-            <div class="seg" style="background:var(--c-milieu);width:64%"></div><div class="seg" style="background:var(--c-nielsen);width:6%"></div>
-            <div class="seg" style="background:var(--c-gwi);width:4%"></div><div class="seg" style="background:var(--c-linkedin);width:20%"></div>
-            <div class="seg" style="background:var(--c-somin);width:6%"></div></div></div>
+            <div class="seg" style="background:var(--c-milieu);width:89.5%"></div><div class="seg" style="background:var(--c-nielsen);width:5.3%"></div>
+            <div class="seg" style="background:var(--c-somin);width:5.3%"></div></div></div>
+          <div class="faint" style="font-size:11px;margin-top:6px">Milieu 17 · Nielsen 1 · SOMIN 1 media (of 19) · total engagement 707</div>
         </div>
       </div>
     </div>
@@ -785,13 +828,12 @@ img,svg{max-width:100%;display:block}
       <div class="card pad" id="insightDetail">
         <div class="eyebrow">Insight · SOINSPIRE</div>
         <div style="font-size:24px;font-weight:900;color:var(--ink);line-height:1.2;margin:6px 0 4px" id="insTitle">Understanding is the foundation of connection.</div>
-        <div class="muted" style="font-size:12.5px;margin-bottom:16px" id="insMeta">The Empowered Strategist × “Assumptions replace real audience understanding” · Psychological angle</div>
+        <div class="muted" style="font-size:12.5px;margin-bottom:16px" id="insMeta">Story: “Echoes of Expectation” · Product: SOMIN · Perspective Studies</div>
         <div style="display:grid;gap:14px;max-width:640px">
-          <div><div class="eyebrow">The signal in the data</div><p class="muted" style="margin:4px 0 0;font-size:13px" id="insSignal">Across 84 posts, brands broadcast product features to “Entrepreneurs” as a single block — yet SOMIN's own audience detection splits them into 4 distinct personas with opposing needs. The category talks <i>at</i> a demographic that does not behave as one.</p></div>
-          <div><div class="eyebrow">Why it works</div><p class="muted" style="margin:4px 0 0;font-size:13px" id="insWhy">People act on being understood, not being targeted. Naming the buyer's real tension — “I'm guessing who my audience is” — earns permission before a single feature is mentioned.</p></div>
+          <div><div class="eyebrow">Summary</div><p class="muted" style="margin:4px 0 0;font-size:13px" id="insSummary">Without a deep understanding of one another's needs and expectations, connections falter and trust erodes, leaving only echoes of missed opportunities.</p></div>
           <div style="background:var(--teal-wash);border:1px solid var(--teal-wash2);border-radius:12px;padding:16px">
             <div class="eyebrow">The insight</div>
-            <div style="font-size:17px;font-weight:800;color:var(--ink);line-height:1.35;margin-top:6px" id="insStmt">Understanding is the foundation of connection — the brand that maps the person, not the segment, wins the relationship before the sale.</div>
+            <div style="font-size:17px;font-weight:800;color:var(--ink);line-height:1.35;margin-top:6px" id="insStmt">Understanding is the foundation of connection.</div>
           </div>
           <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
             <button class="btn" onclick="go('propositions',document.querySelector('[data-scr=propositions]'))">Generate Propositions</button>
@@ -807,12 +849,12 @@ img,svg{max-width:100%;display:block}
       <div class="listrail">
         <div class="search"><input placeholder="Search moment…"></div>
         <div class="items">
-          <div class="li-item active"><div class="t">Compassionate Community Builder</div><div class="m">25 Jul 2026 · Life Moments</div></div>
-          <div class="li-item"><div class="t">Nurturing Companion</div><div class="m">25 Jul 2026 7:09</div></div>
-          <div class="li-item"><div class="t">Compassionate Caregiver</div><div class="m">25 Jul 2026 7:08</div></div>
-          <div class="li-item"><div class="t">Compassionate Community Builder</div><div class="m">25 Jul 2026 · Seasonal</div></div>
-          <div class="li-item"><div class="t">Nurturing Companion</div><div class="m">25 Jul 2026 7:08</div></div>
-          <div class="li-item"><div class="t">Compassionate Caregiver</div><div class="m">25 Jul 2026 · Emotional</div></div>
+          <div class="li-item active"><div class="t">Compassionate Community Builder</div><div class="m">25 Jul 2026 7:10 · Optimal Nutrition</div></div>
+          <div class="li-item"><div class="t">Compassionate Community Builder</div><div class="m">25 Jul 2026 7:10 · Community &amp; Connection</div></div>
+          <div class="li-item"><div class="t">Compassionate Community Builder</div><div class="m">25 Jul 2026 7:09 · Financial Struggles</div></div>
+          <div class="li-item"><div class="t">The Caring Companion</div><div class="m">25 Jul 2026 7:09 · Optimal Nutrition</div></div>
+          <div class="li-item"><div class="t">The Caring Companion</div><div class="m">25 Jul 2026 7:09 · Community &amp; Connection</div></div>
+          <div class="li-item"><div class="t">The Compassionate Caregiver</div><div class="m">25 Jul 2026 7:09 · Optimal Nutrition</div></div>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:1.05fr 1fr;gap:16px">
@@ -865,33 +907,36 @@ img,svg{max-width:100%;display:block}
       <div class="listrail">
         <div class="search"><input placeholder="Search propositions…"></div>
         <div class="items">
-          <div class="li-item active"><div class="t">See it work before you pay for it.</div><div class="m">SOMIN · clarity</div></div>
-          <div class="li-item"><div class="t">Ties every angle to the post that evidenced it.</div><div class="m">SOMIN · proof</div></div>
-          <div class="li-item"><div class="t">Benchmark real ad performance (SOMIN vs market).</div><div class="m">SOMIN · benchmark</div></div>
-          <div class="li-item"><div class="t">Learn from real competitor content.</div><div class="m">SOMIN · intel</div></div>
-          <div class="li-item"><div class="t">Clickability score before spend (SOMIN).</div><div class="m">SOMIN · predict</div></div>
-          <div class="li-item"><div class="t">See it work before you pay for it.</div><div class="m">SOMIN · clarity</div></div>
+          <div class="li-item active"><div class="t">Know a creative will work before you pay for it (SOMIN)</div><div class="m">USP · clarity breeds connection</div></div>
+          <div class="li-item"><div class="t">Every concept traces to the post that evidences it (SOMIN)</div><div class="m">RTB · proof</div></div>
+          <div class="li-item"><div class="t">Validated against real ad performance (SOMIN)</div><div class="m">RTB · benchmark</div></div>
+          <div class="li-item"><div class="t">Concept extraction from real competitor content (SOMIN)</div><div class="m">Feature · intel</div></div>
+          <div class="li-item"><div class="t">Predicted clickability score before spend (SOMIN)</div><div class="m">USP · predict</div></div>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:290px 1fr;gap:16px">
         <div class="card pad" style="height:fit-content">
+          <div class="eyebrow" style="color:var(--soft)">＞ Proposition</div>
+          <div style="font-size:15px;font-weight:800;color:var(--ink);line-height:1.3;margin:6px 0 18px">Know a creative will work before you pay for it</div>
           <div class="eyebrow" style="color:var(--soft)">＞ Insight</div>
-          <div style="font-size:19px;font-weight:900;color:var(--ink);line-height:1.25;margin:6px 0 20px">In the realm of commerce, clarity breeds connection.</div>
+          <div style="font-size:17px;font-weight:900;color:var(--ink);line-height:1.25;margin:6px 0 18px">In the realm of commerce, clarity breeds connection.</div>
           <div class="eyebrow" style="color:var(--soft)">＞ Product</div>
-          <div style="font-size:24px;font-weight:900;margin-top:6px"><span class="wm-so" style="color:var(--teal)">SO</span><span style="color:var(--ink)">MIN</span></div>
+          <div style="font-size:24px;font-weight:900;margin-top:6px"><span style="color:var(--teal)">SO</span><span style="color:var(--ink)">MIN</span></div>
         </div>
         <div class="concept-cards" style="grid-template-columns:1fr">
           <div class="propcard">
             <h3>Empower your brand to resonate deeply with SOMIN's insights.</h3>
             <div class="field"><div class="k">Insight Integration</div><div class="v">Understanding consumer behavior is no longer a guessing game; SOMIN humanizes data, ensuring your marketing impacts the hearts of your audience.</div></div>
-            <div class="field"><div class="k">Product Connection</div><div class="v">By accurately predicting which creatives will thrive, SOMIN arms brands with the knowledge they need to connect on an emotional level.</div></div>
-            <div class="field"><div class="k">Sample Tagline</div><div class="v" style="font-weight:800;color:var(--ink)">Connect beyond metrics; reach the hearts of your audience.</div></div>
-            <div class="field" style="margin-bottom:0"><div class="k">Consumer Takeaway</div><div class="v">“I can create campaigns that genuinely resonate.”</div></div>
+            <div class="field"><div class="k">Product Connection</div><div class="v">By accurately predicting which creatives will thrive, SOMIN arms brands with the knowledge they need to connect on an emotional level before spending.</div></div>
+            <div class="field"><div class="k">Sample Tagline</div><div class="v" style="font-weight:800;color:var(--ink)">Connect beyond metrics; reach hearts instead.</div></div>
+            <div class="field" style="margin-bottom:0"><div class="k">Consumer Takeaway</div><div class="v">“I can create campaigns that genuinely resonate with my audience.”</div></div>
           </div>
           <div class="propcard">
-            <h3>Navigate the noise of insights with strategic clarity.</h3>
-            <div class="field"><div class="k">Insight Integration</div><div class="v">In a marketplace flooded with data, clarity transforms statistics into deep conversations.</div></div>
-            <div class="field" style="margin-bottom:0"><div class="k">Product Connection</div><div class="v">Let SOMIN guide you through the marketing maze with confidence.</div></div>
+            <h3>Navigate the noise of information with SOMIN's strategic clarity.</h3>
+            <div class="field"><div class="k">Insight Integration</div><div class="v">In a marketplace flooded with data, clarity is your best tool. SOMIN clarifies insights, turning statistics into deep conversations.</div></div>
+            <div class="field"><div class="k">Product Connection</div><div class="v">Let SOMIN guide you through the marketing maze, helping you understand what makes content engage and why, so you can spend smarter.</div></div>
+            <div class="field"><div class="k">Sample Tagline</div><div class="v" style="font-weight:800;color:var(--ink)">Cut through the clutter with clarity.</div></div>
+            <div class="field" style="margin-bottom:0"><div class="k">Consumer Takeaway</div><div class="v">“I value having clarity in an overwhelming data landscape.”</div></div>
           </div>
         </div>
       </div>
@@ -960,6 +1005,40 @@ img,svg{max-width:100%;display:block}
     </div>
   </section>
 
+  <!-- ============ SOWISE — agentic module ============ -->
+  <section class="screen" id="scr-sowise">
+    <aside class="sowise-rail" id="sowiseRail">
+      <button class="as-new" onclick="agentHome()">＋ New agent run</button>
+      <div id="agentCtxPill"></div>
+      <div class="as-label">Connectors</div>
+      <div class="conn"><span class="ci">◍</span>SOMIN MCP<span class="st">Connected</span></div>
+      <div class="conn"><span class="ci">✦</span>Figma<span class="st">Connected</span></div>
+      <div class="conn"><span class="ci">▲</span>Google Drive<span class="st">Connected</span></div>
+      <div class="conn"><span class="ci">ⓕ</span>Meta Ads<span class="st">Connected</span></div>
+      <div class="conn"><span class="ci">✳</span>Slack<span class="st off">Connect</span></div>
+      <div class="as-label">Workflows <span style="color:#4d5b59;text-transform:none;letter-spacing:0">— your skills, as agent runs</span></div>
+      <div class="wf star" onclick="startFlow('reassured')"><span class="wi">◆</span><span class="wt">Brand Strategy Deck<small>Cross-market briefing · ~32 slides</small></span><span class="badge">DEMO</span></div>
+      <div class="wf" onclick="startFlow('agency')"><span class="wi">◇</span><span class="wt">Agency Pitch Deck<small>One big idea · 16–20 slides</small></span></div>
+      <div class="wf" onclick="startFlow('whitespace')"><span class="wi">▦</span><span class="wt">Whitespace Analysis<small>Content-supply gaps</small></span></div>
+      <div class="wf" onclick="startFlow('creative')"><span class="wi">✦</span><span class="wt">Creative Expressions<small>TOFU / MOFU / BOFU renders</small></span></div>
+      <div class="wf" onclick="startFlow('scoring')"><span class="wi">◎</span><span class="wt">Creative Scoring<small>Predicted clickability</small></span></div>
+      <div class="wf" onclick="startFlow('meta')"><span class="wi">ⓕ</span><span class="wt">Meta Campaign Refresh<small>Optimise live ads</small></span></div>
+      <div class="wf" onclick="startFlow('calendar')"><span class="wi">▤</span><span class="wt">Content Calendar<small>Moments → schedule</small></span></div>
+      <div class="wf" onclick="startFlow('persona')"><span class="wi">⚇</span><span class="wt">Persona Discovery<small>Detect audience clusters</small></span></div>
+      <div class="wf" onclick="startFlow('trend')"><span class="wi">📈</span><span class="wt">Trend Analysis<small>Prior-year verified</small></span></div>
+      <div class="wf" onclick="startFlow('influencer')"><span class="wi">◐</span><span class="wt">Influencer Deck<small>Creator cohort strategy</small></span></div>
+    </aside>
+    <div class="sowise-main">
+      <div class="am-top">
+        <button class="mobburger swburger" onclick="toggleSowiseRail()" aria-label="Workflows">☰</button>
+        <div class="t" id="agentTitle">SOWISE</div>
+        <div class="mchip"><span class="d"></span>Claude · agentic engine</div>
+        <div id="agentCtxTop"></div>
+      </div>
+      <div class="am-body" id="agentBody"><div class="am-inner" id="agentInner"></div></div>
+    </div>
+  </section>
+
   </main>
 </div><!-- /main -->
 <!-- ===================== COPILOT DOCK ===================== -->
@@ -968,13 +1047,14 @@ img,svg{max-width:100%;display:block}
     <div class="logo">◈</div>
     <div class="ti">SOMIN Copilot<small>Agentic assistant · powered by Claude</small></div>
     <div class="sp"></div>
-    <div class="hbtn" title="Open full Agent" onclick="event.stopPropagation();openAgent()">⤢</div>
+    <div class="hbtn" title="Show / hide context" onclick="event.stopPropagation();toggleCtx()">◔</div>
+    <div class="hbtn" title="Open in SOWISE" onclick="event.stopPropagation();openAgent()">⤢</div>
     <div class="hbtn" title="Minimise">▁</div>
   </div>
-  <div class="dock-ctx" id="dockCtx"><span class="d2"></span>Reading this window: <b id="ctxName">Content Library</b></div>
+  <div class="dock-ctx" id="dockCtx"><span class="d2"></span><span class="ctx-name" id="ctxName">Content Library</span><span class="ctx-x" onclick="event.stopPropagation();toggleCtx()" title="Hide context">×</span></div>
   <div class="dock-body" id="dockBody"></div>
   <div class="dock-foot">
-    <button class="esc" onclick="openAgent()">⤢ Open full Agent — carry this window's context in</button>
+    <button class="esc" onclick="openAgent()">⤢ Open in SOWISE — carry this window's context</button>
     <div class="inp"><input id="dockInput" placeholder="Ask anything about this screen…" onkeydown="if(event.key==='Enter')dockSend()"><button class="send" onclick="dockSend()">➤</button></div>
     <div class="zap">Context-aware · answers from the data on your current screen</div>
   </div>
@@ -984,50 +1064,8 @@ img,svg{max-width:100%;display:block}
 <!-- intro helper -->
 <div class="helper" id="helper">
   <span class="cl" onclick="document.getElementById('helper').remove()">✕</span>
-  <b>New — SOMIN Copilot.</b><br>It reads whatever screen you're on and can answer, change filters, or hand off to the full agentic <b>Agent</b> (Figma, SOMIN MCP, Meta…). Try the chat bottom-right, or press <b>⤢</b>.
+  <b>New — SOMIN Copilot &amp; SOWISE.</b><br>The Copilot (bottom-right) reads whatever screen you're on. Press <b>⤢</b> or open <b>SOWISE</b> in the left nav to run full agent workflows — SOMIN MCP, Figma, Meta and more.
   <div class="arrow"></div>
-</div>
-
-<!-- ===================== AGENT STUDIO ===================== -->
-<div class="agent" id="agent">
-  <div class="agent-shell">
-    <div class="agent-side">
-      <div class="as-head"><div class="logo">◈</div><div><b>SOMIN Agent</b><small>Agentic workspace</small></div></div>
-      <div class="as-scroll">
-        <button class="as-new" onclick="agentHome()">＋ New agent run</button>
-        <div id="agentCtxPill"></div>
-        <div class="as-label">Connectors</div>
-        <div class="conn"><span class="ci">◍</span>SOMIN MCP<span class="st">Connected</span></div>
-        <div class="conn"><span class="ci">✦</span>Figma<span class="st">Connected</span></div>
-        <div class="conn"><span class="ci">▲</span>Google Drive<span class="st">Connected</span></div>
-        <div class="conn"><span class="ci">ⓕ</span>Meta Ads<span class="st">Connected</span></div>
-        <div class="conn"><span class="ci">◆</span>GWI<span class="st">Connected</span></div>
-        <div class="conn"><span class="ci">✳</span>Slack<span class="st off">Connect</span></div>
-        <div class="as-label">Workflows <span style="color:#4d5b59;text-transform:none;letter-spacing:0">— your skills, as agent runs</span></div>
-        <div class="wf star" onclick="startFlow('reassured')"><span class="wi">◆</span><span class="wt">Brand Strategy Deck<small>Cross-market briefing · ~32 slides</small></span><span class="badge">DEMO</span></div>
-        <div class="wf" onclick="startFlow('agency')"><span class="wi">◇</span><span class="wt">Agency Pitch Deck<small>One big idea · 16–20 slides</small></span></div>
-        <div class="wf" onclick="startFlow('whitespace')"><span class="wi">▦</span><span class="wt">Whitespace Analysis<small>Content-supply gaps</small></span></div>
-        <div class="wf" onclick="startFlow('creative')"><span class="wi">✦</span><span class="wt">Creative Expressions<small>TOFU / MOFU / BOFU renders</small></span></div>
-        <div class="wf" onclick="startFlow('scoring')"><span class="wi">◎</span><span class="wt">Creative Scoring<small>Predicted clickability</small></span></div>
-        <div class="wf" onclick="startFlow('meta')"><span class="wi">ⓕ</span><span class="wt">Meta Campaign Refresh<small>Optimise live ads</small></span></div>
-        <div class="wf" onclick="startFlow('calendar')"><span class="wi">▤</span><span class="wt">Content Calendar<small>Moments → schedule</small></span></div>
-        <div class="wf" onclick="startFlow('persona')"><span class="wi">⚇</span><span class="wt">Persona Discovery<small>Detect audience clusters</small></span></div>
-        <div class="wf" onclick="startFlow('trend')"><span class="wi">📈</span><span class="wt">Trend Analysis<small>Prior-year verified</small></span></div>
-        <div class="wf" onclick="startFlow('influencer')"><span class="wi">◐</span><span class="wt">Influencer Deck<small>Creator cohort strategy</small></span></div>
-      </div>
-      <div style="padding:11px 14px;border-top:1px solid #202b2a;font-size:10px;color:#5f6d6c">SOMIN Agent · interactive prototype</div>
-    </div>
-    <div class="agent-main">
-      <div class="am-top">
-        <button class="mobburger amburger" onclick="toggleAgentSide()" aria-label="Workflows">☰</button>
-        <div class="t" id="agentTitle">SOMIN Agent</div>
-        <div class="mchip"><span class="d"></span>Claude · agentic engine</div>
-        <div id="agentCtxTop"></div>
-        <button class="x" onclick="closeAgent()">✕</button>
-      </div>
-      <div class="am-body" id="agentBody"><div class="am-inner" id="agentInner"></div></div>
-    </div>
-  </div>
 </div>
 
 <div class="toasts" id="toasts"></div>
@@ -1045,34 +1083,44 @@ const AUD=[['Business Owners',135],['Marketing Professionals',93],['Entrepreneur
 ['Sports Fans',39],['General Public',37],['Tech Enthusiasts',32],['Marketers',28],['Technology Enthusiasts',27],
 ['Soccer Fans',26],['Agency Leaders',20],['Data Scientists',19],['Advertisers',18],['Professionals',16]];
 const PLIST=[['The Empowered Strategist',19,707,1],['Strategic Trailblazer',3,22],['The Innovation Catalyst',39,214],
-['The Innovative Connector',23,738],['Strategic Innovator',24,0],['Innovative Strategist',86,0],
-['Connected Visionary',19,0],['Empowered Innovator',41,0],['The Data Humanist',12,58],['Purposeful Builder',7,33]];
+['The Innovative Connector',23,738],['The Strategic Innovator',24,0],['The Innovative Strategist',86,0],
+['The Connected Visionary',19,0],['The Community Catalyst',21,0],['Empowered Innovator',41,0]];
 const INS=[
- {t:'Understanding is the foundation of connection.',m:'The Empowered Strategist × “Assumptions replace real audience understanding” · Psychological angle',
-  s:'Across 84 posts, brands broadcast product features to “Entrepreneurs” as one block — yet SOMIN’s own detection splits them into 4 personas with opposing needs. The category talks <i>at</i> a demographic that does not behave as one.',
-  w:'People act on being understood, not being targeted. Naming the buyer’s real tension — “I’m guessing who my audience is” — earns permission before a single feature is mentioned.',
-  st:'Understanding is the foundation of connection — the brand that maps the person, not the segment, wins the relationship before the sale.'},
- {t:'In the realm of commerce, clarity breeds connection.',m:'The Innovative Connector × “Data overwhelm” · Behavioural-economic angle',
-  s:'Competitor content leans on volume of metrics; engagement clusters instead around posts that translate one number into one human decision.',
-  w:'Clarity lowers cognitive load. A single, legible takeaway out-performs a dashboard of stats for the same audience.',
-  st:'In the realm of commerce, clarity breeds connection — turn the statistic into a sentence a human can act on.'},
- {t:'Assumption is the silent killer of opportunity.',m:'Strategic Trailblazer × “Broad targeting” · Sociological angle',
-  s:'“Women 25–34” style targeting recurs across the set while the highest-engaging posts name a specific lived situation.',
-  w:'Specificity signals recognition; recognition builds trust faster than reach.',
-  st:'Assumption is the silent killer of opportunity — precision about the person beats scale about the segment.'},
- {t:'Data connects us to humanity; clarity emerges from complexity.',m:'The Data Humanist × “Cold analytics” · Psychological angle',
-  s:'Posts that frame analytics as empathy (not surveillance) draw disproportionate saves and comments.',
-  w:'Framing data as care reframes a feared tool as a helpful one.',
-  st:'Data connects us to humanity — lead with the feeling the number unlocks, not the number.'},
- {t:'Numbers speak, but they cannot define humanity.',m:'Purposeful Builder × “Vanity metrics” · Sociological angle',
-  s:'Vanity-metric posts under-index; identity-and-belonging posts over-index in the same cohort.',
-  w:'Belonging is a stronger driver than performance for this audience.',
-  st:'Numbers speak, but they cannot define humanity — sell the belonging the metric represents.'},
- {t:'Innovation lives in the soil of conversation, not in the seed.',m:'Innovative Strategist × “Feature-led launches” · Behavioural-economic angle',
-  s:'Feature-first launches stall; launches that open a conversation compound.',
-  w:'Dialogue creates ownership; ownership creates advocacy.',
-  st:'Innovation lives in the soil of conversation — launch a question, not a feature.'}
+ {t:'Understanding is the foundation of connection.',nt:'Echoes of Expectation',sum:"Without a deep understanding of one another's needs and expectations, connections falter and trust erodes, leaving only echoes of missed opportunities."},
+ {t:'In the realm of commerce, clarity breeds connection.',nt:'The Echo of Data',sum:'Effective marketing requires a human touch, where data becomes a conversation instead of a statistic, revealing deeper insights and fostering authentic relationships between brands and consumers.'},
+ {t:'Value outshines price when connections thrive.',nt:'The Echo in the Market',sum:'The essence of community and genuine relationships leads to deeper engagement than mere cost considerations, illustrating that true worth is found in shared experiences and connections.'},
+ {t:'Trust is the soil in which engagement grows.',nt:'The Tenuous Balance of Truth',sum:'When consumers feel valued and understood, they are more willing to share their insights, fostering a healthier brand relationship. Without trust, any attempt at consumer engagement is bound to wither away.'},
+ {t:'Data reveals patterns, but it cannot define humanity.',nt:'The Data Mirage',sum:'Relying too heavily on data can lead to a disconnection from the unique narratives of individuals, obscuring genuine human behaviour behind mere statistics.'},
+ {t:'Trust is bred in the soil of conversation, not in the data of algorithms.',nt:'The Invisible Algorithm',sum:'The strength of any relationship, including those between brands and consumers, lies not in an abundance of data, but in authentic communication and understanding.'},
+ {t:'Stagnation is the silent killer of opportunity.',nt:'The Mirage of Stasis',sum:'In the pursuit of success, failing to adapt and innovate can quietly erode your competitive edge, leading to missed opportunities and diminished relevance in a rapidly changing landscape.'},
+ {t:'Inaction can be the greatest loss of all.',nt:'The Cost of Inaction',sum:'Avoiding risks for fear of failure can lead to missed opportunities that may cost more than the risks themselves.'},
+ {t:'Innovation thrives in connection, not competition.',nt:'The Disconnect',sum:'The true measure of success lies in uplifting others rather than merely striving to surpass them. When we share knowledge and resources, we can all flourish together.'},
+ {t:'Authenticity thrives where insecurity ebbs.',nt:'The Adrift Campaign',sum:'In a world where confidence often masquerades as competence, the true strength lies in embracing vulnerability and connection, transforming doubt into a collaborative triumph.'},
+ {t:'Simplicity slays complexity — the quieter the message, the louder its impact.',nt:'The Weight of Numbers',sum:'In a world awash with information, clarity emerges as the strongest weapon. Distilling complex messages into their purest form fosters effective communication and decision-making.'},
+ {t:'To truly connect, dare to diverge from the trending path.',nt:'The Echo Chamber of Trends',sum:'The best strategies arise not from following the crowd, but from understanding the unique needs of your audience — trends can mislead and distract if not thoughtfully evaluated.'},
+ {t:'Creativity flourishes in the soil of self-care.',nt:'The Burden of Brightness',sum:'Without nurturing our own needs, we cannot cultivate our creative sparks, and burnout becomes a silent thief of innovation.'},
+ {t:'In the pursuit of speed, let not integrity be the casualty.',nt:'The Dilemma of the Chameleon',sum:'In a world racing towards innovation, the essence of human values must persist through the noise. Embracing ethical practices is paramount to maintaining meaningful connections.'},
+ {t:"Tools alone can't compose a masterpiece; harmony is born from their unison.",nt:'The Symphony of Tools',sum:'Fragmented tools can lead to chaos, but true innovation arises when all elements work in concert, crafting a cohesive and compelling narrative.'},
+ {t:'Collaboration conquers inefficiency.',nt:'The Silos Between Us',sum:'Optimal decisions arise not in isolation, but through shared insights and connective understanding among teams.'},
+ {t:'In connecting data to humanity, clarity emerges from chaos.',nt:'The Data Mirage',sum:'This captures the essence of effective marketing — merging analytical data with deep human insights, unlocking true potential within advertising strategies.'}
 ];
+const MOMENTS={
+ 'Life Moments':[
+  ['Family & Relationships','Becoming a pet owner','I want to provide a loving home for a pet and ensure they receive the best care possible.','A significant life milestone that transforms lifestyle and priorities — a commitment to care, nurture and provide, changing daily routines and budgeting for pet care.'],
+  ['Family & Relationships','Adopting a rescue animal','I feel a strong desire to give a second chance to an animal in need and make a positive impact.','A profound milestone reflecting compassion and social responsibility — it enriches the owner’s life and fosters a sense of purpose and community involvement.'],
+  ['Community Engagement','Participating in community pet events','I want to engage with others who share my passion for pets and contribute to our community.','A vital milestone for owners who want to connect with like-minded people and strengthen community ties through shared knowledge and welfare.'],
+  ['Personal Growth & Life Changes','Volunteering for animal welfare organizations','I want to make a positive impact on the lives of animals and contribute to a cause I deeply care about.','A meaningful milestone that gives back to the community while supporting animal health and well-being, enhancing personal fulfilment and purpose.']],
+ 'Micro Moments (I-want-to…)':[
+  ['I-want-to-buy','Searching for the best pet food options','I want to find the best food for my pet’s specific needs.','Consumers search for pet food that caters to specific dietary needs — a moment reflecting commitment to optimal nutrition that directly impacts health and happiness.'],
+  ['I-want-to-go','Looking for local pet nutrition workshops','I need to find a workshop to learn more about pet nutrition.','A desire to learn and connect with others in the community who share an interest in pet care.'],
+  ['I-want-to-know','Researching healthy treats for pets','I want to know what healthy treats I can give my pet.','Consumers research healthy treat options that align with nutritional goals, contributing to overall well-being.'],
+  ['I-want-to-buy','Comparing pet food brands for nutritional value','I need to compare the nutritional value of these pet food brands.','Owners compare brands to evaluate nutritional value and ingredients — an informed decision that benefits pets’ health and longevity.']],
+ 'Emotional Moments':[
+  ['Breakthrough','The importance of nutrition','I never knew how crucial nutrition was for my pet’s well-being.','At a community pet-care workshop, attendees realise the profound impact of tailored nutrition on their pets’ health, sparking conversations about life-stage dietary needs.'],
+  ['Belonging','Sharing success stories','We’re all in this together, and our pets deserve the best.','Owners share how switching to specialised food improved their pets’ health, creating camaraderie and a sense of belonging.'],
+  ['Frustration','The picky-eater dilemma','Why is it so hard to find food my pet actually likes?','Owners express struggles with picky eaters, leading to discussions about finding the right nutrition — the emotional toll of wanting the best.'],
+  ['Hope','Discovering new options','Maybe I can finally find the perfect food for my pet.','Browsing a local pet fair, attendees discover innovative brands for specific health needs — a moment of hope for a better quality of life.']]
+};
 const BT_CONTENT=[['GWI',9,'3.6%','--c-gwi'],['Linkedin Profiles (Aleks, Egor, Kirill, Filipp)',83,'33.5%','--c-linkedin'],
  ['SOMIN',28,'11.3%','--c-somin'],['Nielsen',46,'18.5%','--c-nielsen'],['Milieu',59,'23.8%','--c-milieu'],['Other',23,'9.3%','--c-other']];
 const BT_ENGAGE=[['GWI',300,'8.9%','--c-gwi'],['Linkedin Profiles (Aleks, Egor, Kirill, Filipp)',690,'20.5%','--c-linkedin'],
@@ -1090,6 +1138,7 @@ window.addEventListener('DOMContentLoaded',()=>{
   $('#btEngage').innerHTML=BT_ENGAGE.map(([n,v,p,c])=>`<div class="r"><span class="sw" style="background:var(${c})"></span><span class="nm" style="font-size:12px">${n}</span><span class="vv">${v.toLocaleString()} <span class="faint" style="font-weight:600">(${p})</span></span></div>`).join('');
   drawLine('#trendContent',[['--c-linkedin',[20,18,60,30,22,68,40,28,90,35,30,55,44,38]],['--c-milieu',[10,12,14,52,20,16,22,18,40,26,20,30,24,60]],['--c-somin',[6,8,10,9,12,10,14,12,16,13,20,15,18,22]]]);
   drawLine('#trendEngage',[['--c-nielsen',[30,120,60,200,90,260,140,300,170,240,150,290,180,320]],['--c-milieu',[40,80,60,120,70,140,100,150,110,190,120,160,130,200]]]);
+  setMomentType('Life Moments');
   renderDock(CUR);
 });
 function drawDonut(sel,rows){const el=$(sel);const total=rows.reduce((a,r)=>a+r[1],0);const R=52,C=2*Math.PI*R;let off=0;
@@ -1103,35 +1152,28 @@ function drawLine(sel,series){const el=$(sel);const W=520,H=150,pad=8;const max=
   el.innerHTML=grid+paths;}
 
 /* ============================================================= navigation */
-let CUR='content-library';
+let CUR='content-library';let pendingSowiseCtx=null;
 const TITLES={'content-library':'Content Library','brand-tracker':'Brand Tracker','perspectives':'Perspective Studies',
- 'personas':'Personas','insights':'Insights','moments':'Moments','propositions':'Propositions','expressions':'Expressions'};
+ 'personas':'Personas','insights':'Insights','moments':'Moments','propositions':'Propositions','expressions':'Expressions','sowise':'SOWISE'};
 function go(scr,el){CUR=scr;
   $$('.screen').forEach(s=>s.classList.remove('active'));$('#scr-'+scr).classList.add('active');
   $$('.sub a').forEach(a=>a.classList.remove('active'));if(el)el.classList.add('active');else{const a=$('[data-scr="'+scr+'"]');if(a)a.classList.add('active');}
-  $('#ptitle').textContent=TITLES[scr];
+  const nav=$('#sowiseNav');if(nav)nav.classList.toggle('modon',scr==='sowise');
+  $('#ptitle').textContent=TITLES[scr]||scr;
   $('#credits').style.display=scr==='expressions'?'block':'none';
   $('#screens').scrollTop=0;
   renderDock(scr);
+  if(scr==='sowise'){$('#dock').classList.add('min');
+    if(pendingSowiseCtx){agentFromContext(pendingSowiseCtx);pendingSowiseCtx=null;}
+    else if(!$('#agentInner').innerHTML.trim()){agentHome();}}
   if(window.innerWidth<=900)closeSide();
 }
 function pickInsight(i,el){$$('#insightList .li-item').forEach(x=>x.classList.remove('active'));el.classList.add('active');
-  const o=INS[i];$('#insTitle').innerHTML=o.t;$('#insMeta').innerHTML=o.m;$('#insSignal').innerHTML=o.s;$('#insWhy').innerHTML=o.w;$('#insStmt').innerHTML=o.st;}
-function cycleMomentType(){const el=$('#momentType .v');const cur=el.textContent.trim();
-  const next=cur==='Life Moments'?'Seasonal Moments':cur==='Seasonal Moments'?'Emotional Moments':'Life Moments';el.textContent=next;
-  if(next==='Seasonal Moments')$('#momentCards').innerHTML=momentCardsHTML([
-    ['Awareness Calendar','Pet Wellness Month','“Every October I recommit to my dog’s health routine.”','Seasonal spikes in nutrition and check-up content create a natural window for well-being messaging.'],
-    ['Awareness Calendar','New Year, New Routine','“January is when I reset feeding and exercise habits.”','Resolution energy makes early-year an ideal moment for habit-forming product stories.'],
-    ['Seasonal Retail','Puppy Season (spring litters)','“Spring is when our family finally got our first puppy.”','New-owner demand concentrates in spring — high intent for starter guidance.']]);
-  else if(next==='Emotional Moments')$('#momentCards').innerHTML=momentCardsHTML([
-    ['Emotional Trigger','First vet scare','“The night he wouldn’t eat, I panicked and read everything.”','Acute worry drives deep research — a moment to be genuinely helpful, not salesy.'],
-    ['Emotional Trigger','Senior-dog milestone','“Realising she’s getting old changed how I care for her.”','Mortality salience reframes nutrition as love — powerful, sensitive territory.'],
-    ['Emotional Trigger','Rescue gotcha-day','“One year since we adopted — best decision ever.”','Anniversaries generate proud, shareable UGC around belonging.']]);
-  else $('#momentCards').innerHTML=LIFE_MOMENTS_HTML;
-  toast('Moment type → <b>'+next+'</b>');
-}
-function momentCardsHTML(rows){return rows.map(([k,t,q,b])=>`<div class="card pad" style="margin-bottom:12px"><div class="muted" style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px">${k}</div><div style="font-size:17px;font-weight:800;color:var(--ink);margin:4px 0 8px">${t}</div><div style="color:var(--teal-d);font-style:italic;font-weight:600;font-size:13px;margin-bottom:8px">${q}</div><p class="muted" style="font-size:12.5px;margin:0">${b}</p></div>`).join('');}
-const LIFE_MOMENTS_HTML=$('#momentCards')?$('#momentCards').innerHTML:'';
+  const o=INS[i];$('#insTitle').innerHTML=o.t;$('#insMeta').innerHTML='Story: “'+o.nt+'” · Product: SOMIN · Perspective Studies';$('#insSummary').innerHTML=o.sum;$('#insStmt').innerHTML=o.t;}
+function momentCardsHTML(rows){return rows.map(([k,t,q,b])=>`<div class="card pad" style="margin-bottom:12px"><div class="muted" style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px">${k}</div><div style="font-size:17px;font-weight:800;color:var(--ink);margin:4px 0 8px">${t}</div><div style="color:var(--teal-d);font-style:italic;font-weight:600;font-size:13px;margin-bottom:8px">“${q}”</div><p class="muted" style="font-size:12.5px;margin:0">${b}</p></div>`).join('');}
+function setMomentType(type){$('#momentType .v').textContent=type;$('#momentCards').innerHTML=momentCardsHTML(MOMENTS[type]);}
+function cycleMomentType(){const order=Object.keys(MOMENTS);const cur=$('#momentType .v').textContent.trim();
+  const next=order[(order.indexOf(cur)+1)%order.length];setMomentType(next);toast('Moment type → <b>'+next+'</b>');}
 /* ============================================================= COPILOT DOCK */
 const CTX={
  'content-library':{name:'Content Library · Inferred-Audience treemap',
@@ -1171,7 +1213,7 @@ const CTX={
    chips:[
     {q:'Which moment has the best timing?',a:"<b>Becoming a pet owner</b> — highest intent and the widest window. It reshapes daily routines, so it opens nutrition, training and community messaging at once."},
     {q:'Write a post brief for “Becoming a pet owner”',a:"<b>Hook:</b> “Day one with your dog — the thing most new owners get wrong.” · <b>Angle:</b> reassurance, not sales · <b>CTA:</b> free first-30-days checklist · <b>Format:</b> carousel + UGC voice.",stats:[['TOFU','Funnel'],['Carousel','Format']]},
-    {q:'Switch to Seasonal moments',a:"Switching the moment type…",act:'seasonal'}]},
+    {q:'Switch to Micro moments (I-want-to…)',a:"Switching the moment type…",act:'seasonal'}]},
  'propositions':{name:'Propositions · SOMIN × “clarity breeds connection”',
    intro:"Two propositions generated from <b>“In the realm of commerce, clarity breeds connection.”</b> for the product <b>SOMIN</b>.",
    chips:[
@@ -1184,7 +1226,13 @@ const CTX={
     {q:'Which concept will score highest?',a:"My prediction: <b>Pattern Interrupt — “Your demographics are lying to you”</b> tops TOFU; the <b>Before/After ROI</b> is strongest for retargeting; the Street-Interview is safe but low-ceiling.",stats:[['0.86','Pattern Int.'],['0.79','Before/After'],['0.61','Street Int.']]},
     {q:'Generate 3 more MOFU concepts',a:"Three MOFU angles: a <b>comparison teardown</b> (SOMIN vs a demographics tool), a <b>30s “how it works” explainer</b>, and a <b>case-study proof reel</b>. Want me to render them?",act:'esc'},
     {q:'Score these for clickability',a:"I can run <b>Creative Scoring</b> — upload each render, poll SOMIN for predicted above-average clickability, flag anything ≥0.80 as ‘Top performer potential’. That's an Agent run.",act:'esc'},
-    {q:'Push the winners to Meta',a:"That's the closing step of the Agent flow — score, then push the ≥0.80 creatives to Meta as paused ads.",act:'esc'}]}
+    {q:'Push the winners to Meta',a:"That's the closing step of the SOWISE flow — score, then push the ≥0.80 creatives to Meta as paused ads.",act:'esc'}]},
+ 'sowise':{name:'SOWISE · agentic workspace',
+   intro:"You're in <b>SOWISE</b> — your SOMIN skills as autonomous agent runs. Pick a workflow on the left, or tell me what to build.",
+   chips:[
+    {q:'Run the Reassured brand deck',a:"Starting the Brand Strategy Deck in the canvas…",act:'flowReassured'},
+    {q:'Map whitespace for this workspace',a:"Running Whitespace Analysis…",act:'flowWhitespace'},
+    {q:'What can SOWISE do?',a:"I can run any SOMIN skill end-to-end — brand &amp; agency decks, whitespace, creative expressions, clickability scoring, Meta/Google refresh, content calendars, persona &amp; trend research — wired to the SOMIN MCP, Figma, Meta and Drive."}]}
 };
 
 function renderDock(scr){const c=CTX[scr];$('#ctxName').innerHTML=c.name;const b=$('#dockBody');b.innerHTML='';
@@ -1206,6 +1254,8 @@ function runAct(a){switch(a){
   case'filterBO':actFilterBO();return false;
   case'weekly':actWeekly();return false;
   case'seasonal':actSeasonal();return false;
+  case'flowReassured':setTimeout(()=>startFlow('reassured'),250);return true;
+  case'flowWhitespace':setTimeout(()=>startFlow('whitespace'),250);return true;
   case'esc':setTimeout(openAgent,300);return true;
   case'gomoments':toast('Opening Moments for this persona');setTimeout(()=>go('moments'),350);return true;
   case'goprops':toast('Opening Propositions');setTimeout(()=>go('propositions'),350);return true;
@@ -1221,18 +1271,13 @@ function actWeekly(){const t=$('#scr-brand-tracker .toggle3');if(t){$$('button',
   drawLine('#trendContent',[['--c-linkedin',[30,62,48,80,55,70,92]],['--c-milieu',[20,30,55,40,62,50,78]],['--c-somin',[10,14,12,18,16,22,20]]]);
   toast('Content Activity → Weekly');
   addDockMsg('ai',"Weekly view: LinkedIn and Milieu ramp late in the window while SOMIN stays flat and low. Your line is the only one not trending up — the gap is <b>widening</b>, not closing.");}
-function actSeasonal(){$('#momentType .v').textContent='Seasonal Moments';
-  $('#momentCards').innerHTML=momentCardsHTML([
-   ['Awareness Calendar','Pet Wellness Month','“Every October I recommit to my dog’s health routine.”','Seasonal spikes in nutrition + check-up content open a natural window for well-being messaging.'],
-   ['Awareness Calendar','New Year, New Routine','“January is when I reset feeding and exercise habits.”','Resolution energy makes early-year ideal for habit-forming product stories.'],
-   ['Seasonal Retail','Puppy Season (spring litters)','“Spring is when our family finally got our first puppy.”','New-owner demand concentrates in spring — high intent for starter guidance.']]);
-  toast('Moment type → Seasonal');
-  addDockMsg('ai',"Switched to <b>Seasonal Moments</b>. For this persona the strongest anchor is <b>Pet Wellness Month (Oct)</b> — validate the local date before you schedule against it.");}
+function actSeasonal(){setMomentType('Micro Moments (I-want-to…)');toast('Moment type → Micro Moments');
+  addDockMsg('ai',"Switched to <b>Micro Moments</b> — the I-want-to-buy / go / know / do intent triggers. Strongest here: <b>“Searching for the best pet food options”</b> (I-want-to-buy) — the highest-intent moment to capture with a shoppable post.");}
 async function dockSend(){const el=$('#dockInput');const v=el.value.trim();if(!v)return;el.value='';
   addDockMsg('me',v);const old=$('#chipRow');if(old)old.remove();typing(true);await wait(650);typing(false);
   const c=CTX[CUR];const hit=c.chips.find(x=>overlap(v,x.q));
   if(hit){addDockMsg('ai',hit.a,hit.stats);let nav=false;if(hit.act)nav=runAct(hit.act);if(!nav)renderChips();}
-  else{addDockMsg('ai',"I'm reading <b>"+c.name+"</b> right now, so I can answer against exactly what's on screen. Try one of these — or press <b>⤢</b> to hand this context to the full Agent.");renderChips();}}
+  else{addDockMsg('ai',"I'm reading <b>"+c.name+"</b> right now, so I can answer against exactly what's on screen. Try one of these — or press <b>⤢</b> to hand this context to <b>SOWISE</b>.");renderChips();}}
 function overlap(a,b){a=a.toLowerCase();b=b.toLowerCase();const w=b.split(/\W+/).filter(x=>x.length>3);return w.some(x=>a.includes(x));}
 function toggleDock(){$('#dock').classList.toggle('min');}
 /* ============================================================= AGENT STUDIO */
@@ -1254,9 +1299,9 @@ async function addTrace(title,rows){const box=document.createElement('div');box.
     el.querySelector('.stt').innerHTML='<span class="ok">✓</span>';el.querySelector('.rs').textContent=r[1];scrollA();}
   box.querySelector('.st').innerHTML=' · <span class="ok">done</span>';scrollA();}
 
-function openAgent(){$('#agent').classList.add('open');$('#dock').classList.add('min');agentFromContext(CUR);}
-function openAgentFrom(scr){CUR=scr;openAgent();}
-function closeAgent(){$('#agent').classList.remove('open');$('#dock').classList.remove('min');}
+function openAgent(){pendingSowiseCtx=CUR;go('sowise');}
+function openAgentFrom(scr){pendingSowiseCtx=scr;go('sowise');}
+function toggleCtx(){$('#dock').classList.toggle('ctx-off');}
 
 const AGENT_CTX={
  'content-library':"I've loaded your <b>Inferred-Audience treemap</b> — 225 media, 5 brands. Business Owners is the biggest audience but SOMIN barely appears there: a clear content-supply whitespace. I can turn this straight into a cross-market strategy deck.",
@@ -1279,14 +1324,14 @@ const CTXQUICK={'content-library':{t:'Just map the whitespace here',fn:()=>start
 function agentFromContext(scr){
   $('#agentCtxTop').innerHTML=`<span class="ctxpill">◧ Context from: ${TITLES[scr]}</span>`;
   $('#agentCtxPill').innerHTML=`<div style="background:#1b2625;border:1px solid #2a3635;border-radius:10px;padding:9px 11px;margin:2px 0 4px;font-size:11.5px"><span style="color:#fff">◧ <b>Context loaded</b></span><br><span style="color:#8fb8ad">${TITLES[scr]}</span></div>`;
-  $('#agentTitle').textContent='SOMIN Agent';Ai().innerHTML='';
+  $('#agentTitle').textContent='SOWISE';Ai().innerHTML='';
   addAgentMsg('ai',AGENT_CTX[scr]+"<br><br>Where do you want to take it?");
   const q=CTXQUICK[scr];
   agentChips([{t:'▶ Run the worked example — Reassured brand deck',hero:true,fn:()=>startFlow('reassured')},
     {t:q.t,fn:q.fn},{t:'Browse all workflows',fn:agentHome}]);}
 
-function agentHome(){closeAgentSide();$('#agentCtxTop').innerHTML='';$('#agentCtxPill').innerHTML='';$('#agentTitle').textContent='SOMIN Agent';Ai().innerHTML='';
-  addAgentMsg('ai',"<h4>SOMIN Agent</h4><p>Run any SOMIN skill as an autonomous workflow — wired to the SOMIN MCP, Figma, Meta and Drive. Pick one from the left, or start with a favourite:</p>"+
+function agentHome(){closeAgentSide();$('#agentCtxTop').innerHTML='';$('#agentCtxPill').innerHTML='';$('#agentTitle').textContent='SOWISE';Ai().innerHTML='';
+  addAgentMsg('ai',"<h4>SOWISE — agentic workspace</h4><p>Run any SOMIN skill as an autonomous workflow — wired to the SOMIN MCP, Figma, Meta and Drive. Pick one from the left, or start with a favourite:</p>"+
    `<div class="pgrid" style="margin-top:6px">
      ${hc('◆','Brand Strategy Deck','Reassured worked example','reassured',true)}
      ${hc('▦','Whitespace Analysis','Content-supply gaps','whitespace')}
@@ -1472,11 +1517,11 @@ function doLogin(){const u=($('#lu').value||'').trim().toLowerCase(),p=($('#lp')
   if(u==='admin'&&p==='admin'){const l=$('#login');l.classList.add('hide');setTimeout(()=>{l.style.display='none';},450);
     if(window.innerWidth<=560)$('#dock').classList.add('min');}
   else{$('#lerr').textContent='Incorrect username or password — try admin / admin.';}}
-function doLogout(){const l=$('#login');l.style.display='grid';l.classList.remove('hide');$('#lu').value='';$('#lp').value='';$('#lerr').textContent='';closeSide();closeAgent();}
+function doLogout(){const l=$('#login');l.style.display='grid';l.classList.remove('hide');$('#lu').value='';$('#lp').value='';$('#lerr').textContent='';closeSide();go('content-library');}
 function toggleSide(){const s=$('.side');s.classList.toggle('open');$('#scrim').classList.toggle('show',s.classList.contains('open'));}
 function closeSide(){$('.side').classList.remove('open');$('#scrim').classList.remove('show');}
-function toggleAgentSide(){const a=$('.agent-side');if(a)a.classList.toggle('open');}
-function closeAgentSide(){const a=$('.agent-side');if(a)a.classList.remove('open');}
+function toggleSowiseRail(){const a=$('.sowise-rail');if(a)a.classList.toggle('open');}
+function closeAgentSide(){const a=$('.sowise-rail');if(a)a.classList.remove('open');}
 window.addEventListener('DOMContentLoaded',()=>{const el=$('#lu');if(el)el.focus();});
 </script>
 </body>
