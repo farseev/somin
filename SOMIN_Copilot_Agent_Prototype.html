@@ -1,0 +1,1483 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SOMIN Copilot — Agentic Assistant (Prototype)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===================== SOMIN design tokens ===================== */
+:root{
+  --teal:#2DBF9C; --teal-d:#1F8A70; --teal-l:#7FE0C8; --teal-wash:#E7F7F2; --teal-wash2:#D5F2EA;
+  --ink:#16201F; --ink-2:#1F2A29; --nav:#121A19; --nav-2:#1C2726;
+  --body:#2A3635; --soft:#6B7A78; --faint:#9BA8A6; --hair:#E3EAE8; --hair-2:#C9D1D0;
+  --page:#F1F5F4; --card:#FFFFFF; --card-2:#F7FAF9;
+  /* fixed brand/category colour map (from the platform screenshots) */
+  --c-somin:#2DBF9C; --c-milieu:#3B82F6; --c-nielsen:#E15568; --c-gwi:#EFA43C; --c-linkedin:#9B7BC7; --c-other:#5B6B7A;
+  /* Reassured sub-palette (for the Agent's deck + creative mockups) */
+  --re-plum:#A94392; --re-bluegrey:#304963; --re-pink:#E84978; --re-green:#00A2A1;
+  --re-ruby:#A6183C; --re-orange:#EC6144; --re-yellow:#FDCC00; --re-ink:#1D1D1B; --re-grey:#EDEDED;
+  --shadow:0 1px 2px rgba(16,32,31,.06),0 8px 24px rgba(16,32,31,.06);
+  --shadow-lg:0 12px 40px rgba(16,32,31,.18);
+  --r:14px; --r-sm:10px;
+}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0;height:100%}
+body{background:var(--page);color:var(--body);font-family:'Montserrat',system-ui,-apple-system,sans-serif;
+  font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow:hidden}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+img,svg{max-width:100%;display:block}
+::selection{background:var(--teal);color:#fff}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-thumb{background:#c7d2d0;border-radius:6px}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+
+/* ===================== app frame ===================== */
+.app{display:grid;grid-template-columns:232px 1fr;height:100vh;overflow:hidden}
+
+/* ---------- sidebar ---------- */
+.side{background:var(--nav);color:#cdd8d6;display:flex;flex-direction:column;overflow:hidden}
+.side .brand{display:flex;align-items:center;gap:9px;padding:20px 20px 16px;font-weight:800;font-size:20px;letter-spacing:-.5px}
+.wm-so{color:var(--teal)} .wm-min{color:#fff}
+.brand .ring{width:16px;height:16px;border-radius:50%;border:2px solid #3a4746;margin-left:auto}
+.nav{flex:1;overflow-y:auto;padding:6px 0}
+.nav-group>.g-head{display:flex;align-items:center;gap:11px;padding:12px 20px;font-weight:800;font-size:13px;letter-spacing:.4px;color:#e8efee;cursor:pointer}
+.nav-group>.g-head .chev{margin-left:auto;transition:.2s;color:#6d7a79;font-size:11px}
+.nav-group.open>.g-head .chev{transform:rotate(90deg)}
+.g-head .ic{width:17px;text-align:center;opacity:.9}
+.g-head .lbl b{color:var(--teal)}
+.sub{max-height:0;overflow:hidden;transition:max-height .25s ease}
+.nav-group.open .sub{max-height:340px}
+.sub a{display:block;padding:8px 20px 8px 48px;font-size:13px;color:#a9b6b4;font-weight:500;position:relative}
+.sub a:hover{color:#fff}
+.sub a.active{color:#fff;font-weight:700}
+.sub a.active::before{content:"";position:absolute;left:26px;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--teal)}
+.side .foot{padding:14px 20px 18px;font-size:11px;color:#5f6d6c;border-top:1px solid #202b2a}
+.side .foot .lo{color:var(--teal);font-weight:700;font-size:12px;letter-spacing:.4px;cursor:pointer}
+.side .foot a{display:block;margin-top:6px;color:#6d7a79}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--teal);flex:none;display:inline-block}
+
+/* ---------- topbar ---------- */
+.main{display:flex;flex-direction:column;overflow:hidden;position:relative}
+.topbar{height:60px;background:#fff;border-bottom:1px solid var(--hair);display:flex;align-items:center;
+  gap:16px;padding:0 22px;flex:none;z-index:5}
+.topbar .ptitle{font-size:20px;font-weight:800;color:var(--ink);letter-spacing:-.3px}
+.topbar .spacer{flex:1}
+.topbar .actions{display:flex;align-items:center;gap:10px}
+.ws{display:flex;align-items:center;gap:9px;color:var(--soft);font-size:12px}
+.ws .s{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#ff2d78,#16201f);color:#fff;
+  display:grid;place-items:center;font-weight:800;font-size:13px}
+.ws b{color:var(--ink);font-weight:700;font-size:13px}
+.ws .lab{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:var(--faint);display:block;line-height:1}
+.hub{display:flex;align-items:center;gap:8px;color:var(--ink);font-weight:700;font-size:13px}
+.hub .av{width:24px;height:24px;border-radius:50%;background:#e7efed;display:grid;place-items:center;color:var(--soft)}
+.credits{font-size:11px;color:var(--soft);text-align:right;line-height:1.35;border-right:1px solid var(--hair);padding-right:12px}
+.credits b{color:var(--ink)}
+.tb-btn{border:1px solid var(--teal);color:var(--teal-d);background:#fff;font-weight:700;font-size:12.5px;
+  padding:8px 14px;border-radius:999px;display:inline-flex;gap:7px;align-items:center}
+.tb-btn.solid{background:var(--teal);color:#fff;border-color:var(--teal)}
+.tb-btn.ico{padding:8px;border-color:var(--hair-2);color:var(--soft)}
+
+/* ---------- screens ---------- */
+.screens{flex:1;overflow-y:auto;overflow-x:hidden;position:relative}
+.screen{display:none;padding:22px 24px 120px}
+.screen.active{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ---------- generic UI ---------- */
+.card{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);box-shadow:var(--shadow)}
+.pad{padding:20px 22px}
+.h2{font-size:16px;font-weight:800;color:var(--ink);letter-spacing:-.2px}
+.eyebrow{font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--teal-d);font-weight:800}
+.muted{color:var(--soft)} .faint{color:var(--faint)}
+.tealtxt{color:var(--teal-d);font-weight:700}
+.btn{background:var(--teal);color:#fff;font-weight:800;font-size:13.5px;padding:12px 18px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;justify-content:center}
+.btn:hover{background:var(--teal-d)}
+.btn.ghost{background:#fff;color:var(--teal-d);border:1px solid var(--teal)}
+.btn.block{width:100%}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--hair-2);border-radius:999px;padding:7px 13px;font-size:12.5px;color:var(--body);background:#fff;font-weight:600}
+.pill .cx{font-size:11px;color:var(--faint)}
+.filterbar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.fsel{background:#fff;border:1px solid var(--hair);border-radius:12px;padding:9px 14px;min-width:150px;display:flex;flex-direction:column;gap:2px}
+.fsel .k{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);font-weight:700}
+.fsel .v{font-size:13px;font-weight:700;color:var(--ink);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.fsel .v::after{content:"▾";color:var(--faint);font-size:11px}
+.chipbtn{border:1px solid var(--teal);color:var(--teal-d);background:#fff;border-radius:999px;padding:7px 13px;font-weight:700;font-size:12px;display:inline-flex;gap:6px;align-items:center}
+.chipbtn.solid{background:var(--teal);color:#fff}
+.chipbtn.plain{border-color:var(--hair-2);color:var(--soft)}
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;letter-spacing:.3px;padding:4px 9px;border-radius:6px;text-transform:uppercase}
+
+/* legends + charts */
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:12px;color:var(--body)}
+.legend .li{display:inline-flex;align-items:center;gap:7px;font-weight:600}
+.sw{width:11px;height:11px;border-radius:3px;flex:none}
+.rowlist{display:flex;flex-direction:column;gap:2px}
+.rowlist .r{display:flex;align-items:center;gap:10px;padding:7px 0;font-size:13px;border-bottom:1px dashed var(--hair)}
+.rowlist .r:last-child{border-bottom:none}
+.rowlist .nm{flex:1;font-weight:600;color:var(--body)}
+.rowlist .vv{font-weight:800;color:var(--ink)}
+.statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hair);border:1px solid var(--hair);border-radius:12px;overflow:hidden}
+.statgrid .st{background:#fff;padding:14px 16px}
+.statgrid .n{font-size:26px;font-weight:900;color:var(--teal-d);line-height:1}
+.statgrid .l{font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:var(--faint);font-weight:800;margin-top:7px}
+
+/* treemap */
+.treewrap{display:grid;grid-template-columns:1.1fr 1fr;gap:6px;height:430px}
+.tcol{display:flex;flex-direction:column;gap:4px}
+.trow{display:flex;gap:4px;flex:1}
+.tile{border-radius:5px;padding:7px 8px;color:#fff;font-size:10.5px;font-weight:700;line-height:1.15;overflow:hidden;position:relative;display:flex;flex-direction:column;justify-content:flex-start}
+.tile small{display:block;font-weight:800;font-size:12px;opacity:.95;margin-top:2px}
+.tile.dim{opacity:.28}
+.tile.hot{outline:3px solid var(--ink);outline-offset:-3px}
+
+/* two-col layout */
+.split{display:grid;grid-template-columns:340px 1fr;gap:18px}
+.split.wide{grid-template-columns:300px 1fr}
+.listrail{background:#fff;border:1px solid var(--hair);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+.listrail .search{padding:12px;border-bottom:1px solid var(--hair)}
+.listrail .search input{width:100%;border:1px solid var(--hair);border-radius:9px;padding:9px 12px;font:inherit;font-size:13px}
+.listrail .items{max-height:560px;overflow-y:auto}
+.li-item{padding:11px 14px;border-bottom:1px solid var(--hair);cursor:pointer;font-size:13px}
+.li-item:hover{background:var(--card-2)}
+.li-item.active{background:var(--teal-wash)}
+.li-item .t{font-weight:700;color:var(--ink)}
+.li-item .m{font-size:11.5px;color:var(--soft);margin-top:2px}
+
+/* persona / proposition cards */
+.pcard{border:1px solid var(--hair);border-radius:var(--r);padding:18px 20px;background:#fff}
+.pcard h3{margin:0;font-size:17px;font-weight:800;color:var(--ink)}
+.concept-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.propcard{border:1px solid var(--hair);border-radius:var(--r);padding:20px;background:#fff}
+.propcard h3{margin:0 0 14px;font-size:17px;font-weight:800;color:var(--ink);line-height:1.25}
+.propcard .field{margin-bottom:13px}
+.propcard .field .k{font-size:10.5px;letter-spacing:.6px;text-transform:uppercase;color:var(--teal-d);font-weight:800;margin-bottom:3px}
+.propcard .field .v{font-size:13px;color:var(--body)}
+
+/* expressions */
+.exp-grid{columns:3;column-gap:16px}
+@media(max-width:1250px){.exp-grid{columns:2}}
+.exp{break-inside:avoid;margin-bottom:16px;border:1px solid var(--hair);border-radius:var(--r);background:#fff;overflow:hidden}
+.exp .top{padding:14px 15px 0;display:flex;justify-content:space-between;gap:8px}
+.exp .kind{font-size:12px;font-weight:800;color:var(--ink);line-height:1.25}
+.exp .add{font-size:11.5px;color:var(--teal-d);font-weight:700;white-space:nowrap}
+.exp .hd{font-weight:800;color:var(--ink);padding:10px 15px 4px;font-size:13.5px}
+.exp .bd{padding:0 15px 12px;font-size:12.5px;color:var(--body)}
+.exp .lnk{padding:0 15px 12px;color:var(--teal-d);font-weight:700;font-size:12.5px}
+.exp .imgph{height:150px;margin:0 15px 12px;border-radius:10px;display:grid;place-items:center;text-align:center;color:#fff;font-weight:800;font-size:13px;position:relative;overflow:hidden}
+.exp .imgcap{position:absolute;bottom:8px;right:10px;font-size:11px;font-style:italic;opacity:.9}
+.exp .btns{display:flex;gap:8px;padding:0 15px 15px}
+.exp .btns .b1{flex:1;border:1px solid var(--teal);color:var(--teal-d);border-radius:999px;padding:9px;font-weight:700;font-size:12px;text-align:center}
+.exp .btns .b2{flex:1;background:var(--teal);color:#fff;border-radius:999px;padding:9px;font-weight:800;font-size:12px;text-align:center}
+
+/* stacked bars (perspectives) */
+.sbar{display:flex;align-items:center;gap:12px;margin:10px 0}
+.sbar .nm{width:180px;font-weight:700;color:var(--ink);font-size:13px;text-align:right;flex:none}
+.sbar .track{flex:1;height:26px;display:flex;border-radius:5px;overflow:hidden;background:#eef3f2}
+.sbar .seg{height:100%}
+.axis{display:flex;justify-content:space-between;color:var(--faint);font-size:11px;margin-left:192px;margin-top:4px}
+
+/* line chart helper */
+.lc{width:100%;height:150px}
+.toggle3{display:inline-flex;gap:6px;background:#eef3f2;border-radius:999px;padding:4px}
+.toggle3 button{padding:7px 15px;border-radius:999px;font-weight:700;font-size:12.5px;color:var(--soft)}
+.toggle3 button.on{background:var(--teal);color:#fff}
+
+/* run bar */
+.runbar{position:sticky;bottom:0;margin-top:16px;background:#fff;border:1px solid var(--hair);border-radius:16px;
+  box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:20px;padding:14px 18px}
+.runbar .ic{width:34px;height:34px;border-radius:9px;background:var(--teal-wash);display:grid;place-items:center;color:var(--teal-d);font-size:16px}
+.runbar .mini{display:flex;gap:22px;margin-left:auto;margin-right:8px}
+.runbar .mini .m .n{font-weight:900;color:var(--ink);font-size:16px}
+.runbar .mini .m .l{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);font-weight:700}
+
+/* stepper */
+.stepper{display:flex;border:1px solid var(--hair);border-radius:10px;overflow:hidden;margin-bottom:18px}
+.stepper .s{flex:1;text-align:center;padding:13px;font-weight:800;font-size:13px;color:var(--soft);background:#f4f7f6;position:relative}
+.stepper .s.on{background:var(--teal);color:#fff}
+
+/* ===================== Copilot dock ===================== */
+.dock{position:fixed;right:22px;bottom:22px;z-index:60;width:390px;max-width:calc(100vw - 28px);
+  background:#fff;border:1px solid var(--hair);border-radius:18px;box-shadow:var(--shadow-lg);
+  display:flex;flex-direction:column;overflow:hidden;transition:.25s;max-height:min(660px,calc(100vh - 44px))}
+.dock.min{height:56px;width:270px}
+.dock.min .dock-body,.dock.min .dock-foot,.dock.min .dock-ctx{display:none}
+.dock-head{display:flex;align-items:center;gap:10px;padding:13px 15px;background:var(--ink);color:#fff;cursor:pointer}
+.dock-head .logo{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--teal),var(--teal-d));display:grid;place-items:center;font-weight:900;color:#06110e;font-size:13px}
+.dock-head .ti{font-weight:800;font-size:14px;letter-spacing:-.2px}
+.dock-head .ti small{display:block;font-weight:600;font-size:10.5px;color:#8fb8ad;letter-spacing:.2px}
+.dock-head .sp{flex:1}
+.dock-head .hbtn{width:26px;height:26px;border-radius:7px;background:#26332f;color:#cfe;display:grid;place-items:center;font-size:14px}
+.dock-ctx{display:flex;align-items:center;gap:8px;padding:9px 14px;background:var(--teal-wash);border-bottom:1px solid var(--teal-wash2);font-size:11.5px;color:var(--teal-d);font-weight:700}
+.dock-ctx .d2{width:7px;height:7px;border-radius:50%;background:var(--teal);flex:none;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.dock-ctx b{color:var(--ink)}
+.dock-body{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:11px;background:var(--card-2)}
+.msg{display:flex;gap:9px;max-width:100%}
+.msg .ava{width:26px;height:26px;border-radius:7px;flex:none;display:grid;place-items:center;font-weight:900;font-size:11px}
+.msg.ai .ava{background:linear-gradient(135deg,var(--teal),var(--teal-d));color:#06110e}
+.msg.me{flex-direction:row-reverse}
+.msg.me .ava{background:var(--ink);color:#fff}
+.bub{background:#fff;border:1px solid var(--hair);border-radius:12px;padding:11px 13px;font-size:13px;line-height:1.5;box-shadow:var(--shadow)}
+.msg.me .bub{background:var(--ink);color:#fff;border-color:var(--ink)}
+.bub b{color:inherit}
+.bub .mini-stat{display:flex;gap:10px;margin-top:9px;flex-wrap:wrap}
+.bub .ms{background:var(--teal-wash);border-radius:9px;padding:8px 11px;flex:1;min-width:88px}
+.bub .ms .n{font-weight:900;color:var(--teal-d);font-size:17px;line-height:1}
+.bub .ms .l{font-size:9.5px;letter-spacing:.4px;text-transform:uppercase;color:var(--soft);font-weight:800;margin-top:4px}
+.bub .act{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+.act-btn{border:1px solid var(--teal);color:var(--teal-d);background:var(--teal-wash);border-radius:8px;padding:8px 11px;font-weight:800;font-size:12px;display:inline-flex;gap:6px;align-items:center}
+.act-btn.done{border-color:var(--teal);background:var(--teal);color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{border:1px solid var(--hair-2);background:#fff;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:600;color:var(--body);text-align:left;line-height:1.3}
+.chip:hover{border-color:var(--teal);color:var(--teal-d);background:var(--teal-wash)}
+.chip.hero{border-color:var(--teal);color:#fff;background:var(--teal);font-weight:800}
+.typing{display:flex;gap:4px;padding:4px 2px}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:bounce 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.15s} .typing i:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-5px);opacity:1}}
+.dock-foot{border-top:1px solid var(--hair);padding:10px 12px;background:#fff}
+.dock-foot .esc{display:flex;align-items:center;gap:8px;width:100%;justify-content:center;border:1px dashed var(--teal);color:var(--teal-d);
+  border-radius:10px;padding:9px;font-weight:800;font-size:12.5px;margin-bottom:9px;background:var(--teal-wash)}
+.dock-foot .inp{display:flex;gap:8px;align-items:center;background:var(--card-2);border:1px solid var(--hair);border-radius:12px;padding:6px 6px 6px 13px}
+.dock-foot .inp input{flex:1;border:none;background:none;font:inherit;font-size:13px;outline:none}
+.dock-foot .inp .send{width:34px;height:34px;border-radius:9px;background:var(--teal);color:#fff;display:grid;place-items:center;font-size:15px}
+.dock-foot .zap{text-align:center;font-size:10px;color:var(--faint);margin-top:7px}
+
+/* launcher bubble when dock hidden */
+.launch{position:fixed;right:22px;bottom:22px;z-index:59;width:58px;height:58px;border-radius:50%;
+  background:var(--ink);box-shadow:var(--shadow-lg);display:none;place-items:center;color:var(--teal);font-size:22px}
+.launch.show{display:grid}
+
+/* ===================== Agent Studio overlay ===================== */
+.agent{position:fixed;inset:0;z-index:80;background:rgba(9,16,15,.55);backdrop-filter:blur(4px);display:none}
+.agent.open{display:block;animation:fade .2s ease}
+.agent-shell{position:absolute;inset:20px;background:var(--page);border-radius:20px;overflow:hidden;
+  box-shadow:var(--shadow-lg);display:grid;grid-template-columns:290px 1fr}
+@media(max-width:900px){.agent-shell{grid-template-columns:1fr}.agent-side{display:none}}
+.agent-side{background:var(--nav);color:#cdd8d6;display:flex;flex-direction:column;overflow:hidden}
+.agent-side .as-head{padding:18px 18px 12px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #202b2a}
+.agent-side .as-head .logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--teal),var(--teal-d));display:grid;place-items:center;color:#06110e;font-weight:900}
+.agent-side .as-head b{font-size:15px;color:#fff}
+.agent-side .as-head small{display:block;color:#8fb8ad;font-size:10.5px;font-weight:600}
+.as-scroll{flex:1;overflow-y:auto;padding:14px}
+.as-new{width:100%;border:1px solid #33403e;color:#fff;background:#1b2625;border-radius:10px;padding:10px;font-weight:800;font-size:13px;display:flex;gap:8px;align-items:center;justify-content:center;margin-bottom:8px}
+.as-label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#6d7a79;font-weight:800;margin:16px 6px 8px}
+.conn{display:flex;align-items:center;gap:10px;padding:8px 9px;border-radius:9px;font-size:12.5px;color:#d3dedc;font-weight:600}
+.conn:hover{background:#1b2625}
+.conn .ci{width:24px;height:24px;border-radius:6px;background:#26332f;display:grid;place-items:center;font-size:12px;flex:none}
+.conn .st{margin-left:auto;font-size:10px;font-weight:800;color:var(--teal-l)}
+.conn .st.off{color:#6d7a79}
+.wf{display:flex;align-items:flex-start;gap:10px;padding:9px 9px;border-radius:9px;cursor:pointer;font-size:12.5px}
+.wf:hover{background:#1b2625}
+.wf .wi{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font-size:13px;flex:none;background:#26332f}
+.wf .wt{font-weight:700;color:#e8efee;line-height:1.25}
+.wf .wt small{display:block;color:#7d8a88;font-weight:500;font-size:11px;margin-top:1px}
+.wf.star .wi{background:var(--teal);color:#06110e}
+.wf .badge{margin-left:auto;background:var(--teal);color:#06110e;font-size:8.5px;font-weight:900;padding:2px 6px;border-radius:5px;letter-spacing:.4px}
+
+/* agent canvas */
+.agent-main{display:flex;flex-direction:column;overflow:hidden;background:var(--page)}
+.am-top{height:56px;background:#fff;border-bottom:1px solid var(--hair);display:flex;align-items:center;gap:12px;padding:0 18px;flex:none}
+.am-top .t{font-weight:800;color:var(--ink);font-size:15px}
+.am-top .mchip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--hair-2);border-radius:999px;padding:5px 11px;font-size:11.5px;font-weight:700;color:var(--soft)}
+.am-top .mchip .d{width:7px;height:7px;border-radius:50%;background:var(--teal)}
+.am-top .x{margin-left:auto;width:32px;height:32px;border-radius:9px;border:1px solid var(--hair);color:var(--soft);display:grid;place-items:center;font-size:16px}
+.ctxpill{display:inline-flex;align-items:center;gap:7px;background:var(--teal-wash);border:1px solid var(--teal-wash2);color:var(--teal-d);border-radius:999px;padding:5px 11px;font-size:11.5px;font-weight:700}
+.am-body{flex:1;overflow-y:auto;padding:22px clamp(16px,5vw,64px);scroll-behavior:smooth}
+.am-inner{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.amsg{display:flex;gap:12px}
+.amsg .ava{width:30px;height:30px;border-radius:9px;flex:none;display:grid;place-items:center;font-weight:900;font-size:12px}
+.amsg.ai .ava{background:linear-gradient(135deg,var(--teal),var(--teal-d));color:#06110e}
+.amsg.me{flex-direction:row-reverse}
+.amsg.me .ava{background:var(--ink);color:#fff}
+.amsg .abub{background:#fff;border:1px solid var(--hair);border-radius:14px;padding:15px 17px;box-shadow:var(--shadow);font-size:14px;line-height:1.55;flex:1}
+.amsg.me .abub{background:var(--ink);color:#fff;border-color:var(--ink);flex:initial;max-width:75%}
+.amsg .abub h4{margin:0 0 8px;font-size:15px;font-weight:800;color:var(--ink)}
+.amsg .abub p{margin:0 0 9px} .amsg .abub p:last-child{margin:0}
+
+/* tool-call trace */
+.trace{border:1px solid var(--hair);border-radius:12px;background:var(--card-2);overflow:hidden;margin:2px 0}
+.trace .th{display:flex;align-items:center;gap:9px;padding:10px 13px;font-size:12.5px;font-weight:700;color:var(--ink)}
+.trace .th .ti2{color:var(--soft);font-weight:600}
+.trace .tl{display:flex;align-items:center;gap:9px;padding:8px 13px;border-top:1px solid var(--hair);font-size:12px;color:var(--body)}
+.trace .tl .stt{width:16px;text-align:center;flex:none}
+.trace .tl .nm{font-weight:700;color:var(--ink)}
+.trace .tl .rs{margin-left:auto;color:var(--soft);font-size:11.5px;text-align:right}
+.spin{display:inline-block;width:12px;height:12px;border:2px solid var(--teal-wash2);border-top-color:var(--teal);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ok{color:var(--teal-d);font-weight:900}
+
+/* artifact cards inside agent */
+.art{border:1px solid var(--hair);border-radius:14px;background:#fff;box-shadow:var(--shadow);overflow:hidden}
+.art .ah{padding:12px 16px;border-bottom:1px solid var(--hair);display:flex;align-items:center;gap:9px;background:var(--card-2)}
+.art .ah .ico{width:24px;height:24px;border-radius:7px;background:var(--teal-wash);display:grid;place-items:center;color:var(--teal-d);font-size:13px}
+.art .ah b{font-size:13.5px;color:var(--ink)} .art .ah .sub{color:var(--faint);font-size:11px;font-weight:600}
+.art .ab{padding:16px}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:720px){.pgrid{grid-template-columns:1fr}}
+.pmini{border:1px solid var(--hair);border-radius:11px;padding:13px;background:var(--card-2)}
+.pmini .nm{font-weight:800;color:var(--ink);font-size:13.5px}
+.pmini .sz{color:var(--teal-d);font-weight:800;font-size:11px;margin:3px 0 6px}
+.pmini .bl{color:var(--soft);font-size:12px;line-height:1.45}
+.ws-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px dashed var(--hair)}
+.ws-row:last-child{border:none}
+.ws-row .terr{flex:1;font-weight:700;color:var(--ink);font-size:13px}
+.verdict{font-size:10.5px;font-weight:900;letter-spacing:.4px;padding:4px 9px;border-radius:6px;text-transform:uppercase}
+.v-white{background:var(--teal-wash);color:var(--teal-d)}
+.v-contest{background:#FFF4E0;color:#B87308}
+.v-block{background:#F3E7EF;color:#8A2E77}
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:11px 0;border-bottom:1px dashed var(--hair)}
+.chain:last-child{border:none}
+.node{border-radius:9px;padding:7px 11px;font-size:12px;font-weight:700}
+.node.per{background:#E9F0FF;color:#2E52A8} .node.ten{background:#FBEAF3;color:#A6317F}
+.node.ang{background:#FFF3E0;color:#B5730B} .node.pro{background:var(--teal-wash);color:var(--teal-d)}
+.chain .arw{color:var(--faint);font-weight:900}
+
+/* Reassured slide carousel */
+.deck{border:1px solid var(--hair);border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--shadow)}
+.slide{aspect-ratio:16/9;position:relative;overflow:hidden;font-family:'Poppins','Montserrat',sans-serif;display:none}
+.slide.on{display:block}
+.slide .wm{position:absolute;top:16px;left:18px;font-weight:800;font-size:15px;letter-spacing:-.5px;z-index:2}
+.re-re{color:var(--re-plum)} .re-rest-d{color:var(--re-ink)} .re-rest-w{color:#fff}
+.slide .foot{position:absolute;bottom:12px;right:18px;font-size:9px;font-weight:700;letter-spacing:.5px;opacity:.7}
+.slide .kick{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:800}
+.slide h2{font-family:'Poppins',sans-serif;text-transform:uppercase;letter-spacing:-1px;font-weight:800;line-height:1.02;margin:8px 0}
+.deck-nav{display:flex;align-items:center;gap:12px;padding:11px 15px;border-top:1px solid var(--hair);background:var(--card-2)}
+.deck-nav .arb{width:32px;height:32px;border-radius:8px;border:1px solid var(--hair-2);color:var(--body);display:grid;place-items:center;font-size:15px;background:#fff}
+.deck-nav .dots{display:flex;gap:6px}
+.deck-nav .dt{width:7px;height:7px;border-radius:50%;background:var(--hair-2)}
+.deck-nav .dt.on{background:var(--re-plum);width:20px;border-radius:5px}
+.deck-nav .lbl{margin-left:auto;font-size:11.5px;color:var(--soft);font-weight:700}
+
+/* creative cards (Reassured style) */
+.crgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:720px){.crgrid{grid-template-columns:1fr 1fr}}
+.creative{border:1px solid var(--hair);border-radius:12px;overflow:hidden;background:#fff;position:relative}
+.creative .cv{aspect-ratio:4/5;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:14px;font-family:'Poppins',sans-serif;overflow:hidden}
+.creative .subj{position:absolute;right:-10px;top:-6px;font-size:60px;opacity:.9;filter:saturate(1.1)}
+.creative .ch{color:#fff;text-transform:uppercase;font-weight:800;font-size:13px;line-height:1.05;letter-spacing:-.4px;z-index:2}
+.creative .cta{margin-top:9px;align-self:flex-start;background:var(--re-plum);color:#fff;font-family:'Montserrat';font-weight:800;font-size:9.5px;padding:6px 11px;border-radius:999px;z-index:2}
+.creative .score{padding:9px 11px;display:flex;align-items:center;gap:7px;font-size:11px}
+.creative .score .p{font-weight:900;color:var(--ink)}
+.scorebadge{position:absolute;top:9px;left:9px;background:var(--teal);color:#06110e;font-size:9px;font-weight:900;padding:4px 8px;border-radius:6px;z-index:3;letter-spacing:.3px}
+
+/* toast */
+.toasts{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:120;display:flex;flex-direction:column;gap:9px;align-items:center}
+.toast{background:var(--ink);color:#fff;padding:12px 18px;border-radius:12px;font-weight:700;font-size:13px;box-shadow:var(--shadow-lg);display:flex;gap:9px;align-items:center;animation:tin .3s ease}
+.toast .ic{color:var(--teal)}
+@keyframes tin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* intro helper banner */
+.helper{position:fixed;left:250px;bottom:22px;z-index:58;max-width:320px;background:var(--ink);color:#fff;border-radius:14px;padding:14px 16px;box-shadow:var(--shadow-lg);font-size:12.5px;line-height:1.5}
+.helper b{color:var(--teal-l)}
+.helper .cl{position:absolute;top:8px;right:10px;color:#8fb8ad;cursor:pointer;font-size:14px}
+.helper .arrow{position:absolute;right:-8px;bottom:20px;width:16px;height:16px;background:var(--ink);transform:rotate(45deg)}
+@media(max-width:1100px){.helper{display:none}}
+
+/* ===================== mobile controls + login ===================== */
+.mobburger{display:none;width:36px;height:36px;border-radius:9px;border:1px solid var(--hair);color:var(--ink);place-items:center;font-size:19px;background:#fff;flex:none}
+.scrim{position:fixed;inset:0;background:rgba(9,16,15,.45);z-index:65;display:none}
+.scrim.show{display:block}
+.login{position:fixed;inset:0;z-index:300;display:grid;place-items:center;padding:24px;
+ background:radial-gradient(1100px 560px at 72% -12%,rgba(45,191,156,.28),transparent 60%),radial-gradient(820px 460px at -5% 112%,rgba(45,191,156,.16),transparent 55%),#0b1312}
+.login.hide{opacity:0;visibility:hidden;transition:.45s}
+.login .card{width:100%;max-width:380px;background:#fff;border-radius:20px;padding:34px 30px;box-shadow:0 30px 90px rgba(0,0,0,.45)}
+.login .lwm{font-weight:800;font-size:30px;letter-spacing:-1px}
+.login .lsub{color:var(--soft);font-size:12.5px;margin:2px 0 24px}
+.login label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);margin:0 0 6px}
+.login input{width:100%;border:1px solid var(--hair);border-radius:11px;padding:12px 13px;font:inherit;font-size:14px;margin-bottom:15px;background:var(--card-2)}
+.login input:focus{outline:none;border-color:var(--teal);background:#fff}
+.login .go{width:100%;background:var(--teal);color:#fff;font-weight:800;font-size:14px;padding:13px;border-radius:11px}
+.login .go:hover{background:var(--teal-d)}
+.login .err{color:#d9433b;font-size:12px;font-weight:700;min-height:15px;margin:-6px 0 8px}
+.login .hint{margin-top:16px;text-align:center;font-size:12.5px;color:var(--soft);background:var(--teal-wash);border-radius:10px;padding:9px}
+.login .hint b{color:var(--ink)}
+.login .lfoot{margin-top:18px;text-align:center;color:#7d8a88;font-size:11px}
+
+@media(max-width:900px){
+ .app{grid-template-columns:1fr}
+ .side{position:fixed;left:0;top:0;bottom:0;width:250px;z-index:70;transform:translateX(-100%);transition:transform .25s ease}
+ .side.open{transform:none;box-shadow:0 0 60px rgba(0,0,0,.55)}
+ .mobburger{display:grid}
+ .topbar{padding:0 12px;gap:10px;height:54px}
+ .topbar .ptitle{font-size:16px}
+ .topbar .ws,.topbar .credits{display:none}
+ .hub>div,.hub>.faint{display:none}
+ .screen{padding:14px 12px 132px}
+ #screens [style*="grid-template-columns"]{grid-template-columns:1fr !important}
+ .split,.split.wide{grid-template-columns:1fr !important}
+ .treewrap{grid-template-columns:1fr !important;height:auto !important}
+ .treewrap .tcol{min-height:230px}
+ .exp-grid{columns:1 !important}
+ .fsel{min-width:calc(50% - 5px);flex:1 1 calc(50% - 5px)}
+ .listrail .items{max-height:320px}
+ .runbar{flex-wrap:wrap;gap:12px}
+ .runbar .mini{gap:16px;margin:4px 0 0}
+ .statgrid{grid-template-columns:1fr 1fr}
+ .agent-shell{inset:0;border-radius:0;grid-template-columns:1fr}
+ .agent-side{display:flex;position:absolute;left:0;top:0;bottom:0;width:250px;z-index:6;transform:translateX(-100%);transition:transform .25s ease}
+ .agent-side.open{transform:none;box-shadow:0 0 60px rgba(0,0,0,.55)}
+ .amburger{display:grid}
+ .am-top{padding:0 12px;gap:8px}
+ .am-top .t{font-size:14px}
+ .am-top .mchip{display:none}
+ .am-body{padding:16px 12px}
+ .amsg .abub{font-size:13.5px}
+ .amsg.me .abub{max-width:82%}
+}
+@media(max-width:560px){
+ .dock{left:0;right:0;bottom:0;width:100%;max-width:100%;border-radius:18px 18px 0 0;max-height:82vh}
+ .dock.min{width:100%;height:54px;border-radius:16px 16px 0 0}
+ .slide h2{font-size:20px !important}
+ .slide .kick{font-size:9px !important}
+ .creative .ch{font-size:11px}
+ .crgrid{grid-template-columns:1fr 1fr}
+ .toasts{width:100%;padding:0 12px}
+ .helper{display:none}
+}
+@media(max-width:400px){
+ .topbar .ptitle{font-size:15px}
+ .fsel{min-width:100%;flex:1 1 100%}
+ .login .card{padding:26px 20px}
+ .exp .imgph{height:135px}
+ .pgrid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="login" id="login">
+ <div class="card">
+  <div class="lwm"><span style="color:var(--teal)">SO</span><span style="color:var(--ink)">MIN</span></div>
+  <div class="lsub">Audience Research Platform</div>
+  <label>Username</label>
+  <input id="lu" placeholder="admin" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()">
+  <label>Password</label>
+  <input id="lp" type="password" placeholder="••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+  <div class="err" id="lerr"></div>
+  <button class="go" onclick="doLogin()">Sign in →</button>
+  <div class="hint">Demo access — sign in with <b>admin</b> / <b>admin</b></div>
+  <div class="lfoot">© 2026 SoMin · interactive prototype</div>
+ </div>
+</div>
+<div class="scrim" id="scrim" onclick="closeSide()"></div>
+<div class="app">
+<!-- ===================== SIDEBAR ===================== -->
+<aside class="side">
+  <div class="brand"><span class="wmk"><span class="wm-so">SO</span><span class="wm-min">MIN</span></span><span class="ring"></span></div>
+  <nav class="nav">
+    <div class="nav-group open" data-g="mon">
+      <div class="g-head" onclick="toggleGroup(this)"><span class="ic">◔</span><span class="lbl"><b>SO</b>MONITOR</span><span class="chev">›</span></div>
+      <div class="sub">
+        <a data-scr="content-library" class="active" onclick="go('content-library',this)">Content Library</a>
+        <a data-scr="brand-tracker" onclick="go('brand-tracker',this)">Brand Tracker</a>
+        <a data-scr="perspectives" onclick="go('perspectives',this)">Perspective Studies</a>
+      </div>
+    </div>
+    <div class="nav-group" data-g="ads">
+      <div class="g-head" onclick="toggleGroup(this)"><span class="ic">▥</span><span class="lbl"><b>SO</b>ADS+</span><span class="chev">›</span></div>
+      <div class="sub"><a onclick="toast('SOADS+ is outside this prototype')">Campaigns</a><a onclick="toast('SOADS+ is outside this prototype')">Optimisation</a></div>
+    </div>
+    <div class="nav-group open" data-g="ins">
+      <div class="g-head" onclick="toggleGroup(this)"><span class="ic">◍</span><span class="lbl"><b>SO</b>INSPIRE</span><span class="chev">›</span></div>
+      <div class="sub">
+        <a data-scr="personas" onclick="go('personas',this)">Personas</a>
+        <a data-scr="insights" onclick="go('insights',this)">Insights</a>
+        <a data-scr="moments" onclick="go('moments',this)">Moments</a>
+        <a data-scr="propositions" onclick="go('propositions',this)">Propositions</a>
+        <a data-scr="expressions" onclick="go('expressions',this)">Expressions</a>
+      </div>
+    </div>
+    <div class="nav-group" data-g="gwi">
+      <div class="g-head" onclick="toast('GWI panel is outside this prototype')"><span class="ic" style="color:#ff2d78">●</span><span class="lbl">GWI.</span><span class="chev">›</span></div>
+    </div>
+    <div class="nav-group" data-g="set">
+      <div class="g-head" onclick="toast('Settings is outside this prototype')"><span class="ic">⚙</span><span class="lbl">Settings</span><span class="chev">›</span></div>
+    </div>
+  </nav>
+  <div class="foot">
+    <div class="lo" onclick="doLogout()">LOGOUT</div>
+    <a>Privacy Policy</a><a>Terms and Conditions</a><a>© 2026 SoMin.</a>
+  </div>
+</aside>
+
+<!-- ===================== MAIN ===================== -->
+<div class="main">
+  <div class="topbar">
+    <button class="mobburger" onclick="toggleSide()" aria-label="Menu">☰</button>
+    <div class="ptitle" id="ptitle">Content Library</div>
+    <div class="actions" id="tbActions"></div>
+    <div class="spacer"></div>
+    <div class="actions">
+      <div class="credits" id="credits" style="display:none">Credits:<br>Images: <b>46 / 50</b><br>Videos: <b>5 / 5</b></div>
+      <div class="ws"><span class="s">S</span><div><span class="lab">Workspace</span><b>SOMIN | Audience Research Platform</b></div><span class="faint">▾</span></div>
+      <div class="hub"><span class="av">☺</span><div><span class="lab" style="font-size:10px;color:var(--faint);display:block;line-height:1;margin-bottom:1px">Hub</span>SOMIN_AF</div><span class="faint">▾</span></div>
+    </div>
+  </div>
+
+  <main class="screens" id="screens">
+
+  <!-- ============ CONTENT LIBRARY ============ -->
+  <section class="screen active" id="scr-content-library">
+    <div class="filterbar">
+      <div class="fsel"><span class="k">Content Source</span><span class="v">Organic Posts</span></div>
+      <div class="fsel"><span class="k">Platform</span><span class="v">6 items selected</span></div>
+      <div class="fsel"><span class="k">Brands</span><span class="v">5 items selected</span></div>
+      <div class="fsel"><span class="k">Date Range</span><span class="v">Jul 03 – Aug 03, 2026</span></div>
+    </div>
+    <div class="card pad" style="margin-bottom:16px">
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:14px">
+        <b class="h2">Media Filters</b>
+        <span class="muted" style="font-size:12.5px">Current Media Selection: <b class="tealtxt" id="clSel">225</b></span>
+        <span class="muted" style="font-size:12.5px">Total Engagement: <b class="tealtxt">2,588</b></span>
+        <span class="muted" style="font-size:12.5px">Total Number of Media: <b class="tealtxt">248</b></span>
+        <span id="clFilterPill"></span>
+      </div>
+      <div style="display:flex;gap:9px;flex-wrap:wrap">
+        <button class="chipbtn solid">＋ Filter</button>
+        <button class="chipbtn">🔔 Create Notification</button>
+        <button class="chipbtn plain">Predefined Filters</button>
+        <button class="chipbtn plain">⚲ Save Filter</button>
+        <button class="chipbtn plain">Select Filter ›</button>
+      </div>
+    </div>
+    <div class="card pad">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:12px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <b class="h2">Treemap</b>
+          <div class="fsel" style="min-width:180px;padding:7px 12px"><span class="k">Concepts</span><span class="v">Inferred Audience</span></div>
+        </div>
+        <div class="legend">
+          <span class="li"><span class="sw" style="background:var(--c-linkedin)"></span>Linkedin Profiles (Aleks, Egor, Kirill, Filipp)</span>
+          <span class="li"><span class="sw" style="background:var(--c-milieu)"></span>Milieu</span>
+          <span class="li"><span class="sw" style="background:var(--c-somin)"></span>SOMIN</span>
+          <span class="li"><span class="sw" style="background:var(--c-nielsen)"></span>Nielsen</span>
+          <span class="li"><span class="sw" style="background:var(--c-gwi)"></span>GWI</span>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:230px 1fr;gap:16px">
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;color:var(--faint);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:0 4px 8px;border-bottom:1px solid var(--hair)">
+            <span>▦ ▤</span><span>Presence ↓</span></div>
+          <div class="rowlist" id="audList"></div>
+        </div>
+        <div class="treewrap" id="treemap">
+          <div class="tcol">
+            <div class="trow" style="flex:2.4">
+              <div class="tile" data-aud="Business Owners" style="background:var(--c-linkedin);flex:64">Business Owners<small>64</small></div>
+              <div class="tile" style="background:var(--c-linkedin);flex:50">Marketing Professionals<small>50</small></div>
+            </div>
+            <div class="trow" style="flex:1.5">
+              <div class="tile" style="background:var(--c-linkedin);flex:37">CMOs<small>37</small></div>
+              <div class="tile" style="background:var(--c-linkedin);flex:29">Entrepreneurs<small>29</small></div>
+              <div class="tile" style="background:var(--c-linkedin);flex:19">Agency Leaders<small>19</small></div>
+            </div>
+            <div class="trow" style="flex:1.2">
+              <div class="tile" style="background:var(--c-linkedin);flex:19">Data Scientists<small>19</small></div>
+              <div class="tile" style="background:var(--c-linkedin);flex:17">Tech Enthusiasts<small>17</small></div>
+              <div class="tile" style="background:var(--c-linkedin);flex:13">CTOs<small>13</small></div>
+              <div class="tile" style="background:var(--c-linkedin);flex:13">AI Researchers<small>13</small></div>
+            </div>
+            <div class="trow" style="flex:1">
+              <div class="tile" style="background:var(--c-linkedin);flex:13">Technology Enthusiasts<small>13</small></div>
+              <div class="tile" style="background:var(--c-linkedin);flex:12">Marketing Leaders<small>12</small></div>
+              <div class="tile" style="background:var(--c-linkedin);flex:11">Data Analysts<small>11</small></div>
+              <div class="tile" style="background:var(--c-linkedin);flex:7">MarTech<small>7</small></div>
+            </div>
+          </div>
+          <div class="tcol">
+            <div class="trow" style="flex:1.7">
+              <div class="tile" data-aud="Business Owners" style="background:var(--c-milieu);flex:29">Business Owners<small>29</small></div>
+              <div class="tile" style="background:var(--c-milieu);flex:25">General Public<small>25</small></div>
+            </div>
+            <div class="trow" style="flex:1.3">
+              <div class="tile" style="background:var(--c-milieu);flex:18">Entrepreneurs<small>18</small></div>
+              <div class="tile" style="background:var(--c-milieu);flex:18">Professionals<small>18</small></div>
+              <div class="tile" style="background:var(--c-milieu);flex:10">Students<small>10</small></div>
+            </div>
+            <div class="trow" style="flex:1">
+              <div class="tile" style="background:var(--c-milieu);flex:9">Marketing Prof.<small>9</small></div>
+              <div class="tile" style="background:var(--c-milieu);flex:9">Employees<small>9</small></div>
+              <div class="tile" style="background:var(--c-milieu);flex:8">Community<small>8</small></div>
+              <div class="tile" style="background:var(--c-milieu);flex:7">Data Analysts<small>7</small></div>
+            </div>
+            <div class="trow" style="flex:.8">
+              <div class="tile" style="background:var(--c-nielsen);flex:12">Marketers<small>12</small></div>
+              <div class="tile" style="background:var(--c-gwi);flex:8">Advertisers<small>8</small></div>
+              <div class="tile" style="background:var(--c-somin);flex:9">CMOs<small>9</small></div>
+              <div class="tile" style="background:var(--c-somin);flex:6">Marketers<small>6</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="runbar">
+      <div class="ic">◎</div>
+      <div><b style="color:var(--ink);font-size:14px">Understand Your Content</b><div class="muted" style="font-size:12px">Analyze filtered data for personas &amp; pain points</div></div>
+      <div class="mini">
+        <div class="m"><div class="n">6</div><div class="l">Platforms</div></div>
+        <div class="m"><div class="n">5</div><div class="l">Brands</div></div>
+        <div class="m"><div class="n">225</div><div class="l">Posts</div></div>
+        <div class="m"><div class="n">2,588</div><div class="l">Engagement</div></div>
+      </div>
+      <button class="btn" onclick="openAgentFrom('content-library')">Run Now</button>
+    </div>
+  </section>
+
+  <!-- ============ BRAND TRACKER ============ -->
+  <section class="screen" id="scr-brand-tracker">
+    <div class="filterbar">
+      <div class="fsel"><span class="k">Content Source</span><span class="v">Organic Posts</span></div>
+      <div class="fsel"><span class="k">Platform</span><span class="v">6 items selected</span></div>
+      <div class="fsel"><span class="k">Brands</span><span class="v">5 items selected</span></div>
+      <div class="fsel"><span class="k">Date Range</span><span class="v">Jul 03 – Aug 03, 2026</span></div>
+    </div>
+    <div class="card pad" style="margin-bottom:16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+      <b class="h2">Media Filters</b>
+      <span class="muted" style="font-size:12.5px">Current Media Selection: <b class="tealtxt">225</b></span>
+      <span class="muted" style="font-size:12.5px">Total Engagement: <b class="tealtxt">2,588</b></span>
+      <span class="muted" style="font-size:12.5px">Total Number of Media: <b class="tealtxt">248</b></span>
+      <div style="flex:1"></div>
+      <button class="chipbtn plain">⚲ Save Filter</button><button class="chipbtn plain">Select Filter ›</button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+      <div class="card pad">
+        <div class="h2" style="margin-bottom:4px">Content Activity Overview</div>
+        <div class="muted" style="font-size:12.5px;line-height:1.7">Tracked <b class="tealtxt">248</b> posts · Jul 03 → Aug 03, 2026<br>
+          You rank <b class="tealtxt">4th</b> among the selected brands · Most Active: <b style="color:var(--c-linkedin)">Linkedin Profiles</b> · Least Active: <b style="color:var(--c-gwi)">GWI</b></div>
+        <div style="display:grid;grid-template-columns:1fr 160px;gap:14px;align-items:center;margin-top:14px">
+          <div class="rowlist" id="btContent"></div>
+          <div id="donutContent"></div>
+        </div>
+      </div>
+      <div class="card pad">
+        <div class="h2" style="margin-bottom:4px">Engagement Overview</div>
+        <div class="muted" style="font-size:12.5px;line-height:1.7">Tracked <b class="tealtxt">3,370</b> engagement · Jul 03 → Aug 03, 2026<br>
+          You rank <b class="tealtxt">5th</b> among the selected brands · Most Engaged: <b style="color:var(--c-nielsen)">Nielsen</b> · Least Engaged: <b style="color:var(--c-somin)">SOMIN</b></div>
+        <div style="display:grid;grid-template-columns:1fr 160px;gap:14px;align-items:center;margin-top:14px">
+          <div class="rowlist" id="btEngage"></div>
+          <div id="donutEngage"></div>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div class="card pad">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div class="h2">Content Activity Trend</div>
+          <div class="toggle3"><button class="on">Daily</button><button onclick="toast('Weekly view')">Weekly</button><button onclick="toast('Monthly view')">Monthly</button></div></div>
+        <svg class="lc" id="trendContent" viewBox="0 0 520 150" preserveAspectRatio="none"></svg>
+      </div>
+      <div class="card pad">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div class="h2">Engagement Trend</div>
+          <div class="toggle3"><button class="on">Daily</button><button onclick="toast('Weekly view')">Weekly</button></div></div>
+        <svg class="lc" id="trendEngage" viewBox="0 0 520 150" preserveAspectRatio="none"></svg>
+      </div>
+    </div>
+  </section>
+  <!-- ============ PERSPECTIVE STUDIES ============ -->
+  <section class="screen" id="scr-perspectives">
+    <div class="split">
+      <div class="listrail">
+        <div class="search"><input placeholder="Search studies…"></div>
+        <div class="items">
+          <div class="li-item active"><div class="t">Perspective Study 027</div><div class="m">Created Jul 14, 2026 · 84 media</div></div>
+          <div class="li-item"><div class="t">Concept-Whitespace — Q1</div><div class="m">Jul 7 – Oct 6, 2025</div></div>
+          <div class="li-item"><div class="t">Concept-Whitespace — Q2</div><div class="m">Oct 7 – Jan 6, 2026</div></div>
+          <div class="li-item"><div class="t">Concept-Whitespace — Q3</div><div class="m">Jan 7 – Apr 7, 2026</div></div>
+          <div class="li-item"><div class="t">Concept-Whitespace — Q4</div><div class="m">Apr 8 – Jul 7, 2026</div></div>
+          <div class="li-item"><div class="t">Concept-Whitespace — Trend W2</div><div class="m">Rolling 14-day</div></div>
+          <div class="li-item"><div class="t">Studies Organic — 2 years of Data</div><div class="m">Archive</div></div>
+          <div class="li-item"><div class="t">Perspective Study 019</div><div class="m">Jun 2026</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="card pad" style="margin-bottom:16px">
+          <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap">
+            <div>
+              <div style="font-size:22px;font-weight:900;color:var(--ink)">Perspective Study 027 <span class="faint">✎</span></div>
+              <div class="muted" style="font-size:12px;margin-top:3px">Created on July 14, 2026</div>
+            </div>
+            <div class="muted" style="font-size:12px;line-height:1.7;text-align:right">
+              Source: <b>Organic Posts</b><br>Platforms: Facebook, Instagram, IG Stories, TikTok, LinkedIn<br>
+              Brands: Milieu, Nielsen, GWI, Linkedin Profiles, SOMIN<br>Date Range: Jun 14 – Jul 14, 2026 · Total Media: <b>84</b><br>
+              Filter: Audiences: <b class="tealtxt">Entrepreneurs</b></div>
+          </div>
+        </div>
+        <div class="card pad">
+          <div class="eyebrow" style="margin-bottom:4px">Persona Detection</div>
+          <div class="h2" style="font-size:20px">Who were the brands talking to?</div>
+          <div class="muted" style="font-size:12.5px;margin:4px 0 6px">4 Personas detected (RANGE: 4 to 4)</div>
+          <div class="legend" style="margin:14px 0 18px">
+            <span class="li"><span class="sw" style="background:var(--c-milieu)"></span>Milieu</span>
+            <span class="li"><span class="sw" style="background:var(--c-nielsen)"></span>Nielsen</span>
+            <span class="li"><span class="sw" style="background:var(--c-gwi)"></span>GWI</span>
+            <span class="li"><span class="sw" style="background:var(--c-linkedin)"></span>Linkedin Profiles</span>
+            <span class="li"><span class="sw" style="background:var(--c-somin)"></span>SOMIN</span>
+          </div>
+          <div style="font-weight:800;color:var(--ink);margin-bottom:8px">Persona Distributions <span class="faint" style="font-weight:600;font-size:12px">· Jun 14 → Jul 14, 2026</span></div>
+          <div class="sbar"><span class="nm">The Innovative Connector</span><div class="track">
+            <div class="seg" style="background:var(--c-milieu);width:17%"></div><div class="seg" style="background:var(--c-gwi);width:39%"></div>
+            <div class="seg" style="background:var(--c-linkedin);width:22%"></div><div class="seg" style="background:var(--c-somin);width:22%"></div></div></div>
+          <div class="sbar"><span class="nm">The Innovation Catalyst</span><div class="track">
+            <div class="seg" style="background:var(--c-gwi);width:21%"></div><div class="seg" style="background:var(--c-linkedin);width:79%"></div></div></div>
+          <div class="sbar"><span class="nm">Strategic Trailblazer</span><div class="track">
+            <div class="seg" style="background:var(--c-milieu);width:100%"></div></div></div>
+          <div class="sbar"><span class="nm">The Empowered Strategist</span><div class="track">
+            <div class="seg" style="background:var(--c-milieu);width:89%"></div><div class="seg" style="background:var(--c-nielsen);width:6%"></div><div class="seg" style="background:var(--c-somin);width:5%"></div></div></div>
+          <div class="axis"><span>0</span><span>5</span><span>10</span><span>15</span><span>20</span></div>
+          <div class="faint" style="font-size:11px;margin-top:10px">The statistics shown are based on 100% of the available data.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERSONAS ============ -->
+  <section class="screen" id="scr-personas">
+    <div class="split">
+      <div class="listrail">
+        <div class="search" style="display:flex;justify-content:space-between;align-items:center"><b style="color:var(--ink)">Personas</b><span class="tealtxt">99</span></div>
+        <div class="items" id="personaList"></div>
+      </div>
+      <div>
+        <div class="card" style="overflow:hidden;margin-bottom:16px">
+          <div class="pad" style="display:grid;grid-template-columns:150px 1fr;gap:18px">
+            <div style="height:150px;border-radius:12px;background:linear-gradient(135deg,#2b3a55,#4a6178);display:grid;place-items:center;color:#cfe;font-weight:800;letter-spacing:2px;font-size:12px">VISION</div>
+            <div>
+              <div class="eyebrow" style="color:var(--teal-d)">⚇ Detected Persona</div>
+              <div style="font-size:22px;font-weight:900;color:var(--ink);margin:4px 0">The Empowered Strategist <span class="faint" style="font-size:14px">✎</span></div>
+              <div class="muted" style="font-size:12.5px;line-height:1.55">Meet The Empowered Strategist, a dynamic professional deeply invested in business success and innovation. They prioritize purposeful growth and demonstrate strong leadership skills. With a robust interest in market research, data analysis and business strategy, they harness these tools to drive financial stability and operational efficiency… <span class="tealtxt">Show More</span></div>
+              <div style="margin-top:12px;display:flex;align-items:center;gap:10px">
+                <span class="muted" style="font-size:12px">Generate</span>
+                <button class="pill" style="border-color:var(--teal);color:var(--teal-d)" onclick="go('moments',document.querySelector('[data-scr=moments]'))">Moments</button>
+              </div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--hair)">
+            <div class="pad" style="border-right:1px solid var(--hair)"><div class="muted" style="font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:800">Concept Map</div><div style="font-size:26px;font-weight:900;color:var(--ink);margin-top:6px">3 <span style="font-size:14px;font-weight:700">Profiles</span> <span class="tealtxt" style="font-size:12px;float:right;margin-top:12px">View →</span></div></div>
+            <div class="pad" style="border-right:1px solid var(--hair)"><div class="muted" style="font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:800">Total Media</div><div style="font-size:26px;font-weight:900;color:var(--ink);margin-top:6px">19 <span class="tealtxt" style="font-size:12px;float:right;margin-top:12px">View →</span></div></div>
+            <div class="pad"><div class="muted" style="font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:800">Total Engagement</div><div style="font-size:26px;font-weight:900;color:var(--teal-d);margin-top:6px">707</div></div>
+          </div>
+        </div>
+        <div class="card pad">
+          <div class="muted" style="font-size:12px">Created on July 14, 2026</div>
+          <div style="font-weight:900;color:var(--ink);font-size:16px;margin:2px 0 12px">PS-7014 · Perspective Study 027</div>
+          <div class="muted" style="font-size:12.5px;line-height:1.9">
+            Source: <b>Organic Posts</b> · Platforms: Facebook, Instagram, IG Stories, TikTok, LinkedIn<br>
+            Brands: Milieu, Nielsen, GWI, Linkedin Profiles (Aleks, Egor, Kirill, Filipp), SOMIN<br>
+            Date Range: June 14, 2026 → July 14, 2026 · Total Media: <b>84</b> · Filters: Audiences: <b class="tealtxt">Entrepreneurs</b></div>
+          <div class="sbar" style="margin-top:16px"><span class="nm" style="width:120px">Share of voice</span><div class="track" style="height:30px">
+            <div class="seg" style="background:var(--c-milieu);width:64%"></div><div class="seg" style="background:var(--c-nielsen);width:6%"></div>
+            <div class="seg" style="background:var(--c-gwi);width:4%"></div><div class="seg" style="background:var(--c-linkedin);width:20%"></div>
+            <div class="seg" style="background:var(--c-somin);width:6%"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ INSIGHTS ============ -->
+  <section class="screen" id="scr-insights">
+    <div class="split">
+      <div class="listrail">
+        <div class="search"><input placeholder="Search insight…"></div>
+        <div class="items" id="insightList"></div>
+      </div>
+      <div class="card pad" id="insightDetail">
+        <div class="eyebrow">Insight · SOINSPIRE</div>
+        <div style="font-size:24px;font-weight:900;color:var(--ink);line-height:1.2;margin:6px 0 4px" id="insTitle">Understanding is the foundation of connection.</div>
+        <div class="muted" style="font-size:12.5px;margin-bottom:16px" id="insMeta">The Empowered Strategist × “Assumptions replace real audience understanding” · Psychological angle</div>
+        <div style="display:grid;gap:14px;max-width:640px">
+          <div><div class="eyebrow">The signal in the data</div><p class="muted" style="margin:4px 0 0;font-size:13px" id="insSignal">Across 84 posts, brands broadcast product features to “Entrepreneurs” as a single block — yet SOMIN's own audience detection splits them into 4 distinct personas with opposing needs. The category talks <i>at</i> a demographic that does not behave as one.</p></div>
+          <div><div class="eyebrow">Why it works</div><p class="muted" style="margin:4px 0 0;font-size:13px" id="insWhy">People act on being understood, not being targeted. Naming the buyer's real tension — “I'm guessing who my audience is” — earns permission before a single feature is mentioned.</p></div>
+          <div style="background:var(--teal-wash);border:1px solid var(--teal-wash2);border-radius:12px;padding:16px">
+            <div class="eyebrow">The insight</div>
+            <div style="font-size:17px;font-weight:800;color:var(--ink);line-height:1.35;margin-top:6px" id="insStmt">Understanding is the foundation of connection — the brand that maps the person, not the segment, wins the relationship before the sale.</div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <button class="btn" onclick="go('propositions',document.querySelector('[data-scr=propositions]'))">Generate Propositions</button>
+            <a class="pill" style="border-color:var(--teal);color:var(--teal-d)">View live story ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ============ MOMENTS ============ -->
+  <section class="screen" id="scr-moments">
+    <div class="split">
+      <div class="listrail">
+        <div class="search"><input placeholder="Search moment…"></div>
+        <div class="items">
+          <div class="li-item active"><div class="t">Compassionate Community Builder</div><div class="m">25 Jul 2026 · Life Moments</div></div>
+          <div class="li-item"><div class="t">Nurturing Companion</div><div class="m">25 Jul 2026 7:09</div></div>
+          <div class="li-item"><div class="t">Compassionate Caregiver</div><div class="m">25 Jul 2026 7:08</div></div>
+          <div class="li-item"><div class="t">Compassionate Community Builder</div><div class="m">25 Jul 2026 · Seasonal</div></div>
+          <div class="li-item"><div class="t">Nurturing Companion</div><div class="m">25 Jul 2026 7:08</div></div>
+          <div class="li-item"><div class="t">Compassionate Caregiver</div><div class="m">25 Jul 2026 · Emotional</div></div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1.05fr 1fr;gap:16px">
+        <div class="card pad">
+          <div class="eyebrow" style="color:var(--soft)">＞ Persona</div>
+          <div style="font-size:20px;font-weight:900;color:var(--ink);margin:4px 0 8px">Compassionate Community Builder</div>
+          <p class="muted" style="font-size:12.5px;margin:0 0 16px">This persona is passionate about pet care and actively engages in community support, celebrating the joys of family activities and healthy lifestyles. Their aspirations are centered around building fulfilling relationships, contributing positively to their community, and fostering a sense of belonging and purpose.</p>
+          <div class="eyebrow" style="color:var(--soft)">＞ Tensions</div>
+          <div style="font-size:16px;font-weight:800;color:var(--ink);margin:4px 0 8px">Ensuring Optimal Nutrition for Pet Well-Being: A Shared Commitment</div>
+          <p class="muted" style="font-size:12.5px;margin:0 0 16px">A significant number of brands focus on addressing the critical need for adequate nutrition and care for pets, highlighting the importance of tailored dietary options for different life stages. TopBreed, PetMarra, SmartHeart and Pedigree each stress nutrition that promotes long, healthy lives.</p>
+          <div style="border-top:1px solid var(--hair);padding-top:12px;font-size:11.5px;line-height:1.9;color:var(--soft)">
+            STUDY REFERENCE: <b class="mono" style="color:var(--body)">dogsofrph_ALL_TYPES_NOFILTER_90D</b><br>
+            WORKSPACE REFERENCE: <b style="color:var(--body)">dogsofrph</b><br>
+            MEDIA REFERENCES: <b style="color:var(--body)">146 out of 937 media</b><br>
+            TOTAL ENGAGEMENT: <b class="tealtxt">35,710</b></div>
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+            <b style="color:var(--ink);letter-spacing:.5px;font-size:12px;text-transform:uppercase">Moment Type</b>
+            <div class="fsel" style="min-width:150px;padding:8px 12px;cursor:pointer" id="momentType" onclick="cycleMomentType()"><span class="v" style="font-size:13px">Life Moments</span></div>
+          </div>
+          <div id="momentCards">
+            <div class="card pad" style="margin-bottom:12px">
+              <div class="muted" style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px">Family &amp; Relationships</div>
+              <div style="font-size:17px;font-weight:800;color:var(--ink);margin:4px 0 8px">Becoming a pet owner</div>
+              <div style="color:var(--teal-d);font-style:italic;font-weight:600;font-size:13px;margin-bottom:8px">“I want to provide a loving home for a pet and ensure they receive the best care possible.”</div>
+              <p class="muted" style="font-size:12.5px;margin:0">Becoming a pet owner is a significant life moment that reshapes priorities. It requires commitment and leads to changes in daily routines and a search for community resources for support.</p>
+            </div>
+            <div class="card pad" style="margin-bottom:12px">
+              <div class="muted" style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px">Family &amp; Relationships</div>
+              <div style="font-size:17px;font-weight:800;color:var(--ink);margin:4px 0 8px">Adopting a rescue animal</div>
+              <div style="color:var(--teal-d);font-style:italic;font-weight:600;font-size:13px;margin-bottom:8px">“I feel a strong desire to give a second chance and make a positive impact.”</div>
+              <p class="muted" style="font-size:12.5px;margin:0">Adopting a rescue animal is a profound milestone tied to social responsibility. It fosters a sense of purpose and a deep connection to animal welfare.</p>
+            </div>
+            <div class="card pad">
+              <div class="muted" style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px">Community Engagement</div>
+              <div style="font-size:17px;font-weight:800;color:var(--ink);margin:4px 0 8px">Participating in community events</div>
+              <div style="color:var(--teal-d);font-style:italic;font-weight:600;font-size:13px;margin-bottom:8px">“I want to engage with others who contribute to our community.”</div>
+              <p class="muted" style="font-size:12.5px;margin:0">Participating in community pet events is a way to build belonging and strengthen bonds with like-minded owners.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROPOSITIONS ============ -->
+  <section class="screen" id="scr-propositions">
+    <div class="split">
+      <div class="listrail">
+        <div class="search"><input placeholder="Search propositions…"></div>
+        <div class="items">
+          <div class="li-item active"><div class="t">See it work before you pay for it.</div><div class="m">SOMIN · clarity</div></div>
+          <div class="li-item"><div class="t">Ties every angle to the post that evidenced it.</div><div class="m">SOMIN · proof</div></div>
+          <div class="li-item"><div class="t">Benchmark real ad performance (SOMIN vs market).</div><div class="m">SOMIN · benchmark</div></div>
+          <div class="li-item"><div class="t">Learn from real competitor content.</div><div class="m">SOMIN · intel</div></div>
+          <div class="li-item"><div class="t">Clickability score before spend (SOMIN).</div><div class="m">SOMIN · predict</div></div>
+          <div class="li-item"><div class="t">See it work before you pay for it.</div><div class="m">SOMIN · clarity</div></div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:290px 1fr;gap:16px">
+        <div class="card pad" style="height:fit-content">
+          <div class="eyebrow" style="color:var(--soft)">＞ Insight</div>
+          <div style="font-size:19px;font-weight:900;color:var(--ink);line-height:1.25;margin:6px 0 20px">In the realm of commerce, clarity breeds connection.</div>
+          <div class="eyebrow" style="color:var(--soft)">＞ Product</div>
+          <div style="font-size:24px;font-weight:900;margin-top:6px"><span class="wm-so" style="color:var(--teal)">SO</span><span style="color:var(--ink)">MIN</span></div>
+        </div>
+        <div class="concept-cards" style="grid-template-columns:1fr">
+          <div class="propcard">
+            <h3>Empower your brand to resonate deeply with SOMIN's insights.</h3>
+            <div class="field"><div class="k">Insight Integration</div><div class="v">Understanding consumer behavior is no longer a guessing game; SOMIN humanizes data, ensuring your marketing impacts the hearts of your audience.</div></div>
+            <div class="field"><div class="k">Product Connection</div><div class="v">By accurately predicting which creatives will thrive, SOMIN arms brands with the knowledge they need to connect on an emotional level.</div></div>
+            <div class="field"><div class="k">Sample Tagline</div><div class="v" style="font-weight:800;color:var(--ink)">Connect beyond metrics; reach the hearts of your audience.</div></div>
+            <div class="field" style="margin-bottom:0"><div class="k">Consumer Takeaway</div><div class="v">“I can create campaigns that genuinely resonate.”</div></div>
+          </div>
+          <div class="propcard">
+            <h3>Navigate the noise of insights with strategic clarity.</h3>
+            <div class="field"><div class="k">Insight Integration</div><div class="v">In a marketplace flooded with data, clarity transforms statistics into deep conversations.</div></div>
+            <div class="field" style="margin-bottom:0"><div class="k">Product Connection</div><div class="v">Let SOMIN guide you through the marketing maze with confidence.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EXPRESSIONS ============ -->
+  <section class="screen" id="scr-expressions">
+    <div style="display:grid;grid-template-columns:300px 1fr;gap:18px">
+      <div class="card pad" style="height:fit-content">
+        <div style="font-weight:900;color:var(--ink);font-size:16px;margin-bottom:12px">Your Inputs</div>
+        <div class="fsel" style="width:100%;margin-bottom:6px"><span class="k">Insight</span><span class="v" style="font-size:12.5px">Understanding is the foundation of connection.</span></div>
+        <div class="muted" style="font-size:11.5px;margin-bottom:14px">Select an Insight or create a <span class="tealtxt">new one</span>.</div>
+        <div style="height:120px;border-radius:12px;background:linear-gradient(120deg,#f76d3c,#a94392 55%,#3b82f6);display:grid;place-items:end start;padding:12px;color:#fff;margin-bottom:8px">
+          <div><div style="font-weight:800;font-size:13px">Echoes of Expectation</div></div></div>
+        <div style="font-weight:800;color:var(--ink);font-size:13px">Echoes of Expectation</div>
+        <div class="muted" style="font-size:12px;margin-bottom:4px">Understanding is the foundation of connection.</div>
+        <div class="tealtxt" style="font-size:12px;margin-bottom:16px">Show More</div>
+        <div style="font-weight:800;color:var(--ink);font-size:13px;margin-bottom:8px">Upload Product Image</div>
+        <div style="height:90px;border:1px dashed var(--hair-2);border-radius:10px;background:var(--card-2);display:grid;place-items:center;color:var(--faint);font-size:12px;margin-bottom:16px">▤ dashboard-screenshot.png ✕</div>
+        <div style="font-weight:800;color:var(--ink);font-size:13px;margin-bottom:8px">Edit Image with AI</div>
+        <div class="dock-foot" style="border:1px solid var(--hair);border-radius:12px;padding:6px 6px 6px 12px;display:flex;gap:8px;margin-bottom:16px">
+          <input placeholder="e.g., 'Add a retro filter'" style="border:none;background:none;flex:1;font:inherit;font-size:12.5px;outline:none">
+          <button class="pill" style="border-color:var(--teal);color:var(--teal-d)">Apply</button></div>
+        <button class="btn block" onclick="openAgentFrom('expressions')">Generate Content</button>
+      </div>
+      <div>
+        <div style="font-size:26px;font-weight:900;color:var(--ink);margin-bottom:16px">TOFU <span class="faint" style="font-size:16px;font-weight:700">(Top of Funnel)</span></div>
+        <div class="exp-grid">
+          <div class="exp">
+            <div class="top"><div class="kind">UGC/Influencer — The Relieved Marketer</div><div class="add">✓ Add to Library</div></div>
+            <div class="hd">I was literally throwing money away until I found this.</div>
+            <div class="bd">As a marketing director, my biggest fear was misallocated spend. I was painting broad strokes over a diverse audience and seeing zero engagement. Then I started using SOMIN to actually listen to my consumers.</div>
+            <div class="lnk">See the Difference</div>
+            <div class="imgph" style="background:linear-gradient(135deg,#c9a27e,#7c8a6b)">👩‍💻 UGC · living-room shot<span class="imgcap">Finally stopped guessing 🎯</span></div>
+            <div class="btns"><div class="b1">↻ Regenerate image</div><div class="b2">✦ Animate</div></div>
+          </div>
+          <div class="exp">
+            <div class="top"><div class="kind">Pattern Interrupt — The Data Macro</div><div class="add">✓ Add to Library</div></div>
+            <div class="hd">STOP. YOUR DEMOGRAPHICS ARE LYING TO YOU.</div>
+            <div class="bd">Outdated assumptions are the silent killers of ROI. If you're still targeting 'Women 25-34' without understanding their journeys and passions, you're wasting your budget. It's time to see the complex tapestry of your real audience.</div>
+            <div class="lnk">Stop the Waste</div>
+            <div class="imgph" style="background:linear-gradient(120deg,#e84978,#3b82f6)">THIS IS NOT A DEMOGRAPHIC</div>
+            <div class="btns"><div class="b1">↻ Regenerate image</div><div class="b2">✦ Animate</div></div>
+          </div>
+          <div class="exp">
+            <div class="top"><div class="kind">Aspirational — The Visionary Director</div><div class="add">✓ Add to Library</div></div>
+            <div class="hd">This is the feeling of a campaign that actually connects.</div>
+            <div class="bd">Imagine walking into your next board meeting with data that doesn't just show clicks, but genuine human connection. Elevate your strategy from guesswork to a science of belonging.</div>
+            <div class="lnk">See the Vision</div>
+          </div>
+          <div class="exp">
+            <div class="top"><div class="kind">Street Interview — The Marketer's Truth</div><div class="add">✓ Add to Library</div></div>
+            <div class="hd">We asked 100 marketers: Do you actually know who your audience is?</div>
+            <div class="bd">The answers might surprise you. Most brands are struggling with misallocated budgets because they lack reliable audience data. We're changing that, one honest conversation at a time.</div>
+            <div class="lnk">Watch the Truth</div>
+          </div>
+          <div class="exp">
+            <div class="top"><div class="kind">Dramatic Before &amp; After — The ROI Beat Drop</div><div class="add">✓ Add to Library</div></div>
+            <div class="hd">My ROI before vs. after SOMIN.</div>
+            <div class="bd">I used to feel the tension of ineffective campaigns gnawing at my creativity. We shifted from crunching numbers to immersing ourselves in consumer worlds. The results? Stunning.</div>
+            <div class="lnk">Transform Your ROI</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+</div><!-- /main -->
+<!-- ===================== COPILOT DOCK ===================== -->
+<div class="dock" id="dock">
+  <div class="dock-head" onclick="toggleDock()">
+    <div class="logo">◈</div>
+    <div class="ti">SOMIN Copilot<small>Agentic assistant · powered by Claude</small></div>
+    <div class="sp"></div>
+    <div class="hbtn" title="Open full Agent" onclick="event.stopPropagation();openAgent()">⤢</div>
+    <div class="hbtn" title="Minimise">▁</div>
+  </div>
+  <div class="dock-ctx" id="dockCtx"><span class="d2"></span>Reading this window: <b id="ctxName">Content Library</b></div>
+  <div class="dock-body" id="dockBody"></div>
+  <div class="dock-foot">
+    <button class="esc" onclick="openAgent()">⤢ Open full Agent — carry this window's context in</button>
+    <div class="inp"><input id="dockInput" placeholder="Ask anything about this screen…" onkeydown="if(event.key==='Enter')dockSend()"><button class="send" onclick="dockSend()">➤</button></div>
+    <div class="zap">Context-aware · answers from the data on your current screen</div>
+  </div>
+</div>
+<div class="launch" id="launch" onclick="toggleDock()">◈</div>
+
+<!-- intro helper -->
+<div class="helper" id="helper">
+  <span class="cl" onclick="document.getElementById('helper').remove()">✕</span>
+  <b>New — SOMIN Copilot.</b><br>It reads whatever screen you're on and can answer, change filters, or hand off to the full agentic <b>Agent</b> (Figma, SOMIN MCP, Meta…). Try the chat bottom-right, or press <b>⤢</b>.
+  <div class="arrow"></div>
+</div>
+
+<!-- ===================== AGENT STUDIO ===================== -->
+<div class="agent" id="agent">
+  <div class="agent-shell">
+    <div class="agent-side">
+      <div class="as-head"><div class="logo">◈</div><div><b>SOMIN Agent</b><small>Agentic workspace</small></div></div>
+      <div class="as-scroll">
+        <button class="as-new" onclick="agentHome()">＋ New agent run</button>
+        <div id="agentCtxPill"></div>
+        <div class="as-label">Connectors</div>
+        <div class="conn"><span class="ci">◍</span>SOMIN MCP<span class="st">Connected</span></div>
+        <div class="conn"><span class="ci">✦</span>Figma<span class="st">Connected</span></div>
+        <div class="conn"><span class="ci">▲</span>Google Drive<span class="st">Connected</span></div>
+        <div class="conn"><span class="ci">ⓕ</span>Meta Ads<span class="st">Connected</span></div>
+        <div class="conn"><span class="ci">◆</span>GWI<span class="st">Connected</span></div>
+        <div class="conn"><span class="ci">✳</span>Slack<span class="st off">Connect</span></div>
+        <div class="as-label">Workflows <span style="color:#4d5b59;text-transform:none;letter-spacing:0">— your skills, as agent runs</span></div>
+        <div class="wf star" onclick="startFlow('reassured')"><span class="wi">◆</span><span class="wt">Brand Strategy Deck<small>Cross-market briefing · ~32 slides</small></span><span class="badge">DEMO</span></div>
+        <div class="wf" onclick="startFlow('agency')"><span class="wi">◇</span><span class="wt">Agency Pitch Deck<small>One big idea · 16–20 slides</small></span></div>
+        <div class="wf" onclick="startFlow('whitespace')"><span class="wi">▦</span><span class="wt">Whitespace Analysis<small>Content-supply gaps</small></span></div>
+        <div class="wf" onclick="startFlow('creative')"><span class="wi">✦</span><span class="wt">Creative Expressions<small>TOFU / MOFU / BOFU renders</small></span></div>
+        <div class="wf" onclick="startFlow('scoring')"><span class="wi">◎</span><span class="wt">Creative Scoring<small>Predicted clickability</small></span></div>
+        <div class="wf" onclick="startFlow('meta')"><span class="wi">ⓕ</span><span class="wt">Meta Campaign Refresh<small>Optimise live ads</small></span></div>
+        <div class="wf" onclick="startFlow('calendar')"><span class="wi">▤</span><span class="wt">Content Calendar<small>Moments → schedule</small></span></div>
+        <div class="wf" onclick="startFlow('persona')"><span class="wi">⚇</span><span class="wt">Persona Discovery<small>Detect audience clusters</small></span></div>
+        <div class="wf" onclick="startFlow('trend')"><span class="wi">📈</span><span class="wt">Trend Analysis<small>Prior-year verified</small></span></div>
+        <div class="wf" onclick="startFlow('influencer')"><span class="wi">◐</span><span class="wt">Influencer Deck<small>Creator cohort strategy</small></span></div>
+      </div>
+      <div style="padding:11px 14px;border-top:1px solid #202b2a;font-size:10px;color:#5f6d6c">SOMIN Agent · interactive prototype</div>
+    </div>
+    <div class="agent-main">
+      <div class="am-top">
+        <button class="mobburger amburger" onclick="toggleAgentSide()" aria-label="Workflows">☰</button>
+        <div class="t" id="agentTitle">SOMIN Agent</div>
+        <div class="mchip"><span class="d"></span>Claude · agentic engine</div>
+        <div id="agentCtxTop"></div>
+        <button class="x" onclick="closeAgent()">✕</button>
+      </div>
+      <div class="am-body" id="agentBody"><div class="am-inner" id="agentInner"></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="toasts" id="toasts"></div>
+<script>
+/* ============================================================= helpers */
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+function toast(msg){const t=document.createElement('div');t.className='toast';t.innerHTML='<span class="ic">✓</span>'+msg;
+  $('#toasts').appendChild(t);setTimeout(()=>{t.style.opacity=0;t.style.transition='.4s';setTimeout(()=>t.remove(),400)},2600);}
+function toggleGroup(el){el.parentElement.classList.toggle('open');}
+
+/* ============================================================= platform data */
+const AUD=[['Business Owners',135],['Marketing Professionals',93],['Entrepreneurs',76],['Data Analysts',41],['CMOs',39],
+['Sports Fans',39],['General Public',37],['Tech Enthusiasts',32],['Marketers',28],['Technology Enthusiasts',27],
+['Soccer Fans',26],['Agency Leaders',20],['Data Scientists',19],['Advertisers',18],['Professionals',16]];
+const PLIST=[['The Empowered Strategist',19,707,1],['Strategic Trailblazer',3,22],['The Innovation Catalyst',39,214],
+['The Innovative Connector',23,738],['Strategic Innovator',24,0],['Innovative Strategist',86,0],
+['Connected Visionary',19,0],['Empowered Innovator',41,0],['The Data Humanist',12,58],['Purposeful Builder',7,33]];
+const INS=[
+ {t:'Understanding is the foundation of connection.',m:'The Empowered Strategist × “Assumptions replace real audience understanding” · Psychological angle',
+  s:'Across 84 posts, brands broadcast product features to “Entrepreneurs” as one block — yet SOMIN’s own detection splits them into 4 personas with opposing needs. The category talks <i>at</i> a demographic that does not behave as one.',
+  w:'People act on being understood, not being targeted. Naming the buyer’s real tension — “I’m guessing who my audience is” — earns permission before a single feature is mentioned.',
+  st:'Understanding is the foundation of connection — the brand that maps the person, not the segment, wins the relationship before the sale.'},
+ {t:'In the realm of commerce, clarity breeds connection.',m:'The Innovative Connector × “Data overwhelm” · Behavioural-economic angle',
+  s:'Competitor content leans on volume of metrics; engagement clusters instead around posts that translate one number into one human decision.',
+  w:'Clarity lowers cognitive load. A single, legible takeaway out-performs a dashboard of stats for the same audience.',
+  st:'In the realm of commerce, clarity breeds connection — turn the statistic into a sentence a human can act on.'},
+ {t:'Assumption is the silent killer of opportunity.',m:'Strategic Trailblazer × “Broad targeting” · Sociological angle',
+  s:'“Women 25–34” style targeting recurs across the set while the highest-engaging posts name a specific lived situation.',
+  w:'Specificity signals recognition; recognition builds trust faster than reach.',
+  st:'Assumption is the silent killer of opportunity — precision about the person beats scale about the segment.'},
+ {t:'Data connects us to humanity; clarity emerges from complexity.',m:'The Data Humanist × “Cold analytics” · Psychological angle',
+  s:'Posts that frame analytics as empathy (not surveillance) draw disproportionate saves and comments.',
+  w:'Framing data as care reframes a feared tool as a helpful one.',
+  st:'Data connects us to humanity — lead with the feeling the number unlocks, not the number.'},
+ {t:'Numbers speak, but they cannot define humanity.',m:'Purposeful Builder × “Vanity metrics” · Sociological angle',
+  s:'Vanity-metric posts under-index; identity-and-belonging posts over-index in the same cohort.',
+  w:'Belonging is a stronger driver than performance for this audience.',
+  st:'Numbers speak, but they cannot define humanity — sell the belonging the metric represents.'},
+ {t:'Innovation lives in the soil of conversation, not in the seed.',m:'Innovative Strategist × “Feature-led launches” · Behavioural-economic angle',
+  s:'Feature-first launches stall; launches that open a conversation compound.',
+  w:'Dialogue creates ownership; ownership creates advocacy.',
+  st:'Innovation lives in the soil of conversation — launch a question, not a feature.'}
+];
+const BT_CONTENT=[['GWI',9,'3.6%','--c-gwi'],['Linkedin Profiles (Aleks, Egor, Kirill, Filipp)',83,'33.5%','--c-linkedin'],
+ ['SOMIN',28,'11.3%','--c-somin'],['Nielsen',46,'18.5%','--c-nielsen'],['Milieu',59,'23.8%','--c-milieu'],['Other',23,'9.3%','--c-other']];
+const BT_ENGAGE=[['GWI',300,'8.9%','--c-gwi'],['Linkedin Profiles (Aleks, Egor, Kirill, Filipp)',690,'20.5%','--c-linkedin'],
+ ['SOMIN',120,'3.6%','--c-somin'],['Nielsen',1180,'35.0%','--c-nielsen'],['Milieu',820,'24.3%','--c-milieu'],['Other',260,'7.7%','--c-other']];
+
+/* ============================================================= render platform */
+function cssv(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+window.addEventListener('DOMContentLoaded',()=>{
+  $('#audList').innerHTML=AUD.map(([n,v])=>{const w=Math.round(v/135*100);
+    return `<div class="r" data-aud="${n}"><span class="nm">${n}</span><span style="width:60px;height:6px;background:#eef3f2;border-radius:4px;overflow:hidden"><span style="display:block;height:100%;width:${w}%;background:var(--teal)"></span></span><span class="vv">${v}</span></div>`;}).join('');
+  $('#personaList').innerHTML=PLIST.map(([n,md,eg,a])=>`<div class="li-item${a?' active':''}"><div style="font-size:10px;color:var(--teal-d);font-weight:800;text-transform:uppercase;letter-spacing:.4px">Persona</div><div class="t">${n}</div><div class="m">Media: ${md} · Total Engagement: <b>${eg}</b></div></div>`).join('');
+  $('#insightList').innerHTML=INS.map((o,i)=>`<div class="li-item${i===0?' active':''}" onclick="pickInsight(${i},this)"><div class="t">${o.t}</div></div>`).join('');
+  drawDonut('#donutContent',BT_CONTENT);drawDonut('#donutEngage',BT_ENGAGE);
+  $('#btContent').innerHTML=BT_CONTENT.map(([n,v,p,c])=>`<div class="r"><span class="sw" style="background:var(${c})"></span><span class="nm" style="font-size:12px">${n}</span><span class="vv">${v} <span class="faint" style="font-weight:600">(${p})</span></span></div>`).join('');
+  $('#btEngage').innerHTML=BT_ENGAGE.map(([n,v,p,c])=>`<div class="r"><span class="sw" style="background:var(${c})"></span><span class="nm" style="font-size:12px">${n}</span><span class="vv">${v.toLocaleString()} <span class="faint" style="font-weight:600">(${p})</span></span></div>`).join('');
+  drawLine('#trendContent',[['--c-linkedin',[20,18,60,30,22,68,40,28,90,35,30,55,44,38]],['--c-milieu',[10,12,14,52,20,16,22,18,40,26,20,30,24,60]],['--c-somin',[6,8,10,9,12,10,14,12,16,13,20,15,18,22]]]);
+  drawLine('#trendEngage',[['--c-nielsen',[30,120,60,200,90,260,140,300,170,240,150,290,180,320]],['--c-milieu',[40,80,60,120,70,140,100,150,110,190,120,160,130,200]]]);
+  renderDock(CUR);
+});
+function drawDonut(sel,rows){const el=$(sel);const total=rows.reduce((a,r)=>a+r[1],0);const R=52,C=2*Math.PI*R;let off=0;
+  let segs='';rows.forEach(([n,v,,c])=>{const frac=v/total;const len=frac*C;
+    segs+=`<circle cx="70" cy="70" r="${R}" fill="none" stroke="${cssv(c)}" stroke-width="22" stroke-dasharray="${len} ${C-len}" stroke-dashoffset="${-off}" transform="rotate(-90 70 70)"/>`;off+=len;});
+  el.innerHTML=`<svg viewBox="0 0 140 140" width="150" height="150">${segs}<circle cx="70" cy="70" r="30" fill="#fff"/></svg>`;}
+function drawLine(sel,series){const el=$(sel);const W=520,H=150,pad=8;const max=Math.max(...series.flatMap(s=>s[1]));
+  let grid='';for(let i=1;i<4;i++){const y=pad+(H-2*pad)*i/4;grid+=`<line x1="0" y1="${y}" x2="${W}" y2="${y}" stroke="#eef3f2" stroke-width="1"/>`;}
+  let paths=series.map(([c,pts])=>{const step=W/(pts.length-1);const d=pts.map((v,i)=>`${i?'L':'M'}${(i*step).toFixed(1)} ${(H-pad-(v/max)*(H-2*pad)).toFixed(1)}`).join(' ');
+    return `<path d="${d}" fill="none" stroke="${cssv(c)}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;}).join('');
+  el.innerHTML=grid+paths;}
+
+/* ============================================================= navigation */
+let CUR='content-library';
+const TITLES={'content-library':'Content Library','brand-tracker':'Brand Tracker','perspectives':'Perspective Studies',
+ 'personas':'Personas','insights':'Insights','moments':'Moments','propositions':'Propositions','expressions':'Expressions'};
+function go(scr,el){CUR=scr;
+  $$('.screen').forEach(s=>s.classList.remove('active'));$('#scr-'+scr).classList.add('active');
+  $$('.sub a').forEach(a=>a.classList.remove('active'));if(el)el.classList.add('active');else{const a=$('[data-scr="'+scr+'"]');if(a)a.classList.add('active');}
+  $('#ptitle').textContent=TITLES[scr];
+  $('#credits').style.display=scr==='expressions'?'block':'none';
+  $('#screens').scrollTop=0;
+  renderDock(scr);
+  if(window.innerWidth<=900)closeSide();
+}
+function pickInsight(i,el){$$('#insightList .li-item').forEach(x=>x.classList.remove('active'));el.classList.add('active');
+  const o=INS[i];$('#insTitle').innerHTML=o.t;$('#insMeta').innerHTML=o.m;$('#insSignal').innerHTML=o.s;$('#insWhy').innerHTML=o.w;$('#insStmt').innerHTML=o.st;}
+function cycleMomentType(){const el=$('#momentType .v');const cur=el.textContent.trim();
+  const next=cur==='Life Moments'?'Seasonal Moments':cur==='Seasonal Moments'?'Emotional Moments':'Life Moments';el.textContent=next;
+  if(next==='Seasonal Moments')$('#momentCards').innerHTML=momentCardsHTML([
+    ['Awareness Calendar','Pet Wellness Month','“Every October I recommit to my dog’s health routine.”','Seasonal spikes in nutrition and check-up content create a natural window for well-being messaging.'],
+    ['Awareness Calendar','New Year, New Routine','“January is when I reset feeding and exercise habits.”','Resolution energy makes early-year an ideal moment for habit-forming product stories.'],
+    ['Seasonal Retail','Puppy Season (spring litters)','“Spring is when our family finally got our first puppy.”','New-owner demand concentrates in spring — high intent for starter guidance.']]);
+  else if(next==='Emotional Moments')$('#momentCards').innerHTML=momentCardsHTML([
+    ['Emotional Trigger','First vet scare','“The night he wouldn’t eat, I panicked and read everything.”','Acute worry drives deep research — a moment to be genuinely helpful, not salesy.'],
+    ['Emotional Trigger','Senior-dog milestone','“Realising she’s getting old changed how I care for her.”','Mortality salience reframes nutrition as love — powerful, sensitive territory.'],
+    ['Emotional Trigger','Rescue gotcha-day','“One year since we adopted — best decision ever.”','Anniversaries generate proud, shareable UGC around belonging.']]);
+  else $('#momentCards').innerHTML=LIFE_MOMENTS_HTML;
+  toast('Moment type → <b>'+next+'</b>');
+}
+function momentCardsHTML(rows){return rows.map(([k,t,q,b])=>`<div class="card pad" style="margin-bottom:12px"><div class="muted" style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px">${k}</div><div style="font-size:17px;font-weight:800;color:var(--ink);margin:4px 0 8px">${t}</div><div style="color:var(--teal-d);font-style:italic;font-weight:600;font-size:13px;margin-bottom:8px">${q}</div><p class="muted" style="font-size:12.5px;margin:0">${b}</p></div>`).join('');}
+const LIFE_MOMENTS_HTML=$('#momentCards')?$('#momentCards').innerHTML:'';
+/* ============================================================= COPILOT DOCK */
+const CTX={
+ 'content-library':{name:'Content Library · Inferred-Audience treemap',
+   intro:"You're on the <b>Content Library</b> — 225 posts, 5 brands, concept view <b>Inferred Audience</b>. <b>Business Owners</b> (135) is the biggest audience here, but it's almost all LinkedIn + Milieu — <b>SOMIN barely appears in it.</b>",
+   chips:[
+    {q:'Where is SOMIN’s biggest audience gap?',a:"Your biggest content-supply gap is <b>Business Owners</b>: 135 posts in the set, SOMIN produced only ~9 of them. Milieu and the LinkedIn profiles own that conversation. <b>Marketing Professionals</b> (93) and <b>Entrepreneurs</b> (76) are the next two open lanes.",stats:[['135','Business Owners'],['~9','SOMIN posts'],['3','open lanes']]},
+    {q:'Filter the treemap to Business Owners',a:"Filtering the concept view to <b>Business Owners</b> across all brands…",act:'filterBO'},
+    {q:'Compare SOMIN vs Milieu coverage',a:"Across the 15 audiences, <b>Milieu</b> appears in 11; <b>SOMIN</b> in 5. Milieu leads Business Owners, General Public and Professionals; SOMIN over-indexes only on CMOs and Marketers. You're narrow exactly where the volume is.",stats:[['11','Milieu'],['5','SOMIN']]},
+    {q:'Turn this into a strategy deck',a:"That's an agent job — I'll carry this treemap in and build a whitespace-led cross-market deck.",act:'esc'}]},
+ 'brand-tracker':{name:'Brand Tracker · 248 posts · 6 brands',
+   intro:"On <b>Brand Tracker</b> you rank <b>4th on activity</b> (28 posts) and <b>last on engagement</b> (120). <b>Nielsen</b> posts a similar volume to you but earns ~10× the reaction — so this is a <b>content-quality gap, not a volume gap.</b>",
+   chips:[
+    {q:'Why is SOMIN’s engagement the lowest?',a:"Middling volume (28 posts, 4th) but the least engagement (120, last). Nielsen publishes about as much as you yet converts ~10× more — the difference is <b>what</b> you post, not how much.",stats:[['4th','Activity'],['6th','Engagement'],['10×','Nielsen rate']]},
+    {q:'Show me the weekly trend',a:"Switching Content Activity to <b>Weekly</b>…",act:'weekly'},
+    {q:'Who’s winning engagement and why?',a:"<b>Nielsen</b> (35%) and <b>Milieu</b> (24%). Both lean on organic, human-story posts over product announcements — that's the pattern to reverse-engineer."},
+    {q:'Draft a plan to close the gap',a:"I'll open the Agent and build the persona → tension → creative plan from this tracker.",act:'esc'}]},
+ 'perspectives':{name:'Perspective Study 027 · 4 personas · Entrepreneurs',
+   intro:"You're looking at <b>Study 027</b> — 84 posts, 5 brands, filtered to <b>Entrepreneurs</b>. It detected <b>4 personas</b>. The Empowered Strategist is the largest conversation, and it's dominated by Milieu, not you.",
+   chips:[
+    {q:'Summarise the 4 personas',a:"<b>The Empowered Strategist</b> (largest, Milieu-heavy), <b>The Innovation Catalyst</b> (LinkedIn-heavy), <b>The Innovative Connector</b> (spread evenly across brands), and <b>Strategic Trailblazer</b> (small, Milieu-only)."},
+    {q:'Which persona should we target?',a:"<b>The Empowered Strategist</b> — biggest share of voice, yet SOMIN holds only ~5% of it. High-volume conversation + low SOMIN presence = best return on effort.",stats:[['#1','Share of voice'],['~5%','SOMIN share']]},
+    {q:'Generate insights for The Empowered Strategist',a:"I'll take Study 027 into the Agent and generate the full insight chain + propositions.",act:'esc'}]},
+ 'personas':{name:'Persona · The Empowered Strategist',
+   intro:"Loaded <b>The Empowered Strategist</b> — 3 profiles, 19 media, <b>707 engagement</b> (your best-performing persona). It's built from Study 027 (Entrepreneurs).",
+   chips:[
+    {q:'What tensions define this persona?',a:"Three: <b>“I'm guessing who my audience is”</b>, <b>“data feels cold and inhuman”</b>, and <b>“I can't prove ROI before I spend.”</b> Each maps to a different SOMIN capability."},
+    {q:'Generate moments for this persona',a:"Jumping to Moments for this persona…",act:'gomoments'},
+    {q:'Turn this persona into a campaign',a:"I'll carry The Empowered Strategist into the Agent and run the full deck.",act:'esc'}]},
+ 'insights':{name:'Insight · “Understanding is the foundation of connection.”',
+   intro:"This insight comes from <b>The Empowered Strategist × “assumptions replace real understanding”</b> (psychological angle). It's the strongest of the six on this study.",
+   chips:[
+    {q:'Explain why this insight works',a:"It names the buyer's private fear — <i>“I'm guessing”</i> — before pitching anything. Recognition earns permission, so the post reads as help, not an ad. That's exactly why understanding-led posts out-engage feature-led ones in your set."},
+    {q:'Generate propositions from it',a:"Sending it to Propositions…",act:'goprops'},
+    {q:'Show the persona × tension behind it',a:"Source: <b>The Empowered Strategist</b> × <b>“Assumptions replace real audience understanding”</b>, psychological angle, Study 027."}]},
+ 'moments':{name:'Moments · Community Builder × pet nutrition',
+   intro:"Loaded <b>Compassionate Community Builder × “Optimal pet nutrition”</b> — 146 of 937 media, <b>35,710 engagement</b>, currently showing <b>Life Moments</b>.",
+   chips:[
+    {q:'Which moment has the best timing?',a:"<b>Becoming a pet owner</b> — highest intent and the widest window. It reshapes daily routines, so it opens nutrition, training and community messaging at once."},
+    {q:'Write a post brief for “Becoming a pet owner”',a:"<b>Hook:</b> “Day one with your dog — the thing most new owners get wrong.” · <b>Angle:</b> reassurance, not sales · <b>CTA:</b> free first-30-days checklist · <b>Format:</b> carousel + UGC voice.",stats:[['TOFU','Funnel'],['Carousel','Format']]},
+    {q:'Switch to Seasonal moments',a:"Switching the moment type…",act:'seasonal'}]},
+ 'propositions':{name:'Propositions · SOMIN × “clarity breeds connection”',
+   intro:"Two propositions generated from <b>“In the realm of commerce, clarity breeds connection.”</b> for the product <b>SOMIN</b>.",
+   chips:[
+    {q:'Which proposition is strongest?',a:"<b>“Connect beyond metrics; reach the hearts of your audience.”</b> — the only one pairing a clear product truth (prediction) with an emotional payoff (resonance). That combination is what your top posts share."},
+    {q:'Generate creative expressions',a:"Opening Expressions for this proposition…",act:'goexpr'},
+    {q:'Rewrite the tagline shorter',a:"Options: <b>“Reach hearts, not just metrics.”</b> · <b>“Beyond metrics. Into meaning.”</b> · <b>“Data that connects.”</b>"}]},
+ 'expressions':{name:'Expressions · TOFU · 46/50 image credits',
+   intro:"You've generated <b>5 TOFU concepts</b> from “Understanding is the foundation of connection.” I can predict which will perform, extend the funnel, or score + launch them.",
+   chips:[
+    {q:'Which concept will score highest?',a:"My prediction: <b>Pattern Interrupt — “Your demographics are lying to you”</b> tops TOFU; the <b>Before/After ROI</b> is strongest for retargeting; the Street-Interview is safe but low-ceiling.",stats:[['0.86','Pattern Int.'],['0.79','Before/After'],['0.61','Street Int.']]},
+    {q:'Generate 3 more MOFU concepts',a:"Three MOFU angles: a <b>comparison teardown</b> (SOMIN vs a demographics tool), a <b>30s “how it works” explainer</b>, and a <b>case-study proof reel</b>. Want me to render them?",act:'esc'},
+    {q:'Score these for clickability',a:"I can run <b>Creative Scoring</b> — upload each render, poll SOMIN for predicted above-average clickability, flag anything ≥0.80 as ‘Top performer potential’. That's an Agent run.",act:'esc'},
+    {q:'Push the winners to Meta',a:"That's the closing step of the Agent flow — score, then push the ≥0.80 creatives to Meta as paused ads.",act:'esc'}]}
+};
+
+function renderDock(scr){const c=CTX[scr];$('#ctxName').innerHTML=c.name;const b=$('#dockBody');b.innerHTML='';
+  addDockMsg('ai',c.intro);renderChips();}
+function addDockMsg(role,html,stats){const b=$('#dockBody');const m=document.createElement('div');m.className='msg '+role;
+  let s='';if(stats)s='<div class="mini-stat">'+stats.map(([n,l])=>`<div class="ms"><div class="n">${n}</div><div class="l">${l}</div></div>`).join('')+'</div>';
+  m.innerHTML=`<div class="ava">${role==='ai'?'◈':'you'.slice(0,2)}</div><div class="bub">${html}${s}</div>`;b.appendChild(m);b.scrollTop=b.scrollHeight;return m;}
+function renderChips(){const b=$('#dockBody');const old=$('#chipRow');if(old)old.remove();
+  const c=CTX[CUR];const d=document.createElement('div');d.className='chips';d.id='chipRow';
+  d.innerHTML=c.chips.map((x,i)=>`<button class="chip${x.act==='esc'?' hero':''}" onclick="dockChip(${i})">${x.q}</button>`).join('');
+  b.appendChild(d);b.scrollTop=b.scrollHeight;}
+function typing(on){const b=$('#dockBody');if(on){const t=document.createElement('div');t.className='msg ai';t.id='typing';
+  t.innerHTML='<div class="ava">◈</div><div class="bub"><div class="typing"><i></i><i></i><i></i></div></div>';b.appendChild(t);b.scrollTop=b.scrollHeight;}
+  else{const t=$('#typing');if(t)t.remove();}}
+async function dockChip(i){const c=CTX[CUR].chips[i];addDockMsg('me',c.q);const old=$('#chipRow');if(old)old.remove();
+  typing(true);await wait(600);typing(false);addDockMsg('ai',c.a,c.stats);
+  let navigated=false;if(c.act)navigated=runAct(c.act);if(!navigated)renderChips();}
+function runAct(a){switch(a){
+  case'filterBO':actFilterBO();return false;
+  case'weekly':actWeekly();return false;
+  case'seasonal':actSeasonal();return false;
+  case'esc':setTimeout(openAgent,300);return true;
+  case'gomoments':toast('Opening Moments for this persona');setTimeout(()=>go('moments'),350);return true;
+  case'goprops':toast('Opening Propositions');setTimeout(()=>go('propositions'),350);return true;
+  case'goexpr':toast('Opening Expressions');setTimeout(()=>go('expressions'),350);return true;
+ }return false;}
+function actFilterBO(){$$('#treemap .tile').forEach(t=>t.classList.add('dim'));
+  $$('#treemap .tile[data-aud="Business Owners"]').forEach(t=>{t.classList.remove('dim');t.classList.add('hot');});
+  $$('#audList .r').forEach(r=>r.style.opacity=r.dataset.aud==='Business Owners'?'1':'.35');
+  $('#clSel').textContent='93';$('#clFilterPill').innerHTML=' <span class="tag" style="background:var(--teal-wash);color:var(--teal-d)">Audience: Business Owners ✕</span>';
+  toast('Filter applied · Business Owners');
+  addDockMsg('ai',"Done — treemap is now filtered to <b>Business Owners</b> (93 media). SOMIN owns just a sliver; LinkedIn + Milieu hold the rest. This is the clearest single lane to build into.",[['93','Media'],['~9','SOMIN'],['WHITESPACE','Verdict']]);}
+function actWeekly(){const t=$('#scr-brand-tracker .toggle3');if(t){$$('button',t).forEach(x=>x.classList.remove('on'));$$('button',t)[1].classList.add('on');}
+  drawLine('#trendContent',[['--c-linkedin',[30,62,48,80,55,70,92]],['--c-milieu',[20,30,55,40,62,50,78]],['--c-somin',[10,14,12,18,16,22,20]]]);
+  toast('Content Activity → Weekly');
+  addDockMsg('ai',"Weekly view: LinkedIn and Milieu ramp late in the window while SOMIN stays flat and low. Your line is the only one not trending up — the gap is <b>widening</b>, not closing.");}
+function actSeasonal(){$('#momentType .v').textContent='Seasonal Moments';
+  $('#momentCards').innerHTML=momentCardsHTML([
+   ['Awareness Calendar','Pet Wellness Month','“Every October I recommit to my dog’s health routine.”','Seasonal spikes in nutrition + check-up content open a natural window for well-being messaging.'],
+   ['Awareness Calendar','New Year, New Routine','“January is when I reset feeding and exercise habits.”','Resolution energy makes early-year ideal for habit-forming product stories.'],
+   ['Seasonal Retail','Puppy Season (spring litters)','“Spring is when our family finally got our first puppy.”','New-owner demand concentrates in spring — high intent for starter guidance.']]);
+  toast('Moment type → Seasonal');
+  addDockMsg('ai',"Switched to <b>Seasonal Moments</b>. For this persona the strongest anchor is <b>Pet Wellness Month (Oct)</b> — validate the local date before you schedule against it.");}
+async function dockSend(){const el=$('#dockInput');const v=el.value.trim();if(!v)return;el.value='';
+  addDockMsg('me',v);const old=$('#chipRow');if(old)old.remove();typing(true);await wait(650);typing(false);
+  const c=CTX[CUR];const hit=c.chips.find(x=>overlap(v,x.q));
+  if(hit){addDockMsg('ai',hit.a,hit.stats);let nav=false;if(hit.act)nav=runAct(hit.act);if(!nav)renderChips();}
+  else{addDockMsg('ai',"I'm reading <b>"+c.name+"</b> right now, so I can answer against exactly what's on screen. Try one of these — or press <b>⤢</b> to hand this context to the full Agent.");renderChips();}}
+function overlap(a,b){a=a.toLowerCase();b=b.toLowerCase();const w=b.split(/\W+/).filter(x=>x.length>3);return w.some(x=>a.includes(x));}
+function toggleDock(){$('#dock').classList.toggle('min');}
+/* ============================================================= AGENT STUDIO */
+function Ai(){return $('#agentInner');}
+function scrollA(){const b=$('#agentBody');b.scrollTop=b.scrollHeight;}
+function addAgentMsg(role,html){const m=document.createElement('div');m.className='amsg '+role;
+  m.innerHTML=`<div class="ava">${role==='ai'?'◈':'AF'}</div><div class="abub">${html}</div>`;Ai().appendChild(m);scrollA();return m;}
+function agentChips(arr){const d=document.createElement('div');d.className='chips';d.style.margin='2px 0 2px 42px';
+  arr.forEach(x=>{const b=document.createElement('button');b.className='chip'+(x.hero?' hero':'');b.textContent=x.t;
+    b.onclick=()=>{addAgentMsg('me',x.t);d.remove();x.fn();};d.appendChild(b);});
+  Ai().appendChild(d);scrollA();return d;}
+async function addTrace(title,rows){const box=document.createElement('div');box.className='amsg ai';
+  box.innerHTML=`<div class="ava">◈</div><div class="abub" style="padding:0;background:transparent;border:none;box-shadow:none">
+    <div class="trace"><div class="th">⚙ ${title}<span class="ti2 st"> · running…</span></div><div class="rows"></div></div></div>`;
+  Ai().appendChild(box);const rowsEl=box.querySelector('.rows');scrollA();
+  for(const r of rows){const el=document.createElement('div');el.className='tl';
+    el.innerHTML=`<span class="stt"><span class="spin"></span></span><span class="nm">${r[0]}</span><span class="rs">…</span>`;
+    rowsEl.appendChild(el);scrollA();await wait(r[2]||600);
+    el.querySelector('.stt').innerHTML='<span class="ok">✓</span>';el.querySelector('.rs').textContent=r[1];scrollA();}
+  box.querySelector('.st').innerHTML=' · <span class="ok">done</span>';scrollA();}
+
+function openAgent(){$('#agent').classList.add('open');$('#dock').classList.add('min');agentFromContext(CUR);}
+function openAgentFrom(scr){CUR=scr;openAgent();}
+function closeAgent(){$('#agent').classList.remove('open');$('#dock').classList.remove('min');}
+
+const AGENT_CTX={
+ 'content-library':"I've loaded your <b>Inferred-Audience treemap</b> — 225 media, 5 brands. Business Owners is the biggest audience but SOMIN barely appears there: a clear content-supply whitespace. I can turn this straight into a cross-market strategy deck.",
+ 'brand-tracker':"I've loaded <b>Brand Tracker</b> — 248 posts. SOMIN ranks 4th on activity and last on engagement. I can build the plan to close that gap.",
+ 'perspectives':"I've loaded <b>Study 027</b> — 4 personas, Entrepreneurs filter. I can build the persona → tension → proposition engine into a deck.",
+ 'personas':"I've loaded <b>The Empowered Strategist</b> — 19 media, 707 engagement. I can generate its insight chains, propositions and a deck.",
+ 'insights':"I've loaded the insight <b>“Understanding is the foundation of connection.”</b> I can generate propositions and creative from it.",
+ 'moments':"I've loaded <b>Community Builder × pet nutrition</b>. I can build a dated content calendar and post briefs.",
+ 'propositions':"I've loaded your <b>SOMIN proposition set</b>. I can render creative expressions and score them for clickability.",
+ 'expressions':"I've loaded your <b>TOFU expressions</b>. I can render the full funnel, score clickability, and push winners to Meta."};
+const CTXQUICK={'content-library':{t:'Just map the whitespace here',fn:()=>startFlow('whitespace')},
+ 'brand-tracker':{t:'Diagnose the engagement gap',fn:()=>startFlow('whitespace')},
+ 'perspectives':{t:'Generate the insight chains',fn:()=>startFlow('whitespace')},
+ 'personas':{t:'Generate the insight chains',fn:()=>startFlow('whitespace')},
+ 'insights':{t:'Render creative from this insight',fn:()=>startFlow('creative')},
+ 'moments':{t:'Build the content calendar',fn:()=>startFlow('calendar')},
+ 'propositions':{t:'Render creative expressions',fn:()=>startFlow('creative')},
+ 'expressions':{t:'Score these for clickability',fn:()=>startFlow('scoring')}};
+
+function agentFromContext(scr){
+  $('#agentCtxTop').innerHTML=`<span class="ctxpill">◧ Context from: ${TITLES[scr]}</span>`;
+  $('#agentCtxPill').innerHTML=`<div style="background:#1b2625;border:1px solid #2a3635;border-radius:10px;padding:9px 11px;margin:2px 0 4px;font-size:11.5px"><span style="color:#fff">◧ <b>Context loaded</b></span><br><span style="color:#8fb8ad">${TITLES[scr]}</span></div>`;
+  $('#agentTitle').textContent='SOMIN Agent';Ai().innerHTML='';
+  addAgentMsg('ai',AGENT_CTX[scr]+"<br><br>Where do you want to take it?");
+  const q=CTXQUICK[scr];
+  agentChips([{t:'▶ Run the worked example — Reassured brand deck',hero:true,fn:()=>startFlow('reassured')},
+    {t:q.t,fn:q.fn},{t:'Browse all workflows',fn:agentHome}]);}
+
+function agentHome(){closeAgentSide();$('#agentCtxTop').innerHTML='';$('#agentCtxPill').innerHTML='';$('#agentTitle').textContent='SOMIN Agent';Ai().innerHTML='';
+  addAgentMsg('ai',"<h4>SOMIN Agent</h4><p>Run any SOMIN skill as an autonomous workflow — wired to the SOMIN MCP, Figma, Meta and Drive. Pick one from the left, or start with a favourite:</p>"+
+   `<div class="pgrid" style="margin-top:6px">
+     ${hc('◆','Brand Strategy Deck','Reassured worked example','reassured',true)}
+     ${hc('▦','Whitespace Analysis','Content-supply gaps','whitespace')}
+     ${hc('✦','Creative Expressions','Render + score funnel','creative')}
+     ${hc('ⓕ','Meta Campaign Refresh','Optimise live ads','meta')}</div>`);}
+function hc(ic,t,s,id,star){return `<button class="pmini" style="text-align:left;cursor:pointer;${star?'border-color:var(--teal)':''}" onclick="startFlow('${id}')"><div class="nm">${ic} ${t}</div><div class="bl">${s}</div></button>`;}
+
+function startFlow(id){closeAgentSide();
+  if(id==='reassured')return rzScope();
+  if(id==='whitespace')return shortWhitespace();
+  if(id==='creative')return shortCreative();
+  if(id==='scoring')return shortScoring();
+  if(id==='meta')return shortMeta();
+  return stubFlow(id);}
+
+/* -------- Reassured hero flow -------- */
+function rzScope(){$('#agentTitle').textContent='Brand Strategy Deck';$('#agentCtxTop').innerHTML='<span class="ctxpill">◆ Cross-market briefing</span>';Ai().innerHTML='';
+  addAgentMsg('ai',"<h4>Brand Strategy Deck — let's scope it</h4><p>I'll run the full SOMIN chain (trends → whitespace → insights → propositions → moments → calendar → creative) and render a QA'd deck in the brand's real colours. Three quick inputs.</p><p><b>1 / 3 · Which brand are we building for?</b></p>");
+  agentChips([
+   {t:'Reassured — UK life insurance',hero:true,fn:rzQ2},
+   {t:'SOMIN — this workspace',fn:()=>{addAgentMsg('ai',"Great option too — but for this demo I'll run the fully worked <b>Reassured</b> example so you can see every stage. Same engine, real data.");rzQ2();}},
+   {t:'Connect a new brand…',fn:()=>{toast('brand-extraction-from-web');addAgentMsg('ai',"I'd normally run <b>brand-extraction-from-web</b> on the new site for palette + offerings. For the demo, continuing with <b>Reassured</b>.");rzQ2();}}]);}
+function rzQ2(){addAgentMsg('ai',"<p><b>2 / 3 · Confirm the competitor set.</b> I pulled the UK life-insurance brokers already tracked in the workspace.</p>");
+  agentChips([{t:'Use these 5 — Aviva · Legal & General · LV= · Vitality · Scottish Widows',hero:true,fn:rzQ3},
+   {t:'Edit the set…',fn:()=>{toast('Competitor picker');rzQ3();}}]);}
+function rzQ3(){addAgentMsg('ai',"<p><b>3 / 3 · Market, window &amp; what to lead with.</b></p>");
+  agentChips([{t:'UK · last 60 days · lead with whitespace',hero:true,fn:rzRun},
+   {t:'UK · 12-month trend',fn:rzRun},
+   {t:'Multi-market (UK + US)',fn:()=>{addAgentMsg('ai',"Multi-market runs the chain once <b>per market</b> and only reports convergence where it independently emerges. For the demo I'll show the single-market UK run end-to-end.");rzRun();}}]);}
+async function rzRun(){addAgentMsg('ai',"On it — running the full chain against the <b>Reassured</b> workspace. Each tool call streams as it fires.");
+  await addTrace('SOMIN Agent · cross-market briefing',[
+   ['SOMIN MCP · studies-create — persona + tensions ×2 windows','2 studies queued',700],
+   ['SOMIN MCP · studies-get','157 posts · 3 personas · 6 tensions',900],
+   ['SOMIN MCP · whitespace cohorts (brand vs 5 competitors)','3 cohorts built',700],
+   ['whitespace-analysis','6 territories mapped',800],
+   ['insight-creation-brand','3 insight chains',700],
+   ['product + propositions-create','6 propositions',650],
+   ['moments-create','15 timing triggers',600],
+   ['content-calendar-build','12-week calendar',600],
+   ['image-generate ×9 · creative expressions','9 renders',1100],
+   ['creative-scoring · posts-upload → posts-search','scored · 2 top performers',900]]);
+  addAgentMsg('ai',"<b>✓ Analysis complete.</b> The headline: Reassured runs a <b>100% paid</b> strategy in a category that publishes <b>75% organic</b> — that mismatch is both the risk and the opening.");
+  agentChips([{t:'Show me the findings →',hero:true,fn:rzF1}]);}
+function rzF1(){addAgentMsg('ai',artLandscape());addAgentMsg('ai',artPersonas());agentChips([{t:'Continue → whitespace + insight chains',hero:true,fn:rzF2}]);}
+function rzF2(){addAgentMsg('ai',artWhitespace());addAgentMsg('ai',artChains());agentChips([{t:'Continue → propositions + moments',hero:true,fn:rzF3}]);}
+function rzF3(){addAgentMsg('ai',artProps());addAgentMsg('ai',artMoments());agentChips([{t:'See the rendered deck →',hero:true,fn:rzF4}]);}
+function rzF4(){addAgentMsg('ai',artDeck());initDeck();agentChips([{t:'See the creative expressions →',hero:true,fn:rzF5}]);}
+function rzF5(){addAgentMsg('ai',artCreatives());agentChips([{t:'What can I do with this? →',hero:true,fn:rzF6}]);}
+function rzF6(){addAgentMsg('ai',"<h4>Ship it — pick any hand-off</h4><p>Every output is a real object in your workspace, so I can push it wherever you work next.</p>");
+  agentChips([
+   {t:'⬇ Export PPTX',fn:()=>handoff('PPTX exported — Reassured_UK_Briefing.pptx · 32 slides')},
+   {t:'⬇ Export PDF',fn:()=>handoff('PDF exported — Reassured_UK_Briefing.pdf')},
+   {t:'✦ Push slides to Figma',fn:()=>handoffTrace('Figma · push frames','Pushing 32 slides to Figma…','✓ Pushed to Figma → “Reassured / UK Briefing” — editable frames')},
+   {t:'▲ Save to Google Drive',fn:()=>handoff('Saved to Google Drive · /SOMIN/Reassured/')},
+   {t:'ⓕ Launch top creatives on Meta',fn:()=>handoffTrace('Meta · create ads','Creating 2 paused ads from the ≥0.80 creatives…','✓ 2 paused ads created in Meta Ads Manager — traceably named, ready for review')},
+   {t:'▤ Build the content calendar',fn:()=>handoff('12-week calendar added to Moments → Calendar')}]);
+  setTimeout(()=>addAgentMsg('ai',"<p style='margin:0'>💡 Once this campaign is live for <b>3–7 days</b>, run <b>Meta Campaign Refresh</b> — I'll read the real delivery data and generate the next round of scored creatives automatically.</p>"),500);}
+function handoff(msg){toast(msg);addAgentMsg('ai','<b>✓ '+msg+'</b>');}
+async function handoffTrace(title,run,done){await addTrace(title,[[run,done.replace('✓ ',''),900]]);toast(done.replace('✓ ',''));}
+
+/* -------- short flows -------- */
+async function shortWhitespace(){$('#agentTitle').textContent='Whitespace Analysis';$('#agentCtxTop').innerHTML='';Ai().innerHTML='';
+  addAgentMsg('ai',"Mapping content-supply gaps for this selection…");
+  await addTrace('Whitespace',[['SOMIN MCP · whitespace cohorts','brand vs competitors',700],['whitespace-analysis','6 territories',800]]);
+  addAgentMsg('ai',artWhitespace());
+  addAgentMsg('ai',"<b>Read:</b> two clean whitespace lanes to build into — honest price transparency and broker-not-insurer clarity. Want the full deck from here?");
+  agentChips([{t:'▶ Build the full brand deck',hero:true,fn:rzScope},{t:'Back to workflows',fn:agentHome}]);}
+async function shortCreative(){$('#agentTitle').textContent='Creative Expressions';$('#agentCtxTop').innerHTML='';Ai().innerHTML='';
+  addAgentMsg('ai',"Rendering a creative funnel in the brand's identity (brand-locked prompts + real wordmark composited)…");
+  await addTrace('Creative Expressions',[['SOMIN MCP · image-generate ×4','4 renders · 1024×1536',1100],['brand-lock + wordmark composite','on-brand',600]]);
+  addAgentMsg('ai',artCreatives());
+  agentChips([{t:'Score these for clickability →',hero:true,fn:shortScoring},{t:'Back to workflows',fn:agentHome}]);}
+async function shortScoring(){$('#agentTitle').textContent='Creative Scoring';$('#agentCtxTop').innerHTML='';Ai().innerHTML='';
+  addAgentMsg('ai',"Scoring each render for predicted above-average clickability (this is a pre-launch prediction, not measured results)…");
+  await addTrace('Creative Scoring',[['SOMIN MCP · posts-upload ×4','uploaded',800],['SOMIN MCP · posts-search (poll)','scoring finalised',1200]]);
+  addAgentMsg('ai',artCreatives());
+  addAgentMsg('ai',"<b>2 of 4</b> cleared the <b>0.80</b> “Top performer potential” bar. I can push those two to Meta as paused ads.");
+  agentChips([{t:'ⓕ Push winners to Meta',hero:true,fn:()=>handoffTrace('Meta · create ads','Creating 2 paused ads…','✓ 2 paused ads created in Meta — ready for review')},{t:'Back to workflows',fn:agentHome}]);}
+async function shortMeta(){$('#agentTitle').textContent='Meta Campaign Refresh';$('#agentCtxTop').innerHTML='';Ai().innerHTML='';
+  addAgentMsg('ai',"Reading your live Meta campaign and finding what's actually winning against the objective…");
+  await addTrace('Meta Campaign Refresh',[
+   ['Meta · ads_get_ad_entities (live)','12 ads · 3 fatiguing',800],
+   ['content-diversity-scorer','winning concept decoded',700],
+   ['SOMIN MCP · whitespace + image-generate','4 fresh creatives',1000],
+   ['creative-scoring','2 ≥ 0.80',800],
+   ['Meta · ads_create_ad (paused)','2 new ads pushed',700]]);
+  addAgentMsg('ai',`<div class="art"><div class="ah"><div class="ico">ⓕ</div><div><b>Refresh complete</b><div class="sub">closed loop · live data → new scored ads</div></div></div>
+   <div class="ab"><div class="pgrid"><div class="pmini"><div class="nm">3</div><div class="bl">fatiguing ads paused</div></div>
+   <div class="pmini"><div class="nm">4</div><div class="bl">fresh creatives in the winning whitespace</div></div>
+   <div class="pmini"><div class="nm">2</div><div class="bl">≥0.80 pushed as paused ads</div></div></div></div></div>`);
+  agentChips([{t:'▶ Full brand deck instead',hero:true,fn:rzScope},{t:'Back to workflows',fn:agentHome}]);}
+const STUB={agency:'Agency Pitch Deck',calendar:'Content Calendar',persona:'Persona Discovery',trend:'Trend Analysis',influencer:'Influencer Deck'};
+function stubFlow(id){$('#agentTitle').textContent=STUB[id]||'Workflow';$('#agentCtxTop').innerHTML='';Ai().innerHTML='';
+  addAgentMsg('ai',`<h4>${STUB[id]||'Workflow'}</h4><p>This runs the same agentic engine — it collects inputs, fires the SOMIN MCP tools, and returns real objects plus a rendered artefact. The fully worked, clickable path in this prototype is the <b>Brand Strategy Deck</b>.</p>`);
+  agentChips([{t:'▶ Run the worked example instead',hero:true,fn:rzScope},{t:'Back to workflows',fn:agentHome}]);}
+
+/* -------- Reassured artifacts -------- */
+function artLandscape(){return `<div class="art"><div class="ah"><div class="ico">◨</div><div><b>Competitive landscape</b><div class="sub">UK life insurance · 157 posts · 60 days</div></div></div>
+ <div class="ab"><p style="margin:0 0 12px">Reassured buys attention where the category earns it. Everyone else builds trust through organic storytelling; Reassured concentrates spend in paid.</p>
+ <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+  <div><div class="eyebrow" style="color:var(--soft)">Reassured mix</div>
+   <div class="sbar" style="margin:8px 0"><span class="nm" style="width:54px;font-size:11px;text-align:left">Paid</span><div class="track"><div class="seg" style="background:var(--re-plum);width:100%"></div></div></div>
+   <div class="sbar" style="margin:0"><span class="nm" style="width:54px;font-size:11px;text-align:left">Organic</span><div class="track"><div class="seg" style="background:var(--re-bluegrey);width:2%"></div></div></div></div>
+  <div><div class="eyebrow" style="color:var(--soft)">Category (5 competitors)</div>
+   <div class="sbar" style="margin:8px 0"><span class="nm" style="width:54px;font-size:11px;text-align:left">Organic</span><div class="track"><div class="seg" style="background:var(--re-bluegrey);width:75%"></div></div></div>
+   <div class="sbar" style="margin:0"><span class="nm" style="width:54px;font-size:11px;text-align:left">Paid</span><div class="track"><div class="seg" style="background:var(--re-plum);width:25%"></div></div></div></div>
+ </div>
+ <div style="margin-top:13px;background:var(--teal-wash);border-radius:10px;padding:11px 13px;font-size:12.5px"><b>Whitespace read:</b> the category's trust is built organically — so an <b>honest, organic-feeling value</b> message is open ground Reassured can own without outspending anyone.</div></div></div>`;}
+function artPersonas(){return `<div class="art"><div class="ah"><div class="ico">⚇</div><div><b>Audience — 3 personas</b><div class="sub">SOMIN persona detection</div></div></div>
+ <div class="ab"><div class="pgrid">
+  <div class="pmini"><div class="nm">The Protective Provider</div><div class="sz">Parents 30–45 · sole earners</div><div class="bl">Buys to protect the family if the worst happens; fears leaving dependents exposed.</div></div>
+  <div class="pmini"><div class="nm">The Pragmatic Shopper</div><div class="sz">35–55 · value-driven</div><div class="bl">Wants the best price fast; distrusts jargon, forms and hard-sell.</div></div>
+  <div class="pmini"><div class="nm">The Late-Starter Worrier</div><div class="sz">50–68 · first policy late</div><div class="bl">Anxious it's “too late” or “too expensive”; needs reassurance and simplicity.</div></div>
+ </div></div></div>`;}
+function artWhitespace(){const rows=[['Honest price transparency','WHITESPACE','v-white'],['Broker-not-insurer clarity','WHITESPACE','v-white'],
+ ['Over-50 / impaired reassurance','WHITESPACE','v-white'],['Family-protection storytelling','CONTESTED','v-contest'],
+ ['Speed · “sorted in minutes”','CONTESTED','v-contest'],['“From 20p a day” value','BLOCKED · Reassured owns','v-block']];
+ return `<div class="art"><div class="ah"><div class="ico">▦</div><div><b>Whitespace map</b><div class="sub">content-supply verdicts · 6 territories</div></div></div>
+  <div class="ab">${rows.map(([t,v,c])=>`<div class="ws-row"><span class="terr">${t}</span><span class="verdict ${c}">${v}</span></div>`).join('')}</div></div>`;}
+function artChains(){const ch=[
+  ['The Pragmatic Shopper','“Comparison sites feel like a trap”','Behavioural · loss aversion','See every quote, no catch'],
+  ['The Late-Starter Worrier','“It’s too late for me”','Psychological · reassurance','Cover from 20p a day — whatever your age'],
+  ['The Protective Provider','“I don’t want a hard sell at a hard moment”','Sociological · trust','A broker on your side, not an insurer']];
+ return `<div class="art"><div class="ah"><div class="ico">◍</div><div><b>Insight chains</b><div class="sub">persona → tension → angle → proposition</div></div></div>
+  <div class="ab">${ch.map(([p,t,a,pr])=>`<div class="chain"><span class="node per">${p}</span><span class="arw">→</span><span class="node ten">${t}</span><span class="arw">→</span><span class="node ang">${a}</span><span class="arw">→</span><span class="node pro">${pr}</span></div>`).join('')}</div></div>`;}
+function artProps(){const p=[['The honest comparison','“See every quote, no catch.”'],['Never too late','“Cover from 20p a day, whatever your age.”'],
+ ['On your side','“A broker working for you, not an insurer.”'],['Sorted in minutes','“Real quotes — no forms marathon.”']];
+ return `<div class="art"><div class="ah"><div class="ico">◆</div><div><b>Propositions</b><div class="sub">4 of 6 · name + insight tagline</div></div></div>
+  <div class="ab"><div class="pgrid" style="grid-template-columns:1fr 1fr">${p.map(([n,t])=>`<div class="pmini"><div class="nm">${n}</div><div class="bl" style="color:var(--body);font-weight:600">${t}</div></div>`).join('')}</div></div></div>`;}
+function artMoments(){const m=[['New baby / new mortgage','Life'],['Renewal price shock','Seasonal'],['Milestone birthday · 40 / 50','Life'],['New-year budgeting','Seasonal']];
+ return `<div class="art"><div class="ah"><div class="ico">◷</div><div><b>Timing moments</b><div class="sub">15 triggers · lead examples</div></div></div>
+  <div class="ab"><div style="display:flex;flex-wrap:wrap;gap:9px">${m.map(([t,k])=>`<span class="pill"><span class="dot"></span>${t} <span class="cx">${k}</span></span>`).join('')}</div></div></div>`;}
+function artDeck(){return `<div class="art"><div class="ah"><div class="ico">▭</div><div><b>Rendered deck — Reassured brand</b><div class="sub">32 slides · QA'd · real brand colours</div></div></div>
+ <div class="ab" style="padding:12px"><div class="deck">
+  <div class="slide on" style="background:var(--re-bluegrey);color:#fff"><span class="wm"><span class="re-re">RE</span><span class="re-rest-w">ASSURED</span></span>
+    <div style="position:absolute;left:34px;top:50%;transform:translateY(-50%);max-width:74%"><div class="kick" style="color:var(--re-yellow)">Cross-market strategy · UK</div>
+    <h2 style="font-size:30px">LIFE FEELS GOOD WHEN YOU'RE REASSURED</h2><div style="font-family:Montserrat;font-size:12px;opacity:.85">Where to play in UK life insurance — a whitespace-led brief</div></div>
+    <div class="foot" style="color:#fff">SOMIN × REASSURED</div></div>
+  <div class="slide" style="background:#fff;color:var(--re-ink)"><span class="wm"><span class="re-re">RE</span><span class="re-rest-d">ASSURED</span></span>
+    <div style="position:absolute;left:34px;top:64px"><div class="kick" style="color:var(--re-plum)">Section 01</div><h2 style="font-size:26px;color:var(--re-plum)">WHO WE'RE TALKING TO</h2>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;font-family:Montserrat">
+      <span style="background:var(--re-grey);border-radius:8px;padding:8px 11px;font-weight:700;font-size:11px">Protective Provider</span>
+      <span style="background:var(--re-grey);border-radius:8px;padding:8px 11px;font-weight:700;font-size:11px">Pragmatic Shopper</span>
+      <span style="background:var(--re-grey);border-radius:8px;padding:8px 11px;font-weight:700;font-size:11px">Late-Starter Worrier</span></div></div>
+    <div class="foot" style="color:var(--re-ink)">02</div></div>
+  <div class="slide" style="background:#fff;color:var(--re-ink)"><span class="wm"><span class="re-re">RE</span><span class="re-rest-d">ASSURED</span></span>
+    <div style="position:absolute;left:34px;top:56px;right:34px"><div class="kick" style="color:var(--re-plum)">Section 02</div><h2 style="font-size:26px;color:var(--re-plum)">WHERE TO PLAY</h2>
+    <div style="font-family:Montserrat;font-size:12px;margin-top:6px;line-height:2">
+      <div>✓ Honest price transparency <b style="color:var(--re-green)">— WHITESPACE</b></div>
+      <div>✓ Broker-not-insurer clarity <b style="color:var(--re-green)">— WHITESPACE</b></div>
+      <div>• “From 20p a day” <b style="color:var(--re-plum)">— we already own it</b></div></div></div>
+    <div class="foot" style="color:var(--re-ink)">11</div></div>
+  <div class="slide" style="background:var(--re-plum);color:#fff"><span class="wm"><span style="color:#fff">RE</span><span class="re-rest-w">ASSURED</span></span>
+    <div style="position:absolute;left:34px;top:50%;transform:translateY(-50%);max-width:78%"><div class="kick" style="color:var(--re-yellow)">The idea</div>
+    <h2 style="font-size:32px">THE HONEST COMPARISON</h2><div style="font-family:Montserrat;font-size:13px;opacity:.92">See every quote, no catch — the broker on your side, not an insurer chasing a sale.</div></div>
+    <div class="foot" style="color:#fff">18</div></div>
+  <div class="slide" style="background:#fff;color:var(--re-ink)"><span class="wm"><span class="re-re">RE</span><span class="re-rest-d">ASSURED</span></span>
+    <div style="position:absolute;left:34px;top:56px;right:34px"><div class="kick" style="color:var(--re-plum)">Activation</div><h2 style="font-size:24px;color:var(--re-plum)">12-WEEK CALENDAR</h2>
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-top:10px">${Array.from({length:18}).map((_,i)=>`<div style="height:14px;border-radius:3px;background:${i%3===0?'var(--re-plum)':i%3===1?'var(--re-green)':'var(--re-grey)'}"></div>`).join('')}</div>
+    <div style="font-family:Montserrat;font-size:10px;color:#888;margin-top:8px">Mon / Wed / Fri cadence · pillar-weighted 50 / 30 / 20</div></div>
+    <div class="foot" style="color:var(--re-ink)">24</div></div>
+  <div class="slide" style="background:var(--re-bluegrey);color:#fff"><span class="wm"><span class="re-re">RE</span><span class="re-rest-w">ASSURED</span></span>
+    <div style="position:absolute;left:34px;top:50%;transform:translateY(-50%);max-width:74%"><div class="kick" style="color:var(--re-yellow)">Creative</div><h2 style="font-size:26px">IT'S NOT TOO LATE.</h2>
+    <div style="font-family:Montserrat;font-size:12px;opacity:.9">Cut-out subject on solid plum · Pluto caps · plum pill CTA · Trustpilot proof.</div></div>
+    <div class="foot" style="color:#fff">29</div></div>
+  <div class="deck-nav"><button class="arb prev">‹</button><button class="arb next">›</button>
+    <div class="dots">${Array.from({length:6}).map((_,i)=>`<span class="dt${i===0?' on':''}"></span>`).join('')}</div><span class="lbl">1 / 6</span></div>
+ </div></div></div>`;}
+function artCreatives(){const c=[['var(--re-plum)','😌','IT’S NOT TOO LATE.','Compare quotes','0.87',true],
+ ['var(--re-bluegrey)','👨‍👩‍👧','PROTECT THE PEOPLE WHO RELY ON YOU.','Get your free quote','0.81',true],
+ ['var(--re-green)','🔍','SEE EVERY QUOTE. NO CATCH.','Compare quotes','0.73',false],
+ ['var(--re-pink)','⏱️','SORTED IN MINUTES.','Start now','0.66',false]];
+ return `<div class="art"><div class="ah"><div class="ico">✦</div><div><b>Creative expressions — scored</b><div class="sub">brand-locked · real wordmark · predicted clickability</div></div></div>
+  <div class="ab"><div class="crgrid">${c.map(([bg,em,h,cta,sc,top])=>`<div class="creative"><div class="cv" style="background:${bg}">${top?'<span class="scorebadge">★ TOP</span>':''}<span class="subj">${em}</span><div class="ch">${h}</div><span class="cta">${cta}</span></div><div class="score"><span class="p">${sc}</span><span class="faint" style="font-size:10px">predicted clickability</span></div></div>`).join('')}</div>
+  <div style="margin-top:12px;font-size:12px;color:var(--soft)"><b class="tealtxt">2 of 4</b> cleared the <b>0.80</b> “Top performer potential” bar — a pre-launch prediction, not measured results.</div></div></div>`;}
+function initDeck(){const decks=$$('#agentInner .deck');const deck=decks[decks.length-1];if(!deck)return;
+  const slides=$$('.slide',deck),dots=$$('.dt',deck),lbl=$('.lbl',deck);let i=0;
+  function show(n){i=(n+slides.length)%slides.length;slides.forEach((s,k)=>s.classList.toggle('on',k===i));dots.forEach((d,k)=>d.classList.toggle('on',k===i));if(lbl)lbl.textContent=(i+1)+' / '+slides.length;}
+  $('.prev',deck).onclick=()=>show(i-1);$('.next',deck).onclick=()=>show(i+1);show(0);}
+
+/* ============================================================= AUTH + MOBILE DRAWERS */
+function doLogin(){const u=($('#lu').value||'').trim().toLowerCase(),p=($('#lp').value||'').trim();
+  if(u==='admin'&&p==='admin'){const l=$('#login');l.classList.add('hide');setTimeout(()=>{l.style.display='none';},450);
+    if(window.innerWidth<=560)$('#dock').classList.add('min');}
+  else{$('#lerr').textContent='Incorrect username or password — try admin / admin.';}}
+function doLogout(){const l=$('#login');l.style.display='grid';l.classList.remove('hide');$('#lu').value='';$('#lp').value='';$('#lerr').textContent='';closeSide();closeAgent();}
+function toggleSide(){const s=$('.side');s.classList.toggle('open');$('#scrim').classList.toggle('show',s.classList.contains('open'));}
+function closeSide(){$('.side').classList.remove('open');$('#scrim').classList.remove('show');}
+function toggleAgentSide(){const a=$('.agent-side');if(a)a.classList.toggle('open');}
+function closeAgentSide(){const a=$('.agent-side');if(a)a.classList.remove('open');}
+window.addEventListener('DOMContentLoaded',()=>{const el=$('#lu');if(el)el.focus();});
+</script>
+</body>
+</html>
