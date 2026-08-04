@@ -489,6 +489,57 @@ img,svg{max-width:100%;display:block}
  .sowise-rail{position:absolute;left:0;top:0;bottom:0;width:250px;transform:translateX(-100%);transition:transform .25s ease;z-index:9}
  .sowise-rail.open{transform:none;box-shadow:0 0 60px rgba(0,0,0,.55)}
 }
+
+/* ---------- subtabs (Treemap / Media, moment types) ---------- */
+.subtabs{display:inline-flex;gap:4px;background:#eef3f2;border-radius:10px;padding:4px}
+.subtabs button{padding:7px 14px;border-radius:7px;font-weight:700;font-size:12.5px;color:var(--soft)}
+.subtabs button.on{background:#fff;color:var(--teal-d);box-shadow:var(--shadow)}
+.sortsel{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--soft)}
+.mtabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.mtabs button{border:1px solid var(--hair-2);background:#fff;color:var(--soft);border-radius:999px;padding:7px 13px;font-weight:700;font-size:12px}
+.mtabs button.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+
+/* ---------- media posts feed ---------- */
+.feed{display:flex;flex-direction:column;gap:14px}
+.post{border:1px solid var(--hair);border-radius:14px;background:#fff;box-shadow:var(--shadow);overflow:hidden;display:grid;grid-template-columns:210px 1fr}
+.post .pv{background:var(--card-2);border-right:1px solid var(--hair);padding:14px;display:flex;flex-direction:column;gap:9px;font-size:11.5px;color:var(--soft)}
+.post .pv .brand{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--ink);font-size:12.5px}
+.post .pv .met{display:flex;justify-content:space-between;border-top:1px dashed var(--hair);padding-top:6px}
+.post .pv .met b{color:var(--ink)}
+.post .pv .go{color:var(--teal-d);font-weight:700}
+.post .pb{padding:15px 17px;display:flex;flex-direction:column}
+.post .pb .txt{font-size:12.5px;color:var(--body);line-height:1.55;flex:1}
+.post .pb .txt .more{color:var(--teal-d);font-weight:700}
+.post .pb .src{margin-top:10px;display:inline-flex;align-items:center;gap:8px;font-size:11.5px;color:var(--soft);border:1px solid var(--hair);border-radius:9px;padding:6px 10px;width:fit-content}
+.post .pb .eng{display:flex;gap:16px;margin-top:11px;font-size:12px;color:var(--soft)}
+.post .pb .eng b{color:var(--ink)}
+.post .pb .eng .sel{margin-left:auto;color:var(--teal-d);font-weight:800}
+.plat{width:22px;height:22px;border-radius:6px;display:inline-grid;place-items:center;color:#fff;font-size:11px;font-weight:900;flex:none}
+
+/* ---------- competitor breakdown table ---------- */
+.ctable{width:100%;border-collapse:collapse;font-size:12.5px}
+.ctable th{text-align:left;font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--faint);font-weight:800;padding:9px 10px;border-bottom:1px solid var(--hair)}
+.ctable td{padding:11px 10px;border-bottom:1px solid var(--hair);color:var(--body)}
+.ctable tr:last-child td{border-bottom:none}
+.ctable .bn{font-weight:800;color:var(--ink);display:inline-flex;align-items:center;gap:8px}
+.ctable .val{font-weight:800;color:var(--ink)}
+.ctable .up{color:#189a6d;font-weight:700;font-size:11px}
+.ctable .dn{color:#d0555f;font-weight:700;font-size:11px}
+
+/* ---------- persona / tension detection cards ---------- */
+.detcard{border:1px solid var(--hair);border-radius:14px;background:#fff;box-shadow:var(--shadow);overflow:hidden;display:grid;grid-template-columns:120px 1fr}
+.detcard .cov{background:linear-gradient(150deg,#2b3a55,#47617a);display:grid;place-items:center;color:#d6e6f2;font-weight:800;font-size:11px;letter-spacing:1px;text-align:center;padding:8px}
+.detcard.tns .cov{background:linear-gradient(150deg,#5a3d63,#8a5a86)}
+.detcard .cb{padding:15px 17px}
+.detcard .cb .lab{font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--teal-d);font-weight:800}
+.detcard .cb h4{margin:3px 0 7px;font-size:16px;font-weight:800;color:var(--ink);line-height:1.25}
+.detcard .cb p{margin:0;font-size:12.5px;color:var(--body);line-height:1.5}
+.detcard .cb .meta{margin-top:10px;display:flex;gap:18px;font-size:11.5px;color:var(--soft)}
+.detcard .cb .meta b{color:var(--ink)}
+.notice{background:#fff7e6;border:1px solid #f2d999;border-radius:10px;padding:10px 13px;font-size:12px;color:#8a6d1f;margin:8px 0 14px}
+.refbox{border-top:1px solid var(--hair);margin-top:14px;padding-top:12px;font-size:11.5px;line-height:1.9;color:var(--soft)}
+.refbox b{color:var(--body)}
+.clk{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;padding:3px 9px;border-radius:6px;background:var(--teal-wash);color:var(--teal-d)}
 </style>
 </head>
 <body>
@@ -568,14 +619,14 @@ img,svg{max-width:100%;display:block}
       <div class="fsel"><span class="k">Content Source</span><span class="v">Organic Posts</span></div>
       <div class="fsel"><span class="k">Platform</span><span class="v">6 items selected</span></div>
       <div class="fsel"><span class="k">Brands</span><span class="v">5 items selected</span></div>
-      <div class="fsel"><span class="k">Date Range</span><span class="v">Jul 03 – Aug 03, 2026</span></div>
+      <div class="fsel"><span class="k">Date Range</span><span class="v">Jul 04 – Aug 04, 2026</span></div>
     </div>
     <div class="card pad" style="margin-bottom:16px">
       <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:14px">
         <b class="h2">Media Filters</b>
-        <span class="muted" style="font-size:12.5px">Current Media Selection: <b class="tealtxt" id="clSel">225</b></span>
-        <span class="muted" style="font-size:12.5px">Total Engagement: <b class="tealtxt">2,588</b></span>
-        <span class="muted" style="font-size:12.5px">Total Number of Media: <b class="tealtxt">248</b></span>
+        <span class="muted" style="font-size:12.5px">Current Media Selection: <b class="tealtxt" id="clSel">216</b></span>
+        <span class="muted" style="font-size:12.5px">Total Engagement: <b class="tealtxt">2,427</b></span>
+        <span class="muted" style="font-size:12.5px">Total Number of Media: <b class="tealtxt">239</b></span>
         <span id="clFilterPill"></span>
       </div>
       <div style="display:flex;gap:9px;flex-wrap:wrap">
@@ -586,86 +637,96 @@ img,svg{max-width:100%;display:block}
         <button class="chipbtn plain">Select Filter ›</button>
       </div>
     </div>
+
+    <!-- Understand Your Content -->
+    <div class="runbar" style="position:static;margin:0 0 16px;box-shadow:var(--shadow)">
+      <div class="ic">◎</div>
+      <div><b style="color:var(--ink);font-size:14px">Understand Your Content</b><div class="muted" style="font-size:12px">Analyze filtered data for personas &amp; pain points</div></div>
+      <div class="mini">
+        <div class="m"><div class="n">6</div><div class="l">Platforms</div></div>
+        <div class="m"><div class="n">5</div><div class="l">Brands</div></div>
+        <div class="m"><div class="n">216</div><div class="l">Posts</div></div>
+        <div class="m"><div class="n">2,427</div><div class="l">Engagement</div></div>
+      </div>
+      <button class="btn" onclick="openAgentFrom('content-library')">Run Now</button>
+    </div>
+
     <div class="card pad">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:12px">
-        <div style="display:flex;align-items:center;gap:12px">
-          <b class="h2">Treemap</b>
-          <div class="fsel" style="min-width:180px;padding:7px 12px"><span class="k">Concepts</span><span class="v">Inferred Audience</span></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:14px">
+        <div class="subtabs">
+          <button class="on" id="clTabTree" onclick="switchCL('tree')">▦ Treemap</button>
+          <button id="clTabMedia" onclick="switchCL('media')">▤ Media</button>
         </div>
-        <div class="legend">
+        <div class="sortsel">Sort by <span class="fsel" style="min-width:150px;padding:7px 12px"><span class="v" style="font-size:12.5px">Total Engagement</span></span></div>
+      </div>
+
+      <!-- TREEMAP VIEW -->
+      <div id="clTree">
+        <div class="legend" style="margin-bottom:12px">
           <span class="li"><span class="sw" style="background:var(--c-linkedin)"></span>Linkedin Profiles (Aleks, Egor, Kirill, Filipp)</span>
           <span class="li"><span class="sw" style="background:var(--c-milieu)"></span>Milieu</span>
           <span class="li"><span class="sw" style="background:var(--c-somin)"></span>SOMIN</span>
           <span class="li"><span class="sw" style="background:var(--c-nielsen)"></span>Nielsen</span>
           <span class="li"><span class="sw" style="background:var(--c-gwi)"></span>GWI</span>
         </div>
-      </div>
-      <div style="display:grid;grid-template-columns:230px 1fr;gap:16px">
-        <div>
-          <div style="display:flex;align-items:center;justify-content:space-between;color:var(--faint);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:0 4px 8px;border-bottom:1px solid var(--hair)">
-            <span>▦ ▤</span><span>Presence ↓</span></div>
-          <div class="rowlist" id="audList"></div>
-        </div>
-        <div class="treewrap" id="treemap">
-          <div class="tcol">
-            <div class="trow" style="flex:2.4">
-              <div class="tile" data-aud="Business Owners" style="background:var(--c-linkedin);flex:64">Business Owners<small>64</small></div>
-              <div class="tile" style="background:var(--c-linkedin);flex:50">Marketing Professionals<small>50</small></div>
-            </div>
-            <div class="trow" style="flex:1.5">
-              <div class="tile" style="background:var(--c-linkedin);flex:37">CMOs<small>37</small></div>
-              <div class="tile" style="background:var(--c-linkedin);flex:29">Entrepreneurs<small>29</small></div>
-              <div class="tile" style="background:var(--c-linkedin);flex:19">Agency Leaders<small>19</small></div>
-            </div>
-            <div class="trow" style="flex:1.2">
-              <div class="tile" style="background:var(--c-linkedin);flex:19">Data Scientists<small>19</small></div>
-              <div class="tile" style="background:var(--c-linkedin);flex:17">Tech Enthusiasts<small>17</small></div>
-              <div class="tile" style="background:var(--c-linkedin);flex:13">CTOs<small>13</small></div>
-              <div class="tile" style="background:var(--c-linkedin);flex:13">AI Researchers<small>13</small></div>
-            </div>
-            <div class="trow" style="flex:1">
-              <div class="tile" style="background:var(--c-linkedin);flex:13">Technology Enthusiasts<small>13</small></div>
-              <div class="tile" style="background:var(--c-linkedin);flex:12">Marketing Leaders<small>12</small></div>
-              <div class="tile" style="background:var(--c-linkedin);flex:11">Data Analysts<small>11</small></div>
-              <div class="tile" style="background:var(--c-linkedin);flex:7">MarTech<small>7</small></div>
-            </div>
+        <div style="display:grid;grid-template-columns:230px 1fr;gap:16px">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;color:var(--faint);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:0 4px 8px;border-bottom:1px solid var(--hair)">
+              <span>Inferred Audience</span><span>Presence ↓</span></div>
+            <div class="rowlist" id="audList"></div>
           </div>
-          <div class="tcol">
-            <div class="trow" style="flex:1.7">
-              <div class="tile" data-aud="Business Owners" style="background:var(--c-milieu);flex:29">Business Owners<small>29</small></div>
-              <div class="tile" style="background:var(--c-milieu);flex:25">General Public<small>25</small></div>
+          <div class="treewrap" id="treemap">
+            <div class="tcol">
+              <div class="trow" style="flex:2.6">
+                <div class="tile" data-aud="Business Owners" style="background:var(--c-linkedin);flex:131">Business Owners<small>131</small></div>
+              </div>
+              <div class="trow" style="flex:1.8">
+                <div class="tile" data-aud="Marketing Professionals" style="background:var(--c-linkedin);flex:88">Marketing Professionals<small>88</small></div>
+                <div class="tile" data-aud="Entrepreneurs" style="background:var(--c-linkedin);flex:73">Entrepreneurs<small>73</small></div>
+              </div>
+              <div class="trow" style="flex:1.1">
+                <div class="tile" style="background:var(--c-linkedin);flex:39">CMOs<small>39</small></div>
+                <div class="tile" style="background:var(--c-linkedin);flex:20">Agency Leaders<small>20</small></div>
+                <div class="tile" style="background:var(--c-linkedin);flex:19">Data Scientists<small>19</small></div>
+              </div>
+              <div class="trow" style="flex:.9">
+                <div class="tile" style="background:var(--c-linkedin);flex:17">Tech Enthusiasts<small>17</small></div>
+                <div class="tile" style="background:var(--c-linkedin);flex:13">CTOs<small>13</small></div>
+                <div class="tile" style="background:var(--c-linkedin);flex:13">AI Researchers<small>13</small></div>
+                <div class="tile" style="background:var(--c-linkedin);flex:11">Data Analysts<small>11</small></div>
+              </div>
             </div>
-            <div class="trow" style="flex:1.3">
-              <div class="tile" style="background:var(--c-milieu);flex:18">Entrepreneurs<small>18</small></div>
-              <div class="tile" style="background:var(--c-milieu);flex:18">Professionals<small>18</small></div>
-              <div class="tile" style="background:var(--c-milieu);flex:10">Students<small>10</small></div>
-            </div>
-            <div class="trow" style="flex:1">
-              <div class="tile" style="background:var(--c-milieu);flex:9">Marketing Prof.<small>9</small></div>
-              <div class="tile" style="background:var(--c-milieu);flex:9">Employees<small>9</small></div>
-              <div class="tile" style="background:var(--c-milieu);flex:8">Community<small>8</small></div>
-              <div class="tile" style="background:var(--c-milieu);flex:7">Data Analysts<small>7</small></div>
-            </div>
-            <div class="trow" style="flex:.8">
-              <div class="tile" style="background:var(--c-nielsen);flex:12">Marketers<small>12</small></div>
-              <div class="tile" style="background:var(--c-gwi);flex:8">Advertisers<small>8</small></div>
-              <div class="tile" style="background:var(--c-somin);flex:9">CMOs<small>9</small></div>
-              <div class="tile" style="background:var(--c-somin);flex:6">Marketers<small>6</small></div>
+            <div class="tcol">
+              <div class="trow" style="flex:1.7">
+                <div class="tile" data-aud="Business Owners" style="background:var(--c-milieu);flex:29">Business Owners<small>29</small></div>
+                <div class="tile" style="background:var(--c-milieu);flex:25">General Public<small>25</small></div>
+              </div>
+              <div class="trow" style="flex:1.3">
+                <div class="tile" data-aud="Entrepreneurs" style="background:var(--c-milieu);flex:18">Entrepreneurs<small>18</small></div>
+                <div class="tile" style="background:var(--c-milieu);flex:18">Professionals<small>18</small></div>
+                <div class="tile" style="background:var(--c-milieu);flex:10">Students<small>10</small></div>
+              </div>
+              <div class="trow" style="flex:1">
+                <div class="tile" data-aud="Marketing Professionals" style="background:var(--c-milieu);flex:9">Marketing Prof.<small>9</small></div>
+                <div class="tile" style="background:var(--c-milieu);flex:9">Employees<small>9</small></div>
+                <div class="tile" style="background:var(--c-milieu);flex:8">Community<small>8</small></div>
+                <div class="tile" style="background:var(--c-milieu);flex:7">Data Analysts<small>7</small></div>
+              </div>
+              <div class="trow" style="flex:.8">
+                <div class="tile" style="background:var(--c-nielsen);flex:12">Marketers<small>12</small></div>
+                <div class="tile" style="background:var(--c-somin);flex:9">CMOs<small>9</small></div>
+                <div class="tile" style="background:var(--c-gwi);flex:8">Advertisers<small>8</small></div>
+                <div class="tile" style="background:var(--c-somin);flex:6">Marketers<small>6</small></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="runbar">
-      <div class="ic">◎</div>
-      <div><b style="color:var(--ink);font-size:14px">Understand Your Content</b><div class="muted" style="font-size:12px">Analyze filtered data for personas &amp; pain points</div></div>
-      <div class="mini">
-        <div class="m"><div class="n">6</div><div class="l">Platforms</div></div>
-        <div class="m"><div class="n">5</div><div class="l">Brands</div></div>
-        <div class="m"><div class="n">225</div><div class="l">Posts</div></div>
-        <div class="m"><div class="n">2,588</div><div class="l">Engagement</div></div>
+
+      <!-- MEDIA FEED VIEW -->
+      <div id="clMedia" style="display:none">
+        <div class="feed" id="clFeed"></div>
       </div>
-      <button class="btn" onclick="openAgentFrom('content-library')">Run Now</button>
     </div>
   </section>
 
@@ -675,20 +736,20 @@ img,svg{max-width:100%;display:block}
       <div class="fsel"><span class="k">Content Source</span><span class="v">Organic Posts</span></div>
       <div class="fsel"><span class="k">Platform</span><span class="v">6 items selected</span></div>
       <div class="fsel"><span class="k">Brands</span><span class="v">5 items selected</span></div>
-      <div class="fsel"><span class="k">Date Range</span><span class="v">Jul 03 – Aug 03, 2026</span></div>
+      <div class="fsel"><span class="k">Date Range</span><span class="v">Jul 04 – Aug 04, 2026</span></div>
     </div>
     <div class="card pad" style="margin-bottom:16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
       <b class="h2">Media Filters</b>
-      <span class="muted" style="font-size:12.5px">Current Media Selection: <b class="tealtxt">225</b></span>
-      <span class="muted" style="font-size:12.5px">Total Engagement: <b class="tealtxt">2,588</b></span>
-      <span class="muted" style="font-size:12.5px">Total Number of Media: <b class="tealtxt">248</b></span>
+      <span class="muted" style="font-size:12.5px">Current Media Selection: <b class="tealtxt">216</b></span>
+      <span class="muted" style="font-size:12.5px">Total Engagement: <b class="tealtxt">2,427</b></span>
+      <span class="muted" style="font-size:12.5px">Total Number of Media: <b class="tealtxt">239</b></span>
       <div style="flex:1"></div>
       <button class="chipbtn plain">⚲ Save Filter</button><button class="chipbtn plain">Select Filter ›</button>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
       <div class="card pad">
         <div class="h2" style="margin-bottom:4px">Content Activity Overview</div>
-        <div class="muted" style="font-size:12.5px;line-height:1.7">Tracked <b class="tealtxt">248</b> posts · Jul 03 → Aug 03, 2026<br>
+        <div class="muted" style="font-size:12.5px;line-height:1.7">Tracked <b class="tealtxt">239</b> posts · Jul 04 → Aug 04, 2026<br>
           You rank <b class="tealtxt">4th</b> among the selected brands · Most Active: <b style="color:var(--c-linkedin)">Linkedin Profiles</b> · Least Active: <b style="color:var(--c-gwi)">GWI</b></div>
         <div style="display:grid;grid-template-columns:1fr 160px;gap:14px;align-items:center;margin-top:14px">
           <div class="rowlist" id="btContent"></div>
@@ -696,8 +757,11 @@ img,svg{max-width:100%;display:block}
         </div>
       </div>
       <div class="card pad">
-        <div class="h2" style="margin-bottom:4px">Engagement Overview</div>
-        <div class="muted" style="font-size:12.5px;line-height:1.7">Tracked <b class="tealtxt">3,370</b> engagement · Jul 03 → Aug 03, 2026<br>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
+          <div class="h2" style="margin-bottom:4px">Engagement Overview</div>
+          <div class="fsel" style="min-width:140px;padding:6px 11px"><span class="v" style="font-size:12px">Total Engagement</span></div>
+        </div>
+        <div class="muted" style="font-size:12.5px;line-height:1.7">Tracked <b class="tealtxt">3,209</b> engagement · Jul 04 → Aug 04, 2026<br>
           You rank <b class="tealtxt">5th</b> among the selected brands · Most Engaged: <b style="color:var(--c-nielsen)">Nielsen</b> · Least Engaged: <b style="color:var(--c-somin)">SOMIN</b></div>
         <div style="display:grid;grid-template-columns:1fr 160px;gap:14px;align-items:center;margin-top:14px">
           <div class="rowlist" id="btEngage"></div>
@@ -705,7 +769,7 @@ img,svg{max-width:100%;display:block}
         </div>
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
       <div class="card pad">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div class="h2">Content Activity Trend</div>
           <div class="toggle3"><button class="on">Daily</button><button onclick="toast('Weekly view')">Weekly</button><button onclick="toast('Monthly view')">Monthly</button></div></div>
@@ -717,59 +781,88 @@ img,svg{max-width:100%;display:block}
         <svg class="lc" id="trendEngage" viewBox="0 0 520 150" preserveAspectRatio="none"></svg>
       </div>
     </div>
+    <div class="card pad">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <div class="h2">Competitor Breakdown</div>
+        <div class="muted" style="font-size:12px">Jul 04 → Aug 04, 2026</div>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="ctable">
+          <thead><tr><th>Brand Name</th><th>Posts</th><th>Activity Score</th><th>Total Engagement</th><th>Engagement Rate</th></tr></thead>
+          <tbody id="btTable"></tbody>
+        </table>
+      </div>
+    </div>
   </section>
   <!-- ============ PERSPECTIVE STUDIES ============ -->
   <section class="screen" id="scr-perspectives">
     <div class="split">
       <div class="listrail">
-        <div class="search"><input placeholder="Search studies…"></div>
+        <div class="search" style="display:flex;gap:8px;align-items:center">
+          <div class="fsel" style="flex:1;min-width:0;padding:7px 11px"><span class="k">Workspace</span><span class="v" style="font-size:12px">SOMIN | Audience Research Platform</span></div>
+        </div>
         <div class="items">
-          <div class="li-item active"><div class="t">Perspective Study 027</div><div class="m">Created Jul 14, 2026 · 84 media</div></div>
-          <div class="li-item"><div class="t">Concept-Whitespace — Q1</div><div class="m">Jul 7 – Oct 6, 2025</div></div>
-          <div class="li-item"><div class="t">Concept-Whitespace — Q2</div><div class="m">Oct 7 – Jan 6, 2026</div></div>
-          <div class="li-item"><div class="t">Concept-Whitespace — Q3</div><div class="m">Jan 7 – Apr 7, 2026</div></div>
-          <div class="li-item"><div class="t">Concept-Whitespace — Q4</div><div class="m">Apr 8 – Jul 7, 2026</div></div>
-          <div class="li-item"><div class="t">Concept-Whitespace — Trend W2</div><div class="m">Rolling 14-day</div></div>
-          <div class="li-item"><div class="t">Studies Organic — 2 years of Data</div><div class="m">Archive</div></div>
-          <div class="li-item"><div class="t">Perspective Study 019</div><div class="m">Jun 2026</div></div>
+          <div class="li-item"><div class="t">Perspective Study 027</div><div class="m">Latest · Organic</div></div>
+          <div class="li-item active"><div class="t">SOMIN Paid Concept-Whitespace — Q1</div><div class="m">Jul 7 – Oct 6, 2025 · 279 media</div></div>
+          <div class="li-item"><div class="t">SOMIN Paid Concept-Whitespace — Q2</div><div class="m">Oct 7, 2025 – Jan 6, 2026</div></div>
+          <div class="li-item"><div class="t">SOMIN Paid Concept-Whitespace — Q3</div><div class="m">Jan 7 – Apr 7, 2026</div></div>
+          <div class="li-item"><div class="t">SOMIN Paid Concept-Whitespace — Q4</div><div class="m">Apr 8 – Jul 6, 2026</div></div>
+          <div class="li-item"><div class="t">SOMIN Paid Concept-Whitespace — Trend W2</div><div class="m">May 23 – Jul 6</div></div>
+          <div class="li-item"><div class="t">SOMIN Paid Concept-Whitespace — Trend W1</div><div class="m">Apr 8 – May 22</div></div>
+          <div class="li-item"><div class="t">Advertising Agencies Organic</div><div class="m">2 years of data · Audience Research</div></div>
+          <div class="li-item"><div class="t">GWI v.s. Milieu v.s. Nielsen</div><div class="m">Meta Ads Library</div></div>
+          <div class="li-item"><div class="t">Perspective Study 019</div><div class="m">Archive</div></div>
         </div>
       </div>
       <div>
         <div class="card pad" style="margin-bottom:16px">
           <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap">
             <div>
-              <div style="font-size:22px;font-weight:900;color:var(--ink)">Perspective Study 027 <span class="faint">✎</span></div>
-              <div class="muted" style="font-size:12px;margin-top:3px">Created on July 14, 2026</div>
+              <div style="font-size:21px;font-weight:900;color:var(--ink);line-height:1.2">SOMIN Paid Concept-Whitespace — Q1 <span class="faint">✎</span></div>
+              <div class="muted" style="font-size:12px;margin-top:3px">Created on July 07, 2026 · <span class="mono">PS-6901</span></div>
             </div>
-            <div class="muted" style="font-size:12px;line-height:1.7;text-align:right">
-              Source: <b>Organic Posts</b><br>Platforms: Facebook, Instagram, IG Stories, TikTok, LinkedIn<br>
-              Brands: Milieu, Nielsen, GWI, Linkedin Profiles, SOMIN<br>Date Range: Jun 14 – Jul 14, 2026 · Total Media: <b>84</b><br>
-              Filter: Audiences: <b class="tealtxt">Entrepreneurs</b></div>
+            <div class="muted" style="font-size:11.5px;line-height:1.75;text-align:right">
+              Source: <b>Paid Ads</b> · Total Media: <b>279</b><br>Platforms: Facebook, Instagram, IG Stories, Threads, Messenger, Ads Network, Google Ads, LinkedIn<br>
+              Brands: Milieu, Euromonitor, Nielsen, GWI, SOMIN<br>Date Range: Jul 07 – Oct 06, 2025</div>
+          </div>
+          <div class="refbox" style="border-top:1px dashed var(--hair);margin-top:12px;padding-top:10px">
+            <b>Content Types:</b> Product Offering, Value Added Services, Brand Offering, Testimonial &amp; Reviews, Case Study<br>
+            <b>Emotions:</b> Satisfaction, Relief, Empowerment, Hope, Motivation, Anticipation, Excitement, Trust, Confidence, Gratitude, Ambition, Urgency
           </div>
         </div>
-        <div class="card pad">
-          <div class="eyebrow" style="margin-bottom:4px">Persona Detection</div>
-          <div class="h2" style="font-size:20px">Who were the brands talking to?</div>
-          <div class="muted" style="font-size:12.5px;margin:4px 0 6px">4 Personas detected (RANGE: 4 to 4)</div>
-          <div class="legend" style="margin:14px 0 18px">
-            <span class="li"><span class="sw" style="background:var(--c-milieu)"></span>Milieu</span>
-            <span class="li"><span class="sw" style="background:var(--c-nielsen)"></span>Nielsen</span>
-            <span class="li"><span class="sw" style="background:var(--c-gwi)"></span>GWI</span>
-            <span class="li"><span class="sw" style="background:var(--c-linkedin)"></span>Linkedin Profiles</span>
-            <span class="li"><span class="sw" style="background:var(--c-somin)"></span>SOMIN</span>
+
+        <!-- Persona detection -->
+        <div class="card pad" style="margin-bottom:16px">
+          <div class="eyebrow" style="margin-bottom:2px">Persona Detection</div>
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap">
+            <div class="h2" style="font-size:20px">Who were the brands talking to?</div>
+            <div class="muted" style="font-size:12.5px">3 Personas detected <span class="faint">(range 3–10)</span></div>
           </div>
-          <div style="font-weight:800;color:var(--ink);margin-bottom:8px">Persona Distributions <span class="faint" style="font-weight:600;font-size:12px">· Jun 14 → Jul 14, 2026</span></div>
-          <div class="sbar"><span class="nm">The Innovative Connector</span><div class="track">
-            <div class="seg" style="background:var(--c-milieu);width:10%"></div><div class="seg" style="background:var(--c-gwi);width:22.5%"></div>
-            <div class="seg" style="background:var(--c-linkedin);width:12.5%"></div><div class="seg" style="background:var(--c-somin);width:12.5%"></div></div></div>
-          <div class="sbar"><span class="nm">The Innovation Catalyst</span><div class="track">
-            <div class="seg" style="background:var(--c-gwi);width:12.5%"></div><div class="seg" style="background:var(--c-linkedin);width:62.5%"></div><div class="seg" style="background:var(--c-somin);width:22.5%"></div></div></div>
-          <div class="sbar"><span class="nm">Strategic Trailblazer</span><div class="track">
-            <div class="seg" style="background:var(--c-milieu);width:7.5%"></div></div></div>
-          <div class="sbar"><span class="nm">The Empowered Strategist</span><div class="track">
-            <div class="seg" style="background:var(--c-milieu);width:42.5%"></div><div class="seg" style="background:var(--c-nielsen);width:2.5%"></div><div class="seg" style="background:var(--c-somin);width:2.5%"></div></div></div>
-          <div class="axis"><span>0</span><span>10</span><span>20</span><span>30</span><span>40</span></div>
-          <div class="faint" style="font-size:11px;margin-top:10px">The statistics shown are based on 100% of the available data.</div>
+          <div class="notice">⚠️ Partial Data Notice: statistics below are based on <b>46.2%</b> of the available data. Interpret the distribution with caution.</div>
+          <div style="display:grid;grid-template-columns:170px 1fr;gap:18px;align-items:center;margin-bottom:16px">
+            <div id="ppDonutP"></div>
+            <div class="rowlist" id="ppDistP"></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px" id="ppPersonas"></div>
+        </div>
+
+        <!-- Tension detection -->
+        <div class="card pad">
+          <div class="eyebrow" style="margin-bottom:2px;color:var(--re-plum)">Tension Detection</div>
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap">
+            <div class="h2" style="font-size:20px">What tensions did the brands try to solve?</div>
+            <div class="muted" style="font-size:12.5px">4 Tensions detected <span class="faint">(range 4–10)</span></div>
+          </div>
+          <div class="muted" style="font-size:12px;margin:6px 0 14px">The statistics below are based on <b>97.1%</b> of the available data.</div>
+          <div style="display:grid;grid-template-columns:170px 1fr;gap:18px;align-items:center;margin-bottom:16px">
+            <div id="ppDonutT"></div>
+            <div class="rowlist" id="ppDistT"></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px" id="ppTensions"></div>
+          <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn" onclick="openAgentFrom('perspectives')">Generate an Analysis</button>
+            <a class="pill" onclick="go('insights',document.querySelector('[data-scr=insights]'))" style="border-color:var(--teal);color:var(--teal-d);cursor:pointer">View resulting Insights →</a>
+          </div>
         </div>
       </div>
     </div>
@@ -779,42 +872,10 @@ img,svg{max-width:100%;display:block}
   <section class="screen" id="scr-personas">
     <div class="split">
       <div class="listrail">
-        <div class="search" style="display:flex;justify-content:space-between;align-items:center"><b style="color:var(--ink)">Personas</b><span class="tealtxt">99</span></div>
+        <div class="search" style="display:flex;justify-content:space-between;align-items:center"><b style="color:var(--ink)">Detected Personas</b><span class="tealtxt">99</span></div>
         <div class="items" id="personaList"></div>
       </div>
-      <div>
-        <div class="card" style="overflow:hidden;margin-bottom:16px">
-          <div class="pad" style="display:grid;grid-template-columns:150px 1fr;gap:18px">
-            <div style="height:150px;border-radius:12px;background:linear-gradient(135deg,#2b3a55,#4a6178);display:grid;place-items:center;color:#cfe;font-weight:800;letter-spacing:2px;font-size:12px">VISION</div>
-            <div>
-              <div class="eyebrow" style="color:var(--teal-d)">⚇ Detected Persona</div>
-              <div style="font-size:22px;font-weight:900;color:var(--ink);margin:4px 0">The Empowered Strategist <span class="faint" style="font-size:14px">✎</span></div>
-              <div class="muted" style="font-size:12.5px;line-height:1.55">Meet The Empowered Strategist, a dynamic professional deeply invested in business success and innovation. They prioritize purposeful growth and demonstrate strong leadership skills. With a robust interest in market research, data analysis and business strategy, they harness these tools to drive financial stability and operational efficiency… <span class="tealtxt">Show More</span></div>
-              <div style="margin-top:12px;display:flex;align-items:center;gap:10px">
-                <span class="muted" style="font-size:12px">Generate</span>
-                <button class="pill" style="border-color:var(--teal);color:var(--teal-d)" onclick="go('moments',document.querySelector('[data-scr=moments]'))">Moments</button>
-              </div>
-            </div>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--hair)">
-            <div class="pad" style="border-right:1px solid var(--hair)"><div class="muted" style="font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:800">Concept Map</div><div style="font-size:26px;font-weight:900;color:var(--ink);margin-top:6px">3 <span style="font-size:14px;font-weight:700">Profiles</span> <span class="tealtxt" style="font-size:12px;float:right;margin-top:12px">View →</span></div></div>
-            <div class="pad" style="border-right:1px solid var(--hair)"><div class="muted" style="font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:800">Total Media</div><div style="font-size:26px;font-weight:900;color:var(--ink);margin-top:6px">19 <span class="tealtxt" style="font-size:12px;float:right;margin-top:12px">View →</span></div></div>
-            <div class="pad"><div class="muted" style="font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:800">Total Engagement</div><div style="font-size:26px;font-weight:900;color:var(--teal-d);margin-top:6px">707</div></div>
-          </div>
-        </div>
-        <div class="card pad">
-          <div class="muted" style="font-size:12px">Created on July 14, 2026</div>
-          <div style="font-weight:900;color:var(--ink);font-size:16px;margin:2px 0 12px">PS-7014 · Perspective Study 027</div>
-          <div class="muted" style="font-size:12.5px;line-height:1.9">
-            Source: <b>Organic Posts</b> · Platforms: Facebook, Instagram, IG Stories, TikTok, LinkedIn<br>
-            Brands: Milieu, Nielsen, GWI, Linkedin Profiles (Aleks, Egor, Kirill, Filipp), SOMIN<br>
-            Date Range: June 14, 2026 → July 14, 2026 · Total Media: <b>84</b> · Filters: Audiences: <b class="tealtxt">Entrepreneurs</b></div>
-          <div class="sbar" style="margin-top:16px"><span class="nm" style="width:120px">Share of voice</span><div class="track" style="height:30px">
-            <div class="seg" style="background:var(--c-milieu);width:89.5%"></div><div class="seg" style="background:var(--c-nielsen);width:5.3%"></div>
-            <div class="seg" style="background:var(--c-somin);width:5.3%"></div></div></div>
-          <div class="faint" style="font-size:11px;margin-top:6px">Milieu 17 · Nielsen 1 · SOMIN 1 media (of 19) · total engagement 707</div>
-        </div>
-      </div>
+      <div id="personaDetail"></div>
     </div>
   </section>
 
@@ -825,77 +886,55 @@ img,svg{max-width:100%;display:block}
         <div class="search"><input placeholder="Search insight…"></div>
         <div class="items" id="insightList"></div>
       </div>
-      <div class="card pad" id="insightDetail">
-        <div class="eyebrow">Insight · SOINSPIRE</div>
-        <div style="font-size:24px;font-weight:900;color:var(--ink);line-height:1.2;margin:6px 0 4px" id="insTitle">Understanding is the foundation of connection.</div>
-        <div class="muted" style="font-size:12.5px;margin-bottom:16px" id="insMeta">Story: “Echoes of Expectation” · Product: SOMIN · Perspective Studies</div>
-        <div style="display:grid;gap:14px;max-width:640px">
-          <div><div class="eyebrow">Summary</div><p class="muted" style="margin:4px 0 0;font-size:13px" id="insSummary">Without a deep understanding of one another's needs and expectations, connections falter and trust erodes, leaving only echoes of missed opportunities.</p></div>
-          <div style="background:var(--teal-wash);border:1px solid var(--teal-wash2);border-radius:12px;padding:16px">
-            <div class="eyebrow">The insight</div>
-            <div style="font-size:17px;font-weight:800;color:var(--ink);line-height:1.35;margin-top:6px" id="insStmt">Understanding is the foundation of connection.</div>
-          </div>
-          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-            <button class="btn" onclick="go('propositions',document.querySelector('[data-scr=propositions]'))">Generate Propositions</button>
-            <a class="pill" style="border-color:var(--teal);color:var(--teal-d)">View live story ↗</a>
-          </div>
-        </div>
-      </div>
+      <div id="insightDetail"></div>
     </div>
   </section>
   <!-- ============ MOMENTS ============ -->
   <section class="screen" id="scr-moments">
     <div class="split">
       <div class="listrail">
-        <div class="search"><input placeholder="Search moment…"></div>
+        <div class="search" style="display:flex;justify-content:space-between;align-items:center"><b style="color:var(--ink)">Your Moments</b><span class="tealtxt">89</span></div>
         <div class="items">
-          <div class="li-item active"><div class="t">Compassionate Community Builder</div><div class="m">25 Jul 2026 7:10 · Optimal Nutrition</div></div>
-          <div class="li-item"><div class="t">Compassionate Community Builder</div><div class="m">25 Jul 2026 7:10 · Community &amp; Connection</div></div>
-          <div class="li-item"><div class="t">Compassionate Community Builder</div><div class="m">25 Jul 2026 7:09 · Financial Struggles</div></div>
-          <div class="li-item"><div class="t">The Caring Companion</div><div class="m">25 Jul 2026 7:09 · Optimal Nutrition</div></div>
-          <div class="li-item"><div class="t">The Caring Companion</div><div class="m">25 Jul 2026 7:09 · Community &amp; Connection</div></div>
-          <div class="li-item"><div class="t">The Compassionate Caregiver</div><div class="m">25 Jul 2026 7:09 · Optimal Nutrition</div></div>
+          <div class="li-item active"><div class="t">89 · Compassionate Community Builder</div><div class="m">25 Jul 2026 7:10</div></div>
+          <div class="li-item"><div class="t">86 · The Caring Companion</div><div class="m">25 Jul 2026 7:09</div></div>
+          <div class="li-item"><div class="t">83 · The Compassionate Caregiver</div><div class="m">25 Jul 2026 7:09</div></div>
+          <div class="li-item"><div class="t">42 · The Community Advocate</div><div class="m">24 Jul 2026 7:27</div></div>
+          <div class="li-item"><div class="t">35 · Strategic Innovator</div><div class="m">22 Jun 2026 9:50</div></div>
+          <div class="li-item"><div class="t">29 · The Community Catalyst</div><div class="m">05 Nov 2025 7:09</div></div>
+          <div class="li-item"><div class="t">26 · The Innovative Tech Entrepreneur</div><div class="m">16 Sep 2025 2:35</div></div>
+          <div class="li-item"><div class="t">17 · Data-Driven Business Enthusiast</div><div class="m">03 Jul 2025 12:21</div></div>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:1.05fr 1fr;gap:16px">
-        <div class="card pad">
-          <div class="eyebrow" style="color:var(--soft)">＞ Persona</div>
-          <div style="font-size:20px;font-weight:900;color:var(--ink);margin:4px 0 8px">Compassionate Community Builder</div>
-          <p class="muted" style="font-size:12.5px;margin:0 0 16px">This persona is passionate about pet care and actively engages in community support, celebrating the joys of family activities and healthy lifestyles. Their aspirations are centered around building fulfilling relationships, contributing positively to their community, and fostering a sense of belonging and purpose.</p>
-          <div class="eyebrow" style="color:var(--soft)">＞ Tensions</div>
-          <div style="font-size:16px;font-weight:800;color:var(--ink);margin:4px 0 8px">Ensuring Optimal Nutrition for Pet Well-Being: A Shared Commitment</div>
-          <p class="muted" style="font-size:12.5px;margin:0 0 16px">A significant number of brands focus on addressing the critical need for adequate nutrition and care for pets, highlighting the importance of tailored dietary options for different life stages. TopBreed, PetMarra, SmartHeart and Pedigree each stress nutrition that promotes long, healthy lives.</p>
-          <div style="border-top:1px solid var(--hair);padding-top:12px;font-size:11.5px;line-height:1.9;color:var(--soft)">
-            STUDY REFERENCE: <b class="mono" style="color:var(--body)">dogsofrph_ALL_TYPES_NOFILTER_90D</b><br>
-            WORKSPACE REFERENCE: <b style="color:var(--body)">dogsofrph</b><br>
-            MEDIA REFERENCES: <b style="color:var(--body)">146 out of 937 media</b><br>
-            TOTAL ENGAGEMENT: <b class="tealtxt">35,710</b></div>
+      <div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+          <div class="card pad">
+            <div class="eyebrow" style="color:var(--soft)">＞ Persona</div>
+            <div style="font-size:18px;font-weight:900;color:var(--ink);margin:4px 0 8px">Compassionate Community Builder</div>
+            <p class="muted" style="font-size:12.5px;margin:0 0 8px;line-height:1.55">This persona is passionate about pet care and actively engages in community support, celebrating the joys of family activities and healthy lifestyles. Their aspirations centre on building fulfilling relationships, contributing to their community, and fostering a sense of belonging and purpose.</p>
+            <div class="refbox">
+              STUDY REFERENCE: <b class="mono">dogsofrph_ALL_TYPES_NOFILTER_90D</b><br>
+              WORKSPACE REFERENCE: <b>dogsofrph</b><br>
+              MEDIA REFERENCES: <b>146 out of 937 media</b><br>
+              TOTAL ENGAGEMENT: <b class="tealtxt">35,805</b></div>
+          </div>
+          <div class="card pad tns" style="border-top:3px solid var(--re-plum)">
+            <div class="eyebrow" style="color:var(--re-plum)">＞ Tensions</div>
+            <div style="font-size:16px;font-weight:800;color:var(--ink);margin:4px 0 8px;line-height:1.3">Ensuring Optimal Nutrition for Pet Well-Being: A Shared Commitment</div>
+            <p class="muted" style="font-size:12.5px;margin:0 0 8px;line-height:1.55">Brands focus on the critical need for adequate nutrition and care for pets — tailored dietary options for different life stages. TopBreed, PetMarra, SmartHeart and Pedigree each stress nutrition that promotes long, healthy lives.</p>
+            <div class="refbox">
+              STUDY REFERENCE: <b class="mono">dogsofrph_ALL_TYPES_NOFILTER_90D</b><br>
+              WORKSPACE REFERENCE: <b>dogsofrph</b><br>
+              MEDIA REFERENCES: <b>299 out of 937 media</b><br>
+              TOTAL ENGAGEMENT: <b class="tealtxt">21,759</b></div>
+          </div>
         </div>
-        <div>
+        <div class="card pad">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
             <b style="color:var(--ink);letter-spacing:.5px;font-size:12px;text-transform:uppercase">Moment Type</b>
-            <div class="fsel" style="min-width:150px;padding:8px 12px;cursor:pointer" id="momentType" onclick="cycleMomentType()"><span class="v" style="font-size:13px">Life Moments</span></div>
           </div>
-          <div id="momentCards">
-            <div class="card pad" style="margin-bottom:12px">
-              <div class="muted" style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px">Family &amp; Relationships</div>
-              <div style="font-size:17px;font-weight:800;color:var(--ink);margin:4px 0 8px">Becoming a pet owner</div>
-              <div style="color:var(--teal-d);font-style:italic;font-weight:600;font-size:13px;margin-bottom:8px">“I want to provide a loving home for a pet and ensure they receive the best care possible.”</div>
-              <p class="muted" style="font-size:12.5px;margin:0">Becoming a pet owner is a significant life moment that reshapes priorities. It requires commitment and leads to changes in daily routines and a search for community resources for support.</p>
-            </div>
-            <div class="card pad" style="margin-bottom:12px">
-              <div class="muted" style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px">Family &amp; Relationships</div>
-              <div style="font-size:17px;font-weight:800;color:var(--ink);margin:4px 0 8px">Adopting a rescue animal</div>
-              <div style="color:var(--teal-d);font-style:italic;font-weight:600;font-size:13px;margin-bottom:8px">“I feel a strong desire to give a second chance and make a positive impact.”</div>
-              <p class="muted" style="font-size:12.5px;margin:0">Adopting a rescue animal is a profound milestone tied to social responsibility. It fosters a sense of purpose and a deep connection to animal welfare.</p>
-            </div>
-            <div class="card pad">
-              <div class="muted" style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px">Community Engagement</div>
-              <div style="font-size:17px;font-weight:800;color:var(--ink);margin:4px 0 8px">Participating in community events</div>
-              <div style="color:var(--teal-d);font-style:italic;font-weight:600;font-size:13px;margin-bottom:8px">“I want to engage with others who contribute to our community.”</div>
-              <p class="muted" style="font-size:12.5px;margin:0">Participating in community pet events is a way to build belonging and strengthen bonds with like-minded owners.</p>
-            </div>
-          </div>
+          <div class="mtabs" id="momentTabs"></div>
+          <div id="momentCards"></div>
+          <div style="margin-top:8px"><button class="btn ghost" onclick="openAgentFrom('moments')">Get more moments</button></div>
         </div>
       </div>
     </div>
@@ -907,38 +946,30 @@ img,svg{max-width:100%;display:block}
       <div class="listrail">
         <div class="search"><input placeholder="Search propositions…"></div>
         <div class="items">
-          <div class="li-item active"><div class="t">Know a creative will work before you pay for it (SOMIN)</div><div class="m">USP · clarity breeds connection</div></div>
-          <div class="li-item"><div class="t">Every concept traces to the post that evidences it (SOMIN)</div><div class="m">RTB · proof</div></div>
-          <div class="li-item"><div class="t">Validated against real ad performance (SOMIN)</div><div class="m">RTB · benchmark</div></div>
-          <div class="li-item"><div class="t">Concept extraction from real competitor content (SOMIN)</div><div class="m">Feature · intel</div></div>
-          <div class="li-item"><div class="t">Predicted clickability score before spend (SOMIN)</div><div class="m">USP · predict</div></div>
+          <div class="li-item active"><div class="t">Know a creative will work before you pay for it (SOMIN)</div><div class="m">In the realm of commerce, clarity breeds connection.</div></div>
+          <div class="li-item"><div class="t">Every concept traces to the post that evidences it (SOMIN)</div><div class="m">In the realm of commerce, clarity breeds connection.</div></div>
+          <div class="li-item"><div class="t">Validated against real ad performance (SOMIN)</div><div class="m">Inaction can be the greatest loss of all.</div></div>
+          <div class="li-item"><div class="t">Concept extraction from real competitor content (SOMIN)</div><div class="m">Data reveals patterns, but it cannot define humanity.</div></div>
+          <div class="li-item"><div class="t">Predicted clickability score before spend (SOMIN)</div><div class="m">Inaction can be the greatest loss of all.</div></div>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:290px 1fr;gap:16px">
-        <div class="card pad" style="height:fit-content">
-          <div class="eyebrow" style="color:var(--soft)">＞ Proposition</div>
-          <div style="font-size:15px;font-weight:800;color:var(--ink);line-height:1.3;margin:6px 0 18px">Know a creative will work before you pay for it</div>
-          <div class="eyebrow" style="color:var(--soft)">＞ Insight</div>
-          <div style="font-size:17px;font-weight:900;color:var(--ink);line-height:1.25;margin:6px 0 18px">In the realm of commerce, clarity breeds connection.</div>
-          <div class="eyebrow" style="color:var(--soft)">＞ Product</div>
-          <div style="font-size:24px;font-weight:900;margin-top:6px"><span style="color:var(--teal)">SO</span><span style="color:var(--ink)">MIN</span></div>
-        </div>
-        <div class="concept-cards" style="grid-template-columns:1fr">
-          <div class="propcard">
-            <h3>Empower your brand to resonate deeply with SOMIN's insights.</h3>
-            <div class="field"><div class="k">Insight Integration</div><div class="v">Understanding consumer behavior is no longer a guessing game; SOMIN humanizes data, ensuring your marketing impacts the hearts of your audience.</div></div>
-            <div class="field"><div class="k">Product Connection</div><div class="v">By accurately predicting which creatives will thrive, SOMIN arms brands with the knowledge they need to connect on an emotional level before spending.</div></div>
-            <div class="field"><div class="k">Sample Tagline</div><div class="v" style="font-weight:800;color:var(--ink)">Connect beyond metrics; reach hearts instead.</div></div>
-            <div class="field" style="margin-bottom:0"><div class="k">Consumer Takeaway</div><div class="v">“I can create campaigns that genuinely resonate with my audience.”</div></div>
+      <div style="display:grid;grid-template-columns:300px 1fr;gap:16px">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div class="card pad" style="height:fit-content">
+            <div class="eyebrow" style="color:var(--soft)">＞ Insight</div>
+            <div style="font-size:17px;font-weight:900;color:var(--ink);line-height:1.25;margin:6px 0 8px">In the realm of commerce, clarity breeds connection.</div>
+            <p class="muted" style="font-size:12px;margin:0">Effective marketing requires a human touch, where data becomes a conversation instead of a statistic, revealing deeper insights and fostering authentic relationships between brands and consumers.</p>
           </div>
-          <div class="propcard">
-            <h3>Navigate the noise of information with SOMIN's strategic clarity.</h3>
-            <div class="field"><div class="k">Insight Integration</div><div class="v">In a marketplace flooded with data, clarity is your best tool. SOMIN clarifies insights, turning statistics into deep conversations.</div></div>
-            <div class="field"><div class="k">Product Connection</div><div class="v">Let SOMIN guide you through the marketing maze, helping you understand what makes content engage and why, so you can spend smarter.</div></div>
-            <div class="field"><div class="k">Sample Tagline</div><div class="v" style="font-weight:800;color:var(--ink)">Cut through the clutter with clarity.</div></div>
-            <div class="field" style="margin-bottom:0"><div class="k">Consumer Takeaway</div><div class="v">“I value having clarity in an overwhelming data landscape.”</div></div>
+          <div class="card pad" style="height:fit-content">
+            <div class="eyebrow" style="color:var(--soft)">＞ Product</div>
+            <div style="font-size:24px;font-weight:900;margin:6px 0 8px"><span style="color:var(--teal)">SO</span><span style="color:var(--ink)">MIN</span></div>
+            <p class="muted" style="font-size:12px;margin:0 0 12px">AI audience-research &amp; creative-intelligence platform that decodes what content is about and who it is made for, extracts strategic concepts (tones, emotions, archetypes, tensions, personas) and predicts a creative's clickability before spend.</p>
+            <div class="refbox" style="border-top:1px dashed var(--hair);margin-top:0;padding-top:10px">
+              BRAND: <b>SOMIN</b><br>PRODUCT CATEGORY: <b>Audience research &amp; creative intelligence</b><br>
+              MARKET SEGMENT: <b>B2B</b><br>PRODUCT FOCUS: <b>Know a creative will work before you pay for it</b></div>
           </div>
         </div>
+        <div class="concept-cards" style="grid-template-columns:1fr" id="propCards"></div>
       </div>
     </div>
   </section>
@@ -956,7 +987,7 @@ img,svg{max-width:100%;display:block}
         <div class="muted" style="font-size:12px;margin-bottom:4px">Understanding is the foundation of connection.</div>
         <div class="tealtxt" style="font-size:12px;margin-bottom:16px">Show More</div>
         <div style="font-weight:800;color:var(--ink);font-size:13px;margin-bottom:8px">Upload Product Image</div>
-        <div style="height:90px;border:1px dashed var(--hair-2);border-radius:10px;background:var(--card-2);display:grid;place-items:center;color:var(--faint);font-size:12px;margin-bottom:16px">▤ dashboard-screenshot.png ✕</div>
+        <div style="height:90px;border:1px dashed var(--hair-2);border-radius:10px;background:var(--card-2);display:grid;place-items:center;color:var(--faint);font-size:12px;margin-bottom:16px">▤ Drag &amp; drop files here or click to browse</div>
         <div style="font-weight:800;color:var(--ink);font-size:13px;margin-bottom:8px">Edit Image with AI</div>
         <div class="dock-foot" style="border:1px solid var(--hair);border-radius:12px;padding:6px 6px 6px 12px;display:flex;gap:8px;margin-bottom:16px">
           <input placeholder="e.g., 'Add a retro filter'" style="border:none;background:none;flex:1;font:inherit;font-size:12.5px;outline:none">
@@ -964,43 +995,12 @@ img,svg{max-width:100%;display:block}
         <button class="btn block" onclick="openAgentFrom('expressions')">Generate Content</button>
       </div>
       <div>
-        <div style="font-size:26px;font-weight:900;color:var(--ink);margin-bottom:16px">TOFU <span class="faint" style="font-size:16px;font-weight:700">(Top of Funnel)</span></div>
-        <div class="exp-grid">
-          <div class="exp">
-            <div class="top"><div class="kind">UGC/Influencer — The Relieved Marketer</div><div class="add">✓ Add to Library</div></div>
-            <div class="hd">I was literally throwing money away until I found this.</div>
-            <div class="bd">As a marketing director, my biggest fear was misallocated spend. I was painting broad strokes over a diverse audience and seeing zero engagement. Then I started using SOMIN to actually listen to my consumers.</div>
-            <div class="lnk">See the Difference</div>
-            <div class="imgph" style="background:linear-gradient(135deg,#c9a27e,#7c8a6b)">👩‍💻 UGC · living-room shot<span class="imgcap">Finally stopped guessing 🎯</span></div>
-            <div class="btns"><div class="b1">↻ Regenerate image</div><div class="b2">✦ Animate</div></div>
-          </div>
-          <div class="exp">
-            <div class="top"><div class="kind">Pattern Interrupt — The Data Macro</div><div class="add">✓ Add to Library</div></div>
-            <div class="hd">STOP. YOUR DEMOGRAPHICS ARE LYING TO YOU.</div>
-            <div class="bd">Outdated assumptions are the silent killers of ROI. If you're still targeting 'Women 25-34' without understanding their journeys and passions, you're wasting your budget. It's time to see the complex tapestry of your real audience.</div>
-            <div class="lnk">Stop the Waste</div>
-            <div class="imgph" style="background:linear-gradient(120deg,#e84978,#3b82f6)">THIS IS NOT A DEMOGRAPHIC</div>
-            <div class="btns"><div class="b1">↻ Regenerate image</div><div class="b2">✦ Animate</div></div>
-          </div>
-          <div class="exp">
-            <div class="top"><div class="kind">Aspirational — The Visionary Director</div><div class="add">✓ Add to Library</div></div>
-            <div class="hd">This is the feeling of a campaign that actually connects.</div>
-            <div class="bd">Imagine walking into your next board meeting with data that doesn't just show clicks, but genuine human connection. Elevate your strategy from guesswork to a science of belonging.</div>
-            <div class="lnk">See the Vision</div>
-          </div>
-          <div class="exp">
-            <div class="top"><div class="kind">Street Interview — The Marketer's Truth</div><div class="add">✓ Add to Library</div></div>
-            <div class="hd">We asked 100 marketers: Do you actually know who your audience is?</div>
-            <div class="bd">The answers might surprise you. Most brands are struggling with misallocated budgets because they lack reliable audience data. We're changing that, one honest conversation at a time.</div>
-            <div class="lnk">Watch the Truth</div>
-          </div>
-          <div class="exp">
-            <div class="top"><div class="kind">Dramatic Before &amp; After — The ROI Beat Drop</div><div class="add">✓ Add to Library</div></div>
-            <div class="hd">My ROI before vs. after SOMIN.</div>
-            <div class="bd">I used to feel the tension of ineffective campaigns gnawing at my creativity. We shifted from crunching numbers to immersing ourselves in consumer worlds. The results? Stunning.</div>
-            <div class="lnk">Transform Your ROI</div>
-          </div>
-        </div>
+        <div style="font-size:24px;font-weight:900;color:var(--ink);margin-bottom:4px">TOFU <span class="faint" style="font-size:15px;font-weight:700">(Top of Funnel)</span></div>
+        <div class="exp-grid" id="expTofu"></div>
+        <div style="font-size:24px;font-weight:900;color:var(--ink);margin:18px 0 4px">MOFU <span class="faint" style="font-size:15px;font-weight:700">(Middle of Funnel)</span></div>
+        <div class="exp-grid" id="expMofu"></div>
+        <div style="font-size:24px;font-weight:900;color:var(--ink);margin:18px 0 4px">BOFU <span class="faint" style="font-size:15px;font-weight:700">(Bottom of Funnel)</span></div>
+        <div class="exp-grid" id="expBofu"></div>
       </div>
     </div>
   </section>
@@ -1077,79 +1077,348 @@ const wait=ms=>new Promise(r=>setTimeout(r,ms));
 function toast(msg){const t=document.createElement('div');t.className='toast';t.innerHTML='<span class="ic">✓</span>'+msg;
   $('#toasts').appendChild(t);setTimeout(()=>{t.style.opacity=0;t.style.transition='.4s';setTimeout(()=>t.remove(),400)},2600);}
 function toggleGroup(el){el.parentElement.classList.toggle('open');}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 /* ============================================================= platform data */
-const AUD=[['Business Owners',135],['Marketing Professionals',93],['Entrepreneurs',76],['Data Analysts',41],['CMOs',39],
-['Sports Fans',39],['General Public',37],['Tech Enthusiasts',32],['Marketers',28],['Technology Enthusiasts',27],
-['Soccer Fans',26],['Agency Leaders',20],['Data Scientists',19],['Advertisers',18],['Professionals',16]];
-const PLIST=[['The Empowered Strategist',19,707,1],['Strategic Trailblazer',3,22],['The Innovation Catalyst',39,214],
-['The Innovative Connector',23,738],['The Strategic Innovator',24,0],['The Innovative Strategist',86,0],
-['The Connected Visionary',19,0],['The Community Catalyst',21,0],['Empowered Innovator',41,0]];
+const AUD=[['Business Owners',160],['Marketing Professionals',97],['Entrepreneurs',91],['CMOs',48],['General Public',25],
+['Agency Leaders',20],['Data Scientists',19],['Professionals',18],['Data Analysts',18],['Marketers',18],
+['Tech Enthusiasts',17],['CTOs',13],['AI Researchers',13],['Students',10],['Employees',9],['Advertisers',8],['Community',8]];
+
+const PLIST=[
+ {n:'The Empowered Strategist',md:19,eg:707,d:'Meet The Empowered Strategist, a dynamic professional deeply invested in business success and innovation. They prioritise purposeful growth and demonstrate strong leadership skills, harnessing market research, data analysis and business strategy to drive financial stability and operational efficiency.'},
+ {n:'Strategic Trailblazer',md:3,eg:22,d:'A bold, first-mover professional who pushes into new markets ahead of the pack, blending calculated risk-taking with a relentless drive for growth and category leadership.'},
+ {n:'The Innovation Catalyst',md:39,eg:214,d:'An energising force who turns emerging ideas into momentum, connecting teams and technologies to spark practical innovation and measurable business impact.'},
+ {n:'The Innovative Connector',md:23,eg:738,d:'A relationship-driven strategist who thrives at the intersection of people and platforms, translating audience signals into ideas that resonate and spread.'},
+ {n:'The Strategic Innovator',md:24,eg:0,d:'The Strategic Innovator is a driven professional highly focused on business strategy, market dynamics and growth opportunities. With aspirations rooted in business success and financial stability, they hone leadership skills while leveraging market research, economic trends and data analysis to maintain a competitive edge.'},
+ {n:'The Innovative Strategist',md:86,eg:0,d:'This persona thrives at the intersection of marketing and technology, driven by a passion for data and a desire for business success. They harness analytical skills to make informed, data-driven decisions and lead in a rapidly changing market landscape.'},
+ {n:'The Connected Visionary',md:19,eg:0,d:'Meet the Connected Visionary, a tech-savvy individual driven by a passion for innovation and community. They thrive on financial stability and seek recognition, with interests in modern media, entertainment and the latest gadgets — striving for a purposeful life enriched by growth and meaningful connections.'},
+ {n:'The Empowered Innovator',md:41,eg:0,d:'A confident builder who blends creative vision with operational discipline, empowering teams to ship new ideas and own the outcomes.'},
+ {n:'The Strategic Innovator',md:98,eg:0,d:'A large, business-strategy-led cohort focused on market dynamics and growth — dedicated to leadership, informed decision-making and strategic planning to reach ambitious professional goals.'},
+ {n:'The Community Catalyst',md:21,eg:0,d:'A community-first advocate who mobilises audiences around shared purpose, turning belonging and participation into durable brand affinity.'}];
+
+const DEF_TEN={n:'Navigating the Insight Deficit: Challenges in Market Research and Strategy',d:'Businesses grapple with inadequate consumer insights and inefficient research — balancing brand awareness with financial performance, adapting to rapid market fluctuations, and a lack of effective segmentation that hinders decision-making.'};
+const DEF_PER={n:'The Innovative Strategist',d:'This persona thrives at the intersection of marketing and technology, driven by a passion for data and a desire for business success, harnessing analytical skills to make informed, data-driven decisions.'};
+const DEF_ECON=[['Market Efficiency','When information is fragmented, markets misprice attention. Clearer audience signal lets brands allocate spend where returns are highest.'],['Opportunity Cost','Every campaign built on assumption forgoes a better-targeted alternative — the true cost of guesswork is the winning idea never tested.']];
+
 const INS=[
- {t:'Understanding is the foundation of connection.',nt:'Echoes of Expectation',sum:"Without a deep understanding of one another's needs and expectations, connections falter and trust erodes, leaving only echoes of missed opportunities."},
- {t:'In the realm of commerce, clarity breeds connection.',nt:'The Echo of Data',sum:'Effective marketing requires a human touch, where data becomes a conversation instead of a statistic, revealing deeper insights and fostering authentic relationships between brands and consumers.'},
- {t:'Value outshines price when connections thrive.',nt:'The Echo in the Market',sum:'The essence of community and genuine relationships leads to deeper engagement than mere cost considerations, illustrating that true worth is found in shared experiences and connections.'},
+ {t:'Value outshines price when connections thrive.',nt:'The Echo in the Market',sum:'The essence of community and genuine relationships leads to deeper engagement than mere cost considerations, illustrating that true worth is found in shared experiences and connections.',
+  ten:{n:'Balancing Time and Resources in Marketing Strategies',d:'Brands face an increasingly resource-constrained environment — a lack of time and financial resources leads to inefficient media planning and a poor understanding of target audiences, while ineffective campaign measurement results in wasted resources and suboptimal ROI.'},
+  per:{n:'The Connected Visionary',d:'Meet the Connected Visionary, a tech-savvy individual driven by a passion for innovation and community. They thrive on financial stability and seek recognition, with interests in modern media, entertainment and the latest gadgets.'},
+  econ:[['Consumer Price Sensitivity','With rising living costs, consumers are more price-sensitive, prompting brands to adjust pricing strategies and marketing efforts, which can limit financial resources.'],['Price Elasticity of Demand','Explains how changes in price affect consumer demand. Brands may need to allocate more resources to marketing that communicates value, impacting their budgets.']],
+  media:'5 out of 279 media',clk:'Low',
+  story:'It was a late afternoon, the sun hanging low like a golden coin, as I stood outside the community centre I had fought to build into a hub of creativity and connection. I kept turning over how to stretch our tightly-wound resources — especially in a world where price sensitivity felt like an uninvited guest at every dinner table.\n\nWhen a quiet entrepreneur asked, “Can anyone really afford what we’re trying to sell?”, the room went dense. So we changed the question. What if we crafted a narrative that emphasised the value we brought to the community, rather than the price tags?\n\nThe weeks went by and the community showed up — not just to shop, but to bond. What began as a constraint became a lesson: people connect far more deeply with value than with price. Nurturing relationships, it turned out, was more vital than the dollars and cents.'},
  {t:'Trust is the soil in which engagement grows.',nt:'The Tenuous Balance of Truth',sum:'When consumers feel valued and understood, they are more willing to share their insights, fostering a healthier brand relationship. Without trust, any attempt at consumer engagement is bound to wither away.'},
- {t:'Data reveals patterns, but it cannot define humanity.',nt:'The Data Mirage',sum:'Relying too heavily on data can lead to a disconnection from the unique narratives of individuals, obscuring genuine human behaviour behind mere statistics.'},
- {t:'Trust is bred in the soil of conversation, not in the data of algorithms.',nt:'The Invisible Algorithm',sum:'The strength of any relationship, including those between brands and consumers, lies not in an abundance of data, but in authentic communication and understanding.'},
- {t:'Stagnation is the silent killer of opportunity.',nt:'The Mirage of Stasis',sum:'In the pursuit of success, failing to adapt and innovate can quietly erode your competitive edge, leading to missed opportunities and diminished relevance in a rapidly changing landscape.'},
+ {t:'In the realm of commerce, clarity breeds connection.',nt:'The Echo of Data',sum:'Effective marketing requires a human touch, where data becomes a conversation instead of a statistic, revealing deeper insights and fostering authentic relationships between brands and consumers.'},
  {t:'Inaction can be the greatest loss of all.',nt:'The Cost of Inaction',sum:'Avoiding risks for fear of failure can lead to missed opportunities that may cost more than the risks themselves.'},
+ {t:'Stagnation is the silent killer of opportunity.',nt:'The Mirage of Stasis',sum:'In the pursuit of success, failing to adapt and innovate can quietly erode your competitive edge, leading to missed opportunities and diminished relevance in a rapidly changing landscape.'},
+ {t:'Trust is bred in the soil of conversation, not in the data of algorithms.',nt:'The Invisible Algorithm',sum:'The strength of any relationship, including those between brands and consumers, lies not in an abundance of data, but in authentic communication and understanding.'},
+ {t:'Data reveals patterns, but it cannot define humanity.',nt:'The Data Mirage',sum:'Relying too heavily on data can lead to a disconnection from the unique narratives of individuals, obscuring genuine human behaviour behind mere statistics.'},
+ {t:'Authenticity thrives where insecurity ebbs.',nt:'The Adrift Campaign',sum:'In a world where confidence often masquerades as competence, true strength lies in embracing vulnerability and connection, transforming doubt into a collaborative triumph.'},
  {t:'Innovation thrives in connection, not competition.',nt:'The Disconnect',sum:'The true measure of success lies in uplifting others rather than merely striving to surpass them. When we share knowledge and resources, we can all flourish together.'},
- {t:'Authenticity thrives where insecurity ebbs.',nt:'The Adrift Campaign',sum:'In a world where confidence often masquerades as competence, the true strength lies in embracing vulnerability and connection, transforming doubt into a collaborative triumph.'},
- {t:'Simplicity slays complexity — the quieter the message, the louder its impact.',nt:'The Weight of Numbers',sum:'In a world awash with information, clarity emerges as the strongest weapon. Distilling complex messages into their purest form fosters effective communication and decision-making.'},
- {t:'To truly connect, dare to diverge from the trending path.',nt:'The Echo Chamber of Trends',sum:'The best strategies arise not from following the crowd, but from understanding the unique needs of your audience — trends can mislead and distract if not thoughtfully evaluated.'},
  {t:'Creativity flourishes in the soil of self-care.',nt:'The Burden of Brightness',sum:'Without nurturing our own needs, we cannot cultivate our creative sparks, and burnout becomes a silent thief of innovation.'},
  {t:'In the pursuit of speed, let not integrity be the casualty.',nt:'The Dilemma of the Chameleon',sum:'In a world racing towards innovation, the essence of human values must persist through the noise. Embracing ethical practices is paramount to maintaining meaningful connections.'},
- {t:"Tools alone can't compose a masterpiece; harmony is born from their unison.",nt:'The Symphony of Tools',sum:'Fragmented tools can lead to chaos, but true innovation arises when all elements work in concert, crafting a cohesive and compelling narrative.'},
+ {t:'Tools alone can’t compose a masterpiece; harmony is born from their unison.',nt:'The Symphony of Tools',sum:'Fragmented tools can lead to chaos, but true innovation arises when all elements work in concert, crafting a cohesive and compelling narrative.'},
+ {t:'Simplicity slays complexity — the quieter the message, the louder its impact.',nt:'The Weight of Numbers',sum:'In a world awash with information, clarity emerges as the strongest weapon. Distilling complex messages into their purest form fosters effective communication and decision-making.'},
+ {t:'To truly connect, dare to diverge from the trending path.',nt:'The Echo Chamber of Trends',sum:'The best strategies arise not from following the crowd, but from understanding the unique needs of your audience — trends can mislead and distract if not thoughtfully evaluated.'},
  {t:'Collaboration conquers inefficiency.',nt:'The Silos Between Us',sum:'Optimal decisions arise not in isolation, but through shared insights and connective understanding among teams.'},
+ {t:'Understanding is the foundation of connection.',nt:'Echoes of Expectation',sum:'Without a deep understanding of one another’s needs and expectations, connections falter and trust erodes, leaving only echoes of missed opportunities.'},
  {t:'In connecting data to humanity, clarity emerges from chaos.',nt:'The Data Mirage',sum:'This captures the essence of effective marketing — merging analytical data with deep human insights, unlocking true potential within advertising strategies.'}
 ];
+
 const MOMENTS={
  'Life Moments':[
-  ['Family & Relationships','Becoming a pet owner','I want to provide a loving home for a pet and ensure they receive the best care possible.','A significant life milestone that transforms lifestyle and priorities — a commitment to care, nurture and provide, changing daily routines and budgeting for pet care.'],
-  ['Family & Relationships','Adopting a rescue animal','I feel a strong desire to give a second chance to an animal in need and make a positive impact.','A profound milestone reflecting compassion and social responsibility — it enriches the owner’s life and fosters a sense of purpose and community involvement.'],
-  ['Community Engagement','Participating in community pet events','I want to engage with others who share my passion for pets and contribute to our community.','A vital milestone for owners who want to connect with like-minded people and strengthen community ties through shared knowledge and welfare.'],
-  ['Personal Growth & Life Changes','Volunteering for animal welfare organizations','I want to make a positive impact on the lives of animals and contribute to a cause I deeply care about.','A meaningful milestone that gives back to the community while supporting animal health and well-being, enhancing personal fulfilment and purpose.']],
- 'Micro Moments (I-want-to…)':[
-  ['I-want-to-buy','Searching for the best pet food options','I want to find the best food for my pet’s specific needs.','Consumers search for pet food that caters to specific dietary needs — a moment reflecting commitment to optimal nutrition that directly impacts health and happiness.'],
-  ['I-want-to-go','Looking for local pet nutrition workshops','I need to find a workshop to learn more about pet nutrition.','A desire to learn and connect with others in the community who share an interest in pet care.'],
+  ['Personal Growth & Life Changes','Volunteering for animal welfare organizations','I want to make a positive impact on the lives of animals and contribute to a cause I deeply care about.','A meaningful milestone that lets individuals give back while supporting animal health and well-being — enhancing personal fulfilment and a sense of purpose aligned with compassion and community support.'],
+  ['Family & Relationships','Becoming a pet owner','I want to provide a loving home for a pet and ensure they receive the best care possible.','A significant life milestone that transforms lifestyle and priorities — a commitment to care and nurture, changing daily routines, budgeting for pet care and seeking community resources for support.'],
+  ['Family & Relationships','Adopting a rescue animal','I feel a strong desire to give a second chance to an animal in need and make a positive impact.','A profound milestone reflecting compassion and social responsibility — it changes the pet’s life and enriches the owner’s, fostering purpose and community involvement while promoting animal welfare.'],
+  ['Community Engagement','Participating in community pet events','I want to engage with others who share my passion for pets and contribute to our community.','A vital milestone for owners who wish to connect with like-minded individuals and strengthen community ties — socialising, sharing pet-care knowledge and promoting welfare.'],
+  ['Financial & Lifestyle Changes','Planning a family vacation with pets','I want to ensure my pets are included in our family experiences and are well taken care of during our travels.','A milestone involving careful consideration of pet care and logistics — reflecting the importance of including pets in family activities while ensuring their well-being.']],
+ 'Seasonal Moments':[
+  ['Holiday Season','Holiday pet-safe treats & gifting','I want to celebrate the holidays with my pet safely.','Seasonal spikes as owners seek pet-safe treats, festive outfits and gifts — a moment to reinforce nutrition and safety messaging.'],
+  ['Rainy Season','Keeping pets healthy through the monsoon','I need to keep my dog healthy and active when it rains for days.','Owners look for indoor enrichment, paw care and nutrition to sustain energy and immunity during long wet spells.'],
+  ['Back-to-Routine','Adjusting feeding after the holidays','I want to get my pet back to a healthy routine.','After indulgent seasons, owners recalibrate portions and reintroduce structure — a nutrition-led reset moment.']],
+ 'Purchase Moments':[
+  ['Repurchase','Running low on premium kibble','I need to restock before my dog runs out of food.','Recurring purchase triggers around depletion — an opportunity for subscription and bundle offers.'],
+  ['First Purchase','Choosing the first bag for a new puppy','I want the right first food for my new puppy.','A high-consideration first purchase where breed- and life-stage-specific nutrition guidance wins trust.'],
+  ['Trade-up','Switching to specialised nutrition','I think my dog needs food tailored to its health needs.','Owners trade up to condition-specific formulas after a vet visit or a health scare.']],
+ 'Micro Moments':[
+  ['I-want-to-buy','Searching for the best pet food options','I want to find the best food for my pet’s specific needs.','Consumers search for food that caters to specific dietary needs — a moment reflecting commitment to optimal nutrition that directly impacts health and happiness.'],
   ['I-want-to-know','Researching healthy treats for pets','I want to know what healthy treats I can give my pet.','Consumers research healthy treat options that align with nutritional goals, contributing to overall well-being.'],
-  ['I-want-to-buy','Comparing pet food brands for nutritional value','I need to compare the nutritional value of these pet food brands.','Owners compare brands to evaluate nutritional value and ingredients — an informed decision that benefits pets’ health and longevity.']],
+  ['I-want-to-go','Looking for local pet nutrition workshops','I need to find a workshop to learn more about pet nutrition.','A desire to learn and connect with others in the community who share an interest in pet care.'],
+  ['I-want-to-buy','Comparing pet food brands for nutritional value','I need to compare the nutritional value of these brands.','Owners compare brands to evaluate nutritional value and ingredients — an informed decision that benefits pets’ health and longevity.']],
+ 'Search Moments':[
+  ['I-want-to-know','Researching life-stage nutrition','What should I feed a senior dog vs a puppy?','Life-stage queries surge as owners seek age-appropriate nutrition guidance they can trust.'],
+  ['I-want-to-compare','Comparing kibble sizes for small breeds','Which kibble size is right for my small breed?','Detailed, breed-specific comparison moments where tailored product content wins the click.'],
+  ['I-want-to-find','Finding a trusted local vet-nutritionist','I need expert advice near me.','Local-intent searches where credibility and proximity drive the decision.']],
  'Emotional Moments':[
-  ['Breakthrough','The importance of nutrition','I never knew how crucial nutrition was for my pet’s well-being.','At a community pet-care workshop, attendees realise the profound impact of tailored nutrition on their pets’ health, sparking conversations about life-stage dietary needs.'],
+  ['Breakthrough','The importance of nutrition','I never knew how crucial nutrition was for my pet’s well-being.','At a community pet-care workshop, attendees realise the profound impact of tailored nutrition, sparking conversations about life-stage dietary needs.'],
   ['Belonging','Sharing success stories','We’re all in this together, and our pets deserve the best.','Owners share how switching to specialised food improved their pets’ health, creating camaraderie and a sense of belonging.'],
   ['Frustration','The picky-eater dilemma','Why is it so hard to find food my pet actually likes?','Owners express struggles with picky eaters, leading to discussions about finding the right nutrition — the emotional toll of wanting the best.'],
-  ['Hope','Discovering new options','Maybe I can finally find the perfect food for my pet.','Browsing a local pet fair, attendees discover innovative brands for specific health needs — a moment of hope for a better quality of life.']]
+  ['Hope','Discovering new options','Maybe I can finally find the perfect food for my pet.','Browsing a local pet fair, attendees discover innovative brands for specific health needs — a moment of hope for a better quality of life.']],
+ 'Vulnerable Moments':[
+  ['Health Scare','A sudden change in my pet’s health','Something is wrong and I need help fast.','A high-anxiety moment where trustworthy, clear nutrition and care guidance is deeply valued.'],
+  ['Budget Strain','Affording quality care on a tight budget','I want the best for my pet but money is tight.','Owners weigh cost against quality — value-led messaging and bundles ease the tension.'],
+  ['New-Owner Overwhelm','Not knowing if I’m doing it right','Am I feeding and caring for my pet correctly?','First-time owners seek reassurance and simple, credible guidance to build confidence.']]
 };
-const BT_CONTENT=[['GWI',9,'3.6%','--c-gwi'],['Linkedin Profiles (Aleks, Egor, Kirill, Filipp)',83,'33.5%','--c-linkedin'],
- ['SOMIN',28,'11.3%','--c-somin'],['Nielsen',46,'18.5%','--c-nielsen'],['Milieu',59,'23.8%','--c-milieu'],['Other',23,'9.3%','--c-other']];
-const BT_ENGAGE=[['GWI',300,'8.9%','--c-gwi'],['Linkedin Profiles (Aleks, Egor, Kirill, Filipp)',690,'20.5%','--c-linkedin'],
- ['SOMIN',120,'3.6%','--c-somin'],['Nielsen',1180,'35.0%','--c-nielsen'],['Milieu',820,'24.3%','--c-milieu'],['Other',260,'7.7%','--c-other']];
 
-/* ============================================================= render platform */
+const BT_CONTENT=[['Linkedin Profiles (Aleks, Egor, Kirill, Filipp)',78,'32.6%','--c-linkedin'],['Milieu',60,'25.1%','--c-milieu'],
+ ['Nielsen',44,'18.4%','--c-nielsen'],['SOMIN',26,'10.9%','--c-somin'],['Other',23,'9.6%','--c-other'],['GWI',8,'3.3%','--c-gwi']];
+const BT_ENGAGE=[['Nielsen',1054,'32.8%','--c-nielsen'],['Other',782,'24.4%','--c-other'],['Linkedin Profiles (Aleks, Egor, Kirill, Filipp)',631,'19.7%','--c-linkedin'],
+ ['Milieu',618,'19.3%','--c-milieu'],['GWI',97,'3.0%','--c-gwi'],['SOMIN',27,'0.8%','--c-somin']];
+const BT_TABLE=[
+ ['Linkedin Profiles (Aleks, Egor, Kirill, Filipp)','78','387.5%','0.5358','9.7%','631','150.4%','0.071','-29.1%','--c-linkedin'],
+ ['Milieu','60','172.7%','0.5229','-17.9%','618','8.4%','0.0189','-7%','--c-milieu'],
+ ['Nielsen','44','4300%','0.4545','-12.7%','1,054','-75.8%','0.0532','1.7%','--c-nielsen'],
+ ['SOMIN','26','225%','0.2302','-23.8%','27','-12.9%','0.0056','-5.7%','--c-somin'],
+ ['GWI','8','300%','0.1055','-77.9%','97','-93.7%','0.0012','-91.5%','--c-gwi']];
+
+/* media feed posts: brand, colorvar, plat, platColor, engRate, date, text, likes, comments, shares */
+const POSTS=[
+ ['Milieu','--c-milieu','FB','#1877F2','0.0011%','03.08.2026','Across Singapore, Malaysia and Thailand, 74–81% of workers feel confident using AI at work, and 39% are willing to retrain as their roles evolve. The adaptability is there but the support is still shaky: 62% have had no AI training from their employer…',4,1,1],
+ ['SOMIN','--c-somin','LI','#0A66C2','0.0000%','03.08.2026','Three days of pitch research. One hour of client briefing. And the strategy still sounds like everyone else’s. The research isn’t the problem — the process is. When Blak Labs cut brand analysis from 10 hours to 1, the real win was finding the angle nobody else had found.',1,0,0],
+ ['SOMIN','--c-somin','LI','#0A66C2','0.0000%','03.08.2026','Most agency pitch decks take days to research and hours to build — yet still sound like every other agency’s work. When Blak Labs, a 50-person Singapore agency, used SOMIN’s category intelligence layer, they cut brand analysis from 10 hours to 1 and reporting costs from $10K to $6K a month.',0,0,0],
+ ['Linkedin Profiles (Aleks, Egor, Kirill, Filipp)','--c-linkedin','LI','#0A66C2','0.0003%','02.08.2026','Most marketers are still using AI as a faster typewriter. The real shift — from doing to directing — is only just beginning. The marketers who will matter in three years are the ones who can decide what gets produced, evaluate whether it’s any good, and course-correct when it’s not.',1,0,0],
+ ['Linkedin Profiles (Aleks, Egor, Kirill, Filipp)','--c-linkedin','LI','#0A66C2','0.0146%','01.08.2026','68% of marketers measure email performance by click-through rate. Not revenue. Not pipeline. Clicks. Speed is not the differentiator anymore — execution quality and measurement maturity are.',3,0,0],
+ ['Linkedin Profiles (Aleks, Egor, Kirill, Filipp)','--c-linkedin','LI','#0A66C2','0.0003%','01.08.2026','Most advertising platforms assume marketers want to operate software. StackAdapt just bet the opposite is true with Ivy Studio — you define the outcome, and AI agents handle the path to get there.',4,0,0],
+ ['Nielsen','--c-nielsen','FB','#1877F2','0.0000%','31.07.2026','Can you name the most-watched TV event of all time? 📺 The answer is the M*A*S*H series finale. When it aired in 1983, 105.9 million viewers tuned in — the most-watched television event in U.S. history, unmatched for 27 years.',8,6,1],
+ ['GWI','--c-gwi','FB','#1877F2','0.0001%','31.07.2026','🎥 Christopher Nolan’s use of IMAX for The Odyssey has proven popular, but Greek consumers are dreaming of beach holidays, not epic adventures. Also this week: El Niño’s arrival, YouTube as a launchpad for viral trends, and why fewer of us share opinions online.',0,0,0]];
+
+/* perspective-study detection */
+const PERSPP=[
+ ['The Connected Visionary',19,'Average','Meet the Connected Visionary, a tech-savvy individual driven by a passion for innovation and community. They thrive on financial stability and seek recognition, with interests in modern media, entertainment and the latest gadgets — striving for a purposeful life enriched by growth and meaningful connections.','--c-linkedin'],
+ ['The Innovative Strategist',86,'Low','This persona thrives at the intersection of marketing and technology, driven by a passion for data and a desire for business success. They harness analytical skills to make informed, data-driven decisions and lead in a rapidly changing market landscape.','--c-milieu'],
+ ['The Strategic Innovator',24,'Low','A driven professional highly focused on business strategy, market dynamics and growth opportunities — honing leadership skills while leveraging market research, economic trends and data analysis to maintain a competitive edge.','--c-somin']];
+const PERST=[
+ ['Navigating the Digital Disconnect: Consumer Insights and Media Trends',133,'Average','Gaps in insights and data hinder brands from connecting with audiences — a lack of access to up-to-date social trends, insufficient understanding of multi-generational audiences, and inadequate representation of diverse voices.','--teal'],
+ ['Navigating the Insight Deficit: Challenges in Market Research and Strategy',124,'Average','Businesses grapple with inadequate consumer insights and inefficient research — balancing brand awareness with financial performance, adapting to rapid market fluctuations, and a lack of effective segmentation.','--c-milieu'],
+ ['Navigating the Trust Gap: Overcoming AI Adoption Challenges in Thai Marketing',9,'Average','Significant concern about AI’s trustworthiness among consumers affects business interactions, while a lack of awareness, skills and ethical clarity dampens effective, AI-driven campaign execution.','--c-nielsen'],
+ ['Balancing Time and Resources in Marketing Strategies',5,'Low','A lack of time and financial resources leads to inefficient media planning and poor audience understanding, while ineffective campaign measurement results in wasted resources and suboptimal ROI.','--re-plum']];
+
+/* propositions cards: h3, integration, connection, tagline, takeaway */
+const PROPCARDS=[
+ ['Empower your brand to resonate deeply with SOMIN’s insights.','Understanding consumer behaviour is no longer a guessing game; SOMIN humanises data, ensuring your marketing impacts the hearts of your audience.','By accurately predicting which creatives will thrive, SOMIN arms brands with the knowledge they need to connect on an emotional level before spending.','Connect beyond metrics; reach hearts instead.','I can create campaigns that genuinely resonate with my audience.'],
+ ['Navigate the noise of information with SOMIN’s strategic clarity.','In a marketplace flooded with data, clarity is your best tool. SOMIN clarifies insights, turning statistics into deep conversations.','Let SOMIN guide you through the marketing maze, helping you understand what makes content engage and why, so you can spend smarter.','Cut through the clutter with clarity.','I value having clarity in an overwhelming data landscape.'],
+ ['SOMIN: Your partner in creating meaningful audience interactions.','With a focus on clarity, SOMIN reshapes how brands approach their audience, making connections that matter in a sea of generic messaging.','Through predictive analytics, SOMIN ensures your creative strategies are effective and resonate on a personal level with your target audience.','Build relationships, not just clicks.','I want to forge real, lasting connections with my customers.'],
+ ['Unlock the potential of your marketing with precise insights from SOMIN.','Navigating market inefficiencies becomes effortless as SOMIN equips brands with genuine insights, making data a reliable dialogue rather than just numbers.','By extracting strategic concepts from competitors’ content, SOMIN helps you tap into what works, reducing risks in your marketing spend.','Data you can trust, insights you can use.','I can confidently invest in strategies that actually work.'],
+ ['Transform your data into insight-rich connections with SOMIN.','In a world where clarity breeds connection, SOMIN brings a human touch to audience research, ensuring every data point tells a story tied to real people.','SOMIN’s AI-driven platform decodes content and predicts the clickability of creatives, revealing what truly resonates before you invest.','Know your audience, connect authentically.','I feel empowered to create content that truly connects with my audience.']];
+
+/* expressions: kind, headline, body, cta, gradient */
+const EXPR={
+ tofu:[
+  ['UGC/Influencer Style','I finally stopped guessing what my audience wants.','As a marketing director, I was tired of seeing budgets vanish into “broad demographics.” I started using SOMIN to actually listen to the unique needs of my customers. No more one-size-fits-all.','See the Insights','linear-gradient(135deg,#c9a27e,#7c8a6b)'],
+  ['Pattern Interrupt','STOP WASTING YOUR AD BUDGET.','If you’re still targeting by “Age 25–45,” you’re throwing money away. The digital landscape has evolved, but your strategy hasn’t. It’s time to see the diverse complexities of your real customers.','Stop the Waste','linear-gradient(120deg,#e84978,#3b82f6)'],
+  ['Aspirational Lifestyle','The feeling of a campaign that actually connects.','Imagine walking into your next board meeting with data that doesn’t just show numbers, but human stories. Elevate your marketing from a game of chance to a tapestry of connection.','Elevate Your Strategy','linear-gradient(135deg,#7b6cf6,#2dbf9c)'],
+  ['The Transition Sequence','From “Who are they?” to “I know them.”','Cast a wider net by understanding the specific vibes of your audience. SOMIN maps the journeys you didn’t even know existed.','Explore the Map','linear-gradient(135deg,#0ea5e9,#14b8a6)'],
+  ['The Dramatic Beat Drop','My ROI before vs. after SOMIN.','I felt the tension of ineffective campaigns gnawing at my creativity. Then I found the tool that turned whispers of discontent into roars of engagement.','See the Transformation','linear-gradient(135deg,#111827,#2dbf9c)'],
+  ['Street Interview','We asked 100 Marketers: “Do you actually know your audience?”','The answers were shocking. Most are still relying on outdated assumptions. We’re changing that.','Watch the Results','linear-gradient(135deg,#f59e0b,#ef4444)'],
+  ['A Day in the Life','A day in the life of a data-driven Marketing Director.','Morning coffee, audience insights, and campaigns that actually blossom. See how SOMIN fits into the hustle.','Follow the Journey','linear-gradient(135deg,#f472b6,#8b5cf6)'],
+  ['Expectation vs. Reality','Expectation: Broad targeting works. Reality: It doesn’t.','Stop planting seeds of disappointment with one-size-fits-all ads. Nurture authenticity with SOMIN.','Get the Reality Check','linear-gradient(135deg,#22c55e,#0ea5e9)']],
+ mofu:[
+  ['Product Demonstration','3 Steps to Audience Mastery.','Stop the misallocation. 1. Connect your data. 2. Analyse the treemap. 3. Launch targeted creative that resonates.','Start the Process','linear-gradient(135deg,#2dbf9c,#1bb394)'],
+  ['Comparison Positioning','Why SOMIN is the clear choice.','Generic platforms give you demographics. SOMIN gives you personas, journeys and passions. Don’t settle for the “Old Way” of guessing.','See the Comparison','linear-gradient(135deg,#334155,#0ea5e9)'],
+  ['Transparent Receipt','See the ROI before you spend.','Eliminate the tension of unreliable data. We show you exactly where your budget goes and how it performs.','View Pricing','linear-gradient(135deg,#0f766e,#65a30d)'],
+  ['Founder POV','Why I built SOMIN.','I saw too many brands struggling with ineffective campaigns. I wanted a tool that honours consumer expectations through understanding.','Hear the Story','linear-gradient(135deg,#1e293b,#a94392)'],
+  ['Tutorial Listicle','5 Reasons your ads are falling flat.','Reason #1: You’re ignoring the diverse complexities of your audience. SOMIN fixes that by mapping real human emotions.','Read the List','linear-gradient(135deg,#f97316,#facc15)'],
+  ['AMA / Comment Reply','How does SOMIN handle cross-platform data?','Great question! We aggregate insights from across the digital landscape to give you a 360-degree view of your customer.','Ask a Question','linear-gradient(135deg,#06b6d4,#6366f1)'],
+  ['Transparent Breakdown','Where does your ROI actually come from?','We break down the value of every insight. No more “black box” marketing — just clear, actionable data.','See the Breakdown','linear-gradient(135deg,#0891b2,#22c55e)'],
+  ['Neighborhood Spotlight','The hidden gem of marketing tech.','Take a walk through the ecosystem of modern advertising. SOMIN is the tool the top 1% are using to stay ahead.','Join the Ecosystem','linear-gradient(135deg,#7c3aed,#ec4899)']],
+ bofu:[
+  ['Social Proof','SOMIN cut our CPA by 40%.','“We were flying blind until we used SOMIN. Now our audience feels seen, and our engagement has blossomed.” — Sarah K., Marketing Director.','Get These Results','linear-gradient(135deg,#2dbf9c,#0ea5e9)'],
+  ['Problem-Solution','Stop the disappointment. Start the connection.','Problem: Misallocated spend and flat engagement. Solution: Data-driven insights that nurture trust and loyalty.','Switch to SOMIN','linear-gradient(135deg,#ef4444,#22c55e)'],
+  ['Limited-Time Offer','50% OFF YOUR FIRST MONTH.','Ends tonight. Stop wasting your budget and start empowering your marketing with real insights. Don’t miss out.','Claim 50% Off','linear-gradient(135deg,#f43f5e,#f59e0b)'],
+  ['Cart Recovery','Still thinking about your ROI?','Your campaigns are waiting for the insights they deserve. Come back and finish setting up your SOMIN dashboard.','Complete Setup','linear-gradient(135deg,#6366f1,#14b8a6)'],
+  ['Free Trial','Try SOMIN 100% Risk-Free.','No-risk confidence. Get full access to our audience research platform for 14 days. If you don’t see the value, you don’t pay.','Start Free Trial','linear-gradient(135deg,#16a34a,#2dbf9c)'],
+  ['VIP Membership','Exclusive Access for Agency Leaders.','Unlock the full power of SOMIN with our VIP tier. Advanced behavioural mapping for those who demand the best.','Unlock VIP Access','linear-gradient(135deg,#111827,#f59e0b)'],
+  ['Delivery Demo','Your insights are ready.','See exactly how your audience report arrives. Instant, actionable, and ready to transform your next campaign.','Get Your Report','linear-gradient(135deg,#0ea5e9,#2dbf9c)'],
+  ['Emotional Reaction','The sound of a successful campaign.','There’s nothing like the feeling of hitting your targets. SOMIN makes it happen every time.','Feel the Success','linear-gradient(135deg,#a94392,#3b82f6)'],
+  ['Multi-Perspective','Why our CEO trusts SOMIN.','“As a leader, I need to know our spend is effective. SOMIN gives my team the confidence to win.” — James L., CEO.','Trust the Data','linear-gradient(135deg,#334155,#2dbf9c)']]
+};
+
+/* ============================================================= render helpers */
 function cssv(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
-window.addEventListener('DOMContentLoaded',()=>{
-  $('#audList').innerHTML=AUD.map(([n,v])=>{const w=Math.round(v/135*100);
-    return `<div class="r" data-aud="${n}"><span class="nm">${n}</span><span style="width:60px;height:6px;background:#eef3f2;border-radius:4px;overflow:hidden"><span style="display:block;height:100%;width:${w}%;background:var(--teal)"></span></span><span class="vv">${v}</span></div>`;}).join('');
-  $('#personaList').innerHTML=PLIST.map(([n,md,eg,a])=>`<div class="li-item${a?' active':''}"><div style="font-size:10px;color:var(--teal-d);font-weight:800;text-transform:uppercase;letter-spacing:.4px">Persona</div><div class="t">${n}</div><div class="m">Media: ${md} · Total Engagement: <b>${eg}</b></div></div>`).join('');
-  $('#insightList').innerHTML=INS.map((o,i)=>`<div class="li-item${i===0?' active':''}" onclick="pickInsight(${i},this)"><div class="t">${o.t}</div></div>`).join('');
-  drawDonut('#donutContent',BT_CONTENT);drawDonut('#donutEngage',BT_ENGAGE);
-  $('#btContent').innerHTML=BT_CONTENT.map(([n,v,p,c])=>`<div class="r"><span class="sw" style="background:var(${c})"></span><span class="nm" style="font-size:12px">${n}</span><span class="vv">${v} <span class="faint" style="font-weight:600">(${p})</span></span></div>`).join('');
-  $('#btEngage').innerHTML=BT_ENGAGE.map(([n,v,p,c])=>`<div class="r"><span class="sw" style="background:var(${c})"></span><span class="nm" style="font-size:12px">${n}</span><span class="vv">${v.toLocaleString()} <span class="faint" style="font-weight:600">(${p})</span></span></div>`).join('');
-  drawLine('#trendContent',[['--c-linkedin',[20,18,60,30,22,68,40,28,90,35,30,55,44,38]],['--c-milieu',[10,12,14,52,20,16,22,18,40,26,20,30,24,60]],['--c-somin',[6,8,10,9,12,10,14,12,16,13,20,15,18,22]]]);
-  drawLine('#trendEngage',[['--c-nielsen',[30,120,60,200,90,260,140,300,170,240,150,290,180,320]],['--c-milieu',[40,80,60,120,70,140,100,150,110,190,120,160,130,200]]]);
-  setMomentType('Life Moments');
-  renderDock(CUR);
-});
-function drawDonut(sel,rows){const el=$(sel);const total=rows.reduce((a,r)=>a+r[1],0);const R=52,C=2*Math.PI*R;let off=0;
+function platBadge(p,c){return `<span class="plat" style="background:${c}">${p}</span>`;}
+function trend(v){const dn=String(v).trim().startsWith('-');return `<span class="${dn?'dn':'up'}">${dn?'▾':'▴'} ${esc(v)}</span>`;}
+
+function drawDonut(sel,rows){const el=$(sel);if(!el)return;const total=rows.reduce((a,r)=>a+r[1],0);const R=52,C=2*Math.PI*R;let off=0;
   let segs='';rows.forEach(([n,v,,c])=>{const frac=v/total;const len=frac*C;
     segs+=`<circle cx="70" cy="70" r="${R}" fill="none" stroke="${cssv(c)}" stroke-width="22" stroke-dasharray="${len} ${C-len}" stroke-dashoffset="${-off}" transform="rotate(-90 70 70)"/>`;off+=len;});
   el.innerHTML=`<svg viewBox="0 0 140 140" width="150" height="150">${segs}<circle cx="70" cy="70" r="30" fill="#fff"/></svg>`;}
-function drawLine(sel,series){const el=$(sel);const W=520,H=150,pad=8;const max=Math.max(...series.flatMap(s=>s[1]));
+function drawLine(sel,series){const el=$(sel);if(!el)return;const W=520,H=150,pad=8;const max=Math.max(...series.flatMap(s=>s[1]));
   let grid='';for(let i=1;i<4;i++){const y=pad+(H-2*pad)*i/4;grid+=`<line x1="0" y1="${y}" x2="${W}" y2="${y}" stroke="#eef3f2" stroke-width="1"/>`;}
   let paths=series.map(([c,pts])=>{const step=W/(pts.length-1);const d=pts.map((v,i)=>`${i?'L':'M'}${(i*step).toFixed(1)} ${(H-pad-(v/max)*(H-2*pad)).toFixed(1)}`).join(' ');
     return `<path d="${d}" fill="none" stroke="${cssv(c)}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;}).join('');
   el.innerHTML=grid+paths;}
+
+/* ---- content library ---- */
+function renderFeed(){$('#clFeed').innerHTML=POSTS.map(([b,bc,p,pc,er,dt,tx,lk,cm,sh])=>`
+  <div class="post">
+    <div class="pv">
+      <div class="brand"><span class="sw" style="background:var(${bc})"></span>${esc(b)}</div>
+      ${platBadge(p,pc)}
+      <div class="met"><span>Engagement Rate</span><b>${er}</b></div>
+      <div class="met"><span>Active Date</span><b>${dt}</b></div>
+      <div class="go">↗ Go to source</div>
+      <div class="go" style="color:var(--soft)">◹ Attention map</div>
+    </div>
+    <div class="pb">
+      <div class="txt">${esc(tx)} <span class="more">Show More</span></div>
+      <div class="eng"><span>👍 <b>${lk}</b> Reactions</span><span>💬 <b>${cm}</b> Comments</span><span>↗ <b>${sh}</b> Shares</span><span class="sel">✓ Selected</span></div>
+    </div>
+  </div>`).join('');}
+function switchCL(v){const tree=v==='tree';$('#clTree').style.display=tree?'block':'none';$('#clMedia').style.display=tree?'none':'block';
+  $('#clTabTree').classList.toggle('on',tree);$('#clTabMedia').classList.toggle('on',!tree);}
+
+/* ---- brand tracker ---- */
+function renderBrandTracker(){
+  drawDonut('#donutContent',BT_CONTENT);drawDonut('#donutEngage',BT_ENGAGE);
+  $('#btContent').innerHTML=BT_CONTENT.map(([n,v,p,c])=>`<div class="r"><span class="sw" style="background:var(${c})"></span><span class="nm" style="font-size:12px">${esc(n)}</span><span class="vv">${v} <span class="faint" style="font-weight:600">(${p})</span></span></div>`).join('');
+  $('#btEngage').innerHTML=BT_ENGAGE.map(([n,v,p,c])=>`<div class="r"><span class="sw" style="background:var(${c})"></span><span class="nm" style="font-size:12px">${esc(n)}</span><span class="vv">${v.toLocaleString()} <span class="faint" style="font-weight:600">(${p})</span></span></div>`).join('');
+  $('#btTable').innerHTML=BT_TABLE.map(r=>`<tr>
+    <td><span class="bn"><span class="sw" style="background:var(${r[9]})"></span>${esc(r[0])}</span></td>
+    <td><span class="val">${r[1]}</span> ${trend(r[2])}</td>
+    <td><span class="val">${r[3]}</span> ${trend(r[4])}</td>
+    <td><span class="val">${r[5]}</span> ${trend(r[6])}</td>
+    <td><span class="val">${r[7]}</span> ${trend(r[8])}</td></tr>`).join('');
+  drawLine('#trendContent',[['--c-linkedin',[20,18,60,30,22,68,40,28,90,35,30,55,44,38]],['--c-milieu',[10,12,14,52,20,16,22,18,40,26,20,30,24,60]],['--c-somin',[6,8,10,9,12,10,14,12,16,13,20,15,18,22]]]);
+  drawLine('#trendEngage',[['--c-nielsen',[30,120,60,200,90,260,140,300,170,240,150,290,180,320]],['--c-milieu',[40,80,60,120,70,140,100,150,110,190,120,160,130,200]]]);
+}
+
+/* ---- perspectives ---- */
+function detCard(cls,cov,lab,name,desc,media,clk){return `<div class="detcard ${cls}">
+  <div class="cov">${cov}</div>
+  <div class="cb"><div class="lab">${lab}</div><h4>${esc(name)}</h4><p>${esc(desc)}</p>
+    <div class="meta"><span>Total media <b>${media}</b></span><span>Clickability <span class="clk">${clk}</span></span></div></div></div>`;}
+function renderPerspectives(){
+  const pRows=PERSPP.map(p=>[p[0],p[1],'',p[4]]);drawDonut('#ppDonutP',pRows);
+  $('#ppDistP').innerHTML=PERSPP.map(p=>`<div class="r"><span class="sw" style="background:var(${p[4]})"></span><span class="nm" style="font-size:12px">${esc(p[0])}</span><span class="vv">${p[1]}</span></div>`).join('');
+  $('#ppPersonas').innerHTML=PERSPP.map((p,i)=>detCard('','P'+(i+1),'Persona '+(i+1),p[0],p[3],p[1],p[2])).join('');
+  const tRows=PERST.map(t=>[t[0],t[1],'',t[4]]);drawDonut('#ppDonutT',tRows);
+  $('#ppDistT').innerHTML=PERST.map(t=>`<div class="r"><span class="sw" style="background:var(${t[4]})"></span><span class="nm" style="font-size:11.5px">${esc(t[0])}</span><span class="vv">${t[1]}</span></div>`).join('');
+  $('#ppTensions').innerHTML=PERST.map((t,i)=>detCard('tns','T'+(i+1),'Tension '+(i+1),t[0],t[3],t[1],t[2])).join('');
+}
+
+/* ---- personas ---- */
+function pickPersona(i,el){if(el){$$('#personaList .li-item').forEach(x=>x.classList.remove('active'));el.classList.add('active');}
+  const p=PLIST[i];const cover=p.n.split(' ').slice(-1)[0].toUpperCase().slice(0,6);
+  $('#personaDetail').innerHTML=`
+   <div class="card" style="overflow:hidden;margin-bottom:16px">
+    <div class="pad" style="display:grid;grid-template-columns:150px 1fr;gap:18px">
+      <div style="height:150px;border-radius:12px;background:linear-gradient(135deg,#2b3a55,#4a6178);display:grid;place-items:center;color:#cfe;font-weight:800;letter-spacing:2px;font-size:12px">${cover}</div>
+      <div>
+        <div class="eyebrow" style="color:var(--teal-d)">⚇ Detected Persona</div>
+        <div style="font-size:22px;font-weight:900;color:var(--ink);margin:4px 0">${esc(p.n)} <span class="faint" style="font-size:14px">✎</span></div>
+        <div class="muted" style="font-size:12.5px;line-height:1.55">${esc(p.d)} <span class="tealtxt">Show More</span></div>
+        <div style="margin-top:12px;display:flex;align-items:center;gap:10px">
+          <span class="muted" style="font-size:12px">Generate</span>
+          <button class="pill" style="border-color:var(--teal);color:var(--teal-d)" onclick="go('moments',document.querySelector('[data-scr=moments]'))">Moments</button>
+          <button class="pill" onclick="toast('Concept map opened')">Concept Map</button>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--hair)">
+      <div class="pad" style="border-right:1px solid var(--hair)"><div class="muted" style="font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:800">Concept Map</div><div style="font-size:26px;font-weight:900;color:var(--ink);margin-top:6px">3 <span style="font-size:14px;font-weight:700">Profiles</span> <span class="tealtxt" style="font-size:12px;float:right;margin-top:12px">View →</span></div></div>
+      <div class="pad" style="border-right:1px solid var(--hair)"><div class="muted" style="font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:800">Total Media</div><div style="font-size:26px;font-weight:900;color:var(--ink);margin-top:6px">${p.md} <span class="tealtxt" style="font-size:12px;float:right;margin-top:12px">View →</span></div></div>
+      <div class="pad"><div class="muted" style="font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:800">Total Engagement</div><div style="font-size:26px;font-weight:900;color:var(--teal-d);margin-top:6px">${p.eg.toLocaleString()}</div></div>
+    </div>
+   </div>
+   <div class="card pad">
+    <div class="muted" style="font-size:12px">Created on July 7, 2026</div>
+    <div style="font-weight:900;color:var(--ink);font-size:16px;margin:2px 0 12px"><span class="mono">PS-6901</span> · SOMIN Paid Concept-Whitespace — Q1 (Jul 7–Oct 6 2025)</div>
+    <div class="muted" style="font-size:12.5px;line-height:1.9">
+      Source: <b>Paid Ads</b> · Platforms: Facebook, Instagram, IG Stories, Threads, Messenger, Ads Network, Google Ads, LinkedIn<br>
+      Brands: Milieu, Euromonitor, Nielsen, GWI, SOMIN · Total Media: <b>279</b><br>
+      Date Range: July 07, 2025 → October 06, 2025</div>
+   </div>`;}
+
+/* ---- insights ---- */
+function pickInsight(i,el){if(el){$$('#insightList .li-item').forEach(x=>x.classList.remove('active'));el.classList.add('active');}
+  const o=INS[i];const ten=o.ten||DEF_TEN,per=o.per||DEF_PER,econ=o.econ||DEF_ECON;
+  const media=o.media||((7+i)+' out of 279 media'),clk=o.clk||'Average';
+  const story=o.story||('“'+o.nt+'.” '+o.sum+' This narrative dramatises the insight through a short, human vignette drawn from the studied audience — grounding the strategic point in a moment a real consumer would recognise.');
+  const storyHTML=story.split('\n\n').map(p=>`<p style="margin:0 0 10px">${esc(p)}</p>`).join('');
+  $('#insightDetail').innerHTML=`
+   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="card pad">
+        <div class="eyebrow">Insight</div>
+        <div style="font-size:22px;font-weight:900;color:var(--ink);line-height:1.2;margin:6px 0 8px">${esc(o.t)}</div>
+        <p class="muted" style="font-size:13px;margin:0">${esc(o.sum)}</p>
+        <div class="refbox">
+          STUDY REFERENCE: <b>SOMIN Paid Concept-Whitespace — Q1 (Jul 7–Oct 6 2025)</b><br>
+          WORKSPACE REFERENCE: <b>SOMIN | Audience Research Platform</b><br>
+          MEDIA REFERENCES: <b>${media}</b> · CLICKABILITY: <span class="clk">${clk}</span></div>
+      </div>
+      <div class="card pad tns" style="border-top:3px solid var(--re-plum)">
+        <div class="eyebrow" style="color:var(--re-plum)">Tension Reference</div>
+        <div style="font-size:15px;font-weight:800;color:var(--ink);margin:6px 0 8px;line-height:1.3">${esc(ten.n)}</div>
+        <p class="muted" style="font-size:12.5px;margin:0">${esc(ten.d)}</p>
+      </div>
+      <div class="card pad">
+        <div class="eyebrow">Persona Reference</div>
+        <div style="font-size:15px;font-weight:800;color:var(--ink);margin:6px 0 8px">${esc(per.n)}</div>
+        <p class="muted" style="font-size:12.5px;margin:0">${esc(per.d)}</p>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="card pad">
+        <div class="eyebrow">Economic Angle</div>
+        ${econ.map(([k,v])=>`<div style="margin-top:10px"><div style="font-weight:800;color:var(--ink);font-size:13.5px">${esc(k)}</div><p class="muted" style="font-size:12.5px;margin:3px 0 0">${esc(v)}</p></div>`).join('')}
+      </div>
+      <div class="card pad" style="flex:1">
+        <div class="eyebrow">Audience Story</div>
+        <div style="font-size:17px;font-weight:900;color:var(--ink);margin:6px 0 10px">${esc(o.nt)}</div>
+        <div class="muted" style="font-size:12.5px;line-height:1.6">${storyHTML}</div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <button class="btn" onclick="go('propositions',document.querySelector('[data-scr=propositions]'))">Generate Propositions</button>
+        <a class="pill" style="border-color:var(--teal);color:var(--teal-d);cursor:pointer" onclick="go('expressions',document.querySelector('[data-scr=expressions]'))">Create Expressions →</a>
+      </div>
+    </div>
+   </div>`;}
+
+/* ---- moments ---- */
+function momentCardsHTML(rows){return rows.map(([k,t,q,b])=>`<div class="card pad" style="margin-bottom:12px"><div class="muted" style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px">${esc(k)}</div><div style="font-size:17px;font-weight:800;color:var(--ink);margin:4px 0 8px">${esc(t)}</div><div style="color:var(--teal-d);font-style:italic;font-weight:600;font-size:13px;margin-bottom:8px">“${esc(q)}”</div><p class="muted" style="font-size:12.5px;margin:0">${esc(b)}</p></div>`).join('');}
+let CUR_MOMENT='Life Moments';
+function renderMomentTabs(){$('#momentTabs').innerHTML=Object.keys(MOMENTS).map(k=>`<button class="${k===CUR_MOMENT?'on':''}" onclick="setMomentType('${k}',this)">${k}</button>`).join('');}
+function setMomentType(type,el){CUR_MOMENT=type;if(el){$$('#momentTabs button').forEach(b=>b.classList.remove('on'));el.classList.add('on');}else renderMomentTabs();
+  $('#momentCards').innerHTML=momentCardsHTML(MOMENTS[type]);}
+
+/* ---- propositions ---- */
+function renderProps(){$('#propCards').innerHTML=PROPCARDS.map(c=>`<div class="propcard">
+  <h3>${esc(c[0])}</h3>
+  <div class="field"><div class="k">Insight Integration</div><div class="v">${esc(c[1])}</div></div>
+  <div class="field"><div class="k">Product Connection</div><div class="v">${esc(c[2])}</div></div>
+  <div class="field"><div class="k">Sample Tagline</div><div class="v" style="font-weight:800;color:var(--ink)">${esc(c[3])}</div></div>
+  <div class="field" style="margin-bottom:0"><div class="k">Consumer Takeaway</div><div class="v">“${esc(c[4])}”</div></div></div>`).join('');}
+
+/* ---- expressions ---- */
+function expCard(kind,hd,bd,cta,grad){return `<div class="exp">
+  <div class="top"><div class="kind">${esc(kind)}</div><div class="add">✓ Add to Library</div></div>
+  <div class="hd">${esc(hd)}</div><div class="bd">${esc(bd)}</div><div class="lnk">${esc(cta)} →</div>
+  <div class="imgph" style="background:${grad}">${esc(kind)}</div>
+  <div class="btns"><div class="b1">↻ Regenerate image</div><div class="b2">✦ Animate</div></div></div>`;}
+function renderExpr(){
+  $('#expTofu').innerHTML=EXPR.tofu.map(c=>expCard(...c)).join('');
+  $('#expMofu').innerHTML=EXPR.mofu.map(c=>expCard(...c)).join('');
+  $('#expBofu').innerHTML=EXPR.bofu.map(c=>expCard(...c)).join('');
+}
+
+/* ============================================================= boot */
+window.addEventListener('DOMContentLoaded',()=>{
+  const amax=AUD[0][1];
+  $('#audList').innerHTML=AUD.map(([n,v])=>{const w=Math.round(v/amax*100);
+    return `<div class="r" data-aud="${esc(n)}"><span class="nm">${esc(n)}</span><span style="width:60px;height:6px;background:#eef3f2;border-radius:4px;overflow:hidden"><span style="display:block;height:100%;width:${w}%;background:var(--teal)"></span></span><span class="vv">${v}</span></div>`;}).join('');
+  renderFeed();
+  renderBrandTracker();
+  renderPerspectives();
+  $('#personaList').innerHTML=PLIST.map((p,i)=>`<div class="li-item${i===0?' active':''}" onclick="pickPersona(${i},this)"><div style="font-size:10px;color:var(--teal-d);font-weight:800;text-transform:uppercase;letter-spacing:.4px">Persona</div><div class="t">${esc(p.n)}</div><div class="m">Media: ${p.md} · Total Engagement: <b>${p.eg.toLocaleString()}</b></div></div>`).join('');
+  pickPersona(0);
+  $('#insightList').innerHTML=INS.map((o,i)=>`<div class="li-item${i===0?' active':''}" onclick="pickInsight(${i},this)"><div class="t">${esc(o.t)}</div></div>`).join('');
+  pickInsight(0);
+  renderMomentTabs();setMomentType('Life Moments');
+  renderProps();
+  renderExpr();
+  renderDock(CUR);
+});
 
 /* ============================================================= navigation */
 let CUR='content-library';let pendingSowiseCtx=null;
@@ -1168,64 +1437,58 @@ function go(scr,el){CUR=scr;
     else if(!$('#agentInner').innerHTML.trim()){agentHome();}}
   if(window.innerWidth<=900)closeSide();
 }
-function pickInsight(i,el){$$('#insightList .li-item').forEach(x=>x.classList.remove('active'));el.classList.add('active');
-  const o=INS[i];$('#insTitle').innerHTML=o.t;$('#insMeta').innerHTML='Story: “'+o.nt+'” · Product: SOMIN · Perspective Studies';$('#insSummary').innerHTML=o.sum;$('#insStmt').innerHTML=o.t;}
-function momentCardsHTML(rows){return rows.map(([k,t,q,b])=>`<div class="card pad" style="margin-bottom:12px"><div class="muted" style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px">${k}</div><div style="font-size:17px;font-weight:800;color:var(--ink);margin:4px 0 8px">${t}</div><div style="color:var(--teal-d);font-style:italic;font-weight:600;font-size:13px;margin-bottom:8px">“${q}”</div><p class="muted" style="font-size:12.5px;margin:0">${b}</p></div>`).join('');}
-function setMomentType(type){$('#momentType .v').textContent=type;$('#momentCards').innerHTML=momentCardsHTML(MOMENTS[type]);}
-function cycleMomentType(){const order=Object.keys(MOMENTS);const cur=$('#momentType .v').textContent.trim();
-  const next=order[(order.indexOf(cur)+1)%order.length];setMomentType(next);toast('Moment type → <b>'+next+'</b>');}
 /* ============================================================= COPILOT DOCK */
 const CTX={
  'content-library':{name:'Content Library · Inferred-Audience treemap',
-   intro:"You're on the <b>Content Library</b> — 225 posts, 5 brands, concept view <b>Inferred Audience</b>. <b>Business Owners</b> (135) is the biggest audience here, but it's almost all LinkedIn + Milieu — <b>SOMIN barely appears in it.</b>",
+   intro:"You're on the <b>Content Library</b> — 216 posts, 5 brands, concept view <b>Inferred Audience</b>. <b>Business Owners</b> (160) is the biggest audience here, but it's almost all LinkedIn + Milieu — <b>SOMIN barely appears in it.</b>",
    chips:[
-    {q:'Where is SOMIN’s biggest audience gap?',a:"Your biggest content-supply gap is <b>Business Owners</b>: 135 posts in the set, SOMIN produced only ~9 of them. Milieu and the LinkedIn profiles own that conversation. <b>Marketing Professionals</b> (93) and <b>Entrepreneurs</b> (76) are the next two open lanes.",stats:[['135','Business Owners'],['~9','SOMIN posts'],['3','open lanes']]},
+    {q:'Where is SOMIN’s biggest audience gap?',a:"Your biggest content-supply gap is <b>Business Owners</b>: 160 media in the set (131 on LinkedIn, 29 on Milieu), and SOMIN doesn't appear in it at all. <b>Marketing Professionals</b> (97) and <b>Entrepreneurs</b> (91) are the next two open lanes.",stats:[['160','Business Owners'],['0','SOMIN posts'],['3','open lanes']]},
     {q:'Filter the treemap to Business Owners',a:"Filtering the concept view to <b>Business Owners</b> across all brands…",act:'filterBO'},
-    {q:'Compare SOMIN vs Milieu coverage',a:"Across the 15 audiences, <b>Milieu</b> appears in 11; <b>SOMIN</b> in 5. Milieu leads Business Owners, General Public and Professionals; SOMIN over-indexes only on CMOs and Marketers. You're narrow exactly where the volume is.",stats:[['11','Milieu'],['5','SOMIN']]},
+    {q:'Compare SOMIN vs Milieu coverage',a:"Across the audiences, <b>Milieu</b> appears in most of the top lanes; <b>SOMIN</b> in only a couple. Milieu leads Business Owners, General Public and Professionals; SOMIN over-indexes only on CMOs and Marketers. You're narrow exactly where the volume is.",stats:[['Broad','Milieu'],['Narrow','SOMIN']]},
     {q:'Turn this into a strategy deck',a:"That's an agent job — I'll carry this treemap in and build a whitespace-led cross-market deck.",act:'esc'}]},
- 'brand-tracker':{name:'Brand Tracker · 248 posts · 6 brands',
-   intro:"On <b>Brand Tracker</b> you rank <b>4th on activity</b> (28 posts) and <b>last on engagement</b> (120). <b>Nielsen</b> posts a similar volume to you but earns ~10× the reaction — so this is a <b>content-quality gap, not a volume gap.</b>",
+ 'brand-tracker':{name:'Brand Tracker · 239 posts · 6 brands',
+   intro:"On <b>Brand Tracker</b> you rank <b>4th on activity</b> (26 posts) and <b>last on engagement</b> (27). <b>Nielsen</b> posts a similar cadence to you but earns far more reaction — so this is a <b>content-quality gap, not a volume gap.</b>",
    chips:[
-    {q:'Why is SOMIN’s engagement the lowest?',a:"Middling volume (28 posts, 4th) but the least engagement (120, last). Nielsen publishes about as much as you yet converts ~10× more — the difference is <b>what</b> you post, not how much.",stats:[['4th','Activity'],['6th','Engagement'],['10×','Nielsen rate']]},
+    {q:'Why is SOMIN’s engagement the lowest?',a:"Middling volume (26 posts, 4th) but the least engagement (27, last). Nielsen publishes about as much as you (44 posts) yet earns <b>1,054</b> engagement — ~39× more per brand. The difference is <b>what</b> you post, not how much.",stats:[['4th','Activity'],['5th','Engagement'],['39×','Nielsen rate']]},
     {q:'Show me the weekly trend',a:"Switching Content Activity to <b>Weekly</b>…",act:'weekly'},
-    {q:'Who’s winning engagement and why?',a:"<b>Nielsen</b> (35%) and <b>Milieu</b> (24%). Both lean on organic, human-story posts over product announcements — that's the pattern to reverse-engineer."},
-    {q:'Draft a plan to close the gap',a:"I'll open the Agent and build the persona → tension → creative plan from this tracker.",act:'esc'}]},
- 'perspectives':{name:'Perspective Study 027 · 4 personas · Entrepreneurs',
-   intro:"You're looking at <b>Study 027</b> — 84 posts, 5 brands, filtered to <b>Entrepreneurs</b>. It detected <b>4 personas</b>. The Empowered Strategist is the largest conversation, and it's dominated by Milieu, not you.",
+    {q:'Who’s winning engagement and why?',a:"<b>Nielsen</b> (33%) leads, then unselected <b>Other</b> brands (24%) and <b>Milieu</b> (19%). The winners lean on organic, human-story posts over product announcements — that's the pattern to reverse-engineer."},
+    {q:'Draft a plan to close the gap',a:"I'll open SOWISE and build the persona → tension → creative plan from this tracker.",act:'esc'}]},
+ 'perspectives':{name:'Concept-Whitespace Q1 · 3 personas · 4 tensions',
+   intro:"You're looking at <b>SOMIN Paid Concept-Whitespace — Q1</b> (PS-6901) — 279 paid media across 5 brands. It detected <b>3 personas</b> and <b>4 tensions</b>. <b>The Innovative Strategist</b> (86 media) is the largest conversation.",
    chips:[
-    {q:'Summarise the 4 personas',a:"<b>The Empowered Strategist</b> (largest, Milieu-heavy), <b>The Innovation Catalyst</b> (LinkedIn-heavy), <b>The Innovative Connector</b> (spread evenly across brands), and <b>Strategic Trailblazer</b> (small, Milieu-only)."},
-    {q:'Which persona should we target?',a:"<b>The Empowered Strategist</b> — biggest share of voice, yet SOMIN holds only ~5% of it. High-volume conversation + low SOMIN presence = best return on effort.",stats:[['#1','Share of voice'],['~5%','SOMIN share']]},
-    {q:'Generate insights for The Empowered Strategist',a:"I'll take Study 027 into the Agent and generate the full insight chain + propositions.",act:'esc'}]},
+    {q:'Summarise the detected personas',a:"<b>The Connected Visionary</b> (19 media, tech + community), <b>The Innovative Strategist</b> (86 media, marketing × data — the largest), and <b>The Strategic Innovator</b> (24 media, business-strategy-led)."},
+    {q:'Which tension should we solve first?',a:"<b>Navigating the Digital Disconnect</b> — 133 media, the biggest tension in the study. It's the gap between the data brands have and the audiences they're trying to reach.",stats:[['133','media'],['4','tensions']]},
+    {q:'Generate insights from this study',a:"I'll take Concept-Whitespace Q1 into SOWISE and generate the full insight → proposition chain.",act:'esc'}]},
  'personas':{name:'Persona · The Empowered Strategist',
-   intro:"Loaded <b>The Empowered Strategist</b> — 3 profiles, 19 media, <b>707 engagement</b> (your best-performing persona). It's built from Study 027 (Entrepreneurs).",
+   intro:"Loaded <b>The Empowered Strategist</b> — 3 profiles, 19 media, <b>707 engagement</b> (your best-performing persona). It's built from <b>PS-6901</b> (Concept-Whitespace Q1).",
    chips:[
     {q:'What tensions define this persona?',a:"Three: <b>“I'm guessing who my audience is”</b>, <b>“data feels cold and inhuman”</b>, and <b>“I can't prove ROI before I spend.”</b> Each maps to a different SOMIN capability."},
     {q:'Generate moments for this persona',a:"Jumping to Moments for this persona…",act:'gomoments'},
-    {q:'Turn this persona into a campaign',a:"I'll carry The Empowered Strategist into the Agent and run the full deck.",act:'esc'}]},
- 'insights':{name:'Insight · “Understanding is the foundation of connection.”',
-   intro:"This insight comes from <b>The Empowered Strategist × “assumptions replace real understanding”</b> (psychological angle). It's the strongest of the six on this study.",
+    {q:'Turn this persona into a campaign',a:"I'll carry The Empowered Strategist into SOWISE and run the full deck.",act:'esc'}]},
+ 'insights':{name:'Insight · “Value outshines price when connections thrive.”',
+   intro:"This insight comes from <b>The Connected Visionary × “Balancing Time and Resources”</b> (economic angle), from Concept-Whitespace Q1. Its audience story is <i>“The Echo in the Market.”</i>",
    chips:[
-    {q:'Explain why this insight works',a:"It names the buyer's private fear — <i>“I'm guessing”</i> — before pitching anything. Recognition earns permission, so the post reads as help, not an ad. That's exactly why understanding-led posts out-engage feature-led ones in your set."},
+    {q:'Explain why this insight works',a:"It reframes a budget conversation as a values one — <i>value over price</i> — which is exactly what the Connected Visionary responds to. Community and belonging beat discounting in this audience, so the message reads as shared purpose, not a pitch."},
     {q:'Generate propositions from it',a:"Sending it to Propositions…",act:'goprops'},
-    {q:'Show the persona × tension behind it',a:"Source: <b>The Empowered Strategist</b> × <b>“Assumptions replace real audience understanding”</b>, psychological angle, Study 027."}]},
+    {q:'Show the persona × tension behind it',a:"Source: <b>The Connected Visionary</b> × <b>“Balancing Time and Resources in Marketing Strategies”</b>, economic angle, Concept-Whitespace Q1 · 5 of 279 media."}]},
  'moments':{name:'Moments · Community Builder × pet nutrition',
-   intro:"Loaded <b>Compassionate Community Builder × “Optimal pet nutrition”</b> — 146 of 937 media, <b>35,710 engagement</b>, currently showing <b>Life Moments</b>.",
+   intro:"Loaded <b>Compassionate Community Builder × “Optimal pet nutrition”</b> — 146 of 937 media, <b>35,805 engagement</b>, currently showing <b>Life Moments</b>.",
    chips:[
     {q:'Which moment has the best timing?',a:"<b>Becoming a pet owner</b> — highest intent and the widest window. It reshapes daily routines, so it opens nutrition, training and community messaging at once."},
     {q:'Write a post brief for “Becoming a pet owner”',a:"<b>Hook:</b> “Day one with your dog — the thing most new owners get wrong.” · <b>Angle:</b> reassurance, not sales · <b>CTA:</b> free first-30-days checklist · <b>Format:</b> carousel + UGC voice.",stats:[['TOFU','Funnel'],['Carousel','Format']]},
     {q:'Switch to Micro moments (I-want-to…)',a:"Switching the moment type…",act:'seasonal'}]},
  'propositions':{name:'Propositions · SOMIN × “clarity breeds connection”',
-   intro:"Two propositions generated from <b>“In the realm of commerce, clarity breeds connection.”</b> for the product <b>SOMIN</b>.",
+   intro:"Five propositions generated from <b>“In the realm of commerce, clarity breeds connection.”</b> for the product <b>SOMIN</b> (B2B).",
    chips:[
-    {q:'Which proposition is strongest?',a:"<b>“Connect beyond metrics; reach the hearts of your audience.”</b> — the only one pairing a clear product truth (prediction) with an emotional payoff (resonance). That combination is what your top posts share."},
+    {q:'Which proposition is strongest?',a:"<b>“Connect beyond metrics; reach hearts instead.”</b> — the only one pairing a clear product truth (prediction) with an emotional payoff (resonance). That combination is what your top posts share."},
     {q:'Generate creative expressions',a:"Opening Expressions for this proposition…",act:'goexpr'},
     {q:'Rewrite the tagline shorter',a:"Options: <b>“Reach hearts, not just metrics.”</b> · <b>“Beyond metrics. Into meaning.”</b> · <b>“Data that connects.”</b>"}]},
- 'expressions':{name:'Expressions · TOFU · 46/50 image credits',
-   intro:"You've generated <b>5 TOFU concepts</b> from “Understanding is the foundation of connection.” I can predict which will perform, extend the funnel, or score + launch them.",
+ 'expressions':{name:'Expressions · TOFU / MOFU / BOFU · 46/50 image credits',
+   intro:"You've generated a full <b>TOFU / MOFU / BOFU</b> set (25 concepts) from “Understanding is the foundation of connection.” I can predict which will perform, or score + launch them.",
    chips:[
-    {q:'Which concept will score highest?',a:"My prediction: <b>Pattern Interrupt — “Your demographics are lying to you”</b> tops TOFU; the <b>Before/After ROI</b> is strongest for retargeting; the Street-Interview is safe but low-ceiling.",stats:[['0.86','Pattern Int.'],['0.79','Before/After'],['0.61','Street Int.']]},
+    {q:'Which concept will score highest?',a:"My prediction: <b>Pattern Interrupt — “Stop wasting your ad budget”</b> tops TOFU; the <b>Dramatic Beat Drop (ROI before/after)</b> is strongest for retargeting; the Street-Interview is safe but low-ceiling.",stats:[['0.86','Pattern Int.'],['0.79','Beat Drop'],['0.61','Street Int.']]},
     {q:'Generate 3 more MOFU concepts',a:"Three MOFU angles: a <b>comparison teardown</b> (SOMIN vs a demographics tool), a <b>30s “how it works” explainer</b>, and a <b>case-study proof reel</b>. Want me to render them?",act:'esc'},
-    {q:'Score these for clickability',a:"I can run <b>Creative Scoring</b> — upload each render, poll SOMIN for predicted above-average clickability, flag anything ≥0.80 as ‘Top performer potential’. That's an Agent run.",act:'esc'},
+    {q:'Score these for clickability',a:"I can run <b>Creative Scoring</b> — upload each render, poll SOMIN for predicted above-average clickability, flag anything ≥0.80 as ‘Top performer potential’. That's a SOWISE run.",act:'esc'},
     {q:'Push the winners to Meta',a:"That's the closing step of the SOWISE flow — score, then push the ≥0.80 creatives to Meta as paused ads.",act:'esc'}]},
  'sowise':{name:'SOWISE · agentic workspace',
    intro:"You're in <b>SOWISE</b> — your SOMIN skills as autonomous agent runs. Pick a workflow on the left, or tell me what to build.",
@@ -1264,9 +1527,9 @@ function runAct(a){switch(a){
 function actFilterBO(){$$('#treemap .tile').forEach(t=>t.classList.add('dim'));
   $$('#treemap .tile[data-aud="Business Owners"]').forEach(t=>{t.classList.remove('dim');t.classList.add('hot');});
   $$('#audList .r').forEach(r=>r.style.opacity=r.dataset.aud==='Business Owners'?'1':'.35');
-  $('#clSel').textContent='93';$('#clFilterPill').innerHTML=' <span class="tag" style="background:var(--teal-wash);color:var(--teal-d)">Audience: Business Owners ✕</span>';
+  $('#clSel').textContent='160';$('#clFilterPill').innerHTML=' <span class="tag" style="background:var(--teal-wash);color:var(--teal-d)">Audience: Business Owners ✕</span>';
   toast('Filter applied · Business Owners');
-  addDockMsg('ai',"Done — treemap is now filtered to <b>Business Owners</b> (93 media). SOMIN owns just a sliver; LinkedIn + Milieu hold the rest. This is the clearest single lane to build into.",[['93','Media'],['~9','SOMIN'],['WHITESPACE','Verdict']]);}
+  addDockMsg('ai',"Done — treemap is now filtered to <b>Business Owners</b> (160 media). It's all LinkedIn (131) + Milieu (29) — SOMIN doesn't appear in this lane at all. This is the clearest single lane to build into.",[['160','Media'],['0','SOMIN'],['WHITESPACE','Verdict']]);}
 function actWeekly(){const t=$('#scr-brand-tracker .toggle3');if(t){$$('button',t).forEach(x=>x.classList.remove('on'));$$('button',t)[1].classList.add('on');}
   drawLine('#trendContent',[['--c-linkedin',[30,62,48,80,55,70,92]],['--c-milieu',[20,30,55,40,62,50,78]],['--c-somin',[10,14,12,18,16,22,20]]]);
   toast('Content Activity → Weekly');
@@ -1304,8 +1567,8 @@ function openAgentFrom(scr){pendingSowiseCtx=scr;go('sowise');}
 function toggleCtx(){$('#dock').classList.toggle('ctx-off');}
 
 const AGENT_CTX={
- 'content-library':"I've loaded your <b>Inferred-Audience treemap</b> — 225 media, 5 brands. Business Owners is the biggest audience but SOMIN barely appears there: a clear content-supply whitespace. I can turn this straight into a cross-market strategy deck.",
- 'brand-tracker':"I've loaded <b>Brand Tracker</b> — 248 posts. SOMIN ranks 4th on activity and last on engagement. I can build the plan to close that gap.",
+ 'content-library':"I've loaded your <b>Inferred-Audience treemap</b> — 216 media, 5 brands. Business Owners is the biggest audience but SOMIN barely appears there: a clear content-supply whitespace. I can turn this straight into a cross-market strategy deck.",
+ 'brand-tracker':"I've loaded <b>Brand Tracker</b> — 239 posts. SOMIN ranks 4th on activity and last on engagement. I can build the plan to close that gap.",
  'perspectives':"I've loaded <b>Study 027</b> — 4 personas, Entrepreneurs filter. I can build the persona → tension → proposition engine into a deck.",
  'personas':"I've loaded <b>The Empowered Strategist</b> — 19 media, 707 engagement. I can generate its insight chains, propositions and a deck.",
  'insights':"I've loaded the insight <b>“Understanding is the foundation of connection.”</b> I can generate propositions and creative from it.",
