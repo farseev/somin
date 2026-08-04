@@ -515,6 +515,35 @@ img,svg{max-width:100%;display:block}
 .post .pb .eng b{color:var(--ink)}
 .post .pb .eng .sel{margin-left:auto;color:var(--teal-d);font-weight:800}
 .plat{width:22px;height:22px;border-radius:6px;display:inline-grid;place-items:center;color:#fff;font-size:11px;font-weight:900;flex:none}
+.clkb{align-self:flex-start;font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:20px;letter-spacing:.2px}
+.post .pb .artcard{margin-top:11px;display:flex;align-items:center;gap:11px;border:1px solid var(--hair);border-radius:11px;padding:9px 11px;background:var(--card-2);cursor:pointer;text-decoration:none;transition:.15s;width:fit-content;max-width:100%}
+.post .pb .artcard:hover{border-color:var(--teal);background:#fff}
+.post .pb .artthumb{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,#e8efee,#d6e6e2);display:grid;place-items:center;font-size:15px;flex:none}
+.post .pb .artmeta{min-width:0}
+.post .pb .artt{font-size:12px;font-weight:700;color:var(--ink);line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.post .pb .artd{font-size:11px;color:var(--soft);margin-top:1px}
+
+/* ---------- SODA ---------- */
+.soda-card{border-radius:14px}
+.soda-card.pending{background:var(--card-2)}
+.soda-h{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.soda-done{font-size:11px;font-weight:800;color:#0f9d6b;background:#e4f7ef;border-radius:20px;padding:3px 10px;white-space:nowrap}
+.soda-run{font-size:11px;font-weight:800;color:var(--teal-d);background:var(--teal-wash);border-radius:20px;padding:4px 12px;cursor:pointer;white-space:nowrap}
+.soda-sub{font-size:10.5px;font-weight:800;letter-spacing:.5px;color:var(--faint);text-transform:uppercase;margin:14px 0 7px}
+.wcloud{display:flex;flex-wrap:wrap;align-items:center;gap:5px 14px;padding:14px;background:var(--card-2);border:1px solid var(--hair);border-radius:12px;line-height:1.2}
+.wcloud span{display:inline-block}
+.chiprow{display:flex;flex-wrap:wrap;gap:7px}
+.sodachip{font-size:11.5px;font-weight:600;color:var(--body);background:#fff;border:1px solid var(--hair);border-radius:20px;padding:4px 11px}
+.sodachip.solid{background:var(--teal-wash);border-color:transparent;color:var(--teal-d);font-weight:700;cursor:pointer}
+.soda-hl{margin-top:14px;border-left:3px solid var(--teal);background:var(--teal-wash);border-radius:0 10px 10px 0;padding:11px 14px}
+.soda-hl-q{font-weight:800;color:var(--ink);font-size:14px;line-height:1.3}
+.soda-2col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:6px}
+.soda-list{margin:0;padding-left:16px;color:var(--body);font-size:12px;line-height:1.7}
+.soda-list li{margin-bottom:2px}
+.soda-load{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--soft);font-style:italic}
+.soda-load .spin{width:14px;height:14px;border:2px solid var(--hair-2);border-top-color:var(--teal);border-radius:50%;display:inline-block;animation:sodaspin .8s linear infinite}
+@keyframes sodaspin{to{transform:rotate(360deg)}}
+@media(max-width:720px){.soda-2col{grid-template-columns:1fr}}
 
 /* ---------- competitor breakdown table ---------- */
 .ctable{width:100%;border-collapse:collapse;font-size:12.5px}
@@ -568,6 +597,7 @@ img,svg{max-width:100%;display:block}
         <a data-scr="content-library" class="active" onclick="go('content-library',this)">Content Library</a>
         <a data-scr="brand-tracker" onclick="go('brand-tracker',this)">Brand Tracker</a>
         <a data-scr="perspectives" onclick="go('perspectives',this)">Perspective Studies</a>
+        <a data-scr="soda" onclick="go('soda',this)">SODA</a>
       </div>
     </div>
     <div class="nav-group" data-g="ads">
@@ -781,6 +811,28 @@ img,svg{max-width:100%;display:block}
         <svg class="lc" id="trendEngage" viewBox="0 0 520 150" preserveAspectRatio="none"></svg>
       </div>
     </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+      <div class="card pad">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px"><div class="h2">Activity Score</div>
+          <div class="toggle3"><button class="on">Daily</button><button onclick="toast('Weekly view')">Weekly</button></div></div>
+        <div class="muted" style="font-size:12px;margin-bottom:10px">0.0 – 1.0 · higher = more active · per brand</div>
+        <svg class="lc" id="trendActivity" viewBox="0 0 520 150" preserveAspectRatio="none"></svg>
+      </div>
+      <div class="card pad">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px"><div class="h2">Engagement Rate</div>
+          <div class="toggle3"><button class="on">Daily</button><button onclick="toast('Weekly view')">Weekly</button></div></div>
+        <div class="muted" style="font-size:12px;margin-bottom:10px">Interaction relative to reach · per brand</div>
+        <svg class="lc" id="trendRate" viewBox="0 0 520 150" preserveAspectRatio="none"></svg>
+      </div>
+    </div>
+    <div class="card pad" style="margin-bottom:16px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+        <div class="h2">Platform Distribution</div>
+        <div class="fsel" style="min-width:150px;padding:6px 11px"><span class="v" style="font-size:12px">Content Activity</span></div>
+      </div>
+      <div class="muted" style="font-size:12px;margin-bottom:12px">Where <b style="color:var(--c-somin)">SOMIN</b> publishes across the 6 tracked platforms</div>
+      <div class="rowlist" id="platDist"></div>
+    </div>
     <div class="card pad">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
         <div class="h2">Competitor Breakdown</div>
@@ -889,6 +941,25 @@ img,svg{max-width:100%;display:block}
       <div id="insightDetail"></div>
     </div>
   </section>
+  <!-- ============ SODA ============ -->
+  <section class="screen" id="scr-soda">
+    <div class="split">
+      <div class="listrail">
+        <div class="search" style="display:flex;justify-content:space-between;align-items:center"><b style="color:var(--ink)">Data Selection</b><button class="pill" style="border-color:var(--teal);color:var(--teal-d);padding:4px 9px" onclick="toast('New thread')">＋ New</button></div>
+        <div class="items" id="sodaThreads"></div>
+      </div>
+      <div>
+        <div class="card pad" style="margin-bottom:16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <div class="ic" style="width:34px;height:34px;border-radius:9px;background:var(--teal-wash);color:var(--teal-d);display:grid;place-items:center;font-size:16px">◔</div>
+          <div><div class="muted" style="font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:800">Source</div><b id="sodaSource" style="color:var(--ink);font-size:15px">Nielsen social feed</b></div>
+          <div style="flex:1"></div>
+          <div class="muted" style="font-size:12px">SODA decodes a competitor's <b>products</b>, <b>audiences</b> and <b>narratives</b> from their real social &amp; ad activity — powered by <b>Claude</b>.</div>
+        </div>
+        <div id="sodaReport" style="display:flex;flex-direction:column;gap:16px"></div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ MOMENTS ============ -->
   <section class="screen" id="scr-moments">
     <div class="split">
@@ -1173,14 +1244,27 @@ const BT_TABLE=[
 
 /* media feed posts: brand, colorvar, plat, platColor, engRate, date, text, likes, comments, shares */
 const POSTS=[
- ['Milieu','--c-milieu','FB','#1877F2','0.0011%','03.08.2026','Across Singapore, Malaysia and Thailand, 74–81% of workers feel confident using AI at work, and 39% are willing to retrain as their roles evolve. The adaptability is there but the support is still shaky: 62% have had no AI training from their employer…',4,1,1],
- ['SOMIN','--c-somin','LI','#0A66C2','0.0000%','03.08.2026','Three days of pitch research. One hour of client briefing. And the strategy still sounds like everyone else’s. The research isn’t the problem — the process is. When Blak Labs cut brand analysis from 10 hours to 1, the real win was finding the angle nobody else had found.',1,0,0],
- ['SOMIN','--c-somin','LI','#0A66C2','0.0000%','03.08.2026','Most agency pitch decks take days to research and hours to build — yet still sound like every other agency’s work. When Blak Labs, a 50-person Singapore agency, used SOMIN’s category intelligence layer, they cut brand analysis from 10 hours to 1 and reporting costs from $10K to $6K a month.',0,0,0],
- ['Linkedin Profiles (Aleks, Egor, Kirill, Filipp)','--c-linkedin','LI','#0A66C2','0.0003%','02.08.2026','Most marketers are still using AI as a faster typewriter. The real shift — from doing to directing — is only just beginning. The marketers who will matter in three years are the ones who can decide what gets produced, evaluate whether it’s any good, and course-correct when it’s not.',1,0,0],
- ['Linkedin Profiles (Aleks, Egor, Kirill, Filipp)','--c-linkedin','LI','#0A66C2','0.0146%','01.08.2026','68% of marketers measure email performance by click-through rate. Not revenue. Not pipeline. Clicks. Speed is not the differentiator anymore — execution quality and measurement maturity are.',3,0,0],
- ['Linkedin Profiles (Aleks, Egor, Kirill, Filipp)','--c-linkedin','LI','#0A66C2','0.0003%','01.08.2026','Most advertising platforms assume marketers want to operate software. StackAdapt just bet the opposite is true with Ivy Studio — you define the outcome, and AI agents handle the path to get there.',4,0,0],
- ['Nielsen','--c-nielsen','FB','#1877F2','0.0000%','31.07.2026','Can you name the most-watched TV event of all time? 📺 The answer is the M*A*S*H series finale. When it aired in 1983, 105.9 million viewers tuned in — the most-watched television event in U.S. history, unmatched for 27 years.',8,6,1],
- ['GWI','--c-gwi','FB','#1877F2','0.0001%','31.07.2026','🎥 Christopher Nolan’s use of IMAX for The Odyssey has proven popular, but Greek consumers are dreaming of beach holidays, not epic adventures. Also this week: El Niño’s arrival, YouTube as a launchpad for viral trends, and why fewer of us share opinions online.',0,0,0]];
+ ['Milieu','--c-milieu','FB','#1877F2','0.0002%','03.08.2026','Across Singapore, Malaysia and Thailand, 74-81% of workers feel confident using AI at work, and 39% are willing to retrain as their roles evolve. The adaptability is there but the support is still shaky: 📌 62% have had no AI training from their employer 📌 43% want it and they\'re still waiting We\'re going live tomorrow to discuss more regarding this topic - register for your spot before it\'s too late: https://us06web.zoom.us/webinar/register/1917830696481/W…','4','1','1','Low','',''],
+ ['SOMIN','--c-somin','LI','#0A66C2','0.0011%','03.08.2026','Three days of pitch research. One hour of client briefing. And the strategy still sounds like everyone else\'s. The research isn\'t the problem. The process is. When Blak Labs cut brand analysis from 10 hours to 1, the real win wasn\'t the time — it was finding the angle nobody else had found. 🔗 Link in Bio/Story #AgencyStrategy #PitchDevelopment #MarketingIntelligence #ContentStrategy #B2BMarketing #CreativeStrategy #MarketingAgency #StrategicPlanning #Compe…','1','0','0','Normal','',''],
+ ['SOMIN','--c-somin','LI','#0A66C2','0.0000%','03.08.2026','Most agency pitch decks take days to research and hours to build — yet they still end up sounding like every other agency\'s work. The problem isn\'t effort. It\'s that manual research across fragmented sources confirms what\'s already visible in the category. It documents consensus rather than uncovering the angle nobody else has found. When Blak Labs, a 50-person Singapore advertising agency, started using SOMIN\'s category intelligence layer, they cut brand…','0','0','0','Low','',''],
+ ['LinkedIn Profiles','--c-linkedin','LI','#0A66C2','0.0000%','03.08.2026','Most marketers are still using AI as a faster typewriter. The real shift — from doing to directing — is only just beginning. There is a line I keep coming back to: it is not the tennis racket, it is the tennis player. Every marketer just got handed a new racket. Very few are learning to play a different game with it. The article from MarTech this week puts it plainly: the marketers who will matter in the next three years are not the ones who can produce th…','1','0','0','Low','Why directing AI agents is the next step in marketing work','martech.org'],
+ ['LinkedIn Profiles','--c-linkedin','LI','#0A66C2','0.0003%','02.08.2026','Most recommendation systems today are a patchwork of specialized models — one for search, one for collaborative filtering, one for user understanding. Spotify\'s NEO paper at KDD 2026 asks a genuinely uncomfortable question: what if that architectural fragmentation is the problem, not the solution? The paper introduces NEO, a decoder-only LLM adapted into a tool-free, catalog-grounded generator that handles recommendation, search, and user understanding wit…','6','0','0','Low','A Unified Language Model for Large Scale Search, Recommendation, and Reasoning','arxiv.org'],
+ ['LinkedIn Profiles','--c-linkedin','LI','#0A66C2','0.0001%','02.08.2026','68% of marketers measure email performance by click-through rate. Not revenue. Not pipeline. Clicks. That number, from a new MarTech report published yesterday, tells you everything about where the real AI gap in marketing sits right now. Everyone is talking about AI adoption. The actual problem is what happens after adoption. Teams are producing more content, faster, with AI. But the measurement infrastructure hasn\'t moved. You end up with a machine that…','3','0','0','Low','AI speeds marketing production, but measurement lags','martech.org'],
+ ['LinkedIn Profiles','--c-linkedin','LI','#0A66C2','0.0146%','01.08.2026','Most advertising platforms are still built around the assumption that marketers want to operate software. StackAdapt just bet the opposite is true. This week, StackAdapt launched Ivy Studio, an AI-first advertising hub that replaces the traditional dashboard-navigate-then-act workflow with something fundamentally different: you define the outcome, and AI agents handle the path to get there. Planning, forecasting, audience discovery, campaign optimisation —…','4','0','0','High','StackAdapt Introduces Ivy Studio™, a New Hub for AI-First Advertising','exchangewire.com'],
+ ['LinkedIn Profiles','--c-linkedin','LI','#0A66C2','0.0003%','01.08.2026','Most ads recommendation systems are optimized for the wrong thing. We have spent years refining recall, NDCG, and click prediction accuracy as the north stars of retrieval quality. And yet, a paper presented at the SIGIR 2026 AgentSearch Workshop by researchers from a large-scale industrial ads platform makes a case that deserves serious attention from anyone building or buying into recommendation infrastructure: prediction stability and predictability are…','7','0','0','Low','LLM Retrieval for Stable and Predictable Ad Recommendations','arxiv.org'],
+ ['LinkedIn Profiles','--c-linkedin','LI','#0A66C2','0.0000%','01.08.2026','A conversational AI assistant built in 6 weeks just doubled Michaels\' online conversion rate compared to traditional search. That number deserves a second look. Michaels deployed "Ask Mike," a Google Gemini-powered shopping assistant, and within weeks it was converting shoppers at more than 2x the rate of keyword search. 27% of interactions resulted in a product click or add-to-cart. The technical reason is not magic — it is architecture. Michaels had alre…','0','0','0','Low','Michaels claims Google-powered AI assistant doubles conversion rate of tradition…','digiday.com'],
+ ['LinkedIn Profiles','--c-linkedin','LI','#0A66C2','0.0067%','01.08.2026','45% of U.S. influencer marketing spend is now going to creators with fewer than 20,000 followers — and that number is only moving in one direction. Target just launched Club Target, a structured program that opens brand partnerships to creators with as few as 500 followers. American Eagle, SoulCycle, and Little Spoon are running similar plays. This is not a fringe experiment. Emarketer projects U.S. content creators will earn $21 billion this year, with na…','2','0','0','Normal','Major Brands Like Target Are Betting on Creators With Just 500 Followers. Could…','entrepreneur.com'],
+ ['LinkedIn Profiles','--c-linkedin','LI','#0A66C2','0.0000%','01.08.2026','Most marketers are still using AI as a faster typewriter. The real shift — directing AI agents like a conductor, not a copywriter — is only just beginning. I have been thinking about this a lot lately, and a piece from MarTech published this week put it into words better than I could. The argument is simple but the implications are significant: the marketers who win in the next few years will not be the ones who can do the most. They will be the ones who c…','0','0','0','Low','Why directing AI agents is the next step in marketing work','martech.org'],
+ ['Nielsen','--c-nielsen','LI','#0A66C2','0.0000%','31.07.2026','Can you name the most-watched TV event of all time? 📺 For generations, television has brought families, friends, and entire communities together. Some broadcasts became more than just shows. They became shared cultural moments. With so many unforgettable television events over the years, you might guess the series finales of Cheers, Seinfeld, or Friends. But the answer is the M*A*S*H series finale. When it aired in 1983, 105.9 million viewers tuned in, mak…','1','0','0','Low','',''],
+ ['Nielsen','--c-nielsen','LI','#0A66C2','0.0000%','31.07.2026','Can you name the most-watched entertainment broadcast in U.S. television history? And it\'s not the Super Bowl! A single scripted broadcast that made the whole country pause and tune in. Take a guess below... 👇','8','6','1','Low','',''],
+ ['LinkedIn Profiles','--c-linkedin','LI','#0A66C2','0.0000%','31.07.2026','AI compute is about to become the next line item your clients will push back on. And most agencies are not ready for that conversation. Digiday published a sharp piece today on how holding companies are starting to treat token costs the way they\'ve always treated media — buying in bulk, pricing the risk, and selling it on with a margin. It\'s principal media logic applied to compute. Some are already baking it into client contracts. Others are watching from…','0','0','0','Low','The case for and against agencies betting on tokens the way they bet on media','digiday.com'],
+ ['GWI','--c-gwi','IG','#E4405F','0.0000%','31.07.2026','🎥 Christopher Nolan\'s use of IMAX for The Odyssey has proven popular, but Greek consumers are dreaming of beach holidays, not epic adventures. Also in this week\'s On the dot: El Niño\'s official arrival, YouTube as a launchpad for viral trends, and why fewer of us are sharing our opinions online than we were 8 years ago. Take a look 👇','0','0','0','Low','',''],
+ ['LinkedIn Profiles','--c-linkedin','LI','#0A66C2','0.0001%','31.07.2026','Your CTR model trained on US data is quietly failing your users in Brazil, Germany, and Southeast Asia — and most teams have no idea why. FedMM, published at SIGIR 2026, puts a precise technical name to a problem that every MarTech platform operating across geographies has been quietly wrestling with: disjoint ID spaces. When you train a click-through rate model on centralized global data, you implicitly assume that user and item identifiers carry transfer…','2','0','0','Low','FedMM: Federated Collaborative Signal Quantization for Multi-Market CTR Predicti…','dl.acm.org'],
+ ['LinkedIn Profiles','--c-linkedin','LI','#0A66C2','0.0000%','31.07.2026','Your analytics dashboard is lying to you — and it\'s not the tool\'s fault. A new piece from MarTech published July 30 puts into words something we have been seeing in client data for a while now: the top of the funnel has quietly moved inside AI conversations. ChatGPT, Perplexity, Google AI Overviews — these are where buyers are forming opinions about your brand before they ever touch your website. And your GA4 instance has no idea it is happening. The arti…','0','0','0','Low','How to measure marketing when AI owns discovery','martech.org'],
+ ['LinkedIn Profiles','--c-linkedin','LI','#0A66C2','0.0067%','31.07.2026','The next competitive advantage in advertising is not a better creative. It is a better-connected system. TikTok\'s launch of the Agentic Hub — a marketplace of AI-powered advertising skills built on its Model Context Protocol — is one of the clearest signals yet that the industry is moving from generative AI to operational AI. The distinction matters enormously for anyone running or pitching marketing services. Generative AI gave teams speed. Agentic AI giv…','1','1','0','Normal','How TikTok Is Building the Future of Agentic AI for Advertising','adweek.com'],
+ ['Milieu','--c-milieu','FB','#1877F2','0.0013%','31.07.2026','Two days a week. Hidden Hot Topics. No idea when they\'ll drop 👀 We\'re kicking off Lucky Thursday & Golden Sunday. Keep checking the Milieu app and enable push notifications or miss your shot at winning up to 5,000 points.* The earlier you are, the more points you will get. Eligible if you check the boxes below: ✅ Singapore-based ✅ Male ✅ 16-24 years old Download the Milieu app on App Store or Google Play *T&Cs apply #Milieu #MilieuApp','4','0','0','Normal','',''],
+ ['Milieu','--c-milieu','FB','#1877F2','0.0004%','31.07.2026','Two days a week. Hidden Hot Topics. No idea when they\'ll drop 👀 We\'re kicking off Lucky Thursday & Golden Sunday. Keep checking the Milieu app and enable push notifications or miss your shot at winning up to 5,000 points.* The earlier you are, the more points you will get. Eligible if you check the boxes below: ✅ Singapore-based ✅ Male ✅ 16-24 years old Download the Milieu app on App Store or Google Play *T&Cs apply #Milieu #MilieuApp','8','1','1','Low','',''],
+];
 
 /* perspective-study detection */
 const PERSPP=[
@@ -1249,11 +1333,14 @@ function drawLine(sel,series){const el=$(sel);if(!el)return;const W=520,H=150,pa
   el.innerHTML=grid+paths;}
 
 /* ---- content library ---- */
-function renderFeed(){$('#clFeed').innerHTML=POSTS.map(([b,bc,p,pc,er,dt,tx,lk,cm,sh])=>`
+function clkBadge(c){const m={High:['#0f9d6b','#e4f7ef'],Normal:['#b8862a','#fbf3df'],Low:['#c0453a','#fbe9e7']};const[fg,bg]=m[c]||m.Normal;
+  return `<span class="clkb" title="Predicted Clickability" style="color:${fg};background:${bg}">◉ ${c}</span>`;}
+function renderFeed(){$('#clFeed').innerHTML=POSTS.map(([b,bc,p,pc,er,dt,tx,lk,cm,sh,clk,at,ad])=>`
   <div class="post">
     <div class="pv">
       <div class="brand"><span class="sw" style="background:var(${bc})"></span>${esc(b)}</div>
       ${platBadge(p,pc)}
+      ${clkBadge(clk)}
       <div class="met"><span>Engagement Rate</span><b>${er}</b></div>
       <div class="met"><span>Active Date</span><b>${dt}</b></div>
       <div class="go">↗ Go to source</div>
@@ -1261,6 +1348,7 @@ function renderFeed(){$('#clFeed').innerHTML=POSTS.map(([b,bc,p,pc,er,dt,tx,lk,c
     </div>
     <div class="pb">
       <div class="txt">${esc(tx)} <span class="more">Show More</span></div>
+      ${ad?`<a class="artcard" onclick="toast('Opening source article')"><div class="artthumb">🔗</div><div class="artmeta"><div class="artt">${esc(at||'Read the linked article')}</div><div class="artd">${esc(ad)}</div></div></a>`:''}
       <div class="eng"><span>👍 <b>${lk}</b> Reactions</span><span>💬 <b>${cm}</b> Comments</span><span>↗ <b>${sh}</b> Shares</span><span class="sel">✓ Selected</span></div>
     </div>
   </div>`).join('');}
@@ -1280,7 +1368,11 @@ function renderBrandTracker(){
     <td><span class="val">${r[7]}</span> ${trend(r[8])}</td></tr>`).join('');
   drawLine('#trendContent',[['--c-linkedin',[20,18,60,30,22,68,40,28,90,35,30,55,44,38]],['--c-milieu',[10,12,14,52,20,16,22,18,40,26,20,30,24,60]],['--c-somin',[6,8,10,9,12,10,14,12,16,13,20,15,18,22]]]);
   drawLine('#trendEngage',[['--c-nielsen',[30,120,60,200,90,260,140,300,170,240,150,290,180,320]],['--c-milieu',[40,80,60,120,70,140,100,150,110,190,120,160,130,200]]]);
+  drawLine('#trendActivity',[['--c-linkedin',[42,55,48,60,53,58,62,54,66,60,57,63,58,54]],['--c-milieu',[38,52,50,58,44,60,48,55,52,50,46,54,50,52]],['--c-somin',[8,12,15,18,14,20,17,23,19,25,21,28,24,23]]]);
+  drawLine('#trendRate',[['--c-linkedin',[60,72,55,80,66,74,58,90,71,68,63,77,70,71]],['--c-somin',[4,7,5,9,6,8,5,11,7,6,5,8,6,5]],['--c-gwi',[1,2,1,3,2,1,2,1,1,2,1,1,1,1]]]);
+  $('#platDist').innerHTML=PLATDIST.map(([n,v,p,c])=>`<div class="r"><span class="sw" style="background:${c}"></span><span class="nm" style="font-size:12.5px;min-width:120px">${esc(n)}</span><span style="flex:1;height:8px;background:#eef3f2;border-radius:5px;overflow:hidden;margin:0 10px"><span style="display:block;height:100%;width:${p};background:${c}"></span></span><span class="vv">${v} <span class="faint" style="font-weight:600">(${p})</span></span></div>`).join('');
 }
+const PLATDIST=[['LinkedIn',18,'69%','#0A66C2'],['Facebook',4,'15%','#1877F2'],['Instagram',2,'8%','#E4405F'],['Instagram Stories',1,'4%','#C13584'],['Telegram',1,'4%','#229ED9'],['TikTok',0,'0%','#111']];
 
 /* ---- perspectives ---- */
 function detCard(cls,cov,lab,name,desc,media,clk){return `<div class="detcard ${cls}">
@@ -1402,6 +1494,69 @@ function renderExpr(){
   $('#expBofu').innerHTML=EXPR.bofu.map(c=>expCard(...c)).join('');
 }
 
+/* ---- SODA (social/ad narrative analyzer) ---- */
+const SODA_THREADS=[
+ ['Nielsen social feed','Feb 14 – Mar 16, 2026','Nielsen',true],
+ ['Euromonitor social feed','Feb 14 – Mar 16, 2026','Euromonitor',false],
+ ['GWI ad activity','Apr 20 – May 19, 2025','GWI',false]];
+const SODA_PROD_CLOUD=[['beyond the bracket',2],['the Gauge™',1],['services & contributions to sports',1],['media distributor gauge report',1],['finance internship program',1],['attribution reporting',1],['DMA data integration',1],['audience insights',1],['market research data',1]];
+const SODA_PROD_CATS=['Audience Insights','Market Research','Sports Industry Contributions','Analytics Tools','Data Integration Services','Internship Programs','Reporting Services'];
+const SODA_AUD_CLOUD=[['business owners',5],['marketing professionals',3],['advertisers',2],['industry professionals',2],['award nominees',1],['nielsen employees',1],['sports industry professionals',1],['market analysts',1],['media companies',1],['general public',1],['data analysts',1],['media buyers',1],['event goers',1],['sports fans',1]];
+const SODA_AUD_CATS=['Business Professionals','Marketing Experts','Media Industry Stakeholders','Advertisers','Data Analysts','Sports Industry Professionals','Event Attendees','General Public','Industry Professionals','Award Nominees'];
+const SODA_TOPICS=["Nielsen’s ‘Beyond the Bracket’ basketball event",'Total TV &amp; Streaming Snapshot for January 2026','Nielsen shortlisted for Sport Industry Awards','Media Distributor Gauge for January 2026','Ellie Pryor named VP of Global Audiences &amp; Identity','Summer 2026 finance intern class announcement','Nielsen × Magellan AI collaboration for data integration','Surging popularity of women’s sports'];
+const SODA_PERKS=['Joining a team with decades of experience','Learning and development','Making an impact','Working at a leading media-intelligence company'];
+const SODA_PROD_CHIPS=['the Gauge™','services/contributions to sports','media distributor gauge report','finance internship program','attribution reporting','DMA data integration','market research data'];
+const SODA_AUD_CHIPS=['business owners','marketing professionals','advertisers','industry professionals','award nominees','nielsen employees','sports industry professionals','market analysts','media companies','general public','data analysts','media buyers','event goers','sports fans'];
+const SODA_PENDING=[
+ ['Content Type Analysis','Identify the various types of content brands use as part of their communication strategy — a comprehensive view of the content landscape and its impact on messaging and engagement.'],
+ ['Topic Pulse','Categorise the topics brands use to gain insight into how they engage and stay relevant to their audience.'],
+ ['Desire Mapping','Understand the range of human desires brands target to establish connections with their audiences.'],
+ ['Brand Voice Analysis','Identify the diverse tonalities brands employ to address their audience.'],
+ ['Persona Profiling','Identify the distinct personas brands adopt to establish relatability with their audience.']];
+const WC_COLS=['#1bb394','#2f6df6','#c9772f','#a94392','#334155','#0891b2','#b8862a'];
+function sodaCloud(arr){const max=Math.max(...arr.map(a=>a[1]));
+  return `<div class="wcloud">`+arr.map(([w,v],i)=>{const sz=13+Math.round((v/max)*20);return `<span style="font-size:${sz}px;color:${WC_COLS[i%WC_COLS.length]};font-weight:${v>1?800:600}">${w}</span>`;}).join('')+`</div>`;}
+function sodaChips(arr,solid){return `<div class="chiprow">`+arr.map(c=>`<span class="sodachip${solid?' solid':''}">${c}</span>`).join('')+`</div>`;}
+function renderSoda(){
+  $('#sodaThreads').innerHTML=SODA_THREADS.map((t,i)=>`<div class="li-item${t[3]?' active':''}" onclick="pickThread(${i},this)"><div style="font-size:10px;color:var(--teal-d);font-weight:800;text-transform:uppercase;letter-spacing:.4px">Data thread</div><div class="t">${esc(t[0])}</div><div class="m">${esc(t[2])} · ${esc(t[1])}</div></div>`).join('');
+  const done=(title,sub,cloud,catLbl,cats,narr,hl,hlBody,topLbl,topics,xLbl,xItems,anLbl,anChips)=>`
+   <div class="card pad soda-card">
+     <div class="soda-h"><div><div class="eyebrow" style="color:var(--teal-d)">${title}</div><div class="h2" style="font-size:18px;margin-top:2px">${sub}</div></div><span class="soda-done">✓ Analysed</span></div>
+     <div class="muted" style="font-size:11.5px;margin:4px 0 12px">For posts during 2026-02-14 to 2026-03-16</div>
+     ${sodaCloud(cloud)}
+     <div class="soda-sub">${catLbl}</div>${sodaChips(cats)}
+     <p class="muted" style="font-size:12.5px;line-height:1.6;margin:12px 0 0">${narr}</p>
+     <div class="soda-hl"><div class="soda-hl-q">“${hl}”</div><p class="muted" style="font-size:12px;margin:6px 0 0;line-height:1.55">${hlBody}</p></div>
+     <div class="soda-2col">
+       <div><div class="soda-sub">${topLbl}</div><ul class="soda-list">${topics.map(t=>`<li>${t}</li>`).join('')}</ul></div>
+       <div><div class="soda-sub">${xLbl}</div><ul class="soda-list">${xItems.map(t=>`<li>${t}</li>`).join('')}</ul></div>
+     </div>
+     <div class="soda-sub" style="margin-top:14px">${anLbl}</div>${sodaChips(anChips,true)}
+   </div>`;
+  const pend=SODA_PENDING.map(([t,d])=>`
+   <div class="card pad soda-card pending">
+     <div class="soda-h"><div class="h2" style="font-size:17px">${t}</div><span class="soda-run">Run analysis</span></div>
+     <p class="muted" style="font-size:12.5px;line-height:1.55;margin:6px 0 12px">${d}</p>
+     <div class="soda-load"><span class="spin"></span> Hang tight, data analysis in progress…</div>
+   </div>`).join('');
+  $('#sodaReport').innerHTML=
+    done('Product Focus Analysis','Nielsen Product Focus',SODA_PROD_CLOUD,'PRODUCT CATEGORIES',SODA_PROD_CATS,
+      'During the promotional period from February 14 to March 16, 2026, Nielsen focused on strengthening its position in the analytics landscape — emphasising audience insights, market-research data and sports-industry contributions, alongside recruitment and data-integration messaging.',
+      'Buzz Beyond the Bracket: Nielsen’s Playbook for Connecting with Fans',
+      'Nielsen implemented a multifaceted strategy to promote its initiatives, centred on making its offerings more relatable and engaging for customers.',
+      'ASSOCIATED TOPICS',SODA_TOPICS,'ASSOCIATED PERKS',SODA_PERKS,'ANALYZE PRODUCTS FOR NIELSEN',SODA_PROD_CHIPS)
+   +done('Audience Analysis','Nielsen Audience Centricity',SODA_AUD_CLOUD,'AUDIENCE CATEGORIES',SODA_AUD_CATS,
+      'Nielsen’s outreach focused primarily on business professionals, marketing experts and media-industry stakeholders, extending to advertisers, data analysts and the broader sports-fan public.',
+      'Nielsen’s Game Plan: Connecting with Diverse Audiences in Media and Sports',
+      'Nielsen’s efforts to engage five distinct audiences — sports enthusiasts, media consumers, industry professionals, future leaders and data-driven marketers — illustrate a strategic approach to foster relatability and connection.',
+      'ASSOCIATED TOPICS',SODA_TOPICS,'ASSOCIATED PRODUCTS',['beyond the bracket','the Gauge™','services/contributions to sports','media distributor gauge report','finance internship program','attribution reporting','DMA data integration','audience insights','market research data'],'ANALYZE AUDIENCES FOR NIELSEN',SODA_AUD_CHIPS)
+   +pend;
+}
+function pickThread(i,el){if(el){$$('#sodaThreads .li-item').forEach(x=>x.classList.remove('active'));el.classList.add('active');}
+  const t=SODA_THREADS[i];$('#sodaSource').textContent=t[0];
+  if(i===0){renderSoda();}else{$('#sodaReport').innerHTML=`<div class="card pad" style="text-align:center;color:var(--faint);padding:60px 20px"><div style="font-size:26px;margin-bottom:8px">▤</div><b style="color:var(--soft)">${esc(t[0])}</b><div class="muted" style="font-size:12.5px;margin-top:6px">${esc(t[2])} · ${esc(t[1])}</div><div class="soda-load" style="justify-content:center;margin-top:16px"><span class="spin"></span> Hang tight, data analysis in progress…</div></div>`;}
+  toast('Loaded · '+t[0]);}
+
 /* ============================================================= boot */
 window.addEventListener('DOMContentLoaded',()=>{
   const amax=AUD[0][1];
@@ -1417,12 +1572,13 @@ window.addEventListener('DOMContentLoaded',()=>{
   renderMomentTabs();setMomentType('Life Moments');
   renderProps();
   renderExpr();
+  renderSoda();
   renderDock(CUR);
 });
 
 /* ============================================================= navigation */
 let CUR='content-library';let pendingSowiseCtx=null;
-const TITLES={'content-library':'Content Library','brand-tracker':'Brand Tracker','perspectives':'Perspective Studies',
+const TITLES={'content-library':'Content Library','brand-tracker':'Brand Tracker','perspectives':'Perspective Studies','soda':'SODA',
  'personas':'Personas','insights':'Insights','moments':'Moments','propositions':'Propositions','expressions':'Expressions','sowise':'SOWISE'};
 function go(scr,el){CUR=scr;
   $$('.screen').forEach(s=>s.classList.remove('active'));$('#scr-'+scr).classList.add('active');
@@ -1446,6 +1602,12 @@ const CTX={
     {q:'Filter the treemap to Business Owners',a:"Filtering the concept view to <b>Business Owners</b> across all brands…",act:'filterBO'},
     {q:'Compare SOMIN vs Milieu coverage',a:"Across the audiences, <b>Milieu</b> appears in most of the top lanes; <b>SOMIN</b> in only a couple. Milieu leads Business Owners, General Public and Professionals; SOMIN over-indexes only on CMOs and Marketers. You're narrow exactly where the volume is.",stats:[['Broad','Milieu'],['Narrow','SOMIN']]},
     {q:'Turn this into a strategy deck',a:"That's an agent job — I'll carry this treemap in and build a whitespace-led cross-market deck.",act:'esc'}]},
+ 'soda':{name:'SODA · Nielsen deep-dive',
+   intro:"You're in <b>SODA</b> on the <b>Nielsen social feed</b> (Feb 14 – Mar 16). I've decoded Nielsen's <b>products</b> and <b>audiences</b> — they lead with <b>‘Beyond the Bracket’</b> sports content and skew hard to <b>Business Owners</b> and marketing professionals.",
+   chips:[
+    {q:'What is Nielsen’s core product focus?',a:"Nielsen's product narrative centres on <b>audience insights</b>, <b>market research</b> and <b>sports-industry contributions</b> — anchored by <b>the Gauge™</b> and their ‘Beyond the Bracket’ event. Recruitment (finance internships) and <b>DMA data integration</b> round it out.",stats:[['7','Product cats'],['Sports','Lead angle']]},
+    {q:'Who is Nielsen talking to?',a:"Their top audience is <b>Business Owners</b> (weight 5), then <b>marketing professionals</b> (3) and <b>advertisers</b> (2). It's a B2B, industry-stakeholder skew — the same Business-Owners lane that's open for SOMIN in the Content Library.",stats:[['Biz Owners','#1'],['B2B','Skew']]},
+    {q:'How does this help SOMIN?',a:"Nielsen owns the Business-Owners conversation through sports & measurement stories. That's exactly SOMIN's whitespace — I can carry this into a positioning deck that counters Nielsen where they're strong.",act:'esc'}]},
  'brand-tracker':{name:'Brand Tracker · 239 posts · 6 brands',
    intro:"On <b>Brand Tracker</b> you rank <b>4th on activity</b> (26 posts) and <b>last on engagement</b> (27). <b>Nielsen</b> posts a similar cadence to you but earns far more reaction — so this is a <b>content-quality gap, not a volume gap.</b>",
    chips:[
@@ -1570,6 +1732,7 @@ const AGENT_CTX={
  'content-library':"I've loaded your <b>Inferred-Audience treemap</b> — 216 media, 5 brands. Business Owners is the biggest audience but SOMIN barely appears there: a clear content-supply whitespace. I can turn this straight into a cross-market strategy deck.",
  'brand-tracker':"I've loaded <b>Brand Tracker</b> — 239 posts. SOMIN ranks 4th on activity and last on engagement. I can build the plan to close that gap.",
  'perspectives':"I've loaded <b>Study 027</b> — 4 personas, Entrepreneurs filter. I can build the persona → tension → proposition engine into a deck.",
+ 'soda':"I've loaded the <b>SODA Nielsen deep-dive</b> — their products lead with ‘Beyond the Bracket’ sports content and their audience skews to Business Owners. I can turn this into a competitive positioning deck that counters Nielsen where they're strongest.",
  'personas':"I've loaded <b>The Empowered Strategist</b> — 19 media, 707 engagement. I can generate its insight chains, propositions and a deck.",
  'insights':"I've loaded the insight <b>“Understanding is the foundation of connection.”</b> I can generate propositions and creative from it.",
  'moments':"I've loaded <b>Community Builder × pet nutrition</b>. I can build a dated content calendar and post briefs.",
@@ -1578,6 +1741,7 @@ const AGENT_CTX={
 const CTXQUICK={'content-library':{t:'Just map the whitespace here',fn:()=>startFlow('whitespace')},
  'brand-tracker':{t:'Diagnose the engagement gap',fn:()=>startFlow('whitespace')},
  'perspectives':{t:'Generate the insight chains',fn:()=>startFlow('whitespace')},
+ 'soda':{t:'Build a counter-Nielsen deck',fn:()=>startFlow('agency')},
  'personas':{t:'Generate the insight chains',fn:()=>startFlow('whitespace')},
  'insights':{t:'Render creative from this insight',fn:()=>startFlow('creative')},
  'moments':{t:'Build the content calendar',fn:()=>startFlow('calendar')},
