@@ -602,6 +602,177 @@ img,svg{max-width:100%;display:block}
 .exp .imgph.real{height:auto;background:#f7faf9;padding:0;position:relative;display:block}
 .exp .imgph.real img{width:100%;height:auto;display:block}
 .scorebadge2{position:absolute;top:8px;left:8px;background:rgba(22,32,31,.82);color:var(--teal-l);font-size:9px;font-weight:800;padding:4px 8px;border-radius:6px;letter-spacing:.3px}
+
+/* ===== engine/model selector ===== */
+.enginechip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--hair-2);border-radius:999px;padding:5px 8px 5px 11px;font-size:11.5px;font-weight:700;color:var(--ink);background:#fff;cursor:pointer}
+.enginechip .d{width:7px;height:7px;border-radius:50%;background:var(--teal)}
+.enginechip .eng{color:var(--ink)} .enginechip .mdl{color:var(--soft);font-weight:600}
+.enginechip .eff{background:var(--teal-wash);color:var(--teal-d);border-radius:6px;padding:2px 7px;font-size:10px;font-weight:800}
+.enginechip .cv{color:var(--faint);font-size:10px}
+.engpop{position:absolute;top:52px;left:50%;transform:translateX(-50%);z-index:40;width:340px;max-width:calc(100vw - 24px);background:#fff;border:1px solid var(--hair);border-radius:14px;box-shadow:var(--shadow-lg);padding:14px;display:none}
+.engpop.open{display:block;animation:fade .15s ease}
+.engpop .lab{font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:var(--faint);font-weight:800;margin:4px 2px 7px}
+.engrow{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:6px}
+.engopt{border:1px solid var(--hair);border-radius:10px;padding:9px 10px;cursor:pointer;display:flex;flex-direction:column;gap:2px;background:#fff}
+.engopt:hover{border-color:var(--teal)}
+.engopt.on{border-color:var(--teal);background:var(--teal-wash)}
+.engopt .en{font-weight:800;color:var(--ink);font-size:12.5px;display:flex;align-items:center;gap:6px}
+.engopt .es{font-size:10.5px;color:var(--soft)}
+.engopt .logo{width:16px;height:16px;border-radius:5px;display:grid;place-items:center;color:#fff;font-size:9px;font-weight:900;flex:none}
+.effseg{display:flex;gap:5px;margin:2px 0 4px}
+.effseg button{flex:1;border:1px solid var(--hair);background:#fff;border-radius:8px;padding:7px 4px;font-weight:700;font-size:11px;color:var(--soft)}
+.effseg button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.mdlsel{width:100%;border:1px solid var(--hair);border-radius:9px;padding:9px 11px;font:inherit;font-size:12.5px;font-weight:600;color:var(--ink);background:var(--card-2)}
+
+/* ===== credits widget in rail ===== */
+.credbox{background:#12201d;border:1px solid #24322f;border-radius:12px;padding:11px 12px;margin:2px 0 6px}
+.credbox .seat{font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:#6d7a79;font-weight:800}
+.credbox .plan{font-weight:800;color:#fff;font-size:12.5px;margin:2px 0 9px;line-height:1.25}
+.credbox .plan b{color:var(--teal-l)}
+.cmeter{margin-bottom:8px}
+.cmeter .top{display:flex;justify-content:space-between;font-size:10.5px;color:#cdd8d6;font-weight:600;margin-bottom:3px}
+.cmeter .top b{color:#fff}
+.cbar{height:6px;border-radius:4px;background:#243230;overflow:hidden}
+.cbar span{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-l))}
+.cbar.warn span{background:linear-gradient(90deg,#e0a63c,#f0c368)}
+.credbox .topup{width:100%;margin-top:4px;border:1px solid var(--teal);color:#06110e;background:var(--teal);border-radius:9px;padding:8px;font-weight:800;font-size:11.5px}
+.credbox .mini{font-size:10px;color:#6d7a79;margin-top:7px;text-align:center}
+
+/* ===== top-up modal ===== */
+.modal{position:fixed;inset:0;z-index:200;background:rgba(9,16,15,.55);backdrop-filter:blur(3px);display:none;place-items:center;padding:20px}
+.modal.open{display:grid;animation:fade .18s ease}
+.modal .box{width:100%;max-width:440px;background:#fff;border-radius:18px;box-shadow:var(--shadow-lg);overflow:hidden}
+.modal .mh{padding:16px 20px;border-bottom:1px solid var(--hair);display:flex;align-items:center;gap:10px}
+.modal .mh b{font-size:15px;color:var(--ink)}
+.modal .mh .x{margin-left:auto;cursor:pointer;color:var(--faint);font-size:18px;font-weight:700}
+.modal .mb{padding:18px 20px}
+.tpk{display:flex;flex-direction:column;gap:9px}
+.tpo{border:1px solid var(--hair);border-radius:12px;padding:13px 15px;display:flex;align-items:center;gap:12px;cursor:pointer}
+.tpo:hover{border-color:var(--teal);background:var(--card-2)}
+.tpo.on{border-color:var(--teal);background:var(--teal-wash)}
+.tpo .n{font-weight:800;color:var(--ink);font-size:14px}
+.tpo .s{font-size:11.5px;color:var(--soft)}
+.tpo .pr{margin-left:auto;font-weight:900;color:var(--teal-d);font-size:15px}
+.modal .go{width:100%;margin-top:14px;background:var(--teal);color:#fff;font-weight:800;font-size:14px;padding:12px;border-radius:11px}
+
+/* ===== mini plots + creative reveal (agent chat) ===== */
+.mplot{border:1px solid var(--hair);border-radius:12px;background:#fff;padding:12px 14px;box-shadow:var(--shadow)}
+.mplot .cap{font-size:11px;color:var(--soft);font-weight:700;margin-bottom:8px}
+.sharebar{display:flex;align-items:center;gap:9px;margin:6px 0;font-size:12px}
+.sharebar .lb{width:130px;flex:none;color:var(--body);font-weight:600;text-align:right;font-size:11.5px}
+.sharebar .tr{flex:1;height:16px;background:#eef3f2;border-radius:4px;overflow:hidden;position:relative;display:flex}
+.sharebar .sg{height:100%}
+.sharebar .vv{width:78px;flex:none;font-weight:800;color:var(--ink);font-size:11px}
+.spark{display:block}
+.revealgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:720px){.revealgrid{grid-template-columns:1fr 1fr}}
+.crev{border:1px solid var(--hair);border-radius:11px;overflow:hidden;background:#fff;opacity:0;transform:translateY(8px);transition:.35s;position:relative}
+.crev.in{opacity:1;transform:none}
+.crev .cvv{aspect-ratio:4/5;display:flex;flex-direction:column;justify-content:flex-end;padding:11px;color:#fff;font-family:'Poppins',sans-serif;position:relative;overflow:hidden}
+.crev .stg{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.35);color:#fff;font-size:8.5px;font-weight:800;letter-spacing:.4px;padding:3px 7px;border-radius:5px}
+.crev .hk{font-weight:800;font-size:12px;line-height:1.2;z-index:2;text-shadow:0 1px 6px rgba(0,0,0,.35)}
+.crev .sc{padding:7px 10px;display:flex;align-items:center;gap:6px;font-size:11px;justify-content:space-between}
+.crev .sc b{color:var(--ink)}
+.crev .flag{background:var(--teal);color:#06110e;font-size:8.5px;font-weight:900;padding:3px 6px;border-radius:5px}
+.deckstrip{display:flex;gap:9px;overflow-x:auto;padding:2px 0 6px}
+.dslide{flex:none;width:150px;height:90px;border:1px solid var(--hair);border-radius:9px;overflow:hidden;background:#fff;box-shadow:var(--shadow);position:relative;font-family:'Poppins',sans-serif}
+.dslide .dt{position:absolute;inset:0;padding:9px;font-size:8.5px;font-weight:700;line-height:1.25;color:#fff;display:flex;flex-direction:column;justify-content:space-between}
+.dslide .dn{font-size:7px;opacity:.85;font-weight:800}
+.roigrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.roicard{border:1px solid var(--hair);border-radius:11px;padding:12px 14px;background:var(--card-2)}
+.roicard .mt{font-size:10.5px;color:var(--soft);font-weight:700}
+.roicard .rr{font-size:20px;font-weight:900;color:var(--ink);margin-top:3px}
+.roicard .rr .ar{color:var(--teal-d)}
+.roicard .dd{font-size:10.5px;color:var(--teal-d);font-weight:800;margin-top:2px}
+
+
+/* ===== Plan & Billing screen ===== */
+.billwrap{display:grid;grid-template-columns:380px 1fr;gap:18px;align-items:start}
+@media(max-width:1000px){.billwrap{grid-template-columns:1fr}}
+.bcard{background:#fff;border:1px solid var(--hair);border-radius:var(--r);box-shadow:var(--shadow);padding:18px 20px}
+.bcard h3{margin:0 0 3px;font-size:16px;font-weight:900;color:var(--ink)}
+.bcard .planname{font-size:20px;font-weight:900;color:var(--ink);letter-spacing:-.3px}
+.bcard .planname b{color:var(--teal-d)}
+.bprice{font-size:26px;font-weight:900;color:var(--ink);line-height:1}
+.bprice small{font-size:12px;font-weight:700;color:var(--faint)}
+.brow{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px dashed var(--hair);font-size:12.5px}
+.brow:last-child{border-bottom:none}
+.brow .k{color:var(--soft);font-weight:600}.brow .v{color:var(--ink);font-weight:800}
+.bseat{border:1px solid var(--hair);border-radius:11px;padding:11px 12px;margin-bottom:9px;background:var(--card-2)}
+.bseat .sh{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;font-weight:800;color:var(--ink)}
+.bseat .sh .tag{background:var(--teal-wash);color:var(--teal-d);border-radius:6px;padding:2px 8px;font-size:10px;font-weight:800}
+.bseat .mt{display:flex;justify-content:space-between;font-size:10.5px;color:var(--soft);font-weight:700;margin:7px 0 3px}
+.bseat .mt b{color:var(--ink)}
+.bbar{height:6px;border-radius:4px;background:#e8efed;overflow:hidden}
+.bbar span{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-l))}
+.bbar.warn span{background:linear-gradient(90deg,#e0a63c,#f0c368)}
+.bbar.full span{background:linear-gradient(90deg,#e15568,#ef8a97)}
+.blab{font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:var(--faint);font-weight:800;margin:16px 0 8px}
+.planopts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:560px){.planopts{grid-template-columns:1fr}}
+.planopt{border:1.5px solid var(--hair);border-radius:12px;padding:13px 14px;cursor:pointer;background:#fff;transition:.15s}
+.planopt:hover{border-color:var(--teal-l)}
+.planopt.on{border-color:var(--teal);background:var(--teal-wash)}
+.planopt .pn{font-weight:900;color:var(--ink);font-size:13.5px}
+.planopt .pp{font-size:18px;font-weight:900;color:var(--ink);margin:4px 0 1px}
+.planopt .pp small{font-size:10.5px;color:var(--faint);font-weight:700}
+.planopt .pl{font-size:11px;color:var(--soft);line-height:1.5;margin-top:5px}
+.planopt .cur{display:inline-block;margin-top:6px;background:var(--ink);color:#fff;font-size:9px;font-weight:800;padding:2px 7px;border-radius:5px;letter-spacing:.4px}
+.termsel{width:100%;border:1px solid var(--hair);border-radius:9px;padding:9px 11px;font:inherit;font-size:12.5px;font-weight:700;color:var(--ink);background:var(--card-2)}
+.addon{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px dashed var(--hair);font-size:12.5px}
+.addon:last-child{border-bottom:none}
+.addon .ad-n{font-weight:800;color:var(--ink)}.addon .ad-s{font-size:11px;color:var(--soft)}
+.addon .sp2{margin-left:auto;display:flex;align-items:center;gap:8px}
+.stepbtn{width:26px;height:26px;border-radius:7px;border:1px solid var(--hair-2);background:#fff;font-weight:900;color:var(--ink);font-size:14px;line-height:1}
+.stepbtn:hover{border-color:var(--teal);color:var(--teal-d)}
+.stepnum{min-width:20px;text-align:center;font-weight:800;color:var(--ink)}
+.btot{display:flex;gap:26px;align-items:baseline;flex-wrap:wrap;margin-top:14px;padding-top:13px;border-top:1px solid var(--hair)}
+.btot .per{font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:var(--faint);font-weight:800}
+.btot .amt{font-size:22px;font-weight:900;color:var(--ink)}
+.bapply{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+.bapply .btn{flex:1;min-width:150px}
+.featgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;font-size:12px;margin-top:4px}
+.featgrid .fi{display:flex;align-items:center;gap:7px;color:var(--body)}
+.featgrid .fi .ck{color:var(--teal-d);font-weight:900}.featgrid .fi .xk{color:var(--hair-2);font-weight:900}
+.featgrid .fi.off{color:var(--faint)}
+/* compact seat strip in SOWISE rail */
+.seatstrip{background:#12201d;border:1px solid #24322f;border-radius:11px;padding:10px 12px;margin:2px 0 6px}
+.seatstrip .sst{display:flex;justify-content:space-between;align-items:center;font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:#6d7a79;font-weight:800}
+.seatstrip .sst a{color:var(--teal-l);cursor:pointer;text-transform:none;letter-spacing:0;font-size:11px}
+.seatstrip .plan2{font-weight:800;color:#fff;font-size:12.5px;margin:3px 0 8px}
+.seatstrip .plan2 b{color:var(--teal-l)}
+.seatstrip .mt2{display:flex;justify-content:space-between;font-size:10px;color:#cdd8d6;font-weight:600;margin-bottom:3px}
+.seatstrip .mt2 b{color:#fff}
+.seatstrip .cbar{height:5px;border-radius:4px;background:#243230;overflow:hidden;margin-bottom:7px}
+.seatstrip .cbar span{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-l))}
+.seatstrip .cbar.warn span{background:linear-gradient(90deg,#e0a63c,#f0c368)}
+
+
+/* ===== v9: step outputs + influence controls in the agent trace ===== */
+.trace .tout{padding:0 13px 10px 40px}
+.trace .toutbox{background:#fff;border:1px solid var(--hair);border-radius:9px;padding:9px 11px;font-size:12px;color:var(--body);line-height:1.5}
+.trace .toutbox b{color:var(--ink)}
+.trace .infl{padding:0 13px 12px 40px}
+.trace .infl .il{font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--teal-d);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.trace .infl .il .hint{color:var(--faint);font-weight:600;letter-spacing:0;text-transform:none}
+.infl-chip{border:1px solid var(--hair-2);background:#fff;border-radius:999px;padding:6px 12px;font-size:11.5px;font-weight:700;color:var(--body);cursor:pointer;margin:0 6px 6px 0}
+.infl-chip:hover{border-color:var(--teal);color:var(--teal-d)}
+.infl-chip.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.infl-note{font-size:11px;color:var(--teal-d);font-weight:700;margin-top:1px;min-height:14px}
+.infl .edit{display:flex;gap:7px;margin-top:2px}
+.infl .edit input{flex:1;border:1px solid var(--hair);border-radius:8px;padding:7px 10px;font:inherit;font-size:12px}
+.infl .edit button{border:1px solid var(--teal);background:var(--teal-wash);color:var(--teal-d);border-radius:8px;padding:7px 12px;font-weight:800;font-size:11.5px}
+
+
+/* ===== v11: SOWISE chat composer (free-text answers) ===== */
+.am-compose{border-top:1px solid var(--hair);background:#fff;padding:10px 16px;flex:none}
+.am-compose .inp{display:flex;gap:8px;align-items:center;background:var(--card-2);border:1px solid var(--hair);border-radius:12px;padding:6px 6px 6px 14px;max-width:820px;margin:0 auto}
+.am-compose .inp input{flex:1;border:none;background:none;font:inherit;font-size:14px;outline:none;color:var(--body)}
+.am-compose .inp .send{width:36px;height:36px;border-radius:9px;background:var(--teal);color:#fff;display:grid;place-items:center;font-size:15px;flex:none;cursor:pointer}
+.am-compose .inp .send:hover{background:var(--teal-d)}
+.am-compose .hint{max-width:820px;margin:6px auto 0;font-size:10.5px;color:var(--faint);text-align:center}
+@media(max-width:900px){.am-compose{padding:8px 12px}.am-compose .hint{display:none}}
+
 </style>
 </head>
 <body>
@@ -645,6 +816,9 @@ img,svg{max-width:100%;display:block}
     </div>
     <div class="nav-group" data-g="sowise">
       <div class="g-head" id="sowiseNav" onclick="go('sowise')" style="cursor:pointer"><span class="ic" style="color:var(--teal)">✦</span><span class="lbl"><b>SO</b>WISE</span><span class="badge-new">NEW</span></div>
+    </div>
+    <div class="nav-group" data-g="acct">
+      <div class="g-head" onclick="go('billing')" style="cursor:pointer"><span class="ic">◑</span><span class="lbl">Plan &amp; Billing</span><span class="chev">›</span></div>
     </div>
     <div class="nav-group" data-g="set">
       <div class="g-head" onclick="toast('Settings is outside this prototype')"><span class="ic">⚙</span><span class="lbl">Settings</span><span class="chev">›</span></div>
@@ -1105,37 +1279,95 @@ img,svg{max-width:100%;display:block}
     </div>
   </section>
 
+  <!-- ============ PLAN & BILLING ============ -->
+  <section class="screen" id="scr-billing">
+    <div class="billwrap">
+      <div class="bcard" id="billCurrent"></div>
+      <div class="bcard">
+        <h3>Change plan · play with seats</h3>
+        <div class="muted" style="font-size:12px;margin-bottom:12px">Every seat ships as dashboard + agentic MCP access. A seat is a call quota on a rolling 5-hour window plus a weekly ceiling (resets Mon 00:00 UTC). Median complete pitch build ≈ 30 calls.</div>
+        <div class="planopts" id="planOpts"></div>
+        <div class="blab">Subscription term</div>
+        <select class="termsel" id="billTerm" onchange="billSet('term',this.value)">
+          <option value="m1">1 month</option>
+          <option value="y1" selected>1 year — save 10%</option>
+          <option value="y2">2 years — save 16%</option>
+          <option value="y3">3 years — save 22%</option>
+        </select>
+        <div class="blab">Add-ons</div>
+        <div class="addon"><div><div class="ad-n">+ Analyst seat</div><div class="ad-s">50 calls / 5-hr · 150 / week · $300/mo</div></div><div class="sp2"><button class="stepbtn" onclick="billStep('addA',-1)">−</button><span class="stepnum" id="stepA">0</span><button class="stepbtn" onclick="billStep('addA',1)">+</button></div></div>
+        <div class="addon"><div><div class="ad-n">+ Specialist seat</div><div class="ad-s">120 calls / 5-hr · 400 / week · $600/mo</div></div><div class="sp2"><button class="stepbtn" onclick="billStep('addS',-1)">−</button><span class="stepnum" id="stepS">0</span><button class="stepbtn" onclick="billStep('addS',1)">+</button></div></div>
+        <div class="addon"><div><div class="ad-n">+10 brand handles</div><div class="ad-s" id="handlePriceLbl">$390/mo on Pro plans</div></div><div class="sp2"><button class="stepbtn" onclick="billStep('addH',-1)">−</button><span class="stepnum" id="stepH">0</span><button class="stepbtn" onclick="billStep('addH',1)">+</button></div></div>
+        <div class="blab">What this plan unlocks</div>
+        <div class="featgrid" id="featGrid"></div>
+        <div class="btot">
+          <div><div class="per">Monthly total</div><div class="amt" id="billMonth">—</div></div>
+          <div><div class="per" id="billBilledLab">Billed in advance</div><div class="amt" id="billBilled">—</div></div>
+        </div>
+        <div class="bapply">
+          <button class="btn" onclick="billApply()">Switch to this plan</button>
+          <button class="btn ghost" onclick="billTopup()">⚡ Pay with Stripe →</button>
+        </div>
+        <div class="muted" style="font-size:10.5px;margin-top:9px">Term savings apply to the plan base; add-ons bill at list. Prices set &amp; billed in USD (marketplace listing v2). 2–3-year prepays close via a Google Cloud private offer.</div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ SOWISE — agentic module ============ -->
   <section class="screen" id="scr-sowise">
     <aside class="sowise-rail" id="sowiseRail">
       <button class="as-new" onclick="agentHome()">＋ New agent run</button>
       <div id="agentCtxPill"></div>
+      <div class="seatstrip" id="seatStrip"></div>
       <div class="as-label">Connectors</div>
       <div class="conn"><span class="ci">◍</span>SOMIN MCP<span class="st">Connected</span></div>
       <div class="conn"><span class="ci">✦</span>Figma<span class="st">Connected</span></div>
       <div class="conn"><span class="ci">▲</span>Google Drive<span class="st">Connected</span></div>
       <div class="conn"><span class="ci">ⓕ</span>Meta Ads<span class="st">Connected</span></div>
       <div class="conn"><span class="ci">✳</span>Slack<span class="st off">Connect</span></div>
-      <div class="as-label">Workflows <span style="color:#4d5b59;text-transform:none;letter-spacing:0">— your skills, as agent runs</span></div>
-      <div class="wf star" onclick="startFlow('reassured')"><span class="wi">◆</span><span class="wt">Brand Strategy Deck<small>Cross-market briefing · ~32 slides</small></span><span class="badge">DEMO</span></div>
-      <div class="wf" onclick="startFlow('agency')"><span class="wi">◇</span><span class="wt">Agency Pitch Deck<small>One big idea · 16–20 slides</small></span></div>
-      <div class="wf" onclick="startFlow('whitespace')"><span class="wi">▦</span><span class="wt">Whitespace Analysis<small>Content-supply gaps</small></span></div>
-      <div class="wf" onclick="startFlow('creative')"><span class="wi">✦</span><span class="wt">Creative Expressions<small>TOFU / MOFU / BOFU renders</small></span></div>
-      <div class="wf" onclick="startFlow('scoring')"><span class="wi">◎</span><span class="wt">Creative Scoring<small>Predicted clickability</small></span></div>
-      <div class="wf" onclick="startFlow('meta')"><span class="wi">ⓕ</span><span class="wt">Meta Campaign Refresh<small>Optimise live ads</small></span></div>
-      <div class="wf" onclick="startFlow('calendar')"><span class="wi">▤</span><span class="wt">Content Calendar<small>Moments → schedule</small></span></div>
-      <div class="wf" onclick="startFlow('persona')"><span class="wi">⚇</span><span class="wt">Persona Discovery<small>Detect audience clusters</small></span></div>
-      <div class="wf" onclick="startFlow('trend')"><span class="wi">📈</span><span class="wt">Trend Analysis<small>Prior-year verified</small></span></div>
-      <div class="wf" onclick="startFlow('influencer')"><span class="wi">◐</span><span class="wt">Influencer Deck<small>Creator cohort strategy</small></span></div>
+      <div class="as-label">Workflows</div>
+      <div class="wf star" onclick="startFlow('brand')"><span class="wi">◆</span><span class="wt">Brand Strategy<small>/somin-brand-deck · ~32-slide briefing</small></span><span class="badge">DEMO</span></div>
+      <div class="wf" onclick="startFlow('agency')"><span class="wi">◇</span><span class="wt">Agency Pitch<small>/somin-agency-deck · 16–20-slide pitch</small></span></div>
+      <div class="wf" onclick="startFlow('influencer')"><span class="wi">◐</span><span class="wt">Influencer Strategy<small>/somin-influencer-deck · creator cohort</small></span></div>
+      <div class="wf" onclick="startFlow('meta')"><span class="wi">ⓕ</span><span class="wt">Meta Creative Update<small>/meta-campaign-refresh · refresh live ads</small></span></div>
+      <div class="as-label">Steps <span style="color:#4d5b59;text-transform:none;letter-spacing:0">— run a single stage</span></div>
+      <div class="wf" onclick="startFlow('whitespace')"><span class="wi">▦</span><span class="wt">Whitespace Analysis<small>/whitespace-analysis</small></span></div>
+      <div class="wf" onclick="startFlow('trend')"><span class="wi">📈</span><span class="wt">Trend Analysis<small>/trend-analysis</small></span></div>
+      <div class="wf" onclick="startFlow('calendar')"><span class="wi">▤</span><span class="wt">Content Calendar<small>/content-calendar-build</small></span></div>
+      <div class="wf" onclick="startFlow('scoring')"><span class="wi">◎</span><span class="wt">Creative Scoring<small>/creative-scoring</small></span></div>
+      <div class="wf" onclick="startFlow('creative')"><span class="wi">✦</span><span class="wt">Creative Expressions<small>/creative-expressions</small></span></div>
     </aside>
     <div class="sowise-main">
       <div class="am-top">
         <button class="mobburger swburger" onclick="toggleSowiseRail()" aria-label="Workflows">☰</button>
         <div class="t" id="agentTitle">SOWISE</div>
-        <div class="mchip"><span class="d"></span>Claude · agentic engine</div>
+        <div class="enginechip" id="engineChip" onclick="toggleEngPop(event)"><span class="d"></span><span class="eng" id="ecEng">Claude</span><span class="mdl" id="ecMdl">Opus 4.8</span><span class="eff" id="ecEff">High</span><span class="cv">▾</span></div>
+        <div class="engpop" id="engPop" onclick="event.stopPropagation()">
+          <div class="lab">Agent engine</div>
+          <div class="engrow">
+            <div class="engopt on" data-eng="Claude" onclick="pickEng('Claude')"><div class="en"><span class="logo" style="background:#2DBF9C">◈</span>Claude</div><div class="es">Claude Code · Anthropic</div></div>
+            <div class="engopt" data-eng="Codex" onclick="pickEng('Codex')"><div class="en"><span class="logo" style="background:#111">◇</span>Codex</div><div class="es">OpenAI</div></div>
+            <div class="engopt" data-eng="Jules" onclick="pickEng('Jules')"><div class="en"><span class="logo" style="background:#4285F4">✦</span>Jules</div><div class="es">Google · Gemini agent</div></div>
+            <div class="engopt" data-eng="Manus" onclick="pickEng('Manus')"><div class="en"><span class="logo" style="background:#6C4CF1">⬡</span>Manus</div><div class="es">Manus AI</div></div>
+          </div>
+          <div class="lab">Model</div>
+          <select class="mdlsel" id="mdlSel" onchange="pickMdl(this.value)"></select>
+          <div class="lab" style="margin-top:10px">Reasoning effort</div>
+          <div class="effseg" id="effSeg">
+            <button onclick="pickEff('Low')">Low</button>
+            <button onclick="pickEff('Medium')">Medium</button>
+            <button class="on" onclick="pickEff('High')">High</button>
+            <button onclick="pickEff('Max')">Max</button>
+          </div>
+          <div style="font-size:10.5px;color:var(--faint);margin-top:6px;line-height:1.4">Higher effort spends more agent credits per run. Current run est. <b id="effEst" style="color:var(--teal-d)">18 credits</b>.</div>
+        </div>
         <div id="agentCtxTop"></div>
       </div>
       <div class="am-body" id="agentBody"><div class="am-inner" id="agentInner"></div></div>
+      <div class="am-compose">
+        <div class="inp"><input id="agentInput" placeholder="Type your answer, or pick an option above…" onkeydown="if(event.key==='Enter'){event.preventDefault();agentSend();}"><button class="send" onclick="agentSend()" aria-label="Send">➤</button></div>
+        <div class="hint">Answer in your own words — SOWISE processes the text and continues — or click an option.</div>
+      </div>
     </div>
   </section>
 
@@ -1667,35 +1899,35 @@ const CTX={
  'content-library':{name:'Content Library · Inferred-Audience treemap',
    intro:"You're on the <b>Content Library</b> — 216 posts, 5 brands, concept view <b>Inferred Audience</b>. <b>Business Owners</b> (160) is the biggest audience here, but it's almost all LinkedIn + Milieu — <b>SOMIN barely appears in it.</b>",
    chips:[
-    {q:'Where is SOMIN’s biggest audience gap?',a:"Your biggest content-supply gap is <b>Business Owners</b>: 160 media in the set (131 on LinkedIn, 29 on Milieu), and SOMIN doesn't appear in it at all. <b>Marketing Professionals</b> (97) and <b>Entrepreneurs</b> (91) are the next two open lanes.",stats:[['160','Business Owners'],['0','SOMIN posts'],['3','open lanes']]},
+    {q:'Where is SOMIN’s biggest audience gap?',a:"Your biggest content-supply gap is <b>Business Owners</b>: 160 media in the set (131 on LinkedIn, 29 on Milieu), and SOMIN doesn't appear in it at all. <b>Marketing Professionals</b> (97) and <b>Entrepreneurs</b> (91) are the next two open lanes.<div style='margin-top:9px'><div style='font-size:10px;color:var(--soft);font-weight:700;margin-bottom:5px'>MEDIA BY AUDIENCE</div><div style='display:flex;align-items:center;gap:7px;margin:3px 0;font-size:11px'><span style='width:120px;flex:none'>Business Owners</span><span style='flex:1;height:9px;background:#eef3f2;border-radius:4px;overflow:hidden'><span style='display:block;height:100%;width:100%;background:var(--c-linkedin)'></span></span><b style='width:26px;text-align:right'>160</b></div><div style='display:flex;align-items:center;gap:7px;margin:3px 0;font-size:11px'><span style='width:120px;flex:none'>Marketing Prof.</span><span style='flex:1;height:9px;background:#eef3f2;border-radius:4px;overflow:hidden'><span style='display:block;height:100%;width:61%;background:var(--c-linkedin)'></span></span><b style='width:26px;text-align:right'>97</b></div><div style='display:flex;align-items:center;gap:7px;margin:3px 0;font-size:11px'><span style='width:120px;flex:none'>Entrepreneurs</span><span style='flex:1;height:9px;background:#eef3f2;border-radius:4px;overflow:hidden'><span style='display:block;height:100%;width:57%;background:var(--c-linkedin)'></span></span><b style='width:26px;text-align:right'>91</b></div><div style='display:flex;align-items:center;gap:7px;margin:3px 0;font-size:11px'><span style='width:120px;flex:none'>SOMIN</span><span style='flex:1;height:9px;background:#eef3f2;border-radius:4px;overflow:hidden'><span style='display:block;height:100%;width:0%;background:var(--c-somin)'></span></span><b style='width:26px;text-align:right'>0</b></div></div>",stats:[['160','Business Owners'],['0','SOMIN posts'],['3','open lanes']]},
     {q:'Filter the treemap to Business Owners',a:"Filtering the concept view to <b>Business Owners</b> across all brands…",act:'filterBO'},
     {q:'Compare SOMIN vs Milieu coverage',a:"Across the audiences, <b>Milieu</b> appears in most of the top lanes; <b>SOMIN</b> in only a couple. Milieu leads Business Owners, General Public and Professionals; SOMIN over-indexes only on CMOs and Marketers. You're narrow exactly where the volume is.",stats:[['Broad','Milieu'],['Narrow','SOMIN']]},
-    {q:'Turn this into a strategy deck',a:"That's an agent job — I'll carry this treemap in and build a whitespace-led cross-market deck.",act:'esc'}]},
+    {q:'Turn this into a strategy deck',a:"That's an agent job — I'll carry this treemap in and build a whitespace-led cross-market deck.",act:'build:brand'}]},
  'soda':{name:'SODA · Nielsen deep-dive',
    intro:"You're in <b>SODA</b> on the <b>Nielsen social feed</b> (Feb 14 – Mar 16). I've decoded Nielsen's <b>products</b> and <b>audiences</b> — they lead with <b>‘Beyond the Bracket’</b> sports content and skew hard to <b>Business Owners</b> and marketing professionals.",
    chips:[
     {q:'What is Nielsen’s core product focus?',a:"Nielsen's product narrative centres on <b>audience insights</b>, <b>market research</b> and <b>sports-industry contributions</b> — anchored by <b>the Gauge™</b> and their ‘Beyond the Bracket’ event. Recruitment (finance internships) and <b>DMA data integration</b> round it out.",stats:[['7','Product cats'],['Sports','Lead angle']]},
     {q:'Who is Nielsen talking to?',a:"Their top audience is <b>Business Owners</b> (weight 5), then <b>marketing professionals</b> (3) and <b>advertisers</b> (2). It's a B2B, industry-stakeholder skew — the same Business-Owners lane that's open for SOMIN in the Content Library.",stats:[['Biz Owners','#1'],['B2B','Skew']]},
-    {q:'How does this help SOMIN?',a:"Nielsen owns the Business-Owners conversation through sports & measurement stories. That's exactly SOMIN's whitespace — I can carry this into a positioning deck that counters Nielsen where they're strong.",act:'esc'}]},
+    {q:'How does this help SOMIN?',a:"Nielsen owns the Business-Owners conversation through sports & measurement stories. That's exactly SOMIN's whitespace — I can carry this into a positioning deck that counters Nielsen where they're strong.",act:'build:agency'}]},
  'brand-tracker':{name:'Brand Tracker · 239 posts · 6 brands',
    intro:"On <b>Brand Tracker</b> you rank <b>4th on activity</b> (26 posts) and <b>last on engagement</b> (27). <b>Nielsen</b> posts a similar cadence to you but earns far more reaction — so this is a <b>content-quality gap, not a volume gap.</b>",
    chips:[
     {q:'Why is SOMIN’s engagement the lowest?',a:"Middling volume (26 posts, 4th) but the least engagement (27, last). Nielsen publishes about as much as you (44 posts) yet earns <b>1,054</b> engagement — ~39× more per brand. The difference is <b>what</b> you post, not how much.",stats:[['4th','Activity'],['5th','Engagement'],['39×','Nielsen rate']]},
     {q:'Show me the weekly trend',a:"Switching Content Activity to <b>Weekly</b>…",act:'weekly'},
     {q:'Who’s winning engagement and why?',a:"<b>Nielsen</b> (33%) leads, then unselected <b>Other</b> brands (24%) and <b>Milieu</b> (19%). The winners lean on organic, human-story posts over product announcements — that's the pattern to reverse-engineer."},
-    {q:'Draft a plan to close the gap',a:"I'll open SOWISE and build the persona → tension → creative plan from this tracker.",act:'esc'}]},
+    {q:'Draft a plan to close the gap',a:"I'll open SOWISE and build the persona → tension → creative plan from this tracker.",act:'build:brand'}]},
  'perspectives':{name:'Concept-Whitespace Q1 · 3 personas · 4 tensions',
    intro:"You're looking at <b>SOMIN Paid Concept-Whitespace — Q1</b> (PS-6901) — 279 paid media across 5 brands. It detected <b>3 personas</b> and <b>4 tensions</b>. <b>The Innovative Strategist</b> (86 media) is the largest conversation.",
    chips:[
     {q:'Summarise the detected personas',a:"<b>The Connected Visionary</b> (19 media, tech + community), <b>The Innovative Strategist</b> (86 media, marketing × data — the largest), and <b>The Strategic Innovator</b> (24 media, business-strategy-led)."},
     {q:'Which tension should we solve first?',a:"<b>Navigating the Digital Disconnect</b> — 133 media, the biggest tension in the study. It's the gap between the data brands have and the audiences they're trying to reach.",stats:[['133','media'],['4','tensions']]},
-    {q:'Generate insights from this study',a:"I'll take Concept-Whitespace Q1 into SOWISE and generate the full insight → proposition chain.",act:'esc'}]},
+    {q:'Generate insights from this study',a:"I'll take Concept-Whitespace Q1 into SOWISE and generate the full insight → proposition chain.",act:'build:whitespace'}]},
  'personas':{name:'Persona · The Empowered Strategist',
    intro:"Loaded <b>The Empowered Strategist</b> — 3 profiles, 19 media, <b>707 engagement</b> (your best-performing persona). It's built from <b>PS-6901</b> (Concept-Whitespace Q1).",
    chips:[
     {q:'What tensions define this persona?',a:"Three: <b>“I'm guessing who my audience is”</b>, <b>“data feels cold and inhuman”</b>, and <b>“I can't prove ROI before I spend.”</b> Each maps to a different SOMIN capability."},
     {q:'Generate moments for this persona',a:"Jumping to Moments for this persona…",act:'gomoments'},
-    {q:'Turn this persona into a campaign',a:"I'll carry The Empowered Strategist into SOWISE and run the full deck.",act:'esc'}]},
+    {q:'Turn this persona into a campaign',a:"I'll carry The Empowered Strategist into SOWISE and run the full deck.",act:'build:brand'}]},
  'insights':{name:'Insight · “Value outshines price when connections thrive.”',
    intro:"This insight comes from <b>The Connected Visionary × “Balancing Time and Resources”</b> (economic angle), from Concept-Whitespace Q1. Its audience story is <i>“The Echo in the Market.”</i>",
    chips:[
@@ -1718,9 +1950,9 @@ const CTX={
    intro:"You've generated a full <b>TOFU / MOFU / BOFU</b> set (25 concepts) from “Understanding is the foundation of connection.” I can predict which will perform, or score + launch them.",
    chips:[
     {q:'Which concept will score highest?',a:"My prediction: <b>Pattern Interrupt — “Stop wasting your ad budget”</b> tops TOFU; the <b>Dramatic Beat Drop (ROI before/after)</b> is strongest for retargeting; the Street-Interview is safe but low-ceiling.",stats:[['0.86','Pattern Int.'],['0.79','Beat Drop'],['0.61','Street Int.']]},
-    {q:'Generate 3 more MOFU concepts',a:"Three MOFU angles: a <b>comparison teardown</b> (SOMIN vs a demographics tool), a <b>30s “how it works” explainer</b>, and a <b>case-study proof reel</b>. Want me to render them?",act:'esc'},
-    {q:'Score these for clickability',a:"I can run <b>Creative Scoring</b> — upload each render, poll SOMIN for predicted above-average clickability, flag anything ≥0.80 as ‘Top performer potential’. That's a SOWISE run.",act:'esc'},
-    {q:'Push the winners to Meta',a:"That's the closing step of the SOWISE flow — score, then push the ≥0.80 creatives to Meta as paused ads.",act:'esc'}]},
+    {q:'Generate 3 more MOFU concepts',a:"Three MOFU angles: a <b>comparison teardown</b> (SOMIN vs a demographics tool), a <b>30s “how it works” explainer</b>, and a <b>case-study proof reel</b>. Want me to render them?",act:'build:creative'},
+    {q:'Score these for clickability',a:"I can run <b>Creative Scoring</b> — upload each render, poll SOMIN for predicted above-average clickability, flag anything ≥0.80 as ‘Top performer potential’. That's a SOWISE run.",act:'build:scoring'},
+    {q:'Push the winners to Meta',a:"That's the closing step of the SOWISE flow — score, then push the ≥0.80 creatives to Meta as paused ads.",act:'build:meta'}]},
  'sowise':{name:'SOWISE · agentic workspace',
    intro:"You're in <b>SOWISE</b> — your SOMIN skills as autonomous agent runs. Pick a workflow on the left, or tell me what to build.",
    chips:[
@@ -1827,20 +2059,24 @@ function agentFromContext(scr){
     {t:q.t,fn:q.fn},{t:'Browse all workflows',fn:agentHome}]);}
 
 function agentHome(){closeAgentSide();$('#agentCtxTop').innerHTML='';$('#agentCtxPill').innerHTML='';$('#agentTitle').textContent='SOWISE';Ai().innerHTML='';
-  addAgentMsg('ai',"<h4>SOWISE — agentic workspace</h4><p>Run any SOMIN skill as an autonomous workflow — wired to the SOMIN MCP, Figma, Meta and Drive. Pick one from the left, or start with a favourite:</p>"+
+  addAgentMsg('ai',"<h4>SOWISE — agentic workspace</h4><p>Run any SOMIN skill as an autonomous workflow — wired to the SOMIN MCP, Figma, Meta Ads and Google Drive. Pick a main workflow, or run a single step from the left.</p>"+
    `<div class="pgrid" style="margin-top:6px">
-     ${hc('◆','Brand Strategy Deck','Reassured worked example','reassured',true)}
-     ${hc('▦','Whitespace Analysis','Content-supply gaps','whitespace')}
-     ${hc('✦','Creative Expressions','Render + score funnel','creative')}
-     ${hc('ⓕ','Meta Campaign Refresh','Optimise live ads','meta')}</div>`);}
+     ${hc('◆','Brand Strategy','/somin-brand-deck','brand',true)}
+     ${hc('◇','Agency Pitch','/somin-agency-deck','agency')}
+     ${hc('◐','Influencer Strategy','/somin-influencer-deck','influencer')}
+     ${hc('ⓕ','Meta Creative Update','/meta-campaign-refresh','meta')}</div>`);}
 function hc(ic,t,s,id,star){return `<button class="pmini" style="text-align:left;cursor:pointer;${star?'border-color:var(--teal)':''}" onclick="startFlow('${id}')"><div class="nm">${ic} ${t}</div><div class="bl">${s}</div></button>`;}
 
 function startFlow(id){closeAgentSide();
-  if(id==='reassured')return rzScope();
-  if(id==='whitespace')return shortWhitespace();
-  if(id==='creative')return shortCreative();
-  if(id==='scoring')return shortScoring();
-  if(id==='meta')return shortMeta();
+  if(id==='brand'||id==='reassured')return rzScope();
+  if(id==='agency')return flowAgency();
+  if(id==='influencer')return flowInfluencer();
+  if(id==='meta')return flowMeta();
+  if(id==='whitespace')return stepWhitespace();
+  if(id==='trend')return stepTrend();
+  if(id==='calendar')return stepCalendar();
+  if(id==='scoring')return stepScoring();
+  if(id==='creative')return stepCreative();
   return stubFlow(id);}
 
 /* -------- Reassured hero flow -------- */
@@ -1858,17 +2094,21 @@ function rzQ3(){addAgentMsg('ai',"<p><b>3 / 3 · Market, window &amp; what to le
    {t:'UK · 12-month trend',fn:rzRun},
    {t:'Multi-market (UK + US)',fn:()=>{addAgentMsg('ai',"Multi-market runs the chain once <b>per market</b> and only reports convergence where it independently emerges. For the demo I'll show the single-market UK run end-to-end.");rzRun();}}]);}
 async function rzRun(){addAgentMsg('ai',"On it — running the full chain against the <b>Reassured</b> workspace. Each tool call streams as it fires.");
-  await addTrace('SOMIN Agent · cross-market briefing',[
+  await addTrace('somin-brand-deck · full chain',[
+   ['brand-extraction-from-web · palette + offerings','Reassured brand kit',600],
    ['SOMIN MCP · studies-create — persona + tensions ×2 windows','2 studies queued',700],
-   ['SOMIN MCP · studies-get','157 posts · 3 personas · 6 tensions',900],
-   ['SOMIN MCP · whitespace cohorts (brand vs 5 competitors)','3 cohorts built',700],
-   ['whitespace-analysis','6 territories mapped',800],
+   ['SOMIN MCP · studies-get (poll)','157 posts · 3 personas · 6 tensions',900],
+   ['trend-analysis · prior-year verified','tensions classified',700],
+   ['SOMIN MCP · studies-create — whitespace cohorts (brand vs 5)','3 cohorts built',700],
+   ['whitespace-analysis · 6-verdict map','6 territories mapped',800],
    ['insight-creation-brand','3 insight chains',700],
-   ['product + propositions-create','6 propositions',650],
-   ['moments-create','15 timing triggers',600],
+   ['SOMIN MCP · product-create + propositions-create','6 propositions',650],
+   ['SOMIN MCP · moments-create','15 timing triggers',600],
    ['content-calendar-build','12-week calendar',600],
-   ['image-generate ×9 · creative expressions','9 renders',1100],
-   ['creative-scoring · posts-upload → posts-search','scored · 2 top performers',900]]);
+   ['content-brief-brand','briefs per slot',500],
+   ['creative-expressions · SOMIN image-generate ×9','9 renders',1000],
+   ['creative-scoring · posts-upload → posts-search','scored · 2 top performers',900],
+   ['deck-qa-brand','PASS · 32 slides',700]]);
   addAgentMsg('ai',"<b>✓ Analysis complete.</b> The headline: Reassured runs a <b>100% paid</b> strategy in a category that publishes <b>75% organic</b> — that mismatch is both the risk and the opening.");
   agentChips([{t:'Show me the findings →',hero:true,fn:rzF1}]);}
 function rzF1(){addAgentMsg('ai',artLandscape());addAgentMsg('ai',artPersonas());agentChips([{t:'Continue → whitespace + insight chains',hero:true,fn:rzF2}]);}
@@ -1888,40 +2128,150 @@ function rzF6(){addAgentMsg('ai',"<h4>Ship it — pick any hand-off</h4><p>Every
 function handoff(msg){toast(msg);addAgentMsg('ai','<b>✓ '+msg+'</b>');}
 async function handoffTrace(title,run,done){await addTrace(title,[[run,done.replace('✓ ',''),900]]);toast(done.replace('✓ ',''));}
 
-/* -------- short flows -------- */
-async function shortWhitespace(){$('#agentTitle').textContent='Whitespace Analysis';$('#agentCtxTop').innerHTML='';Ai().innerHTML='';
-  addAgentMsg('ai',"Mapping content-supply gaps for this selection…");
-  await addTrace('Whitespace',[['SOMIN MCP · whitespace cohorts','brand vs competitors',700],['whitespace-analysis','6 territories',800]]);
+/* -------- STEP workflows (single stage) -------- */
+async function stepWhitespace(){$('#agentTitle').textContent='Whitespace Analysis';$('#agentCtxTop').innerHTML='<span class="ctxpill">▦ /whitespace-analysis</span>';Ai().innerHTML='';
+  addAgentMsg('ai',"Comparing tension studies across cohorts — audience demand vs brand voice vs competitor coverage — at one snapshot in time.");
+  await addTrace('whitespace-analysis',[
+   ['SOMIN MCP · studies-get (reportTypes: tensions) ×3 cohorts','3 cohort studies',800],
+   ['align themes across cohorts (semantic)','themes matched',600],
+   ['share-of-voice per cohort + sample-size check','proportional',600],
+   ['6-verdict rubric','6 territories mapped',700]]);
   addAgentMsg('ai',artWhitespace());
-  addAgentMsg('ai',"<b>Read:</b> two clean whitespace lanes to build into — honest price transparency and broker-not-insurer clarity. Want the full deck from here?");
-  agentChips([{t:'▶ Build the full brand deck',hero:true,fn:rzScope},{t:'Back to workflows',fn:agentHome}]);}
-async function shortCreative(){$('#agentTitle').textContent='Creative Expressions';$('#agentCtxTop').innerHTML='';Ai().innerHTML='';
-  addAgentMsg('ai',"Rendering a creative funnel in the brand's identity (brand-locked prompts + real wordmark composited)…");
-  await addTrace('Creative Expressions',[['SOMIN MCP · image-generate ×4','4 renders · 1024×1536',1100],['brand-lock + wordmark composite','on-brand',600]]);
+  addAgentMsg('ai',"<b>Read:</b> two clean WHITESPACE lanes — honest price transparency and broker-not-insurer clarity. This map feeds insight-creation and the decks.");
+  agentChips([{t:'▶ Build the full brand deck',hero:true,fn:rzScope},{t:'Run trend analysis next',fn:stepTrend},{t:'Back to workflows',fn:agentHome}]);}
+
+async function stepTrend(){$('#agentTitle').textContent='Trend Analysis';$('#agentCtxTop').innerHTML='<span class="ctxpill">📈 /trend-analysis</span>';Ai().innerHTML='';
+  addAgentMsg('ai',"Tracking how each tension moves across sequential windows for one cohort — strictly time-series.");
+  await addTrace('trend-analysis',[
+   ['SOMIN MCP · studies-get (tensions) ×4 windows','4 studies · one batch',800],
+   ['align themes semantically across windows','aligned',600],
+   ['share-of-voice matrix','matrix built',600],
+   ['classify · 7-status rubric','tensions classified',600],
+   ['prior-year seasonality verification','RISING / FALLING confirmed',700]]);
+  addAgentMsg('ai',artTrend());
+  agentChips([{t:'Map whitespace from here',hero:true,fn:stepWhitespace},{t:'Back to workflows',fn:agentHome}]);}
+
+async function stepCalendar(){$('#agentTitle').textContent='Content Calendar';$('#agentCtxTop').innerHTML='<span class="ctxpill">▤ /content-calendar-build</span>';Ai().innerHTML='';
+  addAgentMsg('ai',"Turning generated Moments into a dated publishing matrix — pillar-weighted, cadence and cultural anchors handled.");
+  await addTrace('content-calendar-build',[
+   ['SOMIN MCP · moments-list','15 moment triggers',700],
+   ['calendar_solver.py · pillar-weighted','60 / 25 / 15 split',700],
+   ['validate matrix (slot → moment_id · pillar ±1)','valid',500],
+   ['calendar_render.py --format md','12-week view',500]]);
+  addAgentMsg('ai',artCalendar());
+  agentChips([{t:'Write the post briefs',hero:true,fn:()=>handoff('content-brief-* · briefs drafted per slot')},{t:'Back to workflows',fn:agentHome}]);}
+
+async function stepScoring(){$('#agentTitle').textContent='Creative Scoring';$('#agentCtxTop').innerHTML='<span class="ctxpill">◎ /creative-scoring</span>';Ai().innerHTML='';
+  addAgentMsg('ai',"Scoring each render for predicted above-average clickability — a pre-launch prediction, not measured results.");
+  await addTrace('creative-scoring',[
+   ['SOMIN MCP · posts-upload ×9 (image + hook)','uploaded',800],
+   ['SOMIN MCP · posts-search (poll · OWNED · clickability)','scoring finalised',1200],
+   ['flag ≥ 0.80 “Top performer potential”','2 flagged',500],
+   ['score_annotate.py · leaderboard','deck badged',600]]);
   addAgentMsg('ai',artCreatives());
-  agentChips([{t:'Score these for clickability →',hero:true,fn:shortScoring},{t:'Back to workflows',fn:agentHome}]);}
-async function shortScoring(){$('#agentTitle').textContent='Creative Scoring';$('#agentCtxTop').innerHTML='';Ai().innerHTML='';
-  addAgentMsg('ai',"Scoring each render for predicted above-average clickability (this is a pre-launch prediction, not measured results)…");
-  await addTrace('Creative Scoring',[['SOMIN MCP · posts-upload ×4','uploaded',800],['SOMIN MCP · posts-search (poll)','scoring finalised',1200]]);
+  addAgentMsg('ai',"<b>2 of 9</b> cleared the <b>0.80</b> bar. I can push those to Meta as paused ads.");
+  agentChips([{t:'ⓕ Push winners to Meta',hero:true,fn:()=>handoffTrace('Meta · ads_create_ad (paused)','Creating 2 paused ads…','✓ 2 paused ads created in Meta — ready for review')},{t:'Back to workflows',fn:agentHome}]);}
+
+function stepCreative(){$('#agentTitle').textContent='Creative Expressions';$('#agentCtxTop').innerHTML='<span class="ctxpill">✦ /creative-expressions</span>';Ai().innerHTML='';
+  addAgentMsg('ai',"<h4>Creative Expressions</h4><p>Two ways to build the funnel. Fill an on-brand <b>Figma template</b> (via the Figma connector), or generate from scratch with <b>SOMIN image-generate</b>.</p>");
+  agentChips([
+   {t:'✦ Use a Figma template (Figma MCP)',hero:true,fn:()=>creativeRun('figma')},
+   {t:'Generate from scratch (image-generate)',fn:()=>creativeRun('gen')}]);}
+async function creativeRun(mode){
+  if(mode==='figma'){
+    await addTrace('creative-expressions · Figma template',[
+     ['Figma · get_design_context (brand master frames)','template loaded',800],
+     ['unlock.py emit-prompts → check_prompts.py','manifest PASS',700],
+     ['Figma · download_assets (filled frames ×9)','9 on-brand frames',1000],
+     ['assemble Creative-Library appendix','embedded',600]]);
+  }else{
+    await addTrace('creative-expressions · generate',[
+     ['unlock.py emit-prompts → check_prompts.py','manifest PASS',700],
+     ['SOMIN MCP · image-generate ×9 (1024×1536)','9 renders',1100],
+     ['assemble Creative-Library appendix','embedded',600]]);
+  }
   addAgentMsg('ai',artCreatives());
-  addAgentMsg('ai',"<b>2 of 4</b> cleared the <b>0.80</b> “Top performer potential” bar. I can push those two to Meta as paused ads.");
-  agentChips([{t:'ⓕ Push winners to Meta',hero:true,fn:()=>handoffTrace('Meta · create ads','Creating 2 paused ads…','✓ 2 paused ads created in Meta — ready for review')},{t:'Back to workflows',fn:agentHome}]);}
-async function shortMeta(){$('#agentTitle').textContent='Meta Campaign Refresh';$('#agentCtxTop').innerHTML='';Ai().innerHTML='';
-  addAgentMsg('ai',"Reading your live Meta campaign and finding what's actually winning against the objective…");
-  await addTrace('Meta Campaign Refresh',[
-   ['Meta · ads_get_ad_entities (live)','12 ads · 3 fatiguing',800],
-   ['content-diversity-scorer','winning concept decoded',700],
-   ['SOMIN MCP · whitespace + image-generate','4 fresh creatives',1000],
+  agentChips([{t:'Score these for clickability →',hero:true,fn:stepScoring},{t:'Back to workflows',fn:agentHome}]);}
+
+/* -------- MAIN workflows -------- */
+async function flowAgency(){$('#agentTitle').textContent='Agency Pitch';$('#agentCtxTop').innerHTML='<span class="ctxpill">◇ /somin-agency-deck</span>';Ai().innerHTML='';
+  addAgentMsg('ai',"<h4>Agency Pitch Deck</h4><p>Same analysis spine as the brand deck, but the deck presents a curated, ID-suppressed pitch built around one challenger idea. Running the chain now.</p>");
+  await addTrace('somin-agency-deck · full chain',[
+   ['brand-extraction-from-web','client brand kit',600],
+   ['SOMIN MCP · studies-create / studies-get','trends resolved',900],
+   ['trend-analysis · prior-year verified','tensions classified',700],
+   ['whitespace-analysis · 6-verdict map','territories mapped',700],
+   ['insight-creation-agency','challenger throughline',700],
+   ['SOMIN MCP · product-create + propositions-create','propositions',650],
+   ['moments-create → content-calendar-build','activation calendar',700],
+   ['content-brief-agency','activation example per pillar',600],
+   ['creative-expressions · image-generate','curated renders',900],
+   ['creative-scoring','top performers flagged',800],
+   ['deck-qa-agency','PASS · 18 slides',700]]);
+  addAgentMsg('ai',artDeck());initDeck();
+  addAgentMsg('ai',"One big idea, one clean share-of-voice visual, an activation example per pillar — pitch-ready.");
+  agentChips([{t:'✦ Push slides to Figma',hero:true,fn:()=>handoffTrace('Figma · push frames','Pushing 18 slides to Figma…','✓ Pushed to Figma — editable pitch frames')},{t:'⬇ Export PPTX',fn:()=>handoff('Agency_Pitch.pptx · 18 slides')},{t:'Back to workflows',fn:agentHome}]);}
+
+async function flowInfluencer(){$('#agentTitle').textContent='Influencer Strategy';$('#agentCtxTop').innerHTML='<span class="ctxpill">◐ /somin-influencer-deck</span>';Ai().innerHTML='';
+  addAgentMsg('ai',"<h4>Influencer Strategy</h4><p>Builds a cross-creator portfolio deck plus one strategy deck per creator — styling from a brand-guideline skill, facts from SOMIN.</p>");
+  await addTrace('somin-influencer-deck · full chain',[
+   ['scope-elicitation-influencer','cohort scoped',500],
+   ['SOMIN MCP · profiles-list + posts-search + concepts-search','creators + competitors',900],
+   ['per-creator competitor mapping (cosine)','clusters built',700],
+   ['SOMIN MCP · studies-create / studies-get','voice + baseline + windows',900],
+   ['trend-analysis · per cluster','tensions classified',700],
+   ['whitespace-analysis · per creator','territories mapped',700],
+   ['insight chains + propositions-create','chains built',700],
+   ['creative-expressions (in-style) · image-generate','renders per creator',1000],
+   ['influencer-visual-assets · avatars + screenshots','real assets',700],
+   ['behavioural-recommendations','per-creator actions',600],
+   ['moments → calendar → creative-scoring','scored',800],
+   ['deck-qa-influencer','PASS · portfolio + per-creator',700]]);
+  addAgentMsg('ai',artInfluencer());
+  agentChips([{t:'⬇ Export the deck set',hero:true,fn:()=>handoff('Portfolio deck + per-creator decks exported')},{t:'✦ Push to Figma',fn:()=>handoffTrace('Figma · push frames','Pushing decks to Figma…','✓ Pushed to Figma — editable frames')},{t:'Back to workflows',fn:agentHome}]);}
+
+function flowMeta(){$('#agentTitle').textContent='Meta Creative Update';$('#agentCtxTop').innerHTML='<span class="ctxpill">ⓕ /meta-campaign-refresh</span>';Ai().innerHTML='';
+  addAgentMsg('ai',"<h4>Meta Creative Update</h4><p>Run this 3–7 days after launch. I read the live campaign, decode what's winning, and generate + score a fresh funnel. First — how should I build the new creatives?</p>");
+  agentChips([
+   {t:'✦ Use Figma templates (Figma MCP)',hero:true,fn:()=>metaRun('figma')},
+   {t:'Generate from scratch (image-generate)',fn:()=>metaRun('gen')}]);}
+async function metaRun(mode){
+  const creativeRows = mode==='figma'
+   ? [['Figma · get_design_context + download_assets','on-brand template frames',1000]]
+   : [['SOMIN MCP · image-generate ×4','fresh renders',1000]];
+  await addTrace('meta-campaign-refresh',[
+   ['Meta · ads_get_ad_entities + ads_get_creatives (live)','12 ads · 3 fatiguing',800],
+   ['meta-ads-analyzer + meta-creative-fatigue + content-diversity-scorer','winner decoded',800],
+   ['SOMIN MCP · studies-create (ADS_LIBRARY) → whitespace-analysis','winning whitespace',900],
+   ['insight-creation','fresh angle',600],
+   ...creativeRows,
    ['creative-scoring','2 ≥ 0.80',800],
-   ['Meta · ads_create_ad (paused)','2 new ads pushed',700]]);
+   ['Meta · ads_create_creative + ads_create_ad (PAUSED)','2 new ads',700],
+   ['Meta · ads_activate_entity (after money gate)','activated',600]]);
   addAgentMsg('ai',`<div class="art"><div class="ah"><div class="ico">ⓕ</div><div><b>Refresh complete</b><div class="sub">closed loop · live data → new scored ads</div></div></div>
    <div class="ab"><div class="pgrid"><div class="pmini"><div class="nm">3</div><div class="bl">fatiguing ads paused</div></div>
    <div class="pmini"><div class="nm">4</div><div class="bl">fresh creatives in the winning whitespace</div></div>
-   <div class="pmini"><div class="nm">2</div><div class="bl">≥0.80 pushed as paused ads</div></div></div></div></div>`);
-  agentChips([{t:'▶ Full brand deck instead',hero:true,fn:rzScope},{t:'Back to workflows',fn:agentHome}]);}
-const STUB={agency:'Agency Pitch Deck',calendar:'Content Calendar',persona:'Persona Discovery',trend:'Trend Analysis',influencer:'Influencer Deck'};
+   <div class="pmini"><div class="nm">2</div><div class="bl">≥0.80 activated in the live campaign</div></div></div>
+   <div style="margin-top:12px;background:var(--teal-wash);border-radius:10px;padding:10px 12px;font-size:12px">${mode==='figma'?'Built from your <b>Figma</b> brand templates via the Figma connector.':'Generated with <b>SOMIN image-generate</b>.'}</div></div></div>`);
+  agentChips([{t:'Compare predicted vs actual in 7 days',hero:true,fn:()=>handoff("Learn-loop scheduled — I'll compare predicted vs actual delivery")},{t:'Back to workflows',fn:agentHome}]);}
+
+/* -------- step/main artifacts -------- */
+function artTrend(){const t=[['Honest price transparency','RISING','v-white'],['“From 20p a day” value','SUSTAINED','v-contest'],['Family-protection storytelling','SEASONAL','v-contest'],['Speed · “sorted in minutes”','FALLING','v-block']];
+ return `<div class="art"><div class="ah"><div class="ico">📈</div><div><b>Trend classification</b><div class="sub">tensions over 4 windows · prior-year verified</div></div></div>
+  <div class="ab">${t.map(([n,v,c])=>`<div class="ws-row"><span class="terr">${n}</span><span class="verdict ${c}">${v}</span></div>`).join('')}</div></div>`;}
+function artCalendar(){return `<div class="art"><div class="ah"><div class="ico">▤</div><div><b>12-week content calendar</b><div class="sub">pillar-weighted · moment-linked</div></div></div>
+ <div class="ab"><div class="pgrid"><div class="pmini"><div class="nm">36</div><div class="bl">posts scheduled</div></div><div class="pmini"><div class="nm">3</div><div class="bl">pillars · 60/25/15</div></div><div class="pmini"><div class="nm">Mon·Wed·Fri</div><div class="bl">cadence</div></div></div>
+ <div style="margin-top:12px;background:var(--card-2);border:1px solid var(--hair);border-radius:10px;padding:10px 12px;font-size:12px">Every slot references a real moment_id; cultural anchors (National Day, LNY) reserved as lead posts.</div></div></div>`;}
+function artInfluencer(){return `<div class="art"><div class="ah"><div class="ico">◐</div><div><b>Creator cohort strategy</b><div class="sub">portfolio deck + per-creator decks</div></div></div>
+ <div class="ab"><div class="pgrid">
+  <div class="pmini"><div class="nm">1</div><div class="bl">cross-creator portfolio deck</div></div>
+  <div class="pmini"><div class="nm">4</div><div class="bl">per-creator strategy decks</div></div>
+  <div class="pmini"><div class="nm">4</div><div class="bl">distinct territories assigned</div></div></div>
+ <div style="margin-top:12px;background:var(--teal-wash);border-radius:10px;padding:10px 12px;font-size:12px">Real avatars + screenshots, per-tile clickability, and behavioural recommendations grounded in real benchmark figures.</div></div></div>`;}
+
+const STUB={persona:'Persona Discovery'};
 function stubFlow(id){$('#agentTitle').textContent=STUB[id]||'Workflow';$('#agentCtxTop').innerHTML='';Ai().innerHTML='';
-  addAgentMsg('ai',`<h4>${STUB[id]||'Workflow'}</h4><p>This runs the same agentic engine — it collects inputs, fires the SOMIN MCP tools, and returns real objects plus a rendered artefact. The fully worked, clickable path in this prototype is the <b>Brand Strategy Deck</b>.</p>`);
+  addAgentMsg('ai',`<h4>${STUB[id]||'Workflow'}</h4><p>This runs the same agentic engine — it collects inputs, fires the SOMIN MCP tools, and returns real objects plus a rendered artefact. The fully worked, clickable path in this prototype is the <b>Brand Strategy</b> workflow.</p>`);
   agentChips([{t:'▶ Run the worked example instead',hero:true,fn:rzScope},{t:'Back to workflows',fn:agentHome}]);}
 
 /* -------- Reassured artifacts -------- */
@@ -2019,6 +2369,743 @@ function closeSide(){$('.side').classList.remove('open');$('#scrim').classList.r
 function toggleSowiseRail(){const a=$('.sowise-rail');if(a)a.classList.toggle('open');}
 function closeAgentSide(){const a=$('.sowise-rail');if(a)a.classList.remove('open');}
 window.addEventListener('DOMContentLoaded',()=>{const el=$('#lu');if(el)el.focus();});
+
+/* ================= v7 additions: engine selector, credits, real case flows ================= */
+/* ---- engine / model / effort ---- */
+const ENGINES={
+ Claude:{logo:'◈',color:'#2DBF9C',models:['Opus 4.8','Sonnet 4.8','Haiku 4.5'],sub:'Claude Code · Anthropic'},
+ Codex:{logo:'◇',color:'#111111',models:['GPT-5.2-Codex','GPT-5.2-Codex-mini'],sub:'OpenAI'},
+ Jules:{logo:'✦',color:'#4285F4',models:['Gemini 3 Pro','Gemini 3 Flash'],sub:'Google · Gemini agent'},
+ Manus:{logo:'⬡',color:'#6C4CF1',models:['Manus-1.5 (default)'],sub:'Manus AI'}};
+let ENG={eng:'Claude',mdl:'Opus 4.8',eff:'High'};
+const EFFCR={Low:6,Medium:12,High:18,Max:30};
+function toggleEngPop(e){if(e)e.stopPropagation();$('#engPop').classList.toggle('open');}
+function pickEng(name){ENG.eng=name;ENG.mdl=ENGINES[name].models[0];
+  $$('#engPop .engopt').forEach(o=>o.classList.toggle('on',o.dataset.eng===name));fillModels();updateEngChip();}
+function fillModels(){const s=$('#mdlSel');if(!s)return;s.innerHTML=ENGINES[ENG.eng].models.map(m=>`<option${m===ENG.mdl?' selected':''}>${m}</option>`).join('');}
+function pickMdl(v){ENG.mdl=v;updateEngChip();}
+function pickEff(v){ENG.eff=v;$$('#effSeg button').forEach(b=>b.classList.toggle('on',b.textContent===v));const e=$('#effEst');if(e)e.textContent=EFFCR[v]+' credits';updateEngChip();}
+function updateEngChip(){const a=$('#ecEng'),b=$('#ecMdl'),c=$('#ecEff'),d=$('#engineChip .d');if(a)a.textContent=ENG.eng;if(b)b.textContent=ENG.mdl;if(c)c.textContent=ENG.eff;if(d)d.style.background=ENGINES[ENG.eng].color;}
+
+/* ---- credits + top-up ---- */
+let PACK=0;
+function openTopup(){$('#topupModal').classList.add('open');}
+function closeTopup(){$('#topupModal').classList.remove('open');}
+function pickPack(i){PACK=i;$$('#tpk .tpo').forEach((o,j)=>o.classList.toggle('on',j===i));}
+function setMeter(cid,capid,bid,c,cap){const el=$('#'+cid);if(el)el.textContent=c;const cp=$('#'+capid);if(cp)cp.textContent=cap;const bar=$('#'+bid);if(bar){const pct=Math.round(c/cap*100);bar.style.width=pct+'%';bar.parentElement.classList.toggle('warn',pct>=88);}}
+function doTopup(){closeTopup();
+  if(PACK===0){setMeter('cImg','cImgCap','cImgBar',46,75);setMeter('cCamp','cCampCap','cCampBar',7,15);toast('Booster added · +25 images, +5 campaign credits');}
+  else if(PACK===1){setMeter('cImg','cImgCap','cImgBar',46,150);setMeter('cCamp','cCampCap','cCampBar',7,25);toast('Growth added · +100 images, +10 video, +15 campaign');}
+  else{toast('Brand slot added · +1 SOMONITOR brand');}
+}
+
+/* ---- creative reveal (one-by-one) + deck strip ---- */
+async function revealCreatives(title,items){
+  const box=document.createElement('div');box.className='amsg ai';
+  box.innerHTML=`<div class="ava">◈</div><div class="abub"><div class="cap" id="revCap" style="font-size:11px;color:var(--soft);font-weight:700;margin-bottom:9px">Rendering ${items.length} creatives · one per SOMIN image-generate call…</div><div class="revealgrid"></div></div>`;
+  Ai().appendChild(box);const grid=box.querySelector('.revealgrid');const cap=box.querySelector('#revCap');scrollA();
+  let done=0,flagged=0;
+  for(const it of items){const stage=it[0],hook=it[1],grad=it[2],score=it[3],flag=it[4];
+    const t=document.createElement('div');t.className='crev';
+    t.innerHTML=`<div class="cvv" style="background:${grad}"><span style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.52),transparent 62%)"></span><span class="stg">${stage}</span><span class="hk">${hook}</span></div><div class="sc"><span>clickability <b>${score.toFixed(2)}</b></span>${flag?'<span class="flag">TOP ✦</span>':''}</div>`;
+    grid.appendChild(t);scrollA();await wait(240);requestAnimationFrame(()=>t.classList.add('in'));
+    done++;if(flag)flagged++;cap.textContent=`Rendered ${done}/${items.length} · ${flagged} flagged ≥0.80 “Top performer potential”`;await wait(170);}
+  cap.innerHTML=`✓ ${items.length} creatives rendered · <b>${flagged}</b> flagged ≥0.80 “Top performer potential”`;scrollA();
+}
+function deckPreview(title,slides){return `<div class="mplot"><div class="cap">${title}</div><div class="deckstrip">${slides.map((s,i)=>`<div class="dslide"><div class="dt" style="background:${s[1]}"><div class="dn">${String(i+1).padStart(2,'0')}</div><div>${s[0]}</div></div></div>`).join('')}</div></div>`;}
+
+/* ---- creative datasets ---- */
+const PEPSI_CREA=[
+ ['TOFU','One country, a thousand tables.','linear-gradient(135deg,#004B93,#E32934)',0.71,false],
+ ['MOFU','Beside the dish for 125 years.','linear-gradient(135deg,#004B93,#0a63c2)',0.68,false],
+ ['BOFU','Comment your state’s dish.','linear-gradient(135deg,#E32934,#004B93)',0.83,true],
+ ['TOFU','Flavour stays. Sugar goes.','linear-gradient(135deg,#111,#004B93)',0.77,false],
+ ['MOFU','Zero sugar, all the Pepsi taste.','linear-gradient(135deg,#0a0a0a,#0a63c2)',0.74,false],
+ ['BOFU','Try Pepsi Zero Sugar.','linear-gradient(135deg,#004B93,#111)',0.62,false],
+ ['TOFU','Good over evil, feast over fast.','linear-gradient(135deg,#E32934,#f6a800)',0.80,true],
+ ['MOFU','Dussehra tastes like jalebi at the mela.','linear-gradient(135deg,#E32934,#8a1f2b)',0.72,false],
+ ['BOFU','Share your Dussehra plate.','linear-gradient(135deg,#f6a800,#E32934)',0.66,false]];
+const VAMP_CREA=[
+ ['TOFU','You’re not running campaigns — you’re running fragments.','linear-gradient(135deg,#F5D311,#e0b800)',0.79,false],
+ ['MOFU','One system: content, distribution, credibility, performance.','linear-gradient(135deg,#111,#3a3a1a)',0.84,true],
+ ['BOFU','Talk to us about engineering your programme.','linear-gradient(135deg,#F5D311,#111)',0.70,false],
+ ['TOFU','The best conversation was the one nobody followed up on.','linear-gradient(135deg,#111,#2a2a10)',0.81,true],
+ ['MOFU','One week at an event into a year of relationships.','linear-gradient(135deg,#F5D311,#c9a600)',0.73,false],
+ ['BOFU','Build the community that outlasts the conference.','linear-gradient(135deg,#e0b800,#111)',0.68,false],
+ ['TOFU','AI isn’t replacing creators. It scales the boring half.','linear-gradient(135deg,#111,#333)',0.76,false],
+ ['MOFU','AI for scale, humans for trust.','linear-gradient(135deg,#F5D311,#111)',0.82,true],
+ ['BOFU','Get the honest read on AI in creator marketing.','linear-gradient(135deg,#c9a600,#111)',0.64,false]];
+const META_CREA=[
+ ['TOFU','Stop optimising a losing ad.','linear-gradient(135deg,#16201F,#2DBF9C)',0.78,false],
+ ['MOFU','The angle your competitor missed.','linear-gradient(135deg,#1F2A29,#1F8A70)',0.81,true],
+ ['BOFU','Launch the winner — before you spend.','linear-gradient(135deg,#2DBF9C,#16201F)',0.83,true],
+ ['MOFU','Fresh creative in the winning whitespace.','linear-gradient(135deg,#111,#1F8A70)',0.72,false]];
+const PEPSI_SLIDES=[['The meal is the media','linear-gradient(135deg,#004B93,#E32934)'],['Who Foodies are','linear-gradient(135deg,#004B93,#0a63c2)'],['47% vs 0% heritage','linear-gradient(135deg,#E32934,#004B93)'],['Whitespace map','linear-gradient(135deg,#0a63c2,#004B93)'],['3 pillars','linear-gradient(135deg,#004B93,#111)'],['Calendar · 39 posts','linear-gradient(135deg,#E32934,#f6a800)'],['Creative library','linear-gradient(135deg,#111,#004B93)']];
+
+/* ---- Pepsi artifacts (override + new) ---- */
+function artOnePage(){return `<div class="art"><div class="ah"><div class="ico">◨</div><div><b>The one-page read · Pepsi India · Foodies</b><div class="sub">12 months · Pepsi + 4 rivals + 7 food creators · prior-year verified</div></div></div>
+ <div class="ab"><div class="pgrid">
+  <div class="pmini"><div class="nm" style="color:var(--teal-d)">47% <span style="font-size:12px;color:var(--faint)">vs 0%</span></div><div class="bl">Culinary-heritage share — creators vs Pepsi (rivals 2%). The whitespace.</div></div>
+  <div class="pmini"><div class="nm" style="color:var(--teal-d)">34% → 0%</div><div class="bl">Category food-pairing content W1→W12 — a verified decline, not a season.</div></div>
+  <div class="pmini"><div class="nm" style="color:var(--teal-d)">38–39%</div><div class="bl">Festive communal peaks, verified across 2 cycles (Sep–Jan).</div></div>
+ </div><div style="margin-top:12px;background:var(--teal-wash);border-radius:10px;padding:11px 13px;font-size:12.5px"><b>The meal is the media.</b> Creators fill India’s tables with heritage, home cooking and festive food; no cola brand is at that table. Pepsi has the pairing heritage to sit down first.</div></div></div>`;}
+function artPersonasPepsi(){return `<div class="art"><div class="ah"><div class="ico">⚇</div><div><b>Audience — 3 personas carry the plan</b><div class="sub">SOMIN persona detection · 691 creator posts</div></div></div>
+ <div class="ab"><div class="pgrid">
+  <div class="pmini"><div class="nm">The Culinary Voyager</div><div class="sz">Aria Santosh · char 1221 · P1</div><div class="bl">Street food, regional discovery, food-travel nostalgia (71 posts, 10%).</div></div>
+  <div class="pmini"><div class="nm">The Culinary Explorer</div><div class="sz">Vikram Joshi · char 1222 · P2</div><div class="bl">Culinary mastery + healthy living; expression through shared meals (169, 24%).</div></div>
+  <div class="pmini"><div class="nm">The Connected Creator</div><div class="sz">Reva Desai · char 1223 · P3</div><div class="bl">Culture, food, festivities and community — festive tables (49 evidence posts).</div></div>
+ </div></div></div>`;}
+function artChainsPepsi(){const ch=[
+ ['The Culinary Voyager','“Bridging gaps in culinary heritage”','Sociological · social learning','The Spice of Generations','2.9M'],
+ ['The Culinary Explorer','“Balancing indulgence &amp; health”','Behavioural · dissonance','The Feast of Choices','56.6K'],
+ ['The Connected Creator','“Celebrations, choices &amp; challenges”','Psychological · nostalgia','A Taste of Home','626K']];
+ return `<div class="art"><div class="ah"><div class="ico">◍</div><div><b>Insight chains — persona → tension → angle → story</b><div class="sub">3 pillars · engagement-validated</div></div></div>
+  <div class="ab">${ch.map(c=>`<div class="chain"><span class="node per">${c[0]}</span><span class="arw">→</span><span class="node ten">${c[1]}</span><span class="arw">→</span><span class="node ang">${c[2]}</span><span class="arw">→</span><span class="node pro">${c[3]}</span><span class="muted" style="font-size:11px;margin-left:auto"><b class="tealtxt">${c[4]}</b> eng.</span></div>`).join('')}</div></div>`;}
+function artPropsPepsi(){const p=[
+ ['01 · The Drink of India’s Real Food Moments','WHITESPACE · 50%','“Tradition thrives when shared, not just told.”'],
+ ['02 · Balance Without Boredom (Zero Sugar)','PARTIAL · 30%','“Health and indulgence can dance together on the table of choice.”'],
+ ['03 · Festive Tables, Full Hearts','EMERGING · 20%','“Nostalgia savors the taste of connection in every bite.”']];
+ return `<div class="art"><div class="ah"><div class="ico">◆</div><div><b>Editorial pillars + propositions</b><div class="sub">21 propositions (ids 2604–2624) · every pillar said 7 ways</div></div></div>
+  <div class="ab">${p.map(x=>`<div class="pmini" style="margin-bottom:8px"><div class="nm" style="font-size:13.5px">${x[0]}</div><div class="sz">${x[1]}</div><div class="bl" style="color:var(--body);font-weight:600">${x[2]}</div></div>`).join('')}</div></div>`;}
+
+/* override step artifacts to Pepsi data */
+function artWhitespace(){const rows=[
+  ['India’s culinary heritage & street food',47,0,2,'WHITESPACE','v-white'],
+  ['Home-cooking simplification',27,0,0,'WHITESPACE','v-white'],
+  ['Festival food togetherness',7,0,0,'EMERGING','v-contest'],
+  ['Indulgence–health balance',12,32,0,'PARTIAL','v-contest'],
+  ['Connection & everyday joy',18,28,24,'CONTESTED','v-contest'],
+  ['Sports fandom togetherness',0,32,55,'BLOCKED','v-block']];
+ return `<div class="art"><div class="ah"><div class="ico">▦</div><div><b>Whitespace map · Pepsi India · Foodies</b><div class="sub">share-of-cohort · creators vs Pepsi vs competitors · 6 verdicts</div></div></div>
+  <div class="ab"><div class="legend" style="margin-bottom:10px;font-size:11px"><span class="li"><span class="sw" style="background:#2DBF9C"></span>Creators</span><span class="li"><span class="sw" style="background:#004B93"></span>Pepsi</span><span class="li"><span class="sw" style="background:#E15568"></span>Competitors</span></div>
+   ${rows.map(r=>`<div class="sharebar"><span class="lb">${r[0]}</span><span class="tr"><span class="sg" style="width:${r[1]}%;background:#2DBF9C"></span><span class="sg" style="width:${r[2]}%;background:#004B93"></span><span class="sg" style="width:${r[3]}%;background:#E15568"></span></span><span class="verdict ${r[5]}">${r[4]}</span></div>`).join('')}
+   <div style="margin-top:10px;background:var(--teal-wash);border-radius:10px;padding:10px 12px;font-size:12px"><b>The claim:</b> creators put <b>47%</b> of food content into India’s heritage; Pepsi publishes <b>0%</b>, rivals a token 2%. Pepsi’s pairing heritage is the permission.</div></div></div>`;}
+function artTrend(){const rows=[
+ ['Food-drink pairing & social dining','34 → 0','DECAYED','v-block'],
+ ['Festive communal celebration','peak 39','SEASONAL','v-contest'],
+ ['Sports fandom togetherness','0 → 88','SUSTAINED','v-contest'],
+ ['Everyday refreshment & energy','peak 33','SUSTAINED','v-white']];
+ const pts=[34,28,20,12,8,3,2,1,0,0,0,0],W=240,H=44,max=40,step=W/(pts.length-1);
+ const d=pts.map((v,i)=>`${i?'L':'M'}${(i*step).toFixed(1)} ${(H-4-(v/max)*(H-8)).toFixed(1)}`).join(' ');
+ return `<div class="art"><div class="ah"><div class="ico">📈</div><div><b>Trend classification · India cola</b><div class="sub">12 monthly windows · prior-year verified</div></div></div>
+  <div class="ab"><div class="mplot" style="box-shadow:none;margin-bottom:10px"><div class="cap">Food-drink pairing — share of category content, W1→W12 (DECAYED, verified)</div><svg class="spark" viewBox="0 0 ${W} ${H}" width="100%" height="${H}" preserveAspectRatio="none"><path d="${d}" fill="none" stroke="#E15568" stroke-width="2.5" stroke-linecap="round"/></svg></div>
+   ${rows.map(r=>`<div class="ws-row"><span class="terr">${r[0]}</span><span class="muted" style="font-size:11.5px;margin-right:10px">${r[1]}</span><span class="verdict ${r[3]}">${r[2]}</span></div>`).join('')}</div></div>`;}
+function artCalendar(){const rows=[
+ ['W32 · Aug 4 ★','Exploring regional cuisines','P1 · Life','M1181'],
+ ['W35 · Aug 25 ★','Onam — Harvest Festival','P3 · Seasonal','M1184'],
+ ['W39 · Sep 22 ★','Adopting a healthier cooking style','P2 · Life','M1182'],
+ ['W44 · Oct 27','Diwali — Festival of Lights','P3 · Seasonal','M1186']];
+ return `<div class="art"><div class="ah"><div class="ico">▤</div><div><b>Publishing calendar · @pepsiindia</b><div class="sub">39 posts · 13 weeks · 3/week · pillar-weighted 50/30/20</div></div></div>
+  <div class="ab"><div class="pgrid" style="margin-bottom:10px"><div class="pmini"><div class="nm">39</div><div class="bl">posts · 13 lead (Tue)</div></div><div class="pmini"><div class="nm">10</div><div class="bl">verified cultural anchors</div></div><div class="pmini"><div class="nm">Aug 4</div><div class="bl">starts · Onam→Diwali arc</div></div></div>
+   ${rows.map(r=>`<div class="ws-row"><span class="terr">${r[0]} · ${r[1]}</span><span class="muted" style="font-size:11px;margin-right:8px">${r[2]}</span><span class="clk" style="font-size:10px">${r[3]}</span></div>`).join('')}
+   <div style="margin-top:8px;font-size:11px;color:var(--soft)">Every slot links a real SOMIN moment_id; out-of-season festival triggers excluded.</div></div></div>`;}
+
+/* ---- Pepsi worked example (overrides Reassured rz*) ---- */
+function rzScope(){$('#agentTitle').textContent='Brand Strategy · Pepsi India';$('#agentCtxTop').innerHTML='<span class="ctxpill">◆ /somin-brand-deck</span>';Ai().innerHTML='';
+  addAgentMsg('ai',"<h4>Brand Strategy Deck — let’s scope it</h4><p>I’ll run the full SOMIN chain (trends → whitespace → insights → propositions → moments → calendar → creative) and render a QA’d briefing in the brand’s real colours. Three quick inputs.</p><p><b>1 / 3 · Which brand are we building for?</b></p>");
+  agentChips([
+   {t:'Pepsi — India cola (workspace #3393)',hero:true,fn:rzQ2},
+   {t:'SOMIN — this workspace',fn:()=>{addAgentMsg('ai',"Good option too — for this demo I’ll run the fully worked <b>Pepsi India</b> example on real data.");rzQ2();}},
+   {t:'Connect a new brand…',fn:()=>{toast('brand-extraction-from-web');addAgentMsg('ai',"I’d normally run <b>brand-extraction-from-web</b> for palette + offerings. Continuing with <b>Pepsi India</b>.");rzQ2();}}]);}
+function rzQ2(){addAgentMsg('ai',"<p><b>2 / 3 · Confirm the competitor + creator set.</b> I pulled the India cola cohort and a 7-creator Foodie panel already tracked in the workspace.</p>");
+  agentChips([{t:'Use these — Coca-Cola · Campa · Limca · Mirinda + 7 food creators',hero:true,fn:rzQ3},
+   {t:'Edit the set…',fn:()=>{toast('Cohort picker');rzQ3();}}]);}
+function rzQ3(){addAgentMsg('ai',"<p><b>3 / 3 · Audience, window &amp; what to lead with.</b></p>");
+  agentChips([{t:'Foodies · Jul ’25–Jul ’26 (12 windows) · lead with whitespace',hero:true,fn:rzRun},
+   {t:'India · 12-month trend',fn:rzRun},
+   {t:'Add the creator cohort (#3378)',fn:()=>{addAgentMsg('ai',"Added — the 7-creator Foodie panel (n=691, 90 days) becomes the content proxy for direction.");rzRun();}}]);}
+async function rzRun(){addAgentMsg('ai',`On it — running the full chain against the <b>Pepsi India</b> cola workspace on <b>${ENG.eng} · ${ENG.mdl}</b> (${ENG.eff} effort). Each tool call streams as it fires.`);
+  await addTrace('somin-brand-deck · full chain',[
+   ['brand-extraction-from-web · palette + offerings','Pepsi brand kit',600],
+   ['SOMIN MCP · studies-create — 12 monthly windows','studies 6947–6958',800],
+   ['SOMIN MCP · studies-get (poll)','691 creator posts · 6 personas · 8 tensions',900],
+   ['trend-analysis · prior-year verified','studies 6959–6971 · confirmed',800],
+   ['SOMIN MCP · studies-create — whitespace cohorts','6988–6990 · 3 cohorts',700],
+   ['whitespace-analysis · 6-verdict map','7 territories mapped',800],
+   ['insight-creation-brand','3 insight chains',700],
+   ['SOMIN MCP · product-create + propositions-create','21 propositions (2604–2624)',700],
+   ['SOMIN MCP · moments-create','45 triggers (1181–1189)',600],
+   ['content-calendar-build','39-post · 13-week calendar',600],
+   ['content-brief-brand','briefs per slot',500],
+   ['creative-expressions · image-generate ×108','108 renders',1100],
+   ['creative-scoring · posts-upload → posts-search','scored',900],
+   ['deck-qa-brand','PASS · 35 slides',700]]);
+  addAgentMsg('ai',"<b>✓ Analysis complete.</b> The headline: creators put <b>47%</b> of food content into India’s culinary heritage — <b>Pepsi publishes 0%</b>, and the category itself walked away from pairing (34%→0%, verified). That gap is the plan.");
+  agentChips([{t:'Show me the findings →',hero:true,fn:rzF1}]);}
+function rzF1(){addAgentMsg('ai',artOnePage());addAgentMsg('ai',artPersonasPepsi());agentChips([{t:'Continue → whitespace + insight chains',hero:true,fn:rzF2}]);}
+function rzF2(){addAgentMsg('ai',artWhitespace());addAgentMsg('ai',artChainsPepsi());agentChips([{t:'Continue → propositions + calendar',hero:true,fn:rzF3}]);}
+function rzF3(){addAgentMsg('ai',artPropsPepsi());addAgentMsg('ai',artCalendar());agentChips([{t:'See the rendered deck →',hero:true,fn:rzF4}]);}
+function rzF4(){addAgentMsg('ai',"<h4>Deck rendered — Pepsi India · Foodies</h4>"+deckPreview('35 slides · @pepsiindia colours · QA PASS',PEPSI_SLIDES));agentChips([{t:'Render the creative library →',hero:true,fn:rzF5}]);}
+async function rzF5(){addAgentMsg('ai',"Rendering the creative library — 108 expressions across 3 pillars × TOFU/MOFU/BOFU. Here’s a sample, one per SOMIN image-generate call:");await revealCreatives('Pepsi India · creative library',PEPSI_CREA);agentChips([{t:'What can I do with this? →',hero:true,fn:rzF6}]);}
+function rzF6(){addAgentMsg('ai',"<h4>Ship it — pick any hand-off</h4><p>Every output is a real object in the workspace, so I can push it wherever you work next.</p>");
+  agentChips([
+   {t:'⬇ Export PPTX',fn:()=>handoff('Pepsi_India_Foodies.pptx · 35 slides')},
+   {t:'✦ Push slides to Figma',fn:()=>handoffTrace('Figma · push frames','Pushing 35 slides to Figma…','✓ Pushed to Figma → “Pepsi India / Foodies” — editable frames')},
+   {t:'▲ Save to Google Drive',fn:()=>handoff('Saved to Drive · /SOMIN/Pepsi India/')},
+   {t:'ⓕ Launch top creatives on Meta',fn:()=>handoffTrace('Meta · ads_create_ad (paused)','Creating paused ads from the ≥0.80 creatives…','✓ 2 paused ads created in Meta — ready for review')},
+   {t:'▤ Open the content calendar',fn:()=>handoff('39-post calendar added to Moments → Calendar')}]);
+  setTimeout(()=>addAgentMsg('ai',"<p style='margin:0'>💡 Once live for <b>3–7 days</b>, run <b>Meta Creative Update</b> — I’ll read real delivery data and generate the next round of scored creatives.</p>"),400);}
+
+/* ---- agency = Blak Labs (override) ---- */
+async function flowAgency(){$('#agentTitle').textContent='Agency Pitch · Blak Labs';$('#agentCtxTop').innerHTML='<span class="ctxpill">◇ /somin-agency-deck</span>';Ai().innerHTML='';
+  addAgentMsg('ai',"<h4>Agency Pitch — Blak Labs</h4><p>A 50-person Singapore agency pitching against bigger research benches. Same analysis spine, presented as a curated challenger pitch. Running it now.</p>");
+  await addTrace('somin-agency-deck · full chain',[
+   ['brand-extraction-from-web','Blak Labs + client kit',600],
+   ['SOMIN MCP · Brand Tracker + studies-create/get','competitive set decoded',900],
+   ['trend-analysis · prior-year verified','tensions classified',700],
+   ['whitespace-analysis · 6-verdict map','strategic gaps mapped',700],
+   ['insight-creation-agency','one challenger throughline',700],
+   ['propositions-create + moments → calendar','activation plan',800],
+   ['creative-expressions · image-generate','curated renders',900],
+   ['creative-scoring + deck-qa-agency','PASS · 18 slides',800]]);
+  addAgentMsg('ai',artBlak());
+  addAgentMsg('ai',deckPreview('Blak Labs pitch · 18 slides',[['Category in 1 slide','linear-gradient(135deg,#111,#2DBF9C)'],['The challenger idea','linear-gradient(135deg,#16201F,#1F8A70)'],['Share of voice','linear-gradient(135deg,#1F2A29,#2DBF9C)'],['Activation per pillar','linear-gradient(135deg,#111,#1F8A70)'],['The ask','linear-gradient(135deg,#2DBF9C,#111)']]));
+  agentChips([{t:'✦ Push slides to Figma',hero:true,fn:()=>handoffTrace('Figma · push frames','Pushing 18 slides to Figma…','✓ Pushed to Figma — editable pitch frames')},{t:'⬇ Export PPTX',fn:()=>handoff('Blak_Labs_Pitch.pptx · 18 slides')},{t:'Back to workflows',fn:agentHome}]);}
+function artBlak(){const r=[['Brand analysis','10h → 1h','90% faster'],['Content planning','10h → 3h','per cycle'],['Campaign planning','5h → 2h','per cycle'],['Client reporting','4 → 1.75 FTE','$10K → $6K/mo']];
+ return `<div class="art"><div class="ah"><div class="ico">◇</div><div><b>Outcome — Blak Labs (Singapore · 50 staff)</b><div class="sub">real case · Brand Tracker · Perspective Studies · Expressions</div></div></div>
+  <div class="ab"><div class="roigrid">${r.map(x=>`<div class="roicard"><div class="mt">${x[0]}</div><div class="rr">${x[1].replace('→','<span class="ar">→</span>')}</div><div class="dd">${x[2]}</div></div>`).join('')}</div>
+   <div style="margin-top:11px;background:var(--teal-wash);border-radius:10px;padding:11px 13px;font-size:12.5px">“What took days of research now takes hours. SOMIN streamlined our pitching and gave us a defensible point of view in the room.” — <b>Charlie, Co-founder &amp; MD, Blak Labs</b> · typically <b>13× faster</b> than manual research · vendor 5/5.</div></div></div>`;}
+
+/* ---- influencer = Vamp (override) ---- */
+async function flowInfluencer(){$('#agentTitle').textContent='Influencer Strategy · Vamp';$('#agentCtxTop').innerHTML='<span class="ctxpill">◐ /somin-influencer-deck</span>';Ai().innerHTML='';
+  addAgentMsg('ai',"<h4>Influencer Strategy — Vamp (Aaron Brooks)</h4><p>Cross-creator portfolio deck plus a per-creator strategy deck — styling from a brand-guideline skill, facts from SOMIN.</p>");
+  await addTrace('somin-influencer-deck · full chain',[
+   ['scope-elicitation-influencer','Aaron Brooks + 5 peer founders',600],
+   ['SOMIN MCP · profiles-list + posts-search + concepts-search','cohort resolved',900],
+   ['per-creator competitor mapping (cosine)','clusters built',700],
+   ['studies-create / studies-get','panel #7425 · peers #7426',900],
+   ['trend-analysis · Entrepreneurs cohort','3→32 system content',800],
+   ['whitespace-analysis · per creator','3 open strands',700],
+   ['insight chains + propositions-create','9 propositions (2824–2832)',800],
+   ['influencer-visual-assets + behavioural-recommendations','assets + actions',700],
+   ['creative-expressions + creative-scoring + deck-qa-influencer','PASS',900]]);
+  addAgentMsg('ai',artVampResult());
+  addAgentMsg('ai',"Rendering the 9 in-style expressions (locked to Vamp — ink on yellow), one per image-generate call:");
+  await revealCreatives('Vamp · creative library',VAMP_CREA);
+  agentChips([{t:'⬇ Export the deck set',hero:true,fn:()=>handoff('Vamp portfolio + Aaron Brooks decks exported')},{t:'✦ Push to Figma',fn:()=>handoffTrace('Figma · push frames','Pushing decks to Figma…','✓ Pushed to Figma — editable frames')},{t:'Back to workflows',fn:agentHome}]);}
+function artVampResult(){return `<div class="art"><div class="ah"><div class="ico">◐</div><div><b>The one-page read · Vamp · Aaron Brooks</b><div class="sub">12 months · Entrepreneur audience · Aaron vs 5 peer founders</div></div></div>
+ <div class="ab"><div class="pgrid">
+  <div class="pmini"><div class="nm" style="color:var(--teal-d)">0%</div><div class="bl">Aaron’s share of Entrepreneur content — near-silent while peers publish.</div></div>
+  <div class="pmini"><div class="nm" style="color:var(--teal-d)">3 → 32</div><div class="bl">‘Marketing-as-a-system’ content/mo into an Apr peak — framing still rare (3%).</div></div>
+  <div class="pmini"><div class="nm" style="color:var(--teal-d)">18%</div><div class="bl">Peer share of ‘connection beyond the event’ — present but unowned.</div></div>
+ </div><div style="margin-top:11px"><div class="chain"><span class="node per">The Growth Catalyst</span><span class="arw">→</span><span class="node ang">P1 Influence, engineered</span><span class="node pro">P2 Connection beyond the event</span><span class="node ten">P3 Honest creator-AI stack</span></div></div></div></div>`;}
+
+/* ---- step reveals (override to show creatives one-by-one) ---- */
+async function creativeRun(mode){
+  if(mode==='figma'){await addTrace('creative-expressions · Figma template',[['Figma · get_design_context (brand master frames)','template loaded',800],['unlock.py emit-prompts → check_prompts.py','manifest PASS',700],['Figma · download_assets (filled frames)','on-brand frames',900]]);}
+  else{await addTrace('creative-expressions · generate',[['unlock.py emit-prompts → check_prompts.py','manifest PASS',700],['SOMIN MCP · image-generate (1024×1536)','rendering…',900]]);}
+  await revealCreatives('Creative library',PEPSI_CREA);
+  agentChips([{t:'Score these for clickability →',hero:true,fn:stepScoring},{t:'Back to workflows',fn:agentHome}]);}
+async function stepScoring(){$('#agentTitle').textContent='Creative Scoring';$('#agentCtxTop').innerHTML='<span class="ctxpill">◎ /creative-scoring</span>';Ai().innerHTML='';
+  addAgentMsg('ai',"Scoring each render for predicted above-average clickability — a pre-launch prediction, not measured results.");
+  await addTrace('creative-scoring',[['SOMIN MCP · posts-upload ×9 (image + hook)','uploaded',800],['SOMIN MCP · posts-search (poll · OWNED · clickability)','scoring finalised',1200],['score_annotate.py · leaderboard','deck badged',600]]);
+  await revealCreatives('Scored creatives',PEPSI_CREA);
+  agentChips([{t:'ⓕ Push winners to Meta',hero:true,fn:()=>handoffTrace('Meta · ads_create_ad (paused)','Creating 2 paused ads…','✓ 2 paused ads created in Meta — ready for review')},{t:'Back to workflows',fn:agentHome}]);}
+async function metaRun(mode){
+  const creativeRows = mode==='figma'?[['Figma · get_design_context + download_assets','on-brand template frames',900]]:[['SOMIN MCP · image-generate ×4','fresh renders',900]];
+  await addTrace('meta-campaign-refresh',[
+   ['Meta · ads_get_ad_entities + ads_get_creatives (live)','12 ads · 3 fatiguing',800],
+   ['meta-ads-analyzer + meta-creative-fatigue + content-diversity-scorer','winner decoded',800],
+   ['SOMIN MCP · studies-create (ADS_LIBRARY) → whitespace-analysis','winning whitespace',900],
+   ['insight-creation','fresh angle',600],
+   ...creativeRows,
+   ['creative-scoring','2 ≥ 0.80',800],
+   ['Meta · ads_create_creative + ads_create_ad (PAUSED)','2 new ads',700],
+   ['Meta · ads_activate_entity (after money gate)','activated',600]]);
+  await revealCreatives('Fresh funnel · winning whitespace',META_CREA);
+  addAgentMsg('ai',`<div class="art"><div class="ah"><div class="ico">ⓕ</div><div><b>Refresh complete</b><div class="sub">closed loop · live data → new scored ads</div></div></div>
+   <div class="ab"><div class="pgrid"><div class="pmini"><div class="nm">3</div><div class="bl">fatiguing ads paused</div></div><div class="pmini"><div class="nm">4</div><div class="bl">fresh creatives in the winning whitespace</div></div><div class="pmini"><div class="nm">2</div><div class="bl">≥0.80 activated in the live campaign</div></div></div>
+   <div style="margin-top:12px;background:var(--teal-wash);border-radius:10px;padding:10px 12px;font-size:12px">${mode==='figma'?'Built from your <b>Figma</b> brand templates via the Figma connector.':'Generated with <b>SOMIN image-generate</b>.'}</div></div></div>`);
+  agentChips([{t:'Compare predicted vs actual in 7 days',hero:true,fn:()=>handoff("Learn-loop scheduled — I'll compare predicted vs actual delivery")},{t:'Back to workflows',fn:agentHome}]);}
+
+/* ---- init ---- */
+fillModels();updateEngChip();
+
+
+/* ================= v8: real-plan billing + Senoko/Caltex/SOMIN flows ================= */
+/* ---------- plan model (from the marketplace calculator) ---------- */
+const QUOTA={Analyst:{win:50,wk:150},Specialist:{win:120,wk:400}};
+const PLAN_DEF={
+ light:{name:'SOMIN Light',base:529,seat:'Analyst',seats:1,brands:8,swaps:8,handle:190,tag:'Core channels, one desk',feats:{}},
+ pro:{name:'SOMIN Pro',base:1740,seat:'Specialist',seats:1,brands:12,swaps:15,handle:390,tag:'All ten channels, in depth',feats:{tiktok:1,liads:1,custom:1,video:1,soinspire:1,expr:1,scoring:1,export:1,api:0}},
+ aglight:{name:'SOMIN Agency Light',base:1790,seat:'Analyst',seats:3,brands:30,swaps:15,handle:190,tag:'Your whole client roster',feats:{}},
+ agpro:{name:'SOMIN Agency Pro',base:5290,seat:'Specialist',seats:3,brands:70,swaps:25,handle:390,tag:'Depth at scale, plus API',feats:{tiktok:1,liads:1,custom:1,video:1,soinspire:1,expr:1,scoring:1,export:1,api:1}}};
+const TERMX={m1:1,y1:.90,y2:.84,y3:.78},TERMMO={m1:1,y1:12,y2:24,y3:36},TERMLAB2={m1:'1 month',y1:'1 year',y2:'2 years',y3:'3 years'};
+const FEATLIST=[['tiktok','TikTok / LinkedIn / Telegram organic'],['liads','LinkedIn Ads Library'],['custom','Custom categories'],['video','Video content analysis'],['soinspire','SOINSPIRE ideation'],['expr','Visual content expressions'],['scoring','Owned content scoring'],['export','Data export (CSV/XLSX)'],['api','Data API (100 req/min)']];
+const SEATNAMES=['Aleks F.','Egor K.','Filipp L.','Dina O.','Murtaza A.','Joy T.'];
+function buildSeats(plan,addA,addS){const p=PLAN_DEF[plan];const arr=[];let i=0;
+ for(let k=0;k<p.seats;k++)arr.push({n:SEATNAMES[i++%SEATNAMES.length],t:p.seat,wk:0,win:0});
+ for(let k=0;k<addA;k++)arr.push({n:SEATNAMES[i++%SEATNAMES.length],t:'Analyst',wk:0,win:0});
+ for(let k=0;k<addS;k++)arr.push({n:SEATNAMES[i++%SEATNAMES.length],t:'Specialist',wk:0,win:0});
+ if(arr[0]){arr[0].wk=213;arr[0].win=44;} if(arr[1]){arr[1].wk=156;arr[1].win=22;} if(arr[2]){arr[2].wk=98;arr[2].win=12;}
+ return arr;}
+let BILL={cur:'agpro',sel:'agpro',term:'y1',addA:0,addS:0,addH:0,curA:0,curS:0,curH:0,brandsUse:41,swapsUse:11,seatsUse:[]};
+BILL.seatsUse=buildSeats('agpro',0,0);
+function price(plan,term,a,s,h){const p=PLAN_DEF[plan];return p.base*TERMX[term]+a*300+s*600+h*p.handle;}
+function fmtUSD(v){return 'USD '+Math.round(v).toLocaleString('en-US');}
+function buildsLeft(){const u=BILL.seatsUse.reduce((a,s)=>a+s.wk,0),l=BILL.seatsUse.reduce((a,s)=>a+QUOTA[s.t].wk,0);return Math.max(0,Math.round((l-u)/30));}
+function renderCurrent(){const p=PLAN_DEF[BILL.cur];const mo=price(BILL.cur,BILL.term,BILL.curA,BILL.curS,BILL.curH);
+ const seatHtml=BILL.seatsUse.map(s=>{const q=QUOTA[s.t];const wp=Math.round(s.wk/q.wk*100),ip=Math.round(s.win/q.win*100);
+  return `<div class="bseat"><div class="sh">${s.n}<span class="tag">${s.t}</span></div>
+   <div class="mt"><span>This week</span><b>${s.wk}/${q.wk} calls</b></div><div class="bbar${wp>=88?' full':wp>=70?' warn':''}"><span style="width:${Math.min(100,wp)}%"></span></div>
+   <div class="mt"><span>5-hour window</span><b>${s.win}/${q.win}</b></div><div class="bbar${ip>=88?' full':ip>=70?' warn':''}"><span style="width:${Math.min(100,ip)}%"></span></div></div>`;}).join('');
+ const bl=p.brands+BILL.curH*10;
+ $('#billCurrent').innerHTML=`<div class="blab" style="margin-top:0">Current subscription</div>
+  <div class="planname">${p.name.replace('SOMIN ','SOMIN <b>')}</b></div>
+  <div style="display:flex;align-items:baseline;gap:8px;margin:6px 0 2px;flex-wrap:wrap"><div class="bprice">${fmtUSD(mo)}<small> / mo</small></div><div class="muted" style="font-size:11px">· ${TERMLAB2[BILL.term]} term · renews Sep 4</div></div>
+  <div class="blab">Agentic seats · call quota</div>${seatHtml}
+  <div class="blab">Capacity</div>
+  <div class="brow"><span class="k">Brands monitored</span><span class="v">${BILL.brandsUse} / ${bl}</span></div>
+  <div class="brow"><span class="k">Handle swaps / month</span><span class="v">${BILL.swapsUse} / ${p.swaps}</span></div>
+  <div class="brow"><span class="k">Complete pitch builds left (week)</span><span class="v">~${buildsLeft()}</span></div>`;}
+function renderPlanOpts(){$('#planOpts').innerHTML=Object.keys(PLAN_DEF).map(k=>{const p=PLAN_DEF[k];const mo=p.base*TERMX[BILL.term];
+ return `<div class="planopt${BILL.sel===k?' on':''}" onclick="billSet('sel','${k}')"><div class="pn">${p.name}</div><div class="pp">${fmtUSD(mo)}<small>/mo</small></div><div class="pl">${p.seats}× ${p.seat} · ${p.brands} brands<br>${p.tag}</div>${BILL.cur===k?'<span class="cur">CURRENT</span>':''}</div>`;}).join('');}
+function renderSwitch(){const mo=price(BILL.sel,BILL.term,BILL.addA,BILL.addS,BILL.addH);
+ $('#billMonth').textContent=fmtUSD(mo);
+ $('#billBilledLab').textContent='Billed in advance · '+TERMLAB2[BILL.term];
+ $('#billBilled').textContent=fmtUSD(mo*TERMMO[BILL.term]);
+ $('#stepA').textContent=BILL.addA;$('#stepS').textContent=BILL.addS;$('#stepH').textContent=BILL.addH;
+ const ts=$('#billTerm');if(ts)ts.value=BILL.term;
+ $('#handlePriceLbl').textContent='$'+PLAN_DEF[BILL.sel].handle+'/mo on '+(PLAN_DEF[BILL.sel].handle===390?'Pro':'Light')+' plans';
+ const f=PLAN_DEF[BILL.sel].feats;
+ $('#featGrid').innerHTML=FEATLIST.map(x=>{const on=f[x[0]]?1:0;return `<div class="fi${on?'':' off'}"><span class="${on?'ck':'xk'}">${on?'✓':'—'}</span>${x[1]}</div>`;}).join('');}
+function renderBilling(){if(!$('#billCurrent'))return;renderCurrent();renderPlanOpts();renderSwitch();updateSeatStrip();}
+function billSet(k,v){BILL[k]=v;renderBilling();}
+function billStep(k,d){BILL[k]=Math.max(0,Math.min(10,BILL[k]+d));renderBilling();}
+function billApply(){BILL.cur=BILL.sel;BILL.curA=BILL.addA;BILL.curS=BILL.addS;BILL.curH=BILL.addH;BILL.seatsUse=buildSeats(BILL.cur,BILL.curA,BILL.curS);renderBilling();toast('Switched to '+PLAN_DEF[BILL.cur].name);}
+function billTopup(){toast('Opening Stripe checkout — '+fmtUSD(price(BILL.sel,BILL.term,BILL.addA,BILL.addS,BILL.addH)*TERMMO[BILL.term])+' billed in advance');}
+function updateSeatStrip(){const el=$('#seatStrip');if(!el)return;const p=PLAN_DEF[BILL.cur];
+ const wkU=BILL.seatsUse.reduce((a,s)=>a+s.wk,0),wkL=BILL.seatsUse.reduce((a,s)=>a+QUOTA[s.t].wk,0);const pct=Math.round(wkU/wkL*100);
+ const bl=p.brands+BILL.curH*10,bpct=Math.round(BILL.brandsUse/bl*100);
+ el.innerHTML=`<div class="sst"><span>Your plan</span><a onclick="go('billing')">Manage →</a></div><div class="plan2">${p.name} · <b>${BILL.seatsUse.length} seats</b></div>
+  <div class="mt2"><span>Weekly agent calls</span><b>${wkU}/${wkL}</b></div><div class="cbar${pct>=88?' warn':''}"><span style="width:${Math.min(100,pct)}%"></span></div>
+  <div class="mt2"><span>Brands monitored</span><b>${BILL.brandsUse}/${bl}</b></div><div class="cbar${bpct>=88?' warn':''}"><span style="width:${Math.min(100,bpct)}%"></span></div>`;}
+function spendCalls(){const f=({Low:.5,Medium:1,High:1.5,Max:2}[ENG.eff]||1);const n=Math.round(30*f);const s=BILL.seatsUse[0];if(!s)return;const q=QUOTA[s.t];
+ s.wk=Math.min(q.wk,s.wk+n);s.win=Math.min(q.win,s.win+n);
+ if(s.win>=q.win)toast('Seat window cap reached — pauses, auto-resumes next 5-hr window');
+ else toast(n+' agent calls · '+s.n+' ('+ENG.eng+' '+ENG.eff+')');
+ renderBilling();}
+
+/* register title + copilot context for billing */
+TITLES['billing']='Plan & Billing';
+CTX['billing']={name:'Plan & Billing · SOMIN Agency Pro',
+ intro:"You're on <b>Plan &amp; Billing</b>. Current plan: <b>SOMIN Agency Pro</b> — 3 Specialist seats, 70 brands monitored, Data API. A seat is a call quota (120 / 5-hr window · 400 / week); the median pitch build is ≈30 calls.",
+ chips:[
+  {q:'How many pitch builds do I have left this week?',a:"Your 3 Specialist seats pool to <b>1,200</b> weekly calls; you've used <b>467</b>. At the ≈30-call median that's about <b>24 builds</b> left this week.",stats:[['467/1200','Weekly calls'],['~24','Builds left']]},
+  {q:'What would SOMIN Pro cost instead?',a:"<b>SOMIN Pro</b> is USD 1,740/mo — 1 Specialist seat, 12 brands, every creative feature, no API. You'd go 3→1 seats and 70→12 brands. Model it live with the switcher on the right."},
+  {q:'Add a Specialist seat',a:"A Specialist add-on is <b>$600/mo</b> — 120 calls / 5-hr window, 400 / week. Tick it in the switcher and hit <b>Switch to this plan</b> to apply."}]};
+
+/* ---------- real creative datasets ---------- */
+const SENOKO_CREA=[
+ ['TOFU','Green Diary: Week One — day one on LifeGreen24.','linear-gradient(135deg,#0E7C4A,#8DC63F)',0.78,false],
+ ['MOFU','100% certified solar, for one Singapore home.','linear-gradient(135deg,#0E7C4A,#1F8A70)',0.74,false],
+ ['BOFU','Explore LifeGreen24 →','linear-gradient(135deg,#8DC63F,#0E7C4A)',0.71,false],
+ ['TOFU','Ask Your House: a smart-meter unboxing.','linear-gradient(135deg,#00A2A1,#0E7C4A)',0.80,true],
+ ['MOFU','Your family’s first smart-tech lesson.','linear-gradient(135deg,#0E7C4A,#004C60)',0.73,false],
+ ['TOFU','Myth: solar dies on cloudy days. Busted in 15s.','linear-gradient(135deg,#8DC63F,#00A2A1)',0.82,true]];
+const CALTEX_CREA=[
+ ['Ayden Sng ★','Enjoy the Journey — Techron as the quiet flex.','linear-gradient(135deg,#ED1B2F,#004C60)',0.84,true],
+ ['Joe Flizzow','Craft has no shortcuts. Neither does a clean engine.','linear-gradient(135deg,#111,#ED1B2F)',0.80,true],
+ ['SonaOne','Every drive has a soundtrack — and every fill-up gives back.','linear-gradient(135deg,#004C60,#00A2A1)',0.72,false],
+ ['Matthaios','Join for the community, not the commodity.','linear-gradient(135deg,#ED1B2F,#7a1420)',0.66,false]];
+const SOMIN_ADS=[
+ ['TOFU','P1B07',0.83,true],['TOFU','P1B06',0.77,false],['TOFU','P1B09',0.80,true],
+ ['MOFU','P1B01',0.86,true],['MOFU','P1B02',0.79,false],['MOFU','P1B08',0.68,false],
+ ['BOFU','P1B03',0.72,false],['BOFU','P1B04',0.81,true],['BOFU','P1B05',0.74,false]];
+async function revealCreativesImg(title,items){
+ const box=document.createElement('div');box.className='amsg ai';
+ box.innerHTML=`<div class="ava">◈</div><div class="abub"><div class="cap" id="revCapI" style="font-size:11px;color:var(--soft);font-weight:700;margin-bottom:9px">Rendering ${items.length} SOMIN ad creatives · one per image-generate call…</div><div class="revealgrid"></div></div>`;
+ Ai().appendChild(box);const grid=box.querySelector('.revealgrid');const cap=box.querySelector('#revCapI');scrollA();
+ let done=0,flagged=0;
+ for(const it of items){const img=EXPR_IMG[it[1]];
+  const t=document.createElement('div');t.className='crev';
+  t.innerHTML=`<div class="cvv" style="aspect-ratio:auto;padding:0;background:#f7faf9"><img src="${img}" style="width:100%;display:block" alt="" loading="lazy"><span class="stg">${it[0]}</span></div><div class="sc"><span>clickability <b>${it[2].toFixed(2)}</b></span>${it[3]?'<span class="flag">TOP ✦</span>':''}</div>`;
+  grid.appendChild(t);scrollA();await wait(240);requestAnimationFrame(()=>t.classList.add('in'));
+  done++;if(it[3])flagged++;cap.textContent=`Rendered ${done}/${items.length} · ${flagged} flagged ≥0.80`;await wait(160);}
+ cap.innerHTML=`✓ ${items.length} SOMIN ads rendered · <b>${flagged}</b> flagged ≥0.80 “Top performer potential”`;scrollA();}
+
+/* ---------- Senoko (agency) ---------- */
+function artSenoko(){const terr=[
+ ['Environmental & Conservation Stewardship',62.7,0,0,'AUDIENCE LEFT','v-contest'],
+ ['Family & Youth Climate-Digital Education',22.9,3.4,0,'WHITESPACE','v-white'],
+ ['Everyday Energy & Home Myths, Decoded',10.8,0,0,'WHITESPACE · test','v-white']];
+ return `<div class="art"><div class="ah"><div class="ico">◇</div><div><b>Senoko Energy — the retreat, in one read</b><div class="sub">Feb–Jul 2026 · Home Owners &amp; Families · ws 3727 + creator panel 3728</div></div></div>
+  <div class="ab"><div class="pgrid" style="margin-bottom:12px">
+   <div class="pmini"><div class="nm" style="color:var(--teal-d)">20% → 0%</div><div class="bl">Senoko’s own voice on Stewardship, Mar → last 90 days. A full retreat.</div></div>
+   <div class="pmini"><div class="nm" style="color:var(--teal-d)">73.8%</div><div class="bl">Home &amp; family creators sustained the theme — never below 56.7%, 6 months.</div></div>
+   <div class="pmini"><div class="nm" style="color:var(--teal-d)">46.1%</div><div class="bl">Category voice stuck defending price; the audience conversation is elsewhere.</div></div></div>
+  <div class="legend" style="margin-bottom:8px;font-size:11px"><span class="li"><span class="sw" style="background:#2DBF9C"></span>Creator</span><span class="li"><span class="sw" style="background:#004B93"></span>Senoko</span><span class="li"><span class="sw" style="background:#E15568"></span>Competitor</span></div>
+  ${terr.map(t=>`<div class="sharebar"><span class="lb">${t[0]}</span><span class="tr"><span class="sg" style="width:${t[1]}%;background:#2DBF9C"></span><span class="sg" style="width:${t[2]}%;background:#004B93"></span><span class="sg" style="width:${t[3]}%;background:#E15568"></span></span><span class="verdict ${t[5]}">${t[4]}</span></div>`).join('')}
+  <div style="margin-top:10px;background:var(--teal-wash);border-radius:10px;padding:10px 12px;font-size:12px"><b>Three moves, in order:</b> recover Stewardship before Geneco extends its lead · claim Family &amp; Youth Climate-Digital Education (cleanest whitespace) · test Everyday Energy Myths cheaply.</div></div></div>`;}
+async function flowAgency(){$('#agentTitle').textContent='Agency Pitch · Senoko Energy';$('#agentCtxTop').innerHTML='<span class="ctxpill">◇ /somin-agency-deck</span>';Ai().innerHTML='';spendCalls();
+ addAgentMsg('ai',"<h4>Agency Pitch — Senoko Energy</h4><p>Senoko powers the home but went quiet on the conversation inside it. Reading 6 monthly windows + a 4-creator home/eco panel as the audience proxy.</p>");
+ await addTrace('somin-agency-deck · full chain',[
+  ['brand-extraction-from-web','Senoko brand kit',600],
+  ['SOMIN MCP · studies-create/get — 6 windows ×2 cohorts','studies 7375–7392',900],
+  ['trend-analysis · prior-year verified','SUSTAINED-HIGH confirmed',800],
+  ['whitespace-analysis · verdict map','3 territories',700],
+  ['insight-creation-agency','one challenger throughline',700],
+  ['SOMIN MCP · propositions-create','27 propositions',650],
+  ['moments-create → content-calendar-build','39 posts · 46/38/15',700],
+  ['content-brief-agency','activation per pillar',600],
+  ['creative-expressions · image-generate ×27','curated renders',900],
+  ['creative-scoring + deck-qa-agency','PASS · 27 slides',800]]);
+ addAgentMsg('ai',artSenoko());
+ addAgentMsg('ai',deckPreview('Senoko pitch · 27 slides',[['The gap','linear-gradient(135deg,#0E7C4A,#8DC63F)'],['20%→0% proof','linear-gradient(135deg,#0E7C4A,#1F8A70)'],['3 territories','linear-gradient(135deg,#00A2A1,#0E7C4A)'],['Activation ×3','linear-gradient(135deg,#0E7C4A,#004C60)'],['13-week rhythm','linear-gradient(135deg,#8DC63F,#0E7C4A)'],['The promise','linear-gradient(135deg,#004C60,#0E7C4A)']]));
+ addAgentMsg('ai',"Creative library — 27 expressions, 3 pillars × TOFU/MOFU/BOFU, in Senoko’s identity. Sample, one per image-generate call:");
+ await revealCreatives('Senoko · creative library',SENOKO_CREA);
+ agentChips([{t:'✦ Push slides to Figma',hero:true,fn:()=>handoffTrace('Figma · push frames','Pushing 27 slides…','✓ Pushed to Figma — editable pitch frames')},{t:'⬇ Export PPTX',fn:()=>handoff('Senoko_Energy_Pitch.pptx · 27 slides')},{t:'Back to workflows',fn:agentHome}]);}
+
+/* ---------- Caltex (creator) ---------- */
+function artCaltex(){const r=[
+ ['Ayden Sng ★','@aydensng','5.8M','The Aspirational Drive','Ready to Own'],
+ ['Joe Flizzow','@joeflizzow','118K','Street Cred & Craft','Differentiate'],
+ ['SonaOne','@sonaone','10K','The Everyday Groove','Emerging'],
+ ['Matthaios','@matthaios','203','The Next-Gen Connector','Weak Signal']];
+ return `<div class="art"><div class="ah"><div class="ico">◐</div><div><b>Caltex Malaysia — four voices, four territories, one Caltex</b><div class="sub">last 90 days · engagement-led · ws 3676 · studies 7022 / 7019</div></div></div>
+  <div class="ab"><div class="pgrid" style="margin-bottom:10px"><div class="pmini"><div class="nm">6.0M</div><div class="bl">total engagements (90d)</div></div><div class="pmini"><div class="nm">4</div><div class="bl">distinct territories · none shared</div></div><div class="pmini"><div class="nm">1</div><div class="bl">challenger throughline</div></div></div>
+  <table class="ctable"><thead><tr><th>Creator</th><th>Engagement</th><th>Territory</th><th>Ownership</th></tr></thead><tbody>
+  ${r.map(x=>`<tr><td><span class="bn">${x[0]}</span><div class="faint" style="font-size:11px">${x[1]}</div></td><td><span class="val">${x[2]}</span></td><td>${x[3]}</td><td>${x[4]}</td></tr>`).join('')}
+  </tbody></table>
+  <div style="margin-top:10px;background:var(--teal-wash);border-radius:10px;padding:10px 12px;font-size:12px">Engagement-only (a content proxy for reach, not sales). Ayden Sng is top voice by SOMIN engagement; each creator owns one road, none overlapping.</div></div></div>`;}
+async function flowInfluencer(){$('#agentTitle').textContent='Creator Strategy · Caltex';$('#agentCtxTop').innerHTML='<span class="ctxpill">◐ /somin-influencer-deck</span>';Ai().innerHTML='';spendCalls();
+ addAgentMsg('ai',"<h4>Creator Strategy — Caltex Malaysia</h4><p>A portfolio deck across 4 activated creators, each assigned a distinct territory — plus a per-creator brief. Styling from the caltex-brand-guideline skill.</p>");
+ await addTrace('somin-influencer-deck · full chain',[
+  ['scope-elicitation-influencer','4 Caltex creators + panel',600],
+  ['SOMIN MCP · profiles-list + posts-search + concepts-search','roster #20179–20182',900],
+  ['per-creator competitor mapping (cosine)','clusters built',700],
+  ['SOMIN MCP · studies-create / studies-get','#7022 whitespace · #7019 trend',900],
+  ['whitespace-analysis · per creator','4 territories, none shared',800],
+  ['insight chains + propositions-create','per-creator missions',800],
+  ['influencer-visual-assets · avatars + heroes','per-creator heroes',700],
+  ['creative-expressions (--flow influencer) + creative-scoring','PASS · portfolio + 4 decks',900]]);
+ addAgentMsg('ai',artCaltex());
+ addAgentMsg('ai',"Per-creator hero creatives, rendered in Caltex identity — one per creator:");
+ await revealCreatives('Caltex · creator heroes',CALTEX_CREA);
+ agentChips([{t:'⬇ Export the deck set',hero:true,fn:()=>handoff('Caltex portfolio + 4 creator decks exported')},{t:'✦ Push to Figma',fn:()=>handoffTrace('Figma · push frames','Pushing decks…','✓ Pushed to Figma — editable frames')},{t:'Back to workflows',fn:agentHome}]);}
+
+/* ---------- Meta refresh = SOMIN's own account ---------- */
+async function metaRun(mode){spendCalls();
+ const creativeRows = mode==='figma'?[['Figma · get_design_context + download_assets','9 on-brand template frames',900]]:[['SOMIN MCP · image-generate ×9','9 fresh SOMIN ads',900]];
+ await addTrace('meta-campaign-refresh · SOMIN’s own account (ws 803)',[
+  ['Meta · ads_get_ad_entities + ads_get_creatives (live)','SOMIN: 11 ads · 3 fatiguing',800],
+  ['meta-ads-analyzer + meta-creative-fatigue','“agency ROI” angle winning',800],
+  ['content-diversity-scorer','over-reliant on one format',600],
+  ['SOMIN MCP · studies-create (ADS_LIBRARY) → whitespace-analysis','case-study + guarantee whitespace',900],
+  ['insight-creation','9-ad funnel authored',600],
+  ...creativeRows,
+  ['creative-scoring','4 ≥ 0.80',800],
+  ['Meta · ads_create_creative + ads_create_ad (PAUSED)','9 new ads staged',700],
+  ['Meta · ads_activate_entity (after money gate)','4 winners activated',600]]);
+ addAgentMsg('ai',"These are SOMIN’s <b>own</b> new ads, refreshing the live account — rendered one by one:");
+ await revealCreativesImg('SOMIN · new ad funnel',SOMIN_ADS);
+ addAgentMsg('ai',`<div class="art"><div class="ah"><div class="ico">ⓕ</div><div><b>Refresh complete · SOMIN account</b><div class="sub">closed loop · live data → new scored ads</div></div></div>
+  <div class="ab"><div class="pgrid"><div class="pmini"><div class="nm">3</div><div class="bl">fatiguing ads paused</div></div><div class="pmini"><div class="nm">9</div><div class="bl">fresh SOMIN ads generated</div></div><div class="pmini"><div class="nm">4</div><div class="bl">≥0.80 activated live</div></div></div>
+  <div style="margin-top:12px;background:var(--teal-wash);border-radius:10px;padding:10px 12px;font-size:12px">Winners: <b>Stop optimising a losing ad</b> · <b>Free demo</b> · <b>Join the agencies</b> · <b>Case study +183%</b>. ${mode==='figma'?'Built from <b>Figma</b> templates.':'Generated with <b>SOMIN image-generate</b>.'}</div></div></div>`);
+ agentChips([{t:'Compare predicted vs actual in 7 days',hero:true,fn:()=>handoff("Learn-loop scheduled — compare predicted vs actual delivery")},{t:'Back to workflows',fn:agentHome}]);}
+
+/* ---------- wire go() + rzRun consumption + init ---------- */
+(function(){const _go=go;go=function(scr,el){_go(scr,el);if(scr==='billing')renderBilling();};})();
+if(typeof rzRun==='function'){const _rr=rzRun;rzRun=async function(){spendCalls();return _rr.apply(this,arguments);};}
+renderBilling();updateSeatStrip();
+
+
+/* ================= v9: gated flows, real content everywhere, step outputs + influence, real engine cost ================= */
+/* ---------- enhanced trace: per-step OUTPUT + INFLUENCE ---------- */
+let RUN={lead:'heritage',split:'50/30/20'};
+async function addTrace(title,rows){
+ const box=document.createElement('div');box.className='amsg ai';
+ box.innerHTML=`<div class="ava">◈</div><div class="abub" style="padding:0;background:transparent;border:none;box-shadow:none"><div class="trace"><div class="th">⚙ ${title}<span class="ti2 st"> · running…</span></div><div class="rows"></div></div></div>`;
+ Ai().appendChild(box);const rowsEl=box.querySelector('.rows');scrollA();
+ for(const r of rows){const name=r[0],res=r[1],ms=r[2],out=r[3],infl=r[4];
+  const el=document.createElement('div');el.className='tl';
+  el.innerHTML=`<span class="stt"><span class="spin"></span></span><span class="nm">${name}</span><span class="rs">…</span>`;
+  rowsEl.appendChild(el);scrollA();await wait(ms||600);
+  el.querySelector('.stt').innerHTML='<span class="ok">✓</span>';el.querySelector('.rs').textContent=res;
+  if(out){const o=document.createElement('div');o.className='tout';o.innerHTML=`<div class="toutbox">${out}</div>`;rowsEl.appendChild(o);}
+  if(infl){const d=document.createElement('div');d.className='infl';
+   d.innerHTML=`<div class="il">✎ ${infl.label}<span class="hint">— ${infl.hint||'affects the rest of this run'}</span></div><div class="ichips"></div><div class="infl-note"></div>`;
+   const wrap=d.querySelector('.ichips'),note=d.querySelector('.infl-note');
+   infl.options.forEach((opt,ix)=>{const on=(RUN[infl.key]===opt.val)||(RUN[infl.key]==null&&ix===0);
+     const b=document.createElement('button');b.className='infl-chip'+(on?' on':'');b.textContent=opt.t;
+     b.onclick=()=>{RUN[infl.key]=opt.val;wrap.querySelectorAll('.infl-chip').forEach(x=>x.classList.remove('on'));b.classList.add('on');note.innerHTML=infl.note?infl.note(opt):('Applied — downstream steps now use "'+opt.t+'"');if(infl.onPick)infl.onPick(opt);};
+     wrap.appendChild(b);});
+   rowsEl.appendChild(d);}
+  scrollA();}
+ box.querySelector('.st').innerHTML=' · <span class="ok">done</span>';scrollA();}
+
+/* ---------- Pepsi RUN-aware artifacts ---------- */
+const PILLARS={heritage:['The Drink of India’s Real Food Moments','WHITESPACE','“Tradition thrives when shared, not just told.”'],
+ home:['Everyday Home Cooking, Made Joyful','WHITESPACE','“The simplest shared meal becomes the day’s best moment.”'],
+ festive:['Festive Tables, Full Hearts','EMERGING','“Nostalgia savors the taste of connection in every bite.”']};
+const LEADNAME={heritage:'India’s culinary heritage & street food',home:'Home-cooking simplification',festive:'Festival food togetherness'};
+function pillarOrder(){const lead=RUN.lead||'heritage';return [lead,...['heritage','home','festive'].filter(k=>k!==lead)];}
+function splitArr(){return (RUN.split||'50/30/20').split('/').map(s=>s.trim());}
+function whitespaceOut(){return `Heritage <b>47%</b> creators / <b>0%</b> Pepsi — <b class="tealtxt">WHITESPACE</b> &nbsp;·&nbsp; Home-cooking <b>27/0</b> WHITESPACE &nbsp;·&nbsp; Festive <b>7/0</b> EMERGING &nbsp;·&nbsp; Sports fandom <b>0/55</b> <b style="color:#8A2E77">BLOCKED</b>`;}
+function artPropsPepsi(){const ord=pillarOrder(),sp=splitArr();
+ return `<div class="art"><div class="ah"><div class="ico">◆</div><div><b>Editorial pillars + propositions</b><div class="sub">21 propositions (2604–2624) · ordered by your lead choice</div></div></div>
+  <div class="ab">${ord.map((k,i)=>{const p=PILLARS[k];return `<div class="pmini" style="margin-bottom:8px"><div class="nm" style="font-size:13.5px">${i+1} · ${p[0]}</div><div class="sz">${p[1]} · ${sp[i]||''}%</div><div class="bl" style="color:var(--body);font-weight:600">${p[2]}</div></div>`;}).join('')}</div></div>`;}
+function artCalendar(){const ord=pillarOrder(),sp=splitArr();
+ const rows=[['W32 · Aug 4 ★','Lead-pillar opener','P'+(1)+' · Life','M1181'],['W35 · Aug 25 ★','Onam — Harvest Festival','Festive','M1184'],['W39 · Sep 22 ★','Healthier cooking style','Home','M1182'],['W44 · Oct 27','Diwali — Festival of Lights','Festive','M1186']];
+ return `<div class="art"><div class="ah"><div class="ico">▤</div><div><b>Publishing calendar · @pepsiindia</b><div class="sub">39 posts · 13 weeks · pillar-weighted <b>${RUN.split||'50/30/20'}</b> · lead: ${LEADNAME[RUN.lead||'heritage']}</div></div></div>
+  <div class="ab"><div class="pgrid" style="margin-bottom:10px"><div class="pmini"><div class="nm">${Math.round(39*(+sp[0]||50)/100)}</div><div class="bl">lead-pillar posts (${sp[0]||50}%)</div></div><div class="pmini"><div class="nm">10</div><div class="bl">verified cultural anchors</div></div><div class="pmini"><div class="nm">Aug 4</div><div class="bl">starts · Onam→Diwali arc</div></div></div>
+   ${rows.map(r=>`<div class="ws-row"><span class="terr">${r[0]} · ${r[1]}</span><span class="muted" style="font-size:11px;margin-right:8px">${r[2]}</span><span class="clk" style="font-size:10px">${r[3]}</span></div>`).join('')}
+   <div style="margin-top:8px;font-size:11px;color:var(--soft)">Lead pillar (${LEADNAME[RUN.lead||'heritage']}) takes the Tuesday lead slots; weights follow your split.</div></div></div>`;}
+
+/* ---------- Pepsi brand run (outputs + influence; spendCalls handled by wrapper) ---------- */
+async function rzRun(){RUN={lead:'heritage',split:'50/30/20'};
+ addAgentMsg('ai',`Running the full chain against the <b>Pepsi India</b> cola workspace on <b>${ENG.eng} · ${ENG.mdl}</b> (${ENG.eff}). Each step streams its <b>output</b> — adjust the ✎ controls to steer the rest of the run.`);
+ await addTrace('somin-brand-deck · full chain',[
+  ['brand-extraction-from-web · palette + offerings','Pepsi brand kit',600,'Palette <b>#004B93 / #E32934</b> · offerings: Pepsi · Pepsi Zero Sugar · Black · handle <b>@pepsiindia</b>'],
+  ['SOMIN MCP · studies-create — 12 monthly windows','studies 6947–6958',800],
+  ['SOMIN MCP · studies-get (poll)','691 creator posts',900,'Personas: <b>Culinary Voyager</b> · <b>Culinary Explorer</b> · <b>Connected Creator</b> — 6 detected, 3 carry the plan · 8 tensions'],
+  ['trend-analysis · prior-year verified','directions confirmed',800,'Food-drink pairing <b>34%→0%</b> DECAYED (verified) · Festive <b>peak 39</b> SEASONAL · Sports <b>0→88</b> SUSTAINED'],
+  ['SOMIN MCP · studies-create — whitespace cohorts','6988–6990 · 3 cohorts',700],
+  ['whitespace-analysis · 6-verdict map','7 territories',800,whitespaceOut(),{label:'Lead territory',hint:'sets which pillar leads the whole plan',key:'lead',options:[{t:'Culinary heritage (47/0)',val:'heritage'},{t:'Home-cooking (27/0)',val:'home'},{t:'Festive togetherness (7/0)',val:'festive'}],note:o=>'Applied — propositions, calendar &amp; headline now lead with <b>'+o.t.split(' (')[0]+'</b>'}],
+  ['insight-creation-brand','3 insight chains',700,'Voyager→heritage→<b>The Spice of Generations</b> (2.9M) · Explorer→balance→<b>Feast of Choices</b> · Connected→festive→<b>A Taste of Home</b>'],
+  ['SOMIN MCP · product-create + propositions-create','21 propositions',700,'',{label:'Pillar split',hint:'weights the calendar & creative volume',key:'split',options:[{t:'50 / 30 / 20',val:'50/30/20'},{t:'40 / 30 / 30',val:'40/30/30'},{t:'60 / 20 / 20',val:'60/20/20'}],note:o=>'Applied — calendar &amp; creative volume now weight <b>'+o.val+'</b>'}],
+  ['SOMIN MCP · moments-create','45 triggers (1181–1189)',600],
+  ['content-calendar-build','39-post · 13-week',600,'Pillar-weighted to your split; the lead pillar takes the Tuesday lead slots'],
+  ['content-brief-brand','briefs per slot',500],
+  ['creative-expressions · image-generate ×108','108 renders',1100],
+  ['creative-scoring · posts-upload → posts-search','scored · 4 top',900],
+  ['deck-qa-brand','PASS · 35 slides',700]]);
+ addAgentMsg('ai',"<b>✓ Analysis complete.</b> Creators put <b>47%</b> of food content into India’s culinary heritage — <b>Pepsi publishes 0%</b>. Steer the run with the ✎ controls above, then continue.");
+ agentChips([{t:'Show me the findings →',hero:true,fn:rzF1}]);}
+async function rzF5(){addAgentMsg('ai',"Rendering the creative library — 108 expressions across 3 pillars × TOFU/MOFU/BOFU. Sample, one per image-generate call:");await revealCreativesImg('Pepsi India · creative library',SOMIN_ADS);agentChips([{t:'What can I do with this? →',hero:true,fn:rzF6}]);}
+function rzF6(){addAgentMsg('ai',`<h4>Ship it — pick any hand-off</h4><p>Leading pillar: <b>${LEADNAME[RUN.lead||'heritage']}</b> · pillar split <b>${RUN.split||'50/30/20'}</b>. Every output is a real object in the workspace.</p>`);
+ agentChips([
+  {t:'⬇ Export PPTX',fn:()=>handoff('Pepsi_India_Foodies.pptx · 35 slides')},
+  {t:'✦ Push slides to Figma',fn:()=>handoffTrace('Figma · push frames','Pushing 35 slides to Figma…','✓ Pushed to Figma → “Pepsi India / Foodies”')},
+  {t:'▲ Save to Google Drive',fn:()=>handoff('Saved to Drive · /SOMIN/Pepsi India/')},
+  {t:'ⓕ Launch top creatives on Meta',fn:()=>handoffTrace('Meta · ads_create_ad (paused)','Creating paused ads…','✓ 2 paused ads created in Meta')},
+  {t:'▤ Open the content calendar',fn:()=>handoff('39-post calendar added to Moments → Calendar')}]);
+ setTimeout(()=>addAgentMsg('ai',"<p style='margin:0'>💡 Once live 3–7 days, run <b>Meta Creative Update</b> for the next scored round.</p>"),400);}
+
+/* ---------- agency = scope-then-run (Senoko) ---------- */
+function flowAgency(){$('#agentTitle').textContent='Agency Pitch · Senoko Energy';$('#agentCtxTop').innerHTML='<span class="ctxpill">◇ /somin-agency-deck</span>';Ai().innerHTML='';
+ addAgentMsg('ai',"<h4>Agency Pitch — Senoko Energy</h4><p>A challenger pitch for Senoko (Singapore energy). I’ll read 6 monthly windows + a 4-creator home/eco panel as the audience proxy, then build the curated pitch. Ready to run?</p>");
+ agentChips([{t:'▶ Run the Senoko pitch',hero:true,fn:agencyRun},{t:'Swap the client…',fn:()=>{toast('Client picker');addAgentMsg('ai',"For the demo I’ll run the fully worked <b>Senoko</b> example on real data.");agencyRun();}}]);}
+async function agencyRun(){spendCalls();
+ await addTrace('somin-agency-deck · full chain',[
+  ['brand-extraction-from-web','Senoko brand kit',600,'LifeGreen24 (100% certified solar) · EcoSmart Homes · #TakeCharge · senokoenergy.com'],
+  ['SOMIN MCP · studies-create/get — 6 windows ×2 cohorts','studies 7375–7392',900,'Senoko voice ws 3727 · 4-creator panel ws 3728 (Biogirl MJ, Qiyun Woo, Olivia Choong, Melissa Lam)'],
+  ['trend-analysis · prior-year verified','SUSTAINED-HIGH confirmed',800,'Stewardship theme: peak May <b>82.1%</b> · trough Jun <b>56.7%</b> · avg <b>73.8%</b>, never below 56.7%'],
+  ['whitespace-analysis · verdict map','3 territories',700,'Stewardship <b>62.7% creator / 0% Senoko</b> AUDIENCE LEFT · Family-Youth Climate-Digital <b>WHITESPACE</b> · Everyday Myths test-bet'],
+  ['insight-creation-agency','one challenger throughline',700,'“Senoko powers the home but went quiet on the conversation inside it.” — 62.5%→12.7% since March, 0% last 90 days'],
+  ['SOMIN MCP · propositions-create','27 propositions',650],
+  ['moments-create → content-calendar-build','39 posts · 46/38/15',700,'13 weeks Tue/Thu/Sat · National Day lead shifts to Sat Aug 8 (honestly noted)'],
+  ['content-brief-agency','activation per pillar',600],
+  ['creative-expressions · image-generate ×27','curated renders',900],
+  ['creative-scoring + deck-qa-agency','PASS · 27 slides',800]]);
+ addAgentMsg('ai',artSenoko());
+ addAgentMsg('ai',deckPreview('Senoko pitch · 27 slides',[['The gap','linear-gradient(135deg,#0E7C4A,#8DC63F)'],['20%→0% proof','linear-gradient(135deg,#0E7C4A,#1F8A70)'],['3 territories','linear-gradient(135deg,#00A2A1,#0E7C4A)'],['Activation ×3','linear-gradient(135deg,#0E7C4A,#004C60)'],['13-week rhythm','linear-gradient(135deg,#8DC63F,#0E7C4A)'],['The promise','linear-gradient(135deg,#004C60,#0E7C4A)']]));
+ addAgentMsg('ai',"Creative library — 27 expressions, in Senoko’s identity. Sample, one per image-generate call:");
+ await revealCreativesImg('Senoko · creative library',SOMIN_ADS);
+ agentChips([{t:'✦ Push slides to Figma',hero:true,fn:()=>handoffTrace('Figma · push frames','Pushing 27 slides…','✓ Pushed to Figma — editable pitch frames')},{t:'⬇ Export PPTX',fn:()=>handoff('Senoko_Energy_Pitch.pptx · 27 slides')},{t:'Back to workflows',fn:agentHome}]);}
+
+/* ---------- influencer = scope-then-run (Caltex) ---------- */
+function flowInfluencer(){$('#agentTitle').textContent='Creator Strategy · Caltex';$('#agentCtxTop').innerHTML='<span class="ctxpill">◐ /somin-influencer-deck</span>';Ai().innerHTML='';
+ addAgentMsg('ai',"<h4>Creator Strategy — Caltex Malaysia</h4><p>A portfolio deck across 4 activated creators, each assigned a distinct territory, plus a per-creator brief. Styling from the caltex-brand-guideline skill. Ready to run?</p>");
+ agentChips([{t:'▶ Run the Caltex portfolio',hero:true,fn:influencerRun},{t:'Change the roster…',fn:()=>{toast('Roster picker');addAgentMsg('ai',"For the demo I’ll run the worked <b>Caltex</b> roster on real data.");influencerRun();}}]);}
+async function influencerRun(){spendCalls();
+ await addTrace('somin-influencer-deck · full chain',[
+  ['scope-elicitation-influencer','4 Caltex creators',600,'Ayden Sng · Joe Flizzow · SonaOne · Matthaios (Caltex-linked)'],
+  ['SOMIN MCP · profiles-list + posts-search + concepts-search','roster #20179–20182',900,'Engagement 90d: Ayden <b>5.8M ★</b> · Joe 118K · SonaOne 10K · Matthaios 203 — <b>6.0M</b> total'],
+  ['per-creator competitor mapping (cosine)','clusters built',700],
+  ['SOMIN MCP · studies-create / studies-get','#7022 whitespace · #7019 trend',900,'Whitespace C Creators n=1365 · Trend W4 Apr–Jul 2026 n=517'],
+  ['whitespace-analysis · per creator','4 territories, none shared',800,'Aspirational Drive (Ready to Own) · Street Cred & Craft (Differentiate) · Everyday Groove (Emerging) · Next-Gen Connector (Build)'],
+  ['insight chains + propositions-create','per-creator missions',800,'Ayden: “Aspiration is the on-ramp” · Joe: “Real ones respect what performs” · SonaOne: “Every drive has a soundtrack”'],
+  ['influencer-visual-assets · avatars + heroes','per-creator heroes',700],
+  ['creative-expressions (--flow influencer) + creative-scoring','PASS · portfolio + 4 decks',900]]);
+ addAgentMsg('ai',artCaltex());
+ addAgentMsg('ai',"Per-creator hero creatives, in Caltex identity — one per creator:");
+ await revealCreativesImg('Caltex · creator heroes',SOMIN_ADS);
+ agentChips([{t:'⬇ Export the deck set',hero:true,fn:()=>handoff('Caltex portfolio + 4 creator decks exported')},{t:'✦ Push to Figma',fn:()=>handoffTrace('Figma · push frames','Pushing decks…','✓ Pushed to Figma — editable frames')},{t:'Back to workflows',fn:agentHome}]);}
+
+/* ---------- meta refresh: SOMIN own ads, with step outputs (gated by flowMeta Figma/generate) ---------- */
+async function metaRun(mode){spendCalls();
+ const creativeRows = mode==='figma'?[['Figma · get_design_context + download_assets','9 on-brand template frames',900,'Pulled SOMIN master frames from Figma — case-study, testimonial, guarantee, demo, community']]:[['SOMIN MCP · image-generate ×9','9 fresh SOMIN ads',900,'Rendered 9 SOMIN ad concepts across TOFU/MOFU/BOFU']];
+ await addTrace('meta-campaign-refresh · SOMIN’s own account (ws 803)',[
+  ['Meta · ads_get_ad_entities + ads_get_creatives (live)','SOMIN: 11 ads · 3 fatiguing',800,'Live account: 11 active ads, 3 fatiguing (freq >3.4, CTR −38% vs launch)'],
+  ['meta-ads-analyzer + meta-creative-fatigue','“agency ROI” angle winning',800,'Top live angle: case-study / ROI proof · weakest: generic product'],
+  ['content-diversity-scorer','over-reliant on one format',600,'82% of spend on a single static format — diversity score 41/100'],
+  ['SOMIN MCP · studies-create (ADS_LIBRARY) → whitespace-analysis','case-study + guarantee whitespace',900,'Whitespace: “case-study proof” & “risk-reversal guarantee” under-served by competitors'],
+  ['insight-creation','9-ad funnel authored',600],
+  ...creativeRows,
+  ['creative-scoring','4 ≥ 0.80',800,'Top: Stop-optimising 0.83 · Free-demo 0.81 · Join-agencies 0.80 · Case-study 0.86'],
+  ['Meta · ads_create_creative + ads_create_ad (PAUSED)','9 new ads staged',700],
+  ['Meta · ads_activate_entity (after money gate)','4 winners activated',600]]);
+ addAgentMsg('ai',"These are SOMIN’s <b>own</b> new ads, refreshing the live account — rendered one by one:");
+ await revealCreativesImg('SOMIN · new ad funnel',SOMIN_ADS);
+ addAgentMsg('ai',`<div class="art"><div class="ah"><div class="ico">ⓕ</div><div><b>Refresh complete · SOMIN account</b><div class="sub">closed loop · live data → new scored ads</div></div></div>
+  <div class="ab"><div class="pgrid"><div class="pmini"><div class="nm">3</div><div class="bl">fatiguing ads paused</div></div><div class="pmini"><div class="nm">9</div><div class="bl">fresh SOMIN ads generated</div></div><div class="pmini"><div class="nm">4</div><div class="bl">≥0.80 activated live</div></div></div>
+  <div style="margin-top:12px;background:var(--teal-wash);border-radius:10px;padding:10px 12px;font-size:12px">Winners: <b>Stop optimising a losing ad</b> · <b>Free demo</b> · <b>Join the agencies</b> · <b>Case study +183%</b>. ${mode==='figma'?'Built from <b>Figma</b> templates.':'Generated with <b>SOMIN image-generate</b>.'}</div></div></div>`);
+ agentChips([{t:'Compare predicted vs actual in 7 days',hero:true,fn:()=>handoff("Learn-loop scheduled — compare predicted vs actual delivery")},{t:'Back to workflows',fn:agentHome}]);}
+
+/* ---------- Expressions page: blend real SOMIN images into every position ---------- */
+function renderExpr(){const keys=Object.keys(EXPR_IMG);let i=0;
+ const m=c=>{const k=keys[i%keys.length];i++;return expCard(c[0],c[1],c[2],c[3],c[4],k);};
+ $('#expTofu').innerHTML=EXPR.tofu.map(m).join('');
+ $('#expMofu').innerHTML=EXPR.mofu.map(m).join('');
+ $('#expBofu').innerHTML=EXPR.bofu.map(m).join('');}
+
+/* ---------- Content Library: show content plates under the treemap ---------- */
+function switchCL(v){const t=$('#clTabTree'),m=$('#clTabMedia');if(t)t.classList.toggle('on',v==='tree');if(m)m.classList.toggle('on',v!=='tree');
+ const tgt=v==='media'?$('#platesHdr'):$('#clTree');if(tgt)tgt.scrollIntoView({behavior:'smooth',block:'start'});}
+function setupPlates(){const cm=$('#clMedia');if(!cm)return;cm.style.display='block';cm.style.marginTop='18px';
+ if(!$('#platesHdr')){const h=document.createElement('div');h.id='platesHdr';h.style.cssText='font-size:16px;font-weight:800;color:var(--ink);margin:6px 0 12px;border-top:1px solid var(--hair);padding-top:16px';h.innerHTML='Content plates <span class="muted" style="font-weight:600;font-size:12px">· 216 media · click any to inspect</span>';cm.parentNode.insertBefore(h,cm);}
+ if(typeof renderFeed==='function'&&!$('#clFeed').innerHTML.trim())renderFeed();}
+
+/* ---------- Engine selector: real per-engine cost + close on change ---------- */
+function runCost(){var MODEL_PRICE={'Opus 4.8':[5,25],'Sonnet 4.8':[3,15],'Haiku 4.5':[1,5],'GPT-5.2-Codex':[1.75,14],'GPT-5.2-Codex-mini':[0.40,3.20],'Gemini 3 Pro':[2,12],'Gemini 3 Flash':[0.50,3],'Manus-1.5 (default)':null};var EFFF2={Low:.5,Medium:1,High:1.5,Max:2};var f=EFFF2[ENG.eff]||1,inT=2.0*f,outT=0.35*f,p=MODEL_PRICE[ENG.mdl];var usd; if(ENG.eng==='Manus')usd=1000*f*0.005; else if(p)usd=inT*p[0]+outT*p[1]; else usd=inT*3+outT*15; return {calls:Math.round(30*f),usd:usd};}
+function closeEngPop(){const p=$('#engPop');if(p)p.classList.remove('open');}
+function updateEngChip(){const a=$('#ecEng'),b=$('#ecMdl'),c=$('#ecEff'),d=$('#engineChip .d');if(a)a.textContent=ENG.eng;if(b)b.textContent=ENG.mdl;if(c)c.textContent=ENG.eff;if(d)d.style.background=ENGINES[ENG.eng].color;
+ const e=$('#effEst');if(e){const rc=runCost();e.innerHTML='≈'+rc.calls+' SOMIN calls · ~$'+rc.usd.toFixed(2)+' on '+ENG.mdl;}}
+function pickEng(name){ENG.eng=name;ENG.mdl=ENGINES[name].models[0];$$('#engPop .engopt').forEach(o=>o.classList.toggle('on',o.dataset.eng===name));fillModels();updateEngChip();}
+function pickMdl(v){ENG.mdl=v;updateEngChip();closeEngPop();}
+function pickEff(v){ENG.eff=v;$$('#effSeg button').forEach(x=>x.classList.toggle('on',x.textContent===v));updateEngChip();closeEngPop();}
+
+/* ---------- init ---------- */
+setupPlates();updateEngChip();
+
+
+/* ================= v10: scoped clarifying flows, gated steps, copilot auto-start ================= */
+/* ---------- routing: menu = scope (needs a chat action); copilot = auto-start ---------- */
+function startFlow(id){closeAgentSide();
+ if(id==='brand'||id==='reassured')return rzScope();
+ if(id==='agency')return agencyScope();
+ if(id==='influencer')return influencerScope();
+ if(id==='meta')return flowMeta();
+ if(id==='whitespace')return whitespaceScope();
+ if(id==='trend')return trendScope();
+ if(id==='calendar')return calendarScope();
+ if(id==='scoring')return scoringScope();
+ if(id==='creative')return stepCreative();
+ return stubFlow(id);}
+
+/* ---------- BRAND · /somin-brand-deck — 4 clarifying params ---------- */
+function rzScope(){$('#agentTitle').textContent='Brand Strategy · Pepsi India';$('#agentCtxTop').innerHTML='<span class="ctxpill">◆ /somin-brand-deck</span>';Ai().innerHTML='';
+ addAgentMsg('ai',"<h4>Brand Strategy Deck — let’s scope it</h4><p><b>/somin-brand-deck</b> runs on real parameters. <b>1 / 4 · Brand &amp; brand guideline.</b> How should I load the identity?</p>");
+ agentChips([
+  {t:'Pepsi India — use tracked brand kit',hero:true,fn:rzQ2},
+  {t:'📎 Upload a creative brief / brand guideline',fn:()=>{toast('Brief attached');addAgentMsg('ai',"Brief noted — I’ll lock palette, tone &amp; claims to it. Continuing.");rzQ2();}},
+  {t:'Run brand-extraction on pepsi.com',fn:()=>{toast('brand-extraction-from-web');addAgentMsg('ai',"I’ll pull palette + offerings from the live site. Continuing.");rzQ2();}}]);}
+function rzQ2(){addAgentMsg('ai',"<p><b>2 / 4 · Audience / cohort.</b> Which audience should the studies read as the content proxy?</p>");
+ agentChips([{t:'Foodies (tracked · n=691)',hero:true,fn:rzQ3},{t:'General cola drinkers',fn:rzQ3},{t:'Gen-Z snackers',fn:rzQ3},{t:'Custom audience…',fn:()=>{toast('Audience picker');rzQ3();}}]);}
+function rzQ3(){addAgentMsg('ai',"<p><b>3 / 4 · Competitor set.</b> Confirm the India-cola cohort to benchmark against.</p>");
+ agentChips([{t:'Coca-Cola · Campa · Limca · Mirinda (tracked)',hero:true,fn:rzQ4},{t:'Edit the set…',fn:()=>{toast('Competitor picker');rzQ4();}}]);}
+function rzQ4(){addAgentMsg('ai',"<p><b>4 / 4 · Time interval &amp; breakdown.</b> How should I window the trends and split the read?</p>");
+ agentChips([{t:'12 monthly windows · prior-year verified · lead with whitespace',hero:true,fn:rzRun},{t:'Last 90 days · snapshot',fn:rzRun},{t:'Multi-market (IN + intl) breakdown',fn:()=>{addAgentMsg('ai',"Multi-market runs the chain once <b>per market</b> and reports convergence only where it independently emerges. For the demo I’ll show the single-market run end-to-end.");rzRun();}}]);}
+
+/* ---------- AGENCY · /somin-agency-deck — 4 clarifying params (Senoko) ---------- */
+function agencyScope(){$('#agentTitle').textContent='Agency Pitch · Senoko Energy';$('#agentCtxTop').innerHTML='<span class="ctxpill">◇ /somin-agency-deck</span>';Ai().innerHTML='';
+ addAgentMsg('ai',"<h4>Agency Pitch — Senoko Energy</h4><p><b>/somin-agency-deck</b> · <b>1 / 4 · Client &amp; brand guideline.</b> How should I load Senoko’s identity?</p>");
+ agentChips([{t:'Senoko Energy — tracked brand kit',hero:true,fn:ag2},{t:'📎 Upload the client brief / guideline',fn:()=>{toast('Brief attached');addAgentMsg('ai',"Locked to the brief. Continuing.");ag2();}},{t:'Run brand-extraction on senokoenergy.com',fn:()=>{toast('brand-extraction-from-web');ag2();}}]);}
+function ag2(){addAgentMsg('ai',"<p><b>2 / 4 · Audience.</b> Who is the pitch for?</p>");
+ agentChips([{t:'Home Owners & Families (brief default)',hero:true,fn:ag3},{t:'New movers',fn:ag3},{t:'Eco-first households',fn:ag3},{t:'Custom…',fn:()=>{toast('Audience picker');ag3();}}]);}
+function ag3(){addAgentMsg('ai',"<p><b>3 / 4 · Competitors + creator proxy.</b> Confirm the set and the audience-proxy panel.</p>");
+ agentChips([{t:'Geneco · Tuas · SP · Flo + 4-creator home/eco panel',hero:true,fn:ag4},{t:'Edit the set…',fn:()=>{toast('Cohort picker');ag4();}}]);}
+function ag4(){addAgentMsg('ai',"<p><b>4 / 4 · Window &amp; what to lead with.</b></p>");
+ agentChips([{t:'6 monthly windows (Feb–Jul) · prior-year check · lead with whitespace',hero:true,fn:agencyRun},{t:'Last 90 days · snapshot',fn:agencyRun},{t:'Weight the creator cohort higher',fn:()=>{toast('Creator weighting on');agencyRun();}}]);}
+
+/* ---------- INFLUENCER · /somin-influencer-deck — 4 clarifying params (Caltex) ---------- */
+function influencerScope(){$('#agentTitle').textContent='Creator Strategy · Caltex';$('#agentCtxTop').innerHTML='<span class="ctxpill">◐ /somin-influencer-deck</span>';Ai().innerHTML='';
+ addAgentMsg('ai',"<h4>Creator Strategy — Caltex Malaysia</h4><p><b>/somin-influencer-deck</b> · <b>1 / 4 · Creator roster.</b> Which creators are in scope?</p>");
+ agentChips([{t:'Ayden · Joe · SonaOne · Matthaios (tracked)',hero:true,fn:inf2},{t:'Add / change creators…',fn:()=>{toast('Roster picker');inf2();}}]);}
+function inf2(){addAgentMsg('ai',"<p><b>2 / 4 · Brand guideline / styling.</b> How should the decks be styled?</p>");
+ agentChips([{t:'caltex-brand-guideline skill',hero:true,fn:inf3},{t:'📎 Upload a brand guideline',fn:()=>{toast('Guideline attached');inf3();}}]);}
+function inf3(){addAgentMsg('ai',"<p><b>3 / 4 · Mode &amp; window.</b> Engagement-led, or include commercial export?</p>");
+ agentChips([{t:'Engagement-only · last 90 days',hero:true,fn:inf4},{t:'Include GMV / affiliate export',fn:()=>{toast('GMV export requested');addAgentMsg('ai',"No GMV export supplied for the demo — running engagement-led (a content proxy for reach).");inf4();}}]);}
+function inf4(){addAgentMsg('ai',"<p><b>4 / 4 · Territory rule.</b> How should territories be assigned?</p>");
+ agentChips([{t:'One distinct territory per creator (no overlap)',hero:true,fn:influencerRun},{t:'Allow shared territories',fn:influencerRun}]);}
+
+/* ---------- STEP scopes (need a chat action to run) ---------- */
+function whitespaceScope(){$('#agentTitle').textContent='Whitespace Analysis';$('#agentCtxTop').innerHTML='<span class="ctxpill">▦ /whitespace-analysis</span>';Ai().innerHTML='';
+ addAgentMsg('ai',"<h4>Whitespace Analysis</h4><p>Compares 3 cohort tension studies at one snapshot — <b>audience demand</b> vs <b>brand voice</b> vs <b>competitor coverage</b>. Which cohort set?</p>");
+ agentChips([{t:'▶ Run · Pepsi Foodies (3 cohorts)',hero:true,fn:stepWhitespace},{t:'Pick another cohort…',fn:()=>{toast('Cohort picker');stepWhitespace();}}]);}
+function trendScope(){$('#agentTitle').textContent='Trend Analysis';$('#agentCtxTop').innerHTML='<span class="ctxpill">📈 /trend-analysis</span>';Ai().innerHTML='';
+ addAgentMsg('ai',"<h4>Trend Analysis</h4><p>Tracks each tension across sequential windows for one cohort (prior-year verified). How many windows?</p>");
+ agentChips([{t:'▶ Run · 12 monthly windows',hero:true,fn:stepTrend},{t:'6 windows',fn:stepTrend},{t:'4 windows',fn:stepTrend}]);}
+function calendarScope(){$('#agentTitle').textContent='Content Calendar';$('#agentCtxTop').innerHTML='<span class="ctxpill">▤ /content-calendar-build</span>';Ai().innerHTML='';
+ addAgentMsg('ai',"<h4>Content Calendar</h4><p>Turns the generated moments into a dated plan. Cadence &amp; pillar split?</p>");
+ agentChips([{t:'▶ Build · 3/week · 50/30/20 · 13 weeks',hero:true,fn:stepCalendar},{t:'Mon / Wed / Fri',fn:stepCalendar},{t:'Daily',fn:stepCalendar}]);}
+function scoringScope(){$('#agentTitle').textContent='Creative Scoring';$('#agentCtxTop').innerHTML='<span class="ctxpill">◎ /creative-scoring</span>';Ai().innerHTML='';
+ addAgentMsg('ai',"<h4>Creative Scoring</h4><p>Predicts above-average clickability per creative (pre-launch prediction). Which set?</p>");
+ agentChips([{t:'▶ Score the 9 latest renders',hero:true,fn:stepScoring},{t:'📎 Upload creatives…',fn:()=>{toast('Upload creatives');stepScoring();}}]);}
+
+/* ---------- Copilot → SOWISE: auto-start with carried context ---------- */
+let pendingSowiseFlow=null, sowiseSrc=null;
+function buildFromCopilot(flow){sowiseSrc=CUR;pendingSowiseFlow=flow;setTimeout(()=>go('sowise'),350);}
+function autoStartFromContext(flow){closeAgentSide();Ai().innerHTML='';
+ const runmap={brand:rzRun,agency:agencyRun,influencer:influencerRun,meta:()=>metaRun('gen'),whitespace:stepWhitespace,trend:stepTrend,calendar:stepCalendar,scoring:stepScoring,creative:()=>creativeRun('gen')};
+ const scopemap={brand:rzScope,agency:agencyScope,influencer:influencerScope,meta:flowMeta,whitespace:whitespaceScope,trend:trendScope,calendar:calendarScope,scoring:scoringScope,creative:stepCreative};
+ const titlemap={brand:'Brand Strategy · Pepsi India',agency:'Agency Pitch · Senoko Energy',influencer:'Creator Strategy · Caltex',meta:'Meta Creative Update',whitespace:'Whitespace Analysis',trend:'Trend Analysis',calendar:'Content Calendar',scoring:'Creative Scoring',creative:'Creative Expressions'};
+ $('#agentTitle').textContent=titlemap[flow]||'SOWISE';
+ $('#agentCtxTop').innerHTML=`<span class="ctxpill">◧ From ${TITLES[sowiseSrc]||'Copilot'}</span>`;
+ addAgentMsg('ai',`Carried your <b>${TITLES[sowiseSrc]||'current screen'}</b> context straight in. I can build now with these parameters, or you can adjust them first.`);
+ agentChips([{t:'▶ Build now with carried context',hero:true,fn:()=>{(runmap[flow]||agentHome)();}},{t:'Adjust parameters first',fn:()=>{(scopemap[flow]||agentHome)();}}]);}
+(function(){const _g=go;go=function(scr,el){_g(scr,el);if(scr==='sowise'&&pendingSowiseFlow){const f=pendingSowiseFlow;pendingSowiseFlow=null;autoStartFromContext(f);}};})();
+(function(){const _ra=runAct;runAct=function(a){if(typeof a==='string'&&a.slice(0,6)==='build:'){buildFromCopilot(a.slice(6));return true;}return _ra(a);};})();
+
+
+/* ================= v11: free-text answers in SOWISE ================= */
+let PENDING=null;
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+async function agentTyping(ms){const box=document.createElement('div');box.className='amsg ai';box.innerHTML='<div class="ava">◈</div><div class="abub"><div class="typing"><i></i><i></i><i></i></div></div>';Ai().appendChild(box);scrollA();await wait(ms||600);box.remove();}
+function matchChip(arr,text){const low=text.toLowerCase();
+ for(const x of arr){const key=x.t.toLowerCase().replace(/[▶📎✦⬇✎ⓕ→]/g,'').trim();const head=key.split('—')[0].split('(')[0].trim();
+  if(head&&(low.includes(head.slice(0,8))||head.includes(low.slice(0,10))))return x;}
+ return arr.find(x=>x.hero)||arr[0];}
+function makeTextHandler(arr,d){return async function(text){PENDING=null;if(d&&d.parentNode)d.remove();
+ addAgentMsg('me',escHtml(text));await agentTyping(650);
+ const chosen=matchChip(arr,text);
+ addAgentMsg('ai',`Noted — I’ll use “<b>${escHtml(text)}</b>” for this. Processing that as your answer and continuing.`);
+ chosen.fn();};}
+/* override agentChips: still renders options, but also arms a free-text handler */
+function agentChips(arr){const d=document.createElement('div');d.className='chips';d.style.margin='2px 0 2px 42px';
+ arr.forEach(x=>{const b=document.createElement('button');b.className='chip'+(x.hero?' hero':'');b.textContent=x.t;
+  b.onclick=()=>{PENDING=null;addAgentMsg('me',x.t);d.remove();x.fn();};d.appendChild(b);});
+ Ai().appendChild(d);scrollA();
+ PENDING={arr:arr,onText:makeTextHandler(arr,d)};
+ return d;}
+/* free-text command parser (when not answering a question) */
+function parseCmd(t){t=t.toLowerCase();const has=(...w)=>w.some(x=>t.includes(x));
+ if(has('senoko')||has('agency')||has('pitch'))return{id:'agency',label:'Agency Pitch · Senoko'};
+ if(has('caltex')||has('influencer')||has('creator')||has('roster'))return{id:'influencer',label:'Creator Strategy · Caltex'};
+ if(has('refresh','meta','live ad','campaign update'))return{id:'meta',label:'Meta Creative Update'};
+ if(has('whitespace','white space'))return{id:'whitespace',label:'Whitespace Analysis'};
+ if(has('trend'))return{id:'trend',label:'Trend Analysis'};
+ if(has('calendar','schedule'))return{id:'calendar',label:'Content Calendar'};
+ if(has('score','clickability'))return{id:'scoring',label:'Creative Scoring'};
+ if(has('creative','expression','render'))return{id:'creative',label:'Creative Expressions'};
+ if(has('brand','pepsi','strategy','deck'))return{id:'brand',label:'Brand Strategy · Pepsi India'};
+ return null;}
+function agentSend(){const el=$('#agentInput');if(!el)return;const v=el.value.trim();if(!v)return;el.value='';
+ if(PENDING&&PENDING.onText){PENDING.onText(v);return;}
+ const cmd=parseCmd(v);
+ addAgentMsg('me',escHtml(v));
+ (async()=>{await agentTyping(650);
+  if(cmd){addAgentMsg('ai',`On it — starting <b>${cmd.label}</b>. I’ll gather a couple of parameters first.`);startFlow(cmd.id);}
+  else{addAgentMsg('ai',"I can run any SOMIN workflow from here. Try “build the Pepsi brand deck”, “run the Senoko agency pitch”, “map the whitespace”, or “score my latest creatives” — or pick one on the left.");}
+ })();}
+
 </script>
+<div class="modal" id="topupModal" onclick="if(event.target===this)closeTopup()">
+  <div class="box">
+    <div class="mh"><span style="color:var(--teal-d);font-size:18px">⚡</span><b>Top up credits</b><span class="x" onclick="closeTopup()">✕</span></div>
+    <div class="mb">
+      <div style="font-size:12.5px;color:var(--soft);margin-bottom:12px">Your <b style="color:var(--ink)">SOINSPIRE · 10 Brands + 5 Users</b> plan renews Sep 4. Add credits now — they roll into this cycle instantly.</div>
+      <div class="tpk" id="tpk">
+        <div class="tpo on" data-p="0" onclick="pickPack(0)"><div><div class="n">Booster · +25 images</div><div class="s">+5 SOINSPIRE campaign credits</div></div><div class="pr">$40</div></div>
+        <div class="tpo" data-p="1" onclick="pickPack(1)"><div><div class="n">Growth · +100 images</div><div class="s">+15 campaign credits · +10 video</div></div><div class="pr">$120</div></div>
+        <div class="tpo" data-p="2" onclick="pickPack(2)"><div><div class="n">Add a brand slot</div><div class="s">+1 SOMONITOR brand · $25/mo</div></div><div class="pr">$25</div></div>
+      </div>
+      <button class="go" onclick="doTopup()">Add credits →</button>
+      <div style="font-size:10.5px;color:var(--faint);text-align:center;margin-top:9px">Billed to the card on file · SOINSPIRE campaign $40 · image $0.90 · video $8</div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
