@@ -773,6 +773,115 @@ img,svg{max-width:100%;display:block}
 .am-compose .hint{max-width:820px;margin:6px auto 0;font-size:10.5px;color:var(--faint);text-align:center}
 @media(max-width:900px){.am-compose{padding:8px 12px}.am-compose .hint{display:none}}
 
+
+/* ================= v12: Copilot dock redesign + mobile (iPhone 12 mini) ================= */
+/* ---- dock shell: kill the border seam, cleaner shadow ---- */
+.dock{border:none;box-shadow:0 20px 54px rgba(16,32,31,.26),0 3px 10px rgba(16,32,31,.10)}
+.dock-head{border-top-left-radius:18px;border-top-right-radius:18px}
+.dock-head .hbtn{background:rgba(255,255,255,.10);color:#dff5ee}
+.dock-head .hbtn:hover{background:rgba(255,255,255,.20)}
+/* ---- collapsed = clean floating pill (desktop + mobile) ---- */
+.dock.min{width:auto;min-width:0;height:auto;max-width:none;left:auto;right:22px;bottom:22px;border-radius:999px;overflow:visible}
+.dock.min .dock-head{border-radius:999px;padding:9px 14px 9px 11px;gap:9px}
+.dock.min .dock-head .ti{font-size:13px}
+.dock.min .dock-head .ti small{display:none}
+.dock.min .dock-head .sp{flex:0 0 auto;width:2px}
+.dock.min .dock-head .hbtn{display:none}
+.dock.min .dock-head::after{content:"\2303";color:#7fe0c8;font-weight:900;font-size:15px;line-height:1}
+.dock.min .dock-ctx,.dock.min .dock-body,.dock.min .dock-foot{display:none}
+
+/* ---- global mobile viewport height (dvh where supported) ---- */
+@supports(height:100dvh){.app{height:100dvh}html,body{height:100dvh}}
+
+/* ================= <=560px : phones (iPhone 12 mini 360×780) ================= */
+@media(max-width:560px){
+ body{font-size:13.5px}
+ /* topbar */
+ .topbar{height:52px;padding:0 10px;gap:8px}
+ .topbar .ptitle{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .topbar .actions{gap:6px}
+ .topbar .tb-btn{padding:7px 10px;font-size:12px}
+ .topbar .tb-btn.ico{padding:7px}
+ /* screens padding */
+ .screen{padding:12px 11px 120px}
+ /* filter bar / selects wrap to full rows */
+ .filterbar{gap:8px}
+ .fsel{min-width:calc(50% - 4px);flex:1 1 calc(50% - 4px)}
+ /* stat grids + generic 2-up */
+ .statgrid{grid-template-columns:1fr 1fr}
+ .pgrid{grid-template-columns:1fr 1fr}
+ /* content library */
+ .treewrap{grid-template-columns:1fr!important;height:auto!important}
+ #clTree>div[style*="grid-template-columns"]{grid-template-columns:1fr!important}
+ .feedgrid{columns:1}
+ .subtabs button{padding:6px 11px;font-size:12px}
+ /* billing */
+ #scr-billing{padding:13px 11px 120px}
+ .billwrap{grid-template-columns:1fr;gap:14px}
+ .bcard{padding:15px 15px}
+ .planopts{grid-template-columns:1fr}
+ .btot{gap:16px}
+ .btot .amt{font-size:19px}
+ /* SOWISE canvas */
+ .am-top{padding:0 10px;gap:8px}
+ .am-top .t{font-size:14px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .am-top .mchip{display:none}
+ #agentCtxTop{display:none}
+ .enginechip{padding:5px 9px;flex:none}
+ .enginechip .mdl,.enginechip .eff{display:none}
+ .engpop{position:fixed;left:12px;right:12px;top:auto;bottom:12px;transform:none;width:auto;max-width:none;max-height:70vh;overflow-y:auto}
+ .am-body{padding:14px 11px}
+ .am-inner{gap:13px}
+ .amsg .ava{width:26px;height:26px}
+ .amsg .abub{font-size:13px;padding:12px 13px}
+ .amsg.me .abub{max-width:84%}
+ .chips{gap:6px}
+ .chip{font-size:12px;padding:8px 11px}
+ /* trace + step outputs fit narrow */
+ .trace .th{font-size:12px;padding:9px 11px}
+ .trace .tl{padding:8px 11px;font-size:11px;gap:7px}
+ .trace .tl .rs{font-size:10px;max-width:42%}
+ .trace .tout,.trace .infl{padding-left:34px;padding-right:11px}
+ .toutbox{font-size:11.5px}
+ .infl-chip{font-size:11px;padding:5px 10px}
+ /* reveal + deck strips */
+ .revealgrid{grid-template-columns:1fr 1fr;gap:8px}
+ .crev .hk{font-size:11px}
+ .dslide{width:130px;height:80px}
+ .sharebar .lb{width:96px;font-size:10.5px}
+ .roigrid{grid-template-columns:1fr 1fr}
+ /* composer — 16px input stops iOS auto-zoom */
+ .am-compose{padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px))}
+ .am-compose .inp input{font-size:16px}
+ .am-compose .hint{display:none}
+ /* Copilot dock — expanded = bottom sheet, collapsed = floating pill */
+ .dock{left:0;right:0;bottom:0;width:100%;max-width:100%;border-radius:20px 20px 0 0;max-height:82vh;padding-bottom:env(safe-area-inset-bottom,0px)}
+ .dock.min{left:auto;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));width:auto;max-width:none;border-radius:999px;padding-bottom:0}
+ .dock.min .dock-head{border-radius:999px}
+ .dock-foot .inp input{font-size:16px}
+ .helper{display:none}
+ /* modal fits */
+ .modal{padding:14px}
+ .modal .box{max-width:100%}
+}
+
+/* ================= <=390px : tightest (iPhone 12 mini portrait) ================= */
+@media(max-width:390px){
+ .fsel{min-width:100%;flex:1 1 100%}
+ .pgrid{grid-template-columns:1fr}
+ .statgrid{grid-template-columns:1fr 1fr}
+ .revealgrid{grid-template-columns:1fr}
+ .roigrid{grid-template-columns:1fr}
+ .planopts{grid-template-columns:1fr}
+ .topbar .ptitle{font-size:14px}
+ .amsg .abub{font-size:12.5px}
+ .enginechip .cv{display:none}
+}
+
+
+/* v12b: keep the collapsed Copilot pill clear of the SOWISE composer */
+body.scr-sowise .dock.min{bottom:88px}
+@media(max-width:560px){body.scr-sowise .dock.min{bottom:calc(84px + env(safe-area-inset-bottom,0px))}}
 </style>
 </head>
 <body>
@@ -3090,6 +3199,9 @@ function agentSend(){const el=$('#agentInput');if(!el)return;const v=el.value.tr
   else{addAgentMsg('ai',"I can run any SOMIN workflow from here. Try “build the Pepsi brand deck”, “run the Senoko agency pitch”, “map the whitespace”, or “score my latest creatives” — or pick one on the left.");}
  })();}
 
+
+/* v12b: mark body when on the SOWISE canvas (composer present) */
+(function(){if(typeof go==='function'){const _g=go;go=function(scr,el){_g(scr,el);document.body.classList.toggle('scr-sowise',scr==='sowise');};}})();
 </script>
 <div class="modal" id="topupModal" onclick="if(event.target===this)closeTopup()">
   <div class="box">
