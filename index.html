@@ -882,9 +882,18 @@ img,svg{max-width:100%;display:block}
 /* v12b: keep the collapsed Copilot pill clear of the SOWISE composer */
 body.scr-sowise .dock.min{bottom:88px}
 @media(max-width:560px){body.scr-sowise .dock.min{bottom:calc(84px + env(safe-area-inset-bottom,0px))}}
+
+/* ===== v13 integration: Simple (default, iframe) vs Advanced mode ===== */
+#simpleApp{position:fixed;inset:0;width:100vw;height:100vh;border:0;z-index:400;background:#F1F5F4;display:none}
+#advApp{display:none}
+body.mode-simple #simpleApp{display:block}
+body.mode-advanced #advApp{display:block}
+#modeSwitch{display:none;position:fixed;left:14px;bottom:14px;z-index:500;align-items:center;gap:7px;background:#16201F;color:#7FE0C8;border:none;border-radius:999px;padding:9px 15px;font-weight:800;font-size:12px;box-shadow:0 10px 30px rgba(16,32,31,.28);cursor:pointer}
+body.mode-advanced #modeSwitch{display:inline-flex}
 </style>
 </head>
 <body>
+<div id="advApp">
 <div class="login" id="login">
  <div class="card">
   <div class="lwm"><span style="color:var(--teal)">SO</span><span style="color:var(--ink)">MIN</span></div>
@@ -3219,5 +3228,1138 @@ function agentSend(){const el=$('#agentInput');if(!el)return;const v=el.value.tr
   </div>
 </div>
 
+
+</div><!-- /advApp -->
+<iframe id="simpleApp" title="SOMIN — Simple" srcdoc="<!DOCTYPE html>
+<html lang=&quot;en&quot;>
+<head>
+<meta charset=&quot;utf-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;>
+<title>SOMIN v13 — job-first redesign</title>
+<style>
+/* ============================================================= tokens */
+:root{
+  --teal:#2DBF9C; --teal-d:#1F8A70; --teal-l:#7FE0C8; --teal-wash:#E7F7F2; --teal-wash2:#D5F2EA;
+  --ink:#16201F; --ink-2:#1F2A29; --nav:#121A19; --nav-2:#1C2726;
+  --body:#2A3635; --soft:#6B7A78; --faint:#9BA8A6; --hair:#E3EAE8; --hair-2:#C9D1D0;
+  --page:#F1F5F4; --card:#FFFFFF; --card-2:#F7FAF9;
+  --plum:#A94392; --plum-wash:#F9EDF6;
+  --amber:#C98A18; --amber-wash:#FDF4E3;
+  --blue:#3B82F6; --blue-wash:#ECF3FE;
+  --red:#E15568;
+  --shadow:0 1px 2px rgba(16,32,31,.06),0 8px 24px rgba(16,32,31,.06);
+  --shadow-lg:0 12px 40px rgba(16,32,31,.18);
+  --r:14px; --r-sm:10px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font:14px/1.5 &quot;Inter&quot;,-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,sans-serif;background:var(--page);color:var(--body);-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em}
+.muted{color:var(--soft)}
+.faint{color:var(--faint)}
+.tealtxt{color:var(--teal-d)}
+h1,h2,h3,h4{margin:0}
+
+/* ============================================================= app shell */
+.app{display:flex;height:100vh;overflow:hidden}
+.side{width:236px;flex:0 0 236px;background:var(--nav);color:#cfdad8;display:flex;flex-direction:column;padding:16px 0;overflow-y:auto}
+.brand{display:flex;align-items:center;gap:8px;padding:0 18px 18px}
+.wmk{font-size:21px;font-weight:900;letter-spacing:-.5px}
+.wm-so{color:var(--teal)} .wm-min{color:#fff}
+.ring{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 3px rgba(45,191,156,.22)}
+.nav{flex:1;padding:0 10px}
+.nav .primary{display:block;width:100%;text-align:left;border:none;cursor:pointer;background:transparent;color:#e8f2f0;font-weight:800;font-size:13.5px;padding:10px 12px;border-radius:10px;display:flex;align-items:center;gap:10px;margin-bottom:3px;transition:.14s}
+.nav .primary:hover{background:var(--nav-2)}
+.nav .primary.on{background:linear-gradient(90deg,rgba(45,191,156,.22),rgba(45,191,156,.06));color:#fff;box-shadow:inset 2px 0 0 var(--teal)}
+.nav .primary .ic{width:18px;text-align:center;color:var(--teal);font-size:14px}
+.nav .primary .cnt{margin-left:auto;font-size:10.5px;font-weight:800;background:rgba(255,255,255,.1);padding:1px 6px;border-radius:20px;color:#bcd}
+.navsep{height:1px;background:rgba(255,255,255,.07);margin:12px 12px}
+.navlabel{font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:#5d6e6c;font-weight:800;padding:4px 12px 6px}
+.exp-group{padding:0 2px}
+.exp-head{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:10px;cursor:pointer;font-size:12.5px;font-weight:700;color:#9fb0ad;transition:.14s}
+.exp-head:hover{background:var(--nav-2);color:#dfeae8}
+.exp-head .chev{margin-left:auto;transition:.18s;font-size:11px}
+.exp-group.open .exp-head .chev{transform:rotate(90deg)}
+.exp-sub{display:none;padding:2px 0 6px}
+.exp-group.open .exp-sub{display:block}
+.exp-sub a{display:block;font-size:12.5px;color:#93a4a2;padding:6px 12px 6px 34px;border-radius:8px;cursor:pointer;transition:.12s}
+.exp-sub a:hover{background:var(--nav-2);color:#e6f0ee}
+.exp-sub a.on{color:var(--teal-l);background:rgba(45,191,156,.1);font-weight:700}
+.sfoot{padding:10px 18px 0;font-size:10.5px;color:#4f5f5d;line-height:1.9}
+.sfoot .lo{color:#8fa09e;font-weight:800;letter-spacing:.6px;cursor:pointer;margin-bottom:6px}
+
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.topbar{height:58px;flex:0 0 58px;background:#fff;border-bottom:1px solid var(--hair);display:flex;align-items:center;gap:14px;padding:0 20px}
+.ptitle{font-weight:900;color:var(--ink);font-size:16px;letter-spacing:-.2px}
+.crumb{font-size:12px;color:var(--faint);display:flex;align-items:center;gap:7px}
+.crumb b{color:var(--soft);font-weight:700;cursor:pointer}
+.crumb b:hover{color:var(--teal-d)}
+.spacer{flex:1}
+.ws{display:flex;align-items:center;gap:8px;border:1px solid var(--hair);border-radius:10px;padding:5px 11px;font-size:12px;background:var(--card-2)}
+.ws .s{width:22px;height:22px;border-radius:6px;background:var(--teal);color:#fff;display:grid;place-items:center;font-weight:900;font-size:11px}
+.ws .lab{display:block;font-size:9.5px;color:var(--faint);text-transform:uppercase;letter-spacing:.6px;font-weight:800;line-height:1}
+.ws b{color:var(--ink);font-size:12px}
+.mobburger{display:none}
+
+.screens{flex:1;overflow-y:auto;padding:22px 24px 60px;scroll-behavior:smooth}
+.screen{display:none;max-width:1240px;margin:0 auto}
+.screen.active{display:block}
+
+/* ============================================================= primitives */
+.card{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);box-shadow:var(--shadow)}
+.pad{padding:16px}
+.eyebrow{font-size:10.5px;text-transform:uppercase;letter-spacing:1px;font-weight:800;color:var(--faint)}
+.btn{background:var(--teal);color:#fff;border:none;border-radius:10px;padding:10px 16px;font-weight:800;font-size:13px;cursor:pointer;transition:.14s;box-shadow:0 2px 8px rgba(45,191,156,.3)}
+.btn:hover{background:var(--teal-d);transform:translateY(-1px)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btn.ghost{background:#fff;color:var(--teal-d);border:1px solid var(--teal);box-shadow:none}
+.btn.ghost:hover{background:var(--teal-wash)}
+.btn.grey{background:#fff;color:var(--soft);border:1px solid var(--hair-2);box-shadow:none}
+.btn.grey:hover{background:var(--card-2);color:var(--ink)}
+.btn.sm{padding:6px 11px;font-size:12px;border-radius:8px}
+.btn.block{display:block;width:100%}
+.pill{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--hair-2);background:#fff;border-radius:20px;padding:4px 11px;font-size:11.5px;font-weight:700;color:var(--soft);cursor:default}
+.pill.act{cursor:pointer}
+.pill.act:hover{border-color:var(--teal);color:var(--teal-d);background:var(--teal-wash)}
+.tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:2px 7px;border-radius:5px}
+.tag.teal{background:var(--teal-wash);color:var(--teal-d)}
+.tag.plum{background:var(--plum-wash);color:var(--plum)}
+.tag.amber{background:var(--amber-wash);color:var(--amber)}
+.tag.blue{background:var(--blue-wash);color:var(--blue)}
+.tag.grey{background:#EDF1F0;color:var(--soft)}
+
+/* ============================================================= START screen */
+.hero{margin-bottom:22px}
+.hero h1{font-size:26px;font-weight:900;color:var(--ink);letter-spacing:-.6px;margin-bottom:5px}
+.hero p{margin:0;color:var(--soft);font-size:13.5px;max-width:640px}
+.jobs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:14px}
+.jobcard{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:18px;cursor:pointer;transition:.16s;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.jobcard:hover{border-color:var(--teal);transform:translateY(-2px);box-shadow:0 10px 30px rgba(16,32,31,.1)}
+.jobcard .jic{width:36px;height:36px;border-radius:10px;background:var(--teal-wash);color:var(--teal-d);display:grid;place-items:center;font-size:17px;margin-bottom:11px}
+.jobcard h3{font-size:16.5px;font-weight:900;color:var(--ink);letter-spacing:-.2px;margin-bottom:4px}
+.jobcard .q{font-size:13px;color:var(--body);font-style:italic;margin-bottom:10px;line-height:1.45}
+.jobcard .meta{font-size:11.5px;color:var(--faint);line-height:1.7;border-top:1px solid var(--hair);padding-top:9px;margin-top:auto}
+.jobcard .go{margin-top:11px;font-size:12.5px;font-weight:800;color:var(--teal-d);display:flex;align-items:center;gap:5px}
+.jobcard.ready::after{content:&quot;READY&quot;;position:absolute;top:13px;right:13px;font-size:9px;font-weight:900;letter-spacing:.8px;color:var(--teal-d);background:var(--teal-wash);padding:2px 6px;border-radius:4px}
+
+.steptray{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:14px 16px;margin-bottom:16px}
+.steptray .th{display:flex;align-items:center;gap:9px;margin-bottom:11px}
+.steptray .th b{color:var(--ink);font-size:13px}
+.stepchips{display:flex;flex-wrap:wrap;gap:8px}
+.stepchip{border:1px solid var(--hair-2);background:var(--card-2);border-radius:9px;padding:7px 11px;font-size:12px;font-weight:700;color:var(--body);cursor:pointer;transition:.14s;display:flex;align-items:center;gap:6px}
+.stepchip:hover{border-color:var(--teal);color:var(--teal-d);background:var(--teal-wash)}
+.stepchip small{color:var(--faint);font-weight:600;font-size:10.5px}
+
+.runstrip{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.runrow{background:var(--card);border:1px solid var(--hair);border-radius:12px;padding:12px 14px;cursor:pointer;transition:.14s}
+.runrow:hover{border-color:var(--teal)}
+.runrow .rt{font-weight:800;color:var(--ink);font-size:13px;margin-bottom:3px}
+.runrow .rm{font-size:11.5px;color:var(--faint)}
+.bar{height:5px;border-radius:4px;background:var(--hair);overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;background:var(--teal);border-radius:4px;transition:width .5s}
+
+/* ============================================================= BRIEF screen */
+.briefwrap{display:grid;grid-template-columns:1fr 310px;gap:18px;align-items:start}
+.paramlist{display:flex;flex-direction:column;gap:12px}
+.param{background:var(--card);border:1px solid var(--hair);border-radius:12px;padding:14px 16px;transition:.16s}
+.param.edited{border-color:var(--teal);box-shadow:0 0 0 3px var(--teal-wash)}
+.param .ph{display:flex;align-items:center;gap:9px;margin-bottom:7px}
+.param .pn{font-size:10.5px;text-transform:uppercase;letter-spacing:1px;font-weight:800;color:var(--faint)}
+.param .pv{font-size:14.5px;font-weight:800;color:var(--ink);line-height:1.35}
+.param .pw{font-size:11.5px;color:var(--soft);margin-top:5px;line-height:1.55}
+.param .pact{margin-left:auto;display:flex;gap:6px}
+.chgbtn{border:1px solid var(--hair-2);background:#fff;border-radius:7px;padding:3px 9px;font-size:11px;font-weight:700;color:var(--soft);cursor:pointer;transition:.14s}
+.chgbtn:hover{border-color:var(--teal);color:var(--teal-d)}
+.opts{display:none;margin-top:11px;padding-top:11px;border-top:1px dashed var(--hair);gap:7px;flex-wrap:wrap}
+.param.open .opts{display:flex}
+.opt{border:1px solid var(--hair-2);background:var(--card-2);border-radius:8px;padding:6px 10px;font-size:12px;font-weight:700;color:var(--body);cursor:pointer;transition:.14s}
+.opt:hover{border-color:var(--teal);background:var(--teal-wash);color:var(--teal-d)}
+.opt.on{border-color:var(--teal);background:var(--teal);color:#fff}
+
+.pillars{margin-top:11px;padding-top:11px;border-top:1px dashed var(--hair);display:flex;flex-direction:column;gap:9px}
+.pillar{display:grid;grid-template-columns:16px 1fr 62px 74px;gap:10px;align-items:center}
+.pillar .cb{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--hair-2);cursor:pointer;display:grid;place-items:center;font-size:10px;color:#fff;transition:.14s}
+.pillar .cb.on{background:var(--teal);border-color:var(--teal)}
+.pillar .pnm{font-size:12.5px;font-weight:700;color:var(--ink);line-height:1.3}
+.pillar .pnm small{display:block;font-weight:600;color:var(--faint);font-size:11px;margin-top:1px}
+.pillar .shr{height:6px;border-radius:4px;background:var(--hair);overflow:hidden}
+.pillar .shr i{display:block;height:100%;border-radius:4px;background:var(--teal)}
+.pillar .num{font-size:11.5px;font-weight:800;color:var(--soft);text-align:right}
+.pillar.off{opacity:.42}
+
+.previewcard{position:sticky;top:0}
+.outline{list-style:none;margin:0;padding:0;font-size:12px}
+.outline li{padding:6px 0 6px 20px;position:relative;color:var(--body);border-bottom:1px solid var(--hair);line-height:1.4}
+.outline li:last-child{border:none}
+.outline li::before{content:&quot;▸&quot;;position:absolute;left:3px;color:var(--teal);font-size:10px;top:7px}
+.outline li b{color:var(--ink)}
+
+/* ============================================================= RUN screen */
+.runwrap{display:grid;grid-template-columns:300px 1fr;gap:18px;align-items:start}
+.layers{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:14px;position:sticky;top:0}
+.layer{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:8px 0;cursor:pointer;border-radius:8px;transition:.14s}
+.layer:hover .lname{color:var(--teal-d)}
+.layer .dot{width:22px;height:22px;border-radius:50%;border:2px solid var(--hair-2);display:grid;place-items:center;font-size:11px;color:var(--faint);background:#fff;transition:.2s}
+.layer.done .dot{border-color:var(--teal);background:var(--teal);color:#fff}
+.layer.run .dot{border-color:var(--teal);color:var(--teal-d);animation:pulse 1.1s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(45,191,156,.45)}50%{box-shadow:0 0 0 6px rgba(45,191,156,0)}}
+.layer .lname{font-size:12.5px;font-weight:800;color:var(--ink);line-height:1.3}
+.layer.pend .lname{color:var(--faint)}
+.layer .lsub{font-size:11px;color:var(--faint);margin-top:1px;line-height:1.4}
+.layer.on{background:var(--teal-wash);margin:0 -8px;padding:8px}
+
+.canvas{display:flex;flex-direction:column;gap:16px;min-height:400px}
+.result{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);overflow:hidden;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.result .rh{padding:13px 16px;border-bottom:1px solid var(--hair);display:flex;align-items:center;gap:10px;background:var(--card-2)}
+.result .rh b{font-size:13.5px;color:var(--ink);font-weight:900}
+.result .rb{padding:16px}
+
+/* insight card — the core object */
+.icard{border:1px solid var(--hair);border-radius:12px;padding:14px;margin-bottom:12px;background:#fff;transition:.16s}
+.icard:last-child{margin-bottom:0}
+.icard.sel{border-color:var(--teal);box-shadow:0 0 0 3px var(--teal-wash)}
+.icard .ist{font-size:16px;font-weight:900;color:var(--ink);line-height:1.3;margin-bottom:6px;letter-spacing:-.2px}
+.icard .isum{font-size:12.5px;color:var(--soft);line-height:1.55;margin-bottom:11px}
+.chain{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.cchip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--hair-2);border-radius:8px;padding:4px 9px;font-size:11.5px;background:var(--card-2);cursor:pointer;transition:.14s;max-width:100%}
+.cchip:hover{border-color:var(--teal)}
+.cchip .k{font-size:9.5px;font-weight:900;letter-spacing:.7px;text-transform:uppercase;color:var(--faint)}
+.cchip .v{font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:190px}
+.cchip .sw{color:var(--faint);font-size:10px}
+.cchip.per{background:var(--teal-wash)} .cchip.per .k{color:var(--teal-d)}
+.cchip.ten{background:var(--plum-wash)} .cchip.ten .k{color:var(--plum)}
+.cchip.ang{background:var(--blue-wash)} .cchip.ang .k{color:var(--blue)}
+.cchip.chg{border-color:var(--amber);background:var(--amber-wash)}
+.why{margin-left:auto;border:1px solid var(--hair-2);background:#fff;border-radius:20px;padding:4px 11px;font-size:11px;font-weight:800;color:var(--soft);cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:.14s;white-space:nowrap}
+.why:hover{border-color:var(--teal);color:var(--teal-d);background:var(--teal-wash)}
+.why .d{width:5px;height:5px;border-radius:50%;background:var(--teal)}
+.swappane{display:none;margin-top:11px;padding-top:11px;border-top:1px dashed var(--hair)}
+.icard.swapping .swappane{display:block}
+.swaprow{display:flex;align-items:center;gap:10px;padding:8px;border-radius:9px;cursor:pointer;transition:.14s;border:1px solid transparent}
+.swaprow:hover{background:var(--card-2);border-color:var(--hair)}
+.swaprow.on{background:var(--teal-wash);border-color:var(--teal)}
+.swaprow .sn{font-size:12.5px;font-weight:700;color:var(--ink);flex:1;line-height:1.3}
+.swaprow .sm{font-size:11px;color:var(--faint);white-space:nowrap}
+.regen{font-size:11.5px;color:var(--amber);font-weight:800;display:flex;align-items:center;gap:6px;margin-top:9px}
+
+/* deck preview */
+.slides{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:10px}
+.slide{border:1px solid var(--hair);border-radius:8px;background:#fff;aspect-ratio:16/9;padding:9px;font-size:9px;position:relative;overflow:hidden;cursor:pointer;transition:.14s;display:flex;flex-direction:column}
+.slide:hover{border-color:var(--teal);transform:translateY(-2px);box-shadow:var(--shadow)}
+.slide .sl-n{position:absolute;bottom:5px;right:6px;font-size:8px;color:var(--faint);font-weight:700}
+.slide .sl-t{font-weight:900;color:var(--ink);font-size:9.5px;line-height:1.25;margin-bottom:4px}
+.slide .sl-l{height:3px;background:var(--hair);border-radius:2px;margin-bottom:3px}
+.slide .sl-l.a{width:80%} .slide .sl-l.b{width:60%} .slide .sl-l.c{width:70%}
+.slide .sl-acc{height:3px;width:26px;background:var(--teal);border-radius:2px;margin-bottom:6px}
+.slide.hasev::after{content:&quot;◔&quot;;position:absolute;top:5px;right:6px;font-size:9px;color:var(--teal)}
+
+/* ============================================================= evidence drawer */
+.evscrim{position:fixed;inset:0;background:rgba(16,32,31,.34);opacity:0;pointer-events:none;transition:.24s;z-index:60}
+.evscrim.on{opacity:1;pointer-events:auto}
+.ev{position:fixed;top:0;right:0;bottom:0;width:min(520px,92vw);background:#fff;box-shadow:var(--shadow-lg);transform:translateX(100%);transition:.28s cubic-bezier(.4,0,.2,1);z-index:61;display:flex;flex-direction:column}
+.ev.on{transform:none}
+.ev-h{padding:16px 18px;border-bottom:1px solid var(--hair);display:flex;align-items:flex-start;gap:12px}
+.ev-h .t{font-size:15px;font-weight:900;color:var(--ink);line-height:1.3}
+.ev-h .s{font-size:11.5px;color:var(--faint);margin-top:3px}
+.ev-x{margin-left:auto;border:none;background:var(--card-2);width:28px;height:28px;border-radius:8px;cursor:pointer;color:var(--soft);font-size:15px;flex:0 0 auto}
+.ev-x:hover{background:var(--hair);color:var(--ink)}
+.ev-b{flex:1;overflow-y:auto;padding:18px}
+.evsec{margin-bottom:20px}
+.evsec>.eyebrow{margin-bottom:9px;display:block}
+.refbox{border:1px solid var(--hair);background:var(--card-2);border-radius:10px;padding:12px 14px;font-size:11.5px;line-height:2;color:var(--soft)}
+.refbox b{color:var(--ink);font-weight:800}
+.refbox .rr{display:flex;gap:10px}
+.refbox .rr span:first-child{min-width:150px;text-transform:uppercase;letter-spacing:.5px;font-size:10px;font-weight:800;color:var(--faint);padding-top:4px}
+.posts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.post{border:1px solid var(--hair);border-radius:10px;overflow:hidden;background:#fff}
+.post .pimg{height:74px;display:grid;place-items:center;color:#fff;font-size:10px;font-weight:800;letter-spacing:.5px}
+.post .pb{padding:8px 10px}
+.post .pt{font-size:11px;color:var(--ink);font-weight:700;line-height:1.35;margin-bottom:4px}
+.post .pm{font-size:10px;color:var(--faint);display:flex;gap:8px}
+.chainviz{display:flex;flex-direction:column;gap:0}
+.cv-row{display:grid;grid-template-columns:80px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--hair)}
+.cv-row:last-child{border:none}
+.cv-k{font-size:10px;text-transform:uppercase;letter-spacing:.8px;font-weight:800;color:var(--faint);padding-top:2px}
+.cv-v{font-size:12.5px;color:var(--ink);font-weight:700;line-height:1.4}
+.cv-v p{margin:3px 0 0;font-weight:400;color:var(--soft);font-size:11.5px;line-height:1.55}
+.evfoot{padding:13px 18px;border-top:1px solid var(--hair);display:flex;gap:9px;background:var(--card-2)}
+
+/* ============================================================= explore screens */
+.split{display:grid;grid-template-columns:262px 1fr;gap:16px;align-items:start}
+.rail{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);overflow:hidden;max-height:70vh;display:flex;flex-direction:column}
+.rail .rs{padding:11px 13px;border-bottom:1px solid var(--hair);display:flex;align-items:center;justify-content:space-between}
+.rail .rs b{font-size:12.5px;color:var(--ink)}
+.rail .items{overflow-y:auto;flex:1}
+.li{padding:10px 13px;border-bottom:1px solid var(--hair);cursor:pointer;transition:.12s}
+.li:hover{background:var(--card-2)}
+.li.on{background:var(--teal-wash);box-shadow:inset 3px 0 0 var(--teal)}
+.li .t{font-size:12.5px;font-weight:700;color:var(--ink);line-height:1.35}
+.li .m{font-size:11px;color:var(--faint);margin-top:2px}
+.evnote{background:var(--amber-wash);border:1px solid #F0DCB4;border-radius:11px;padding:11px 14px;font-size:12px;color:#7A5B12;line-height:1.55;margin-bottom:16px;display:flex;gap:10px;align-items:flex-start}
+.evnote b{color:#5E460D}
+
+.statgrid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--hair)}
+.statgrid>div{padding:14px 16px;border-right:1px solid var(--hair)}
+.statgrid>div:last-child{border-right:none}
+.statgrid .k{font-size:10px;text-transform:uppercase;letter-spacing:.7px;font-weight:800;color:var(--faint)}
+.statgrid .v{font-size:23px;font-weight:900;color:var(--ink);margin-top:4px}
+
+/* ============================================================= copilot */
+.dock{position:fixed;right:18px;bottom:18px;width:352px;background:#fff;border:1px solid var(--hair);border-radius:16px;box-shadow:var(--shadow-lg);z-index:50;display:flex;flex-direction:column;overflow:hidden;max-height:70vh;transition:.24s}
+.dock.min{height:46px;width:212px}
+.dock-h{padding:11px 13px;display:flex;align-items:center;gap:9px;cursor:pointer;border-bottom:1px solid var(--hair);flex:0 0 auto}
+.dock-h .lg{width:24px;height:24px;border-radius:7px;background:var(--teal);color:#fff;display:grid;place-items:center;font-size:12px}
+.dock-h .ti{font-size:12.5px;font-weight:900;color:var(--ink);line-height:1.2}
+.dock-h .ti small{display:block;font-size:10px;color:var(--faint);font-weight:600}
+.dock.min .dock-h{border:none}
+.dock-b{flex:1;overflow-y:auto;padding:13px;display:flex;flex-direction:column;gap:10px;font-size:12.5px}
+.dock.min .dock-b,.dock.min .dock-f{display:none}
+.msg{padding:9px 11px;border-radius:11px;line-height:1.5}
+.msg.ai{background:var(--card-2);border:1px solid var(--hair);color:var(--body)}
+.msg.me{background:var(--teal-wash);border:1px solid var(--teal-l);color:var(--ink);align-self:flex-end;max-width:85%}
+.msg b{color:var(--ink)}
+.dock-f{padding:11px 13px;border-top:1px solid var(--hair);flex:0 0 auto}
+.dock-f .inp{display:flex;gap:7px;border:1px solid var(--hair-2);border-radius:10px;padding:5px 5px 5px 11px}
+.dock-f input{border:none;outline:none;flex:1;font-size:12.5px;background:none}
+.dock-f .snd{border:none;background:var(--teal);color:#fff;width:28px;height:28px;border-radius:8px;cursor:pointer}
+.dchips{display:flex;flex-wrap:wrap;gap:6px}
+.dchip{border:1px solid var(--hair-2);background:#fff;border-radius:18px;padding:5px 10px;font-size:11.5px;font-weight:700;color:var(--body);cursor:pointer;transition:.14s}
+.dchip:hover{border-color:var(--teal);color:var(--teal-d);background:var(--teal-wash)}
+
+.toasts{position:fixed;left:50%;transform:translateX(-50%);bottom:22px;z-index:99;display:flex;flex-direction:column;gap:8px;align-items:center}
+.toast{background:var(--ink);color:#fff;padding:9px 15px;border-radius:10px;font-size:12.5px;font-weight:600;box-shadow:var(--shadow-lg);display:flex;gap:8px;align-items:center}
+.toast .ic{color:var(--teal-l)}
+
+@media(max-width:1100px){
+  .briefwrap,.runwrap,.split{grid-template-columns:1fr}
+  .previewcard,.layers{position:static}
+  .jobs{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  .side{position:fixed;left:0;top:0;bottom:0;z-index:70;transform:translateX(-100%);transition:.22s}
+  .side.open{transform:none}
+  .mobburger{display:grid;place-items:center;width:32px;height:32px;border:1px solid var(--hair);border-radius:8px;background:#fff;cursor:pointer}
+  .dock{right:10px;left:10px;width:auto}
+  .dock.min{width:186px;left:auto}
+}
+</style>
+</head>
+<body>
+<div class=&quot;app&quot;>
+<!-- ============================ SIDEBAR ============================ -->
+<aside class=&quot;side&quot; id=&quot;side&quot;>
+  <div class=&quot;brand&quot;><span class=&quot;wmk&quot;><span class=&quot;wm-so&quot;>SO</span><span class=&quot;wm-min&quot;>MIN</span></span><span class=&quot;ring&quot;></span></div>
+  <nav class=&quot;nav&quot;>
+    <button class=&quot;primary on&quot; data-s=&quot;start&quot; onclick=&quot;go('start')&quot;><span class=&quot;ic&quot;>◆</span>Start<span class=&quot;cnt&quot;>3 jobs</span></button>
+    <button class=&quot;primary&quot; data-s=&quot;runs&quot; onclick=&quot;go('runs')&quot;><span class=&quot;ic&quot;>▤</span>Your work<span class=&quot;cnt&quot; id=&quot;runCount&quot;>2</span></button>
+    <div class=&quot;navsep&quot;></div>
+    <div class=&quot;navlabel&quot;>Evidence &amp;amp; library</div>
+    <div class=&quot;exp-group&quot; id=&quot;expGroup&quot;>
+      <div class=&quot;exp-head&quot; onclick=&quot;document.getElementById('expGroup').classList.toggle('open')&quot;><span class=&quot;ic&quot; style=&quot;color:var(--teal)&quot;>◔</span>Explore the data<span class=&quot;chev&quot;>›</span></div>
+      <div class=&quot;exp-sub&quot;>
+        <a data-s=&quot;ex-personas&quot; onclick=&quot;go('ex-personas')&quot;>Personas</a>
+        <a data-s=&quot;ex-insights&quot; onclick=&quot;go('ex-insights')&quot;>Insights</a>
+        <a data-s=&quot;ex-library&quot; onclick=&quot;go('ex-library')&quot;>Content Library</a>
+        <a data-s=&quot;ex-studies&quot; onclick=&quot;go('ex-studies')&quot;>Perspective Studies</a>
+        <a onclick=&quot;toast('Brand Tracker — unchanged from v11')&quot;>Brand Tracker</a>
+        <a onclick=&quot;toast('SODA — unchanged from v11')&quot;>SODA</a>
+        <a onclick=&quot;toast('Moments live inside a run now — open any run to see them')&quot;>Moments</a>
+        <a onclick=&quot;toast('Propositions live inside a run now — open any run to see them')&quot;>Propositions</a>
+        <a onclick=&quot;toast('Expressions live inside a run now — open any run to see them')&quot;>Expressions</a>
+      </div>
+    </div>
+    <div class=&quot;navsep&quot;></div>
+    <button class=&quot;primary&quot; onclick=&quot;toast('Plan &amp;amp; Billing — unchanged from v11')&quot;><span class=&quot;ic&quot;>◑</span>Plan &amp;amp; Billing</button>
+    <button class=&quot;primary&quot; onclick=&quot;toast('Settings is outside this prototype')&quot;><span class=&quot;ic&quot;>⚙</span>Settings</button>
+  </nav>
+  <div class=&quot;sfoot&quot;>
+    <div class=&quot;lo&quot;>LOGOUT</div>
+    © 2026 SoMin · v13 redesign prototype
+  </div>
+</aside>
+
+<!-- ============================ MAIN ============================ -->
+<div class=&quot;main&quot;>
+  <div class=&quot;topbar&quot;>
+    <button class=&quot;mobburger&quot; onclick=&quot;document.getElementById('side').classList.toggle('open')&quot;>☰</button>
+    <div>
+      <div class=&quot;ptitle&quot; id=&quot;ptitle&quot;>Start</div>
+      <div class=&quot;crumb&quot; id=&quot;crumb&quot;></div>
+    </div>
+    <div class=&quot;spacer&quot;></div>
+    <div class=&quot;ws&quot;><span class=&quot;s&quot;>P</span><div><span class=&quot;lab&quot;>Workspace</span><b id=&quot;wsName&quot;>Pepsi India · cola cohort</b></div><span class=&quot;faint&quot;>▾</span></div>
+  </div>
+
+  <main class=&quot;screens&quot; id=&quot;screens&quot;>
+    <section class=&quot;screen active&quot; id=&quot;scr-start&quot;></section>
+    <section class=&quot;screen&quot; id=&quot;scr-runs&quot;></section>
+    <section class=&quot;screen&quot; id=&quot;scr-brief&quot;></section>
+    <section class=&quot;screen&quot; id=&quot;scr-run&quot;></section>
+    <section class=&quot;screen&quot; id=&quot;scr-ex-personas&quot;></section>
+    <section class=&quot;screen&quot; id=&quot;scr-ex-insights&quot;></section>
+    <section class=&quot;screen&quot; id=&quot;scr-ex-library&quot;></section>
+    <section class=&quot;screen&quot; id=&quot;scr-ex-studies&quot;></section>
+  </main>
+</div>
+</div>
+
+<!-- ============================ EVIDENCE DRAWER ============================ -->
+<div class=&quot;evscrim&quot; id=&quot;evScrim&quot; onclick=&quot;closeEv()&quot;></div>
+<aside class=&quot;ev&quot; id=&quot;ev&quot;>
+  <div class=&quot;ev-h&quot;>
+    <div><div class=&quot;t&quot; id=&quot;evTitle&quot;>Evidence</div><div class=&quot;s&quot; id=&quot;evSub&quot;></div></div>
+    <button class=&quot;ev-x&quot; onclick=&quot;closeEv()&quot;>✕</button>
+  </div>
+  <div class=&quot;ev-b&quot; id=&quot;evBody&quot;></div>
+  <div class=&quot;evfoot&quot; id=&quot;evFoot&quot;></div>
+</aside>
+
+<!-- ============================ COPILOT ============================ -->
+<div class=&quot;dock min&quot; id=&quot;dock&quot;>
+  <div class=&quot;dock-h&quot; onclick=&quot;toggleDock()&quot;>
+    <div class=&quot;lg&quot;>◈</div>
+    <div class=&quot;ti&quot;>SOWISE Copilot<small id=&quot;dockCtx&quot;>Ready</small></div>
+  </div>
+  <div class=&quot;dock-b&quot; id=&quot;dockBody&quot;></div>
+  <div class=&quot;dock-f&quot;>
+    <div class=&quot;inp&quot;><input id=&quot;dockInput&quot; placeholder=&quot;Ask about anything on screen…&quot; onkeydown=&quot;if(event.key==='Enter')dockSend()&quot;><button class=&quot;snd&quot; onclick=&quot;dockSend()&quot;>➤</button></div>
+  </div>
+</div>
+
+<div class=&quot;toasts&quot; id=&quot;toasts&quot;></div>
+<script>
+/* ============================================================= helpers */
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const esc=s=>String(s).replace(/&amp;/g,'&amp;amp;').replace(/</g,'&amp;lt;').replace(/>/g,'&amp;gt;');
+function toast(m){const t=document.createElement('div');t.className='toast';t.innerHTML='<span class=&quot;ic&quot;>✓</span>'+m;
+  $('#toasts').appendChild(t);setTimeout(()=>{t.style.opacity=0;t.style.transition='.4s';setTimeout(()=>t.remove(),400)},2400);}
+const nf=n=>n.toLocaleString('en-US');
+
+/* =============================================================================
+   DATA — the SOMIN objects. Nothing here is removed relative to v11; what
+   changes is WHEN the user is asked to touch it.
+   ============================================================================= */
+
+const PERSONAS=[
+ {n:'The Everyday Feast-Maker',d:'Builds the shared table. Publishes and engages around family meals, festival spreads and the food that gets photographed before it gets eaten.',media:214,eg:48930},
+ {n:'The Late-Night Snack Ritualist',d:'Solo, screen-lit, unhurried. The 11pm order, the fridge raid, the second-screen snack — a ritual with its own codes and its own permission structure.',media:167,eg:31204},
+ {n:'The Value-Conscious Family Buyer',d:'Runs the household budget without treating it as a sacrifice. Reads the shelf carefully, and rewards brands that make thrift feel like competence.',media:143,eg:22880},
+ {n:'The Street-Food Explorer',d:'Chases the stall, the regional speciality, the thing that does not travel. Treats local food knowledge as identity and as social currency.',media:129,eg:41552},
+ {n:'The Fitness-Curious Refresher',d:'Not an athlete, not indifferent. Reads labels intermittently, negotiates with themselves, and wants a version of the category that survives the negotiation.',media:88,eg:12740}
+];
+
+const TENSIONS=[
+ {n:'Sharing rituals shrink as households eat apart',
+  d:'Content that celebrates the shared table keeps growing, while the eating occasions it depicts are fragmenting into individual, staggered, screen-side meals. The category still sells the table; creators increasingly publish the table as nostalgia.',
+  line:'The table is the category’s real battleground, and nobody has claimed it.',media:244,eg:52180,sov:4.1},
+ {n:'Price sensitivity meets brand loyalty at the shelf',
+  d:'Value-framed content performs, but discount-framed content trains the shopper to wait. Brands publish price and hope it reads as value; the two are not the same message.',
+  line:'Value earns loyalty when it is framed as ritual, not as a discount.',media:188,eg:29640,sov:3.2},
+ {n:'Regional food pride vs. global brand codes',
+  d:'Regionally specific food content substantially outpublishes national-brand content in the same windows. The competitive set the category benchmarks against is not the set the content competes with.',
+  line:'Regional food pride is a bigger competitor than the other cola.',media:176,eg:44310,sov:3.0},
+ {n:'Sugar scrutiny outpaces the category’s answer',
+  d:'Scrutiny content is published overwhelmingly by third parties — creators, health accounts, press. The category is a subject of this conversation rather than a participant in it.',
+  line:'Sugar scrutiny is a conversation the category keeps letting others host.',media:121,eg:18470,sov:2.1},
+ {n:'Indulgence and the guilt that follows it',
+  d:'Permission-to-indulge content and correction content are published by the same creators within days of each other — a supply pattern that leaves no stable position for a brand to occupy.',
+  line:'Permission, not indulgence, is the thing the category is short of.',media:299,eg:61220,sov:5.0}
+];
+
+const ANGLES=[
+ {n:'Opportunity cost',d:'The economic cost of the campaign not run — the better-targeted alternative forgone every time a brief is written from assumption.',
+  sowhat:'Framed as opportunity cost: every window the brand publishes against a saturated theme is a window it does not spend on the one nobody owns.'},
+ {n:'Price elasticity of demand',d:'How demand responds to price change, and why value communication moves the curve where discounting only moves the date of purchase.',
+  sowhat:'Framed through price elasticity: communicating value shifts willingness to pay, whereas discounting only shifts when the purchase happens.'},
+ {n:'Substitution risk',d:'The real competitive set is whatever the buyer swaps to, which is frequently outside the category the brand benchmarks against.',
+  sowhat:'Framed as substitution risk: the swap being made is out of the category entirely, so category-relative share reads as health while the base erodes.'},
+ {n:'Network effects',d:'Value that increases with participation — where the sharing behaviour itself is the distribution mechanism rather than a soft brand benefit.',
+  sowhat:'Framed through network effects: the sharing behaviour is the distribution, so occasions that add participants compound rather than add linearly.'}
+];
+
+/* Content pillars — the thing users could never define from a blank filter panel.
+   SOWISE derives them from the workspace and proposes them with their evidence. */
+const PILLARS=[
+ {n:'Shared meal occasions',w:'family meals, festival spreads, the photographed table',pc:34,posts:318,on:true,
+  note:'Largest content mass in the workspace and the lowest brand coverage — 4.1% share of voice against 34% of published content.'},
+ {n:'Value &amp;amp; everyday affordability',w:'pack size, price framing, household budgeting',pc:22,posts:206,on:true,
+  note:'Consistently published across all four competitors, so the pillar is contested rather than open. Kept in because the brand has permission here.'},
+ {n:'Regional food culture',w:'street food, regional specialities, local pride',pc:19,posts:178,on:true,
+  note:'Fastest-growing pillar over the 12 windows (+31% share). Almost entirely creator-published; national brands are near-absent.'},
+ {n:'Health &amp;amp; sugar',w:'label reading, reformulation, moderation',pc:13,posts:122,on:false,
+  note:'Proposed OFF — the brand has thin permission here and the third-party publishing dominance means entering costs more than it returns this cycle. Turn on if the brief requires it.'},
+ {n:'Sport &amp;amp; music sponsorship',w:'properties, talent, event activation',pc:12,posts:113,on:false,
+  note:'Proposed OFF — brand already saturates this pillar (28% share of voice). Whitespace is negligible; spend here defends rather than opens.'}
+];
+
+const POSTS=[
+ {t:'Sunday spread, all six of us for once',h:'@homecook.delhi',eng:'12.4k',c:'#E15568'},
+ {t:'Nobody eats together anymore and I said what I said',h:'@thefoodrant',eng:'8.9k',c:'#3B82F6'},
+ {t:'Festival table setup, part 3',h:'@rasoi.diaries',eng:'21.1k',c:'#EFA43C'},
+ {t:'The 11pm plate is its own meal, respectfully',h:'@latenightlassi',eng:'6.2k',c:'#A94392'}
+];
+
+const STUDY={ref:'PI_COLA_ALLTYPES_12M_2026',ws:'Pepsi India · cola cohort',media:937,
+  range:'01 Aug 2025 → 31 Jul 2026',src:'Organic + Paid · Instagram, YouTube, Facebook, X, Threads',
+  brands:'Pepsi · Coca-Cola · Campa · Limca · Mirinda'};
+
+/* ---------------- job definitions ---------------- */
+const JOBS={
+ brand:{
+  key:'brand',icon:'◆',name:'Brand briefing',cmd:'/somin-brand-deck',
+  q:'Where should we play across markets?',
+  meta:'~32 slides · rigour-led · audit trail kept · 20–60 min',
+  slides:32,client:'Pepsi India',
+  params:[
+   {k:'Brand &amp;amp; identity',v:'Pepsi India — tracked brand kit',w:'Palette, wordmark and claims locked to the kit already in this workspace. No upload needed.',
+    opts:['Pepsi India — tracked brand kit','Run brand-extraction on pepsi.com','Upload a brand guideline…']},
+   {k:'Content proxy',v:'Foodies · n=691 creators',w:'The panel of creators whose content is read as the proxy. This is content made <i>for</i> this audience — not the audience itself.',
+    opts:['Foodies · n=691 creators','General cola drinkers · n=1,204','Gen-Z snackers · n=430','Custom panel…']},
+   {k:'Competitor set',v:'Coca-Cola · Campa · Limca · Mirinda',w:'All four are already tracked in this workspace with 12 months of history, so no backfill wait.',
+    opts:['Coca-Cola · Campa · Limca · Mirinda','Add Thums Up + Sprite','Cola only (Coca-Cola, Campa)','Edit the set…']},
+   {k:'Window &amp;amp; verification',v:'12 monthly windows · prior-year verified',w:'Every directional claim is re-run against the same window last year before it is allowed onto a slide.',
+    opts:['12 monthly windows · prior-year verified','6 monthly windows · prior-year verified','Last 90 days · snapshot (no verification)']}
+  ]},
+ agency:{
+  key:'agency',icon:'◇',name:'Agency pitch',cmd:'/somin-agency-deck',
+  q:'How do we sell one big idea?',
+  meta:'16–20 slides · idea-led · IDs suppressed · 20–60 min',
+  slides:18,client:'Senoko Energy',
+  params:[
+   {k:'Client &amp;amp; identity',v:'Senoko Energy — tracked kit',w:'Pitch is styled to the client, not the agency. Palette locked to the tracked kit.',
+    opts:['Senoko Energy — tracked kit','Run brand-extraction on senokoenergy.com','Upload the client brief…']},
+   {k:'Content proxy',v:'Home owners &amp;amp; families',w:'Content published toward householders making a switching decision.',
+    opts:['Home owners &amp;amp; families','New movers','Eco-first households','Custom panel…']},
+   {k:'Competitor set',v:'Geneco · Tuas · SP · Flo + 4-creator panel',w:'Retailer set plus a home/eco creator panel for topicality signal.',
+    opts:['Geneco · Tuas · SP · Flo + 4-creator panel','Retailers only','Weight the creator panel higher','Edit the set…']},
+   {k:'Window &amp;amp; throughline',v:'6 monthly windows · lead with whitespace',w:'A pitch carries one challenger throughline. The lead choice decides which.',
+    opts:['6 monthly windows · lead with whitespace','6 monthly windows · lead with the trend','Last 90 days · snapshot']}
+  ]},
+ influencer:{
+  key:'influencer',icon:'◐',name:'Creator portfolio',cmd:'/somin-influencer-deck',
+  q:'Who owns which territory?',
+  meta:'1 portfolio + 1 deck per creator · 20–60 min',
+  slides:24,client:'Caltex Malaysia',
+  params:[
+   {k:'Creator roster',v:'Ayden · Joe · SonaOne · Matthaios',w:'Four tracked creators. Each gets a distinct territory and its own deck.',
+    opts:['Ayden · Joe · SonaOne · Matthaios','Add creators…','Top 8 by engagement','Edit the roster…']},
+   {k:'Styling',v:'caltex-brand-guideline',w:'All colour, type and lockup comes from the guideline skill — nothing hardcoded into the deck.',
+    opts:['caltex-brand-guideline','Upload a brand guideline…','Neutral professional defaults']},
+   {k:'Commercial data',v:'Engagement-only · no GMV export',w:'SOMIN measures content and engagement, not sales. Without an export, every commercial surface says so explicitly.',
+    opts:['Engagement-only · no GMV export','Attach GMV / affiliate export…']},
+   {k:'Territory rule',v:'One distinct territory per creator',w:'No two creators may be assigned the same territory — the portfolio fails QA if they are.',
+    opts:['One distinct territory per creator','Allow shared territories']}
+  ]}
+};
+
+/* ---------------- run layers ---------------- */
+const LAYERS=[
+ {n:'Brand identity',s:'palette, tone, claims'},
+ {n:'Content pillars',s:'resolved from the workspace'},
+ {n:'Trend',s:'12 windows · prior-year verified'},
+ {n:'Whitespace',s:'supply gap per pillar'},
+ {n:'Insight chain',s:'persona × tension × angle'},
+ {n:'Propositions',s:'one per insight'},
+ {n:'Moments &amp;amp; calendar',s:'dated publishing plan'},
+ {n:'Creative &amp;amp; scoring',s:'renders + clickability'},
+ {n:'Deck render &amp;amp; QA',s:'PPTX + PDF, QA gate'}
+];
+
+/* ---------------- generated insights (state) ---------------- */
+let INSIGHTS=[];
+function seedInsights(){INSIGHTS=[
+ {id:'I1',pi:0,ti:0,ai:0,clk:'High',edited:false,orig:{pi:0,ti:0,ai:0}},
+ {id:'I2',pi:2,ti:1,ai:1,clk:'Average',edited:false,orig:{pi:2,ti:1,ai:1}},
+ {id:'I3',pi:3,ti:2,ai:2,clk:'High',edited:false,orig:{pi:3,ti:2,ai:2}},
+ {id:'I4',pi:4,ti:3,ai:0,clk:'Low',edited:false,orig:{pi:4,ti:3,ai:0}}
+];}
+seedInsights();
+function insMedia(o){return Math.round(Math.min(PERSONAS[o.pi].media,TENSIONS[o.ti].media)*0.62);}
+function insEng(o){return Math.round((PERSONAS[o.pi].eg+TENSIONS[o.ti].eg)/2);}
+function insStatement(o){return TENSIONS[o.ti].line;}
+function insSummary(o){return PERSONAS[o.pi].n+' content carries this tension across '+insMedia(o)+' of the '+STUDY.media+' posts read. '+ANGLES[o.ai].sowhat;}
+
+/* =============================================================================
+   ROUTER
+   ============================================================================= */
+let CUR='start', CURJOB='brand';
+const TITLES={start:'Start',runs:'Your work',brief:'Scope the run',run:'Run',
+ 'ex-personas':'Personas','ex-insights':'Insights','ex-library':'Content Library','ex-studies':'Perspective Studies'};
+function go(s){
+  CUR=s;
+  $$('.screen').forEach(x=>x.classList.remove('active'));
+  const el=$('#scr-'+s); if(el)el.classList.add('active');
+  $$('.nav .primary').forEach(b=>b.classList.toggle('on',b.dataset.s===s));
+  $$('.exp-sub a').forEach(a=>a.classList.toggle('on',a.dataset.s===s));
+  if(s.startsWith('ex-'))$('#expGroup').classList.add('open');
+  $('#ptitle').textContent=TITLES[s]||'SOMIN';
+  $('#screens').scrollTop=0;
+  $('#side').classList.remove('open');
+  renderCrumb(s);
+  if(s==='start')renderStart();
+  if(s==='runs')renderRuns();
+  if(s==='brief')renderBrief();
+  if(s==='ex-personas')renderExPersonas();
+  if(s==='ex-insights')renderExInsights();
+  if(s==='ex-library')renderExLibrary();
+  if(s==='ex-studies')renderExStudies();
+  setDockCtx();
+}
+function renderCrumb(s){
+  const c=$('#crumb');
+  if(s==='brief')c.innerHTML='<b onclick=&quot;go(\'start\')&quot;>Start</b> › '+JOBS[CURJOB].name+' <span class=&quot;tag grey&quot; style=&quot;margin-left:4px&quot;>'+JOBS[CURJOB].cmd+'</span>';
+  else if(s==='run')c.innerHTML='<b onclick=&quot;go(\'start\')&quot;>Start</b> › <b onclick=&quot;go(\'brief\')&quot;>'+JOBS[CURJOB].name+'</b> › Running';
+  else if(s.startsWith('ex-'))c.innerHTML='Evidence view · read-only library';
+  else c.innerHTML='';
+}
+
+/* =============================================================================
+   START — jobs, not modules
+   ============================================================================= */
+const RUNS=[
+ {t:'Pepsi India · brand briefing',m:'Completed 2 days ago · 32 slides · QA passed',p:100},
+ {t:'Senoko Energy · agency pitch',m:'Paused at Propositions · 11 of 18 slides',p:61}
+];
+function renderStart(){
+  $('#scr-start').innerHTML=`
+  <div class=&quot;hero&quot;>
+    <h1>What are you making today?</h1>
+    <p>Pick the deliverable. SOMIN reads your workspace, proposes every parameter — including the content pillars people used to have to invent from a blank filter panel — and you approve or change them on one screen.</p>
+  </div>
+  <div class=&quot;jobs&quot;>
+    ${Object.values(JOBS).map(j=>`
+    <div class=&quot;jobcard ready&quot; onclick=&quot;startJob('${j.key}')&quot;>
+      <div class=&quot;jic&quot;>${j.icon}</div>
+      <h3>${j.name}</h3>
+      <div class=&quot;q&quot;>“${j.q}”</div>
+      <div class=&quot;meta&quot;>${j.meta}<br><span class=&quot;mono faint&quot;>${j.cmd}</span></div>
+      <div class=&quot;go&quot;>Scope it →</div>
+    </div>`).join('')}
+  </div>
+
+  <div class=&quot;steptray&quot;>
+    <div class=&quot;th&quot;><span class=&quot;tag teal&quot;>Single step</span><b>Already know exactly what you need?</b><span class=&quot;muted&quot; style=&quot;font-size:12px&quot;>Run one stage on its own — same evidence, no full build.</span></div>
+    <div class=&quot;stepchips&quot;>
+      ${[['▦','Whitespace analysis','/whitespace-analysis'],['📈','Trend analysis','/trend-analysis'],['▤','Content calendar','/content-calendar-build'],['◎','Creative scoring','/creative-scoring'],['✦','Creative expressions','/creative-expressions'],['ⓕ','Meta creative refresh','/meta-campaign-refresh']]
+      .map(([i,n,c])=>`<div class=&quot;stepchip&quot; onclick=&quot;toast('${n} — single-stage run')&quot;><span>${i}</span>${n}<small>${c}</small></div>`).join('')}
+    </div>
+  </div>
+
+  <div style=&quot;display:flex;align-items:center;gap:10px;margin:0 0 11px&quot;>
+    <b style=&quot;color:var(--ink);font-size:13.5px&quot;>Pick up where you left off</b>
+    <span class=&quot;pill act&quot; onclick=&quot;go('runs')&quot;>See all work →</span>
+  </div>
+  <div class=&quot;runstrip&quot;>
+    ${RUNS.map((r,i)=>`<div class=&quot;runrow&quot; onclick=&quot;openRunCard(${i})&quot;><div class=&quot;rt&quot;>${r.t}</div><div class=&quot;rm&quot;>${r.m}</div><div class=&quot;bar&quot;><i style=&quot;width:${r.p}%&quot;></i></div></div>`).join('')}
+  </div>`;
+}
+function startJob(k){CURJOB=k;resetBrief();go('brief');}
+function openRunCard(i){
+  if(i===1){CURJOB='agency';resetBrief();go('brief');toast('Resumed — parameters restored from the paused run');}
+  else{CURJOB='brand';resetBrief();go('brief');toast('Reopened — parameters restored from the completed run');}
+}
+function renderRuns(){
+  $('#scr-runs').innerHTML=`
+  <div class=&quot;hero&quot;><h1>Your work</h1><p>Every run keeps its parameters, its evidence and its deliverable together. Reopening a run restores the brief exactly as it was — so a rebuild is a change of one parameter, not a re-derivation from scratch.</p></div>
+  <div class=&quot;runstrip&quot; style=&quot;grid-template-columns:1fr&quot;>
+    ${RUNS.map((r,i)=>`<div class=&quot;runrow&quot; onclick=&quot;openRunCard(${i})&quot; style=&quot;display:grid;grid-template-columns:1fr 220px;gap:18px;align-items:center&quot;>
+      <div><div class=&quot;rt&quot;>${r.t}</div><div class=&quot;rm&quot;>${r.m}</div></div>
+      <div><div class=&quot;bar&quot;><i style=&quot;width:${r.p}%&quot;></i></div><div class=&quot;rm&quot; style=&quot;margin-top:5px;text-align:right&quot;>${r.p}%</div></div>
+    </div>`).join('')}
+  </div>`;
+}
+
+/* =============================================================================
+   BRIEF — every parameter on one screen, pre-filled, changeable in place
+   ============================================================================= */
+let BRIEF={sel:[],pillars:[]};
+function resetBrief(){
+  BRIEF.sel=JOBS[CURJOB].params.map(p=>p.v);
+  BRIEF.pillars=PILLARS.map(p=>p.on);
+  seedInsights();
+}
+function renderBrief(){
+  const J=JOBS[CURJOB];
+  $('#scr-brief').innerHTML=`
+  <div class=&quot;hero&quot;>
+    <h1>${J.name} · ${J.client}</h1>
+    <p>Everything below is already filled in from your workspace. Change what is wrong, ignore what is right, then run. Nothing here is a required decision — it is a set of proposals you can overrule.</p>
+  </div>
+  <div class=&quot;briefwrap&quot;>
+    <div class=&quot;paramlist&quot;>
+      ${J.params.map((p,i)=>`
+      <div class=&quot;param&quot; id=&quot;prm${i}&quot;>
+        <div class=&quot;ph&quot;>
+          <div style=&quot;min-width:0&quot;>
+            <div class=&quot;pn&quot;>${p.k}</div>
+            <div class=&quot;pv&quot; id=&quot;pv${i}&quot;>${BRIEF.sel[i]}</div>
+          </div>
+          <div class=&quot;pact&quot;><button class=&quot;chgbtn&quot; onclick=&quot;togglePrm(${i})&quot;>Change</button></div>
+        </div>
+        <div class=&quot;pw&quot;>${p.w}</div>
+        <div class=&quot;opts&quot;>${p.opts.map(o=>`<div class=&quot;opt ${o===BRIEF.sel[i]?'on':''}&quot; onclick=&quot;setPrm(${i},this)&quot;>${o}</div>`).join('')}</div>
+      </div>`).join('')}
+
+      <div class=&quot;param&quot; id=&quot;prmPillars&quot;>
+        <div class=&quot;ph&quot;>
+          <div style=&quot;min-width:0&quot;>
+            <div class=&quot;pn&quot;>Content pillars <span class=&quot;tag amber&quot; style=&quot;margin-left:5px&quot;>was the hard part</span></div>
+            <div class=&quot;pv&quot; id=&quot;pillarSummary&quot;></div>
+          </div>
+          <div class=&quot;pact&quot;><button class=&quot;chgbtn&quot; onclick=&quot;toggleEv('pillars')&quot;>Why these?</button></div>
+        </div>
+        <div class=&quot;pw&quot;>SOWISE clustered the ${STUDY.media} posts in this workspace into pillars and ranked them by open content supply. You are approving a proposal, not defining filters from scratch — but every pillar is yours to switch off, and one is proposed off deliberately.</div>
+        <div class=&quot;pillars&quot; id=&quot;pillarRows&quot;></div>
+      </div>
+    </div>
+
+    <div class=&quot;previewcard&quot;>
+      <div class=&quot;card pad&quot; style=&quot;margin-bottom:12px&quot;>
+        <div class=&quot;eyebrow&quot; style=&quot;margin-bottom:9px&quot;>What this produces</div>
+        <ul class=&quot;outline&quot; id=&quot;outline&quot;></ul>
+      </div>
+      <div class=&quot;card pad&quot; style=&quot;margin-bottom:12px&quot;>
+        <div class=&quot;eyebrow&quot; style=&quot;margin-bottom:8px&quot;>Kept from the long way round</div>
+        <div style=&quot;font-size:12px;color:var(--soft);line-height:1.65&quot;>
+          Every object still carries its <b style=&quot;color:var(--ink)&quot;>study reference, workspace reference, media references and total engagement</b>. You reach them with one click from any card rather than by visiting a screen.
+        </div>
+      </div>
+      <button class=&quot;btn block&quot; onclick=&quot;launchRun()&quot; style=&quot;padding:13px&quot;>Run ${JOBS[CURJOB].cmd} →</button>
+      <div style=&quot;font-size:11px;color:var(--faint);text-align:center;margin-top:8px;line-height:1.5&quot;>Est. 18 credits · you can change any parameter mid-run and rebuild only what depends on it.</div>
+    </div>
+  </div>`;
+  renderPillars();renderOutline();
+}
+function togglePrm(i){$('#prm'+i).classList.toggle('open');}
+function setPrm(i,el){
+  const v=el.textContent;
+  BRIEF.sel[i]=v;
+  $('#pv'+i).innerHTML=v;
+  const p=$('#prm'+i);
+  $$('.opt',p).forEach(o=>o.classList.toggle('on',o===el));
+  p.classList.remove('open');
+  if(v!==JOBS[CURJOB].params[i].v)p.classList.add('edited');else p.classList.remove('edited');
+  renderOutline();
+  toast('Parameter updated — downstream layers will rebuild');
+}
+function renderPillars(){
+  $('#pillarRows').innerHTML=PILLARS.map((p,i)=>`
+   <div class=&quot;pillar ${BRIEF.pillars[i]?'':'off'}&quot; id=&quot;plr${i}&quot;>
+     <div class=&quot;cb ${BRIEF.pillars[i]?'on':''}&quot; onclick=&quot;togglePillar(${i})&quot;>${BRIEF.pillars[i]?'✓':''}</div>
+     <div class=&quot;pnm&quot;>${p.n}<small>${p.w}</small></div>
+     <div class=&quot;shr&quot;><i style=&quot;width:${p.pc*2.6}%&quot;></i></div>
+     <div class=&quot;num&quot;>${p.pc}% · ${p.posts}</div>
+   </div>`).join('');
+  const on=BRIEF.pillars.filter(Boolean).length;
+  const share=PILLARS.reduce((a,p,i)=>a+(BRIEF.pillars[i]?p.pc:0),0);
+  $('#pillarSummary').innerHTML=`${on} of ${PILLARS.length} pillars on · ${share}% of workspace content`;
+}
+function togglePillar(i){
+  BRIEF.pillars[i]=!BRIEF.pillars[i];
+  renderPillars();renderOutline();
+  $('#prmPillars').classList.add('edited');
+  toast(BRIEF.pillars[i]?'Pillar on — '+PILLARS[i].n.replace(/&amp;amp;/g,'&amp;'):'Pillar off — '+PILLARS[i].n.replace(/&amp;amp;/g,'&amp;'));
+}
+function renderOutline(){
+  const on=PILLARS.filter((p,i)=>BRIEF.pillars[i]);
+  const J=JOBS[CURJOB];
+  const rows=CURJOB==='influencer'
+   ? [['Portfolio deck','territory map across 4 creators'],['Individual decks','1 per creator, ~14 slides each'],['Behavioural recommendations','benchmarked against the roster'],['Creative renders','in-style, per creator'],['Audit appendix','every figure sourced']]
+   : [['Landscape &amp;amp; audience','who you are up against, plainly stated'],
+      ['Pillar read','1 section per approved pillar ('+on.length+')'],
+      ['Trend',''+(BRIEF.sel[3]||'').split('·')[0]+'· prior-year verified'],
+      ['Whitespace','ranked by open supply'],
+      ['Insight chain','persona → tension → angle → proposition'],
+      ['Moments &amp;amp; calendar','dated plan with briefs'],
+      ['Creative library','renders + predicted clickability'],
+      [CURJOB==='brand'?'Full audit trail':'Audit appendix',CURJOB==='brand'?'IDs kept on every slide':'IDs suppressed on body slides']];
+  $('#outline').innerHTML=rows.map(([a,b])=>`<li><b>${a}</b><br><span class=&quot;faint&quot; style=&quot;font-size:11.5px&quot;>${b}</span></li>`).join('')
+   +`<li><b>${J.slides} slides</b><br><span class=&quot;faint&quot; style=&quot;font-size:11.5px&quot;>PPTX + PDF, QA gate before delivery</span></li>`;
+}
+
+/* =============================================================================
+   RUN — layers build in front of you; insights are editable in place
+   ============================================================================= */
+let RUNSTATE={i:0,cancelled:false};
+function launchRun(){go('run');renderRunShell();stepRun(0);}
+function renderRunShell(){
+  const J=JOBS[CURJOB];
+  $('#scr-run').innerHTML=`
+  <div class=&quot;hero&quot; style=&quot;margin-bottom:16px&quot;>
+    <h1>${J.name} · ${J.client}</h1>
+    <p>The chain runs once, end to end. Nothing waits on you — but everything is interruptible, and every result carries the evidence that produced it.</p>
+  </div>
+  <div class=&quot;runwrap&quot;>
+    <div class=&quot;layers&quot; id=&quot;layerList&quot;>
+      ${LAYERS.map((l,i)=>`<div class=&quot;layer pend&quot; id=&quot;lay${i}&quot; onclick=&quot;jumpLayer(${i})&quot;><div class=&quot;dot&quot;>${i+1}</div><div><div class=&quot;lname&quot;>${l.n}</div><div class=&quot;lsub&quot;>${l.s}</div></div></div>`).join('')}
+      <div style=&quot;border-top:1px solid var(--hair);margin-top:11px;padding-top:11px&quot;>
+        <button class=&quot;btn ghost block sm&quot; onclick=&quot;go('brief')&quot;>← Change a parameter</button>
+      </div>
+    </div>
+    <div class=&quot;canvas&quot; id=&quot;canvas&quot;></div>
+  </div>`;
+}
+function setLayer(i,cls){const el=$('#lay'+i);if(!el)return;el.className='layer '+cls;
+  if(cls==='done')el.querySelector('.dot').textContent='✓';}
+function jumpLayer(i){const c=$('#res'+i);if(c)c.scrollIntoView({block:'center'});}
+function addResult(i,title,tag,bodyHTML){
+  const d=document.createElement('div');
+  d.className='result';d.id='res'+i;
+  d.innerHTML=`<div class=&quot;rh&quot;><b>${title}</b>${tag?`<span class=&quot;tag ${tag[1]}&quot;>${tag[0]}</span>`:''}<div style=&quot;flex:1&quot;></div><span class=&quot;faint&quot; style=&quot;font-size:11px&quot;>Layer ${i+1}</span></div><div class=&quot;rb&quot;>${bodyHTML}</div>`;
+  $('#canvas').appendChild(d);d.scrollIntoView({block:'nearest'});
+}
+async function stepRun(i){
+  if(i>=LAYERS.length)return;
+  RUNSTATE.i=i;
+  setLayer(i,'run on');
+  await wait(i===4?900:520);
+  setLayer(i,'done');
+  const on=PILLARS.filter((p,k)=>BRIEF.pillars[k]);
+  if(i===0)addResult(i,'Brand identity resolved','',
+    `<div style=&quot;display:flex;gap:9px;flex-wrap:wrap;align-items:center&quot;>
+      ${['#004B93','#E32934','#FFFFFF'].map(c=>`<span style=&quot;width:26px;height:26px;border-radius:7px;background:${c};border:1px solid var(--hair)&quot;></span>`).join('')}
+      <span class=&quot;muted&quot; style=&quot;font-size:12.5px&quot;>Palette, wordmark and claim set locked to <b>${esc(BRIEF.sel[0].replace(/&amp;amp;/g,'&amp;'))}</b>. Nothing in the deck may use a colour or claim outside this kit.</span>
+    </div>`);
+  if(i===1)addResult(i,'Content pillars','',
+    `<div style=&quot;font-size:12.5px;color:var(--soft);margin-bottom:11px&quot;>${on.length} pillars approved, covering ${on.reduce((a,p)=>a+p.pc,0)}% of the ${STUDY.media} posts in the workspace.</div>
+     ${on.map(p=>`<div style=&quot;display:flex;align-items:center;gap:11px;padding:7px 0;border-bottom:1px solid var(--hair)&quot;><b style=&quot;font-size:12.5px;color:var(--ink);min-width:180px&quot;>${p.n}</b><div class=&quot;shr&quot; style=&quot;flex:1;height:6px;border-radius:4px;background:var(--hair);overflow:hidden&quot;><i style=&quot;display:block;height:100%;width:${p.pc*2.6}%;background:var(--teal);border-radius:4px&quot;></i></div><span class=&quot;faint&quot; style=&quot;font-size:11.5px;min-width:74px;text-align:right&quot;>${p.pc}% · ${p.posts}</span></div>`).join('')}
+     <div style=&quot;margin-top:11px&quot;><button class=&quot;why&quot; onclick=&quot;toggleEv('pillars')&quot;><span class=&quot;d&quot;></span>Why these pillars</button></div>`);
+  if(i===2)addResult(i,'Trend · prior-year verified','',
+    `<div style=&quot;font-size:12.5px;color:var(--soft);margin-bottom:12px&quot;>Each pillar tracked across the windows you approved, then re-run against the same window last year. Only claims that survive both are allowed onto a slide.</div>
+     ${on.map((p,k)=>{const dir=[1,0,1,-1,0][k]||0;const pct=[31,4,31,-12,6][k]||5;
+       return `<div style=&quot;display:flex;align-items:center;gap:11px;padding:8px 0;border-bottom:1px solid var(--hair)&quot;>
+       <b style=&quot;font-size:12.5px;color:var(--ink);min-width:180px&quot;>${p.n}</b>
+       <span class=&quot;tag ${dir>0?'teal':dir<0?'grey':'blue'}&quot;>${dir>0?'▲ rising':dir<0?'▼ falling':'▬ flat'} ${pct>0?'+':''}${pct}%</span>
+       <span class=&quot;tag teal&quot; style=&quot;background:#EAF6F1&quot;>prior-year ✓</span>
+       <div style=&quot;flex:1&quot;></div><button class=&quot;why&quot; onclick=&quot;toggleEv('trend')&quot;><span class=&quot;d&quot;></span>Why</button></div>`}).join('')}`);
+  if(i===3)addResult(i,'Whitespace · ranked by open supply','',
+    `<div style=&quot;font-size:12.5px;color:var(--soft);margin-bottom:12px&quot;>Content-supply gaps, not unmet demand. A gap means creators publish heavily toward a theme and the brand set does not.</div>
+     ${on.map((p,k)=>{const sov=[4.1,14.8,3.0,9.2,28][k]||6;const gap=Math.max(0,p.pc-sov);
+      return `<div style=&quot;display:flex;align-items:center;gap:11px;padding:8px 0;border-bottom:1px solid var(--hair)&quot;>
+      <b style=&quot;font-size:12.5px;color:var(--ink);min-width:180px&quot;>${p.n}</b>
+      <span class=&quot;muted&quot; style=&quot;font-size:11.5px&quot;>${p.pc}% published · <b style=&quot;color:var(--ink)&quot;>${sov}%</b> brand share of voice</span>
+      <div style=&quot;flex:1&quot;></div>
+      <span class=&quot;tag ${gap>20?'teal':gap>8?'blue':'grey'}&quot;>${gap>20?'wide open':gap>8?'open':'contested'}</span>
+      <button class=&quot;why&quot; onclick=&quot;toggleEv('whitespace')&quot;><span class=&quot;d&quot;></span>Why</button></div>`}).join('')}`);
+  if(i===4){addResult(i,'Insight chain',['Editable in place','amber'],
+    `<div style=&quot;font-size:12.5px;color:var(--soft);margin-bottom:13px&quot;>
+      Persona × tension × angle was permuted across the approved pillars and ranked. <b style=&quot;color:var(--ink)&quot;>You did not have to build a character, pick a persona, then hunt for a matching tension</b> — the chain is generated whole. Every component below is a chip you can swap; swapping one rebuilds the statement and the evidence in place.
+     </div>
+     <div id=&quot;insightHost&quot;></div>`);renderInsights();}
+  if(i===5)addResult(i,'Propositions','',
+    `<div style=&quot;font-size:12.5px;color:var(--soft);margin-bottom:12px&quot;>One proposition per insight, carrying the same chain forward.</div>
+     ${INSIGHTS.slice(0,3).map(o=>`<div style=&quot;padding:10px 0;border-bottom:1px solid var(--hair)&quot;>
+       <b style=&quot;font-size:13.5px;color:var(--ink)&quot;>${esc(insStatement(o))}</b>
+       <div class=&quot;muted&quot; style=&quot;font-size:12px;margin-top:4px&quot;>→ ${esc(PERSONAS[o.pi].n)} · ${esc(ANGLES[o.ai].n)}</div></div>`).join('')}`);
+  if(i===6)addResult(i,'Moments &amp;amp; calendar','',
+    `<div style=&quot;font-size:12.5px;color:var(--soft);margin-bottom:12px&quot;>39 posts over 13 weeks, weighted to the pillars you approved. Every slot carries a brief and traces back to a moment ID.</div>
+     <div style=&quot;display:grid;grid-template-columns:repeat(13,1fr);gap:4px&quot;>
+       ${Array.from({length:39},(_,k)=>`<div style=&quot;height:20px;border-radius:4px;background:${['var(--teal)','var(--blue)','var(--plum)'][k%3]};opacity:${.35+(k%3)*0.22}&quot; title=&quot;Post ${k+1}&quot;></div>`).join('')}
+     </div>`);
+  if(i===7)addResult(i,'Creative &amp;amp; predicted clickability','',
+    `<div style=&quot;font-size:12.5px;color:var(--soft);margin-bottom:12px&quot;>Renders scored before spend. A pre-launch prediction, not measured results.</div>
+     <div class=&quot;slides&quot;>${['Shared table · TOFU','Value ritual · MOFU','Street pride · TOFU','Table · BOFU','Ritual · MOFU','Pride · BOFU'].map((t,k)=>
+       `<div class=&quot;slide&quot; onclick=&quot;toast('Creative preview')&quot;><div class=&quot;sl-acc&quot;></div><div class=&quot;sl-t&quot;>${t}</div><div class=&quot;sl-l a&quot;></div><div class=&quot;sl-l b&quot;></div>
+        <div style=&quot;margin-top:auto&quot;><span class=&quot;tag ${k<2?'teal':'grey'}&quot; style=&quot;font-size:8.5px&quot;>${k<2?'0.8'+(4-k)+' ★':'0.6'+(k)}</span></div></div>`).join('')}</div>`);
+  if(i===8)addResult(i,'Deck rendered · QA passed',['PPTX + PDF','teal'],
+    `<div style=&quot;font-size:12.5px;color:var(--soft);margin-bottom:12px&quot;>${JOBS[CURJOB].slides} slides. Every figure traced, every chart label checked against its data, references clickable, no text overflow. Slides carrying an evidence chain are marked ◔.</div>
+     <div class=&quot;slides&quot;>${Array.from({length:12},(_,k)=>`<div class=&quot;slide ${k%3===0?'hasev':''}&quot; onclick=&quot;toggleEv('slide')&quot;>
+       <div class=&quot;sl-acc&quot;></div><div class=&quot;sl-t&quot;>${['Landscape','The audience','Pillar read','Trend','Whitespace','Insight 1','Insight 2','Insight 3','Propositions','Calendar','Creative','Audit trail'][k]}</div>
+       <div class=&quot;sl-l a&quot;></div><div class=&quot;sl-l b&quot;></div><div class=&quot;sl-l c&quot;></div><span class=&quot;sl-n&quot;>${k+1}</span></div>`).join('')}</div>
+     <div style=&quot;display:flex;gap:9px;margin-top:14px;flex-wrap:wrap&quot;>
+       <button class=&quot;btn sm&quot; onclick=&quot;toast('Downloading PPTX')&quot;>Download PPTX</button>
+       <button class=&quot;btn ghost sm&quot; onclick=&quot;toast('Downloading PDF')&quot;>Download PDF</button>
+       <button class=&quot;btn grey sm&quot; onclick=&quot;go('brief')&quot;>Change a parameter &amp;amp; rebuild</button>
+     </div>`);
+  await wait(260);
+  stepRun(i+1);
+}
+
+/* ---------------- insight cards: swap in place, evidence in one click ---------------- */
+function renderInsights(){
+  const h=$('#insightHost'); if(!h)return;
+  h.innerHTML=INSIGHTS.map((o,k)=>insightCardHTML(o,k)).join('');
+}
+function insightCardHTML(o,k){
+  return `<div class=&quot;icard ${o.edited?'sel':''}&quot; id=&quot;ic${k}&quot;>
+    <div class=&quot;ist&quot; id=&quot;ist${k}&quot;>${esc(insStatement(o))}</div>
+    <div class=&quot;isum&quot; id=&quot;isum${k}&quot;>${esc(insSummary(o))}</div>
+    <div class=&quot;chain&quot;>
+      <div class=&quot;cchip per ${o.pi!==o.orig.pi?'chg':''}&quot; onclick=&quot;openSwap(${k},'p')&quot;><span class=&quot;k&quot;>Persona</span><span class=&quot;v&quot;>${esc(PERSONAS[o.pi].n)}</span><span class=&quot;sw&quot;>⇄</span></div>
+      <div class=&quot;cchip ten ${o.ti!==o.orig.ti?'chg':''}&quot; onclick=&quot;openSwap(${k},'t')&quot;><span class=&quot;k&quot;>Tension</span><span class=&quot;v&quot;>${esc(TENSIONS[o.ti].n)}</span><span class=&quot;sw&quot;>⇄</span></div>
+      <div class=&quot;cchip ang ${o.ai!==o.orig.ai?'chg':''}&quot; onclick=&quot;openSwap(${k},'a')&quot;><span class=&quot;k&quot;>Angle</span><span class=&quot;v&quot;>${esc(ANGLES[o.ai].n)}</span><span class=&quot;sw&quot;>⇄</span></div>
+      <button class=&quot;why&quot; onclick=&quot;openEvInsight(${k})&quot;><span class=&quot;d&quot;></span>Why this insight</button>
+    </div>
+    ${o.edited?`<div class=&quot;regen&quot;>↻ Regenerated from your override — evidence recounted against the new chain</div>`:''}
+    <div class=&quot;swappane&quot; id=&quot;sw${k}&quot;></div>
+  </div>`;
+}
+let SWAPOPEN=null;
+function openSwap(k,kind){
+  const card=$('#ic'+k), pane=$('#sw'+k);
+  if(SWAPOPEN===k+kind){card.classList.remove('swapping');SWAPOPEN=null;return;}
+  SWAPOPEN=k+kind;
+  const o=INSIGHTS[k];
+  const list=kind==='p'?PERSONAS:kind==='t'?TENSIONS:ANGLES;
+  const cur=kind==='p'?o.pi:kind==='t'?o.ti:o.ai;
+  const label=kind==='p'?'persona':kind==='t'?'tension':'angle';
+  pane.innerHTML=`<div class=&quot;eyebrow&quot; style=&quot;margin-bottom:7px&quot;>Swap the ${label} — the statement and its evidence rebuild immediately</div>`
+   +list.map((x,i)=>`<div class=&quot;swaprow ${i===cur?'on':''}&quot; onclick=&quot;doSwap(${k},'${kind}',${i})&quot;>
+      <div class=&quot;sn&quot;>${esc(x.n)}</div>
+      <div class=&quot;sm&quot;>${x.media?x.media+' posts · '+nf(x.eg):'economic frame'}</div>
+     </div>`).join('');
+  card.classList.add('swapping');
+}
+function doSwap(k,kind,i){
+  const o=INSIGHTS[k];
+  if(kind==='p')o.pi=i; if(kind==='t')o.ti=i; if(kind==='a')o.ai=i;
+  o.edited=(o.pi!==o.orig.pi||o.ti!==o.orig.ti||o.ai!==o.orig.ai);
+  SWAPOPEN=null;
+  renderInsights();
+  toast('Chain rebuilt — downstream propositions and moments flagged for refresh');
+}
+
+/* =============================================================================
+   EVIDENCE DRAWER — the audit chain, one click from any object
+   ============================================================================= */
+function openEv(title,sub,body,foot){
+  $('#evTitle').innerHTML=title;$('#evSub').innerHTML=sub||'';
+  $('#evBody').innerHTML=body;$('#evFoot').innerHTML=foot||'';
+  $('#ev').classList.add('on');$('#evScrim').classList.add('on');
+}
+function closeEv(){$('#ev').classList.remove('on');$('#evScrim').classList.remove('on');}
+function refboxHTML(rows){return `<div class=&quot;refbox&quot;>${rows.map(([k,v])=>`<div class=&quot;rr&quot;><span>${k}</span><span><b>${v}</b></span></div>`).join('')}</div>`;}
+function postsHTML(){return `<div class=&quot;posts&quot;>${POSTS.map(p=>`
+  <div class=&quot;post&quot;><div class=&quot;pimg&quot; style=&quot;background:${p.c}&quot;>POST</div>
+   <div class=&quot;pb&quot;><div class=&quot;pt&quot;>${esc(p.t)}</div><div class=&quot;pm&quot;><span>${p.h}</span><span>♥ ${p.eng}</span></div></div></div>`).join('')}</div>`;}
+
+function openEvInsight(k){
+  const o=INSIGHTS[k],p=PERSONAS[o.pi],t=TENSIONS[o.ti],a=ANGLES[o.ai];
+  openEv('Why this insight','Insight '+o.id+(o.edited?' · edited by you':' · generated'),
+   `<div class=&quot;evsec&quot;>
+      <span class=&quot;eyebrow&quot;>The statement</span>
+      <div style=&quot;font-size:16px;font-weight:900;color:var(--ink);line-height:1.3&quot;>${esc(insStatement(o))}</div>
+    </div>
+    <div class=&quot;evsec&quot;>
+      <span class=&quot;eyebrow&quot;>The chain that produced it</span>
+      <div class=&quot;chainviz&quot;>
+        <div class=&quot;cv-row&quot;><div class=&quot;cv-k&quot;>Persona</div><div class=&quot;cv-v&quot;>${esc(p.n)}<p>${esc(p.d)}</p></div></div>
+        <div class=&quot;cv-row&quot;><div class=&quot;cv-k&quot;>Tension</div><div class=&quot;cv-v&quot;>${esc(t.n)}<p>${esc(t.d)}</p></div></div>
+        <div class=&quot;cv-row&quot;><div class=&quot;cv-k&quot;>Angle</div><div class=&quot;cv-v&quot;>${esc(a.n)}<p>${esc(a.d)}</p></div></div>
+      </div>
+    </div>
+    <div class=&quot;evsec&quot;>
+      <span class=&quot;eyebrow&quot;>Audit chain</span>
+      ${refboxHTML([
+        ['Study reference',STUDY.ref],
+        ['Workspace reference',STUDY.ws],
+        ['Media references',insMedia(o)+' out of '+STUDY.media+' media'],
+        ['Persona media',p.media+' posts · '+nf(p.eg)+' engagement'],
+        ['Tension media',t.media+' posts · '+nf(t.eg)+' engagement'],
+        ['Total engagement',nf(insEng(o))],
+        ['Share of voice',t.sov+'% brand share against this tension'],
+        ['Clickability',o.clk],
+        ['Date range',STUDY.range]])}
+    </div>
+    <div class=&quot;evsec&quot;>
+      <span class=&quot;eyebrow&quot;>Source posts <span class=&quot;faint&quot; style=&quot;text-transform:none;letter-spacing:0;font-weight:500&quot;>· 4 of ${insMedia(o)}</span></span>
+      ${postsHTML()}
+    </div>
+    <div class=&quot;evsec&quot;>
+      <span class=&quot;eyebrow&quot;>What SOMIN did and did not measure</span>
+      <div style=&quot;font-size:12px;color:var(--soft);line-height:1.65;background:var(--amber-wash);border:1px solid #F0DCB4;border-radius:10px;padding:11px 13px&quot;>
+        This reads <b style=&quot;color:#5E460D&quot;>content supply</b> — what creators and brands published toward this audience. It is not a measurement of what anyone wants. The only audience-side signal is engagement volume, and that tells you a reaction of some size occurred, not who reacted.
+      </div>
+    </div>`,
+   `<button class=&quot;btn ghost sm&quot; onclick=&quot;closeEv();go('ex-insights')&quot;>Open in Insights library</button>
+    <button class=&quot;btn grey sm&quot; onclick=&quot;closeEv();go('ex-library')&quot;>See all ${insMedia(o)} posts</button>`);
+}
+function toggleEv(kind){
+  if(kind==='pillars'){
+    openEv('Why these pillars','Clustered from '+STUDY.media+' posts in '+STUDY.ws,
+     `<div class=&quot;evsec&quot;><span class=&quot;eyebrow&quot;>How they were derived</span>
+       <div style=&quot;font-size:12.5px;color:var(--soft);line-height:1.7&quot;>Every post in the workspace was classified by concept, then clustered. Pillars are ranked by published volume, and the on/off proposal is set by open supply — published volume minus the brand set's share of voice. Two are proposed off, for opposite reasons.</div></div>
+      <div class=&quot;evsec&quot;><span class=&quot;eyebrow&quot;>Pillar by pillar</span>
+       ${PILLARS.map((p,i)=>`<div style=&quot;padding:11px 0;border-bottom:1px solid var(--hair)&quot;>
+         <div style=&quot;display:flex;align-items:center;gap:8px&quot;><b style=&quot;font-size:13px;color:var(--ink)&quot;>${p.n}</b><span class=&quot;tag ${BRIEF.pillars[i]?'teal':'grey'}&quot;>${BRIEF.pillars[i]?'ON':'OFF'}</span><div style=&quot;flex:1&quot;></div><span class=&quot;faint&quot; style=&quot;font-size:11.5px&quot;>${p.pc}% · ${p.posts} posts</span></div>
+         <div style=&quot;font-size:12px;color:var(--soft);line-height:1.6;margin-top:5px&quot;>${p.note}</div></div>`).join('')}</div>
+      <div class=&quot;evsec&quot;>${refboxHTML([['Study reference',STUDY.ref],['Workspace reference',STUDY.ws],['Total media',nf(STUDY.media)+' posts'],['Sources',STUDY.src],['Brands',STUDY.brands],['Date range',STUDY.range]])}</div>`,
+     `<button class=&quot;btn ghost sm&quot; onclick=&quot;closeEv();go('ex-studies')&quot;>Open the study</button>`);
+  }
+  if(kind==='trend'){
+    openEv('Why this trend claim','Prior-year verified across 12 windows',
+     `<div class=&quot;evsec&quot;><span class=&quot;eyebrow&quot;>The verification rule</span>
+       <div style=&quot;font-size:12.5px;color:var(--soft);line-height:1.7&quot;>A direction is only allowed onto a slide if it holds in the current 12 windows <b style=&quot;color:var(--ink)&quot;>and</b> in the same 12 windows a year earlier. A move that appears this year but not last is reported as noise, not as a trend.</div></div>
+      <div class=&quot;evsec&quot;><span class=&quot;eyebrow&quot;>Window by window</span>
+       <div style=&quot;display:flex;align-items:flex-end;gap:5px;height:110px;padding:12px;background:var(--card-2);border:1px solid var(--hair);border-radius:10px&quot;>
+        ${[38,41,39,45,48,44,52,55,58,61,64,69].map((v,i)=>`<div style=&quot;flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%&quot;><div style=&quot;height:${v}%;background:var(--teal);border-radius:3px 3px 0 0&quot; title=&quot;Window ${i+1}: ${v}&quot;></div></div>`).join('')}
+       </div>
+       <div style=&quot;display:flex;justify-content:space-between;font-size:10.5px;color:var(--faint);margin-top:5px&quot;><span>Aug 2025</span><span>Jul 2026</span></div></div>
+      <div class=&quot;evsec&quot;>${refboxHTML([['Study reference',STUDY.ref],['Workspace reference',STUDY.ws],['Windows','12 monthly'],['Prior-year check','Passed · same direction Aug 2024 → Jul 2025'],['Total media',nf(STUDY.media)+' posts'],['Date range',STUDY.range]])}</div>`,
+     `<button class=&quot;btn ghost sm&quot; onclick=&quot;closeEv();go('ex-studies')&quot;>Open the study</button>`);
+  }
+  if(kind==='whitespace'){
+    openEv('Why this is whitespace','Content-supply gap, not unmet demand',
+     `<div class=&quot;evsec&quot;><span class=&quot;eyebrow&quot;>The claim, scoped honestly</span>
+       <div style=&quot;font-size:12.5px;color:var(--soft);line-height:1.7&quot;>A gap here means creators publish heavily toward a theme while the brand set does not. It is a statement about <b style=&quot;color:var(--ink)&quot;>what has been published</b>, not about what any audience is asking for. The strategic conclusion — open editorial territory — still holds; the claim is just scoped to what was actually measured.</div></div>
+      <div class=&quot;evsec&quot;><span class=&quot;eyebrow&quot;>Not counted as whitespace</span>
+       <div style=&quot;font-size:12.5px;color:var(--soft);line-height:1.7&quot;>A theme nobody publishes toward is not whitespace, it is an empty room. A theme the brand is simply inactive in, where competitors are active, is a coverage gap and is labelled as such — not as an opportunity.</div></div>
+      <div class=&quot;evsec&quot;>${refboxHTML([['Study reference',STUDY.ref],['Workspace reference',STUDY.ws],['Cohorts compared','Brand voice · competitor coverage · creator panel'],['Total media',nf(STUDY.media)+' posts'],['Date range',STUDY.range]])}</div>`,'');
+  }
+  if(kind==='slide'){
+    openEv('Slide evidence','Every figure on this slide, traced',
+     `<div class=&quot;evsec&quot;><span class=&quot;eyebrow&quot;>Figures on this slide</span>
+       ${refboxHTML([['Share of voice','4.1% · from '+STUDY.ref],['Published volume','318 posts · Shared meal occasions'],['Engagement',nf(52180)],['Trend','+31% · prior-year verified'],['Study reference',STUDY.ref],['Workspace reference',STUDY.ws]])}</div>
+      <div class=&quot;evsec&quot;><span class=&quot;eyebrow&quot;>Source posts</span>${postsHTML()}</div>`,
+     `<button class=&quot;btn ghost sm&quot; onclick=&quot;closeEv();go('ex-library')&quot;>Open Content Library</button>`);
+  }
+}
+
+/* =============================================================================
+   EXPLORE — the old module screens, reframed as read-only evidence views
+   ============================================================================= */
+const EVNOTE=`<div class=&quot;evnote&quot;><span style=&quot;font-size:15px&quot;>◔</span><div><b>This is an evidence view.</b> You no longer have to come here to make something — a run generates the whole chain for you. This library is here for when you want to interrogate the data directly, or check a figure someone questioned in a meeting.</div></div>`;
+function renderExPersonas(){
+  $('#scr-ex-personas').innerHTML=EVNOTE+`
+  <div class=&quot;split&quot;>
+    <div class=&quot;rail&quot;><div class=&quot;rs&quot;><b>Detected personas</b><span class=&quot;tealtxt&quot;>${PERSONAS.length}</span></div>
+      <div class=&quot;items&quot;>${PERSONAS.map((p,i)=>`<div class=&quot;li ${i===0?'on':''}&quot; onclick=&quot;pickPersona(${i},this)&quot;><div class=&quot;t&quot;>${esc(p.n)}</div><div class=&quot;m&quot;>${p.media} media · ${nf(p.eg)} engagement</div></div>`).join('')}</div></div>
+    <div id=&quot;perDetail&quot;></div>
+  </div>`;
+  pickPersona(0);
+}
+function pickPersona(i,el){
+  if(el){$$('#scr-ex-personas .li').forEach(x=>x.classList.remove('on'));el.classList.add('on');}
+  const p=PERSONAS[i];
+  $('#perDetail').innerHTML=`
+   <div class=&quot;card&quot; style=&quot;margin-bottom:16px&quot;>
+     <div class=&quot;pad&quot;>
+       <div class=&quot;eyebrow&quot; style=&quot;color:var(--teal-d)&quot;>Detected persona</div>
+       <div style=&quot;font-size:21px;font-weight:900;color:var(--ink);margin:5px 0 7px&quot;>${esc(p.n)}</div>
+       <p class=&quot;muted&quot; style=&quot;font-size:13px;line-height:1.6;margin:0&quot;>${esc(p.d)}</p>
+     </div>
+     <div class=&quot;statgrid&quot;>
+       <div><div class=&quot;k&quot;>Total media</div><div class=&quot;v&quot;>${p.media}</div></div>
+       <div><div class=&quot;k&quot;>Total engagement</div><div class=&quot;v tealtxt&quot;>${nf(p.eg)}</div></div>
+       <div><div class=&quot;k&quot;>Tensions carried</div><div class=&quot;v&quot;>${TENSIONS.filter(t=>t.media>p.media*0.6).length}</div></div>
+     </div>
+   </div>
+   <div class=&quot;card pad&quot;>
+     <div class=&quot;eyebrow&quot; style=&quot;margin-bottom:9px&quot;>Where this persona already appears</div>
+     <div style=&quot;font-size:12.5px;color:var(--soft);line-height:1.65;margin-bottom:12px&quot;>This persona is a component in the generated chain — you do not need to select it before making anything. These are the insights currently built on it.</div>
+     ${INSIGHTS.filter(o=>o.pi===i).length?INSIGHTS.filter(o=>o.pi===i).map(o=>`<div style=&quot;padding:9px 0;border-bottom:1px solid var(--hair)&quot;><b style=&quot;font-size:13px;color:var(--ink)&quot;>${esc(insStatement(o))}</b><div class=&quot;muted&quot; style=&quot;font-size:11.5px;margin-top:3px&quot;>${esc(TENSIONS[o.ti].n)}</div></div>`).join(''):'<div class=&quot;muted&quot; style=&quot;font-size:12.5px&quot;>Not currently used in the open run. It remains available as a swap option on any insight.</div>'}
+     <div style=&quot;margin-top:13px&quot;><button class=&quot;btn ghost sm&quot; onclick=&quot;toast('Open a run to use this persona')&quot;>Use in a run</button></div>
+   </div>`;
+}
+function renderExInsights(){
+  $('#scr-ex-insights').innerHTML=EVNOTE+`
+  <div class=&quot;split&quot;>
+    <div class=&quot;rail&quot;><div class=&quot;rs&quot;><b>Generated insights</b><span class=&quot;tealtxt&quot;>${INSIGHTS.length}</span></div>
+      <div class=&quot;items&quot;>${INSIGHTS.map((o,i)=>`<div class=&quot;li ${i===0?'on':''}&quot; onclick=&quot;pickIns(${i},this)&quot;><div class=&quot;t&quot;>${esc(insStatement(o))}</div><div class=&quot;m&quot;>${esc(PERSONAS[o.pi].n)}${o.edited?' · edited':''}</div></div>`).join('')}</div></div>
+    <div id=&quot;insDetail&quot;></div>
+  </div>`;
+  pickIns(0);
+}
+function pickIns(i,el){
+  if(el){$$('#scr-ex-insights .li').forEach(x=>x.classList.remove('on'));el.classList.add('on');}
+  const o=INSIGHTS[i],p=PERSONAS[o.pi],t=TENSIONS[o.ti],a=ANGLES[o.ai];
+  $('#insDetail').innerHTML=`
+   <div class=&quot;card pad&quot; style=&quot;margin-bottom:16px&quot;>
+     <div class=&quot;eyebrow&quot;>Insight</div>
+     <div style=&quot;font-size:21px;font-weight:900;color:var(--ink);line-height:1.25;margin:6px 0 8px&quot;>${esc(insStatement(o))}</div>
+     <p class=&quot;muted&quot; style=&quot;font-size:13px;margin:0 0 13px;line-height:1.6&quot;>${esc(insSummary(o))}</p>
+     <button class=&quot;why&quot; style=&quot;margin:0&quot; onclick=&quot;openEvInsight(${i})&quot;><span class=&quot;d&quot;></span>Full audit chain</button>
+   </div>
+   <div style=&quot;display:grid;grid-template-columns:1fr 1fr;gap:16px&quot;>
+     <div class=&quot;card pad&quot;><div class=&quot;eyebrow&quot; style=&quot;color:var(--teal-d)&quot;>Persona</div><div style=&quot;font-size:14.5px;font-weight:800;color:var(--ink);margin:5px 0 6px&quot;>${esc(p.n)}</div><p class=&quot;muted&quot; style=&quot;font-size:12.5px;margin:0;line-height:1.6&quot;>${esc(p.d)}</p></div>
+     <div class=&quot;card pad&quot; style=&quot;border-top:3px solid var(--plum)&quot;><div class=&quot;eyebrow&quot; style=&quot;color:var(--plum)&quot;>Tension</div><div style=&quot;font-size:14.5px;font-weight:800;color:var(--ink);margin:5px 0 6px&quot;>${esc(t.n)}</div><p class=&quot;muted&quot; style=&quot;font-size:12.5px;margin:0;line-height:1.6&quot;>${esc(t.d)}</p></div>
+     <div class=&quot;card pad&quot; style=&quot;border-top:3px solid var(--blue)&quot;><div class=&quot;eyebrow&quot; style=&quot;color:var(--blue)&quot;>Economic angle</div><div style=&quot;font-size:14.5px;font-weight:800;color:var(--ink);margin:5px 0 6px&quot;>${esc(a.n)}</div><p class=&quot;muted&quot; style=&quot;font-size:12.5px;margin:0;line-height:1.6&quot;>${esc(a.d)}</p></div>
+     <div class=&quot;card pad&quot;><div class=&quot;eyebrow&quot;>Evidence</div>${refboxHTML([['Media references',insMedia(o)+' of '+STUDY.media],['Total engagement',nf(insEng(o))],['Clickability',o.clk],['Study reference',STUDY.ref]])}</div>
+   </div>`;
+}
+function renderExLibrary(){
+  $('#scr-ex-library').innerHTML=EVNOTE+`
+  <div class=&quot;card pad&quot; style=&quot;margin-bottom:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center&quot;>
+    <span class=&quot;eyebrow&quot;>Filters</span>
+    <span class=&quot;pill&quot;>${STUDY.brands.split(' · ').length} brands</span>
+    <span class=&quot;pill&quot;>${STUDY.range}</span>
+    <span class=&quot;pill&quot;>Organic + Paid</span>
+    <div style=&quot;flex:1&quot;></div>
+    <span class=&quot;muted&quot; style=&quot;font-size:12px&quot;>Filters arrive pre-set from whichever run or evidence link you followed — there is no blank filter panel to fill in.</span>
+  </div>
+  <div class=&quot;card pad&quot;>
+    <div class=&quot;eyebrow&quot; style=&quot;margin-bottom:11px&quot;>${nf(STUDY.media)} posts in this workspace</div>
+    <div class=&quot;posts&quot; style=&quot;grid-template-columns:repeat(auto-fill,minmax(190px,1fr))&quot;>
+      ${POSTS.concat(POSTS).concat(POSTS).map(p=>`<div class=&quot;post&quot;><div class=&quot;pimg&quot; style=&quot;background:${p.c}&quot;>POST</div><div class=&quot;pb&quot;><div class=&quot;pt&quot;>${esc(p.t)}</div><div class=&quot;pm&quot;><span>${p.h}</span><span>♥ ${p.eng}</span></div></div></div>`).join('')}
+    </div>
+  </div>`;
+}
+function renderExStudies(){
+  $('#scr-ex-studies').innerHTML=EVNOTE+`
+  <div class=&quot;card pad&quot; style=&quot;margin-bottom:16px&quot;>
+    <div class=&quot;eyebrow&quot;>Study</div>
+    <div style=&quot;font-size:19px;font-weight:900;color:var(--ink);margin:5px 0 10px&quot;><span class=&quot;mono&quot;>${STUDY.ref}</span></div>
+    ${refboxHTML([['Workspace reference',STUDY.ws],['Total media',nf(STUDY.media)+' posts'],['Sources',STUDY.src],['Brands',STUDY.brands],['Date range',STUDY.range],['Prior-year check','Passed']])}
+  </div>
+  <div class=&quot;card pad&quot;>
+    <div class=&quot;eyebrow&quot; style=&quot;margin-bottom:10px&quot;>Personas &amp;amp; tensions detected in this study</div>
+    <div style=&quot;display:grid;grid-template-columns:1fr 1fr;gap:18px&quot;>
+      <div>${PERSONAS.map(p=>`<div style=&quot;display:flex;gap:9px;padding:7px 0;border-bottom:1px solid var(--hair)&quot;><b style=&quot;font-size:12.5px;color:var(--ink);flex:1&quot;>${esc(p.n)}</b><span class=&quot;faint&quot; style=&quot;font-size:11.5px&quot;>${p.media}</span></div>`).join('')}</div>
+      <div>${TENSIONS.map(t=>`<div style=&quot;display:flex;gap:9px;padding:7px 0;border-bottom:1px solid var(--hair)&quot;><b style=&quot;font-size:12.5px;color:var(--ink);flex:1;font-weight:700&quot;>${esc(t.n)}</b><span class=&quot;faint&quot; style=&quot;font-size:11.5px&quot;>${t.media}</span></div>`).join('')}</div>
+    </div>
+  </div>`;
+}
+
+/* =============================================================================
+   COPILOT — same assistant, but it now acts on the run instead of narrating a screen
+   ============================================================================= */
+let DOCKOPEN=false;
+function toggleDock(){DOCKOPEN=!DOCKOPEN;$('#dock').classList.toggle('min',!DOCKOPEN);if(DOCKOPEN&amp;&amp;!$('#dockBody').innerHTML)dockGreet();}
+function setDockCtx(){
+  const m={start:'Ready · pick a job',brief:'Watching your brief',run:'Watching the run','ex-personas':'Evidence · Personas','ex-insights':'Evidence · Insights','ex-library':'Evidence · Content Library','ex-studies':'Evidence · Studies',runs:'Your work'};
+  const el=$('#dockCtx'); if(el)el.textContent=m[CUR]||'Ready';
+}
+function dmsg(who,html){const d=document.createElement('div');d.className='msg '+who;d.innerHTML=html;$('#dockBody').appendChild(d);$('#dockBody').scrollTop=9e5;}
+function dchips(list){const d=document.createElement('div');d.className='dchips';
+  list.forEach(([t,fn])=>{const b=document.createElement('div');b.className='dchip';b.textContent=t;b.onclick=fn;d.appendChild(b);});
+  $('#dockBody').appendChild(d);$('#dockBody').scrollTop=9e5;}
+function dockGreet(){
+  dmsg('ai','I can change the run, not just describe it. Ask me to swap a component, defend a number, or rebuild a layer.');
+  dchips([
+   ['Why is this pillar off?',()=>{dmsg('me','Why is Health &amp;amp; sugar off?');setTimeout(()=>{dmsg('ai','Because the brand has thin permission there and third parties dominate publishing — entering costs more than it returns this cycle. It is a proposal, not a rule.');dchips([['Turn it on anyway',()=>{const i=PILLARS.findIndex(p=>p.n.indexOf('Health')===0);BRIEF.pillars[i]=true;if(CUR==='brief')renderPillars();dmsg('ai','On. The pillar read, whitespace and calendar layers are flagged to rebuild.');toast('Health &amp;amp; sugar pillar switched on');}]]);},420);}],
+   ['Defend the 4.1% figure',()=>{dmsg('me','Where does 4.1% come from?');setTimeout(()=>{dmsg('ai','Brand share of voice against the <b>Shared meal occasions</b> pillar — 13 brand posts against 318 published in the window. I can open the full chain.');dchips([['Open the evidence',()=>toggleEv('slide')]]);},420);}],
+   ['Swap a persona',()=>{dmsg('me','Try insight 1 with a different persona');setTimeout(()=>{dmsg('ai','Open the run and click the <b>Persona</b> chip on any insight — the statement and its evidence rebuild in place, and I will flag what downstream needs refreshing.');},420);}]
+  ]);
+}
+function dockSend(){
+  const v=$('#dockInput').value.trim(); if(!v)return;
+  $('#dockInput').value='';dmsg('me',esc(v));
+  setTimeout(()=>{dmsg('ai','In the shipped build I would act on that against the open run and show you what changed. In this prototype, try one of the suggested actions.');},450);
+}
+
+/* ============================================================= boot */
+resetBrief();
+renderStart();
+setDockCtx();
+</script>
+<button id=&quot;__advSwitch&quot; style=&quot;position:fixed;left:14px;bottom:14px;z-index:99999;display:inline-flex;align-items:center;gap:7px;background:#16201F;color:#7FE0C8;border:none;border-radius:999px;padding:9px 15px;font:800 12px Inter,-apple-system,sans-serif;box-shadow:0 10px 30px rgba(16,32,31,.28);cursor:pointer&quot;>&amp;#9881; Advanced mode</button>
+<script>(function(){var b=document.getElementById(&quot;__advSwitch&quot;);if(b)b.addEventListener(&quot;click&quot;,function(){try{parent.SOMIN_setMode(&quot;advanced&quot;);}catch(e){}});})();</script>
+</body>
+</html>
+"></iframe>
+<button id="modeSwitch" onclick="SOMIN_setMode('simple')">&#9680; Switch to Simple</button>
+<script>
+function SOMIN_setMode(m){document.body.classList.remove('mode-simple','mode-advanced');document.body.classList.add('mode-'+m);
+ if(m==='advanced'){var lg=document.getElementById('login');if(lg)lg.classList.add('hide');}
+ try{window.scrollTo(0,0);}catch(e){}}
+(function(){var f=document.getElementById('simpleApp'),s=document.getElementById('modeSwitch');
+ if(f&&f.parentElement!==document.body)document.body.appendChild(f);
+ if(s&&s.parentElement!==document.body)document.body.appendChild(s);})();
+document.body.classList.add('mode-simple');
+</script>
 </body>
 </html>
